@@ -34,3 +34,42 @@ My recommendations:
 - **Hold all printing until the redesign lands.** The fixed parts move with the new arm.
 <!-- ------ -->
 ---
+I've added **Part G** at the top of [spurious-force-balance/docs/TODO-agent.md](docs/TODO-agent.md) and set the run order: take in your chat analysis, do Part F with the shipping amendments, then update the knowledge bases and write a handoff note. Nothing else is changed or committed.
+
+**Your chat analysis (G1):** Sonnet will turn it into a knowledge-base note in its own words. Each claim gets a status tag: second-hand (from the chats), community data (the shipping price table the chats cite), confirmed on JLC's own help pages, or to check at checkout. The raw transcript stays untracked and is never committed, since the repo is public; whether to keep the file is up to you.
+
+**How it changes the fabrication plan (G2):**
+- **Every JLC package targets the cheap shipping tier.** Each order note gets a weight estimate, and a check keeps the board order under 0.25 kg for margin below the 0.3 kg cliff.
+- **Two JLC shipments.** The free hold can't last through the weeks-long prototype measurement, so the structural boards ship now and the electronics later, each costing a few dollars to ship.
+- **The 200 mm arm** is the one board over 100 mm. Sonnet compares paying the size premium, two half-arms bolted together, or a shorter arm. The noise budget gets rerun with a shorter arm, because the air-current force also shrinks with the arm's area.
+- **Small boards go on one panel**, at 1.0–1.2 mm thick where stiffness allows. The five copies the minimum order forces become spares.
+- **The electronics order** becomes 5 bare boards with 2 assembled. The sensor boards share one panel so they need only one assembly setup, and no stencil goes in the package.
+- **OSHPark** is the fallback for the tiny gold-faced boards, only if it works out cheaper.
+
+**Knowledge bases (G3):**
+- **spurious-force-balance:** gets an index plus notes on the toolchain, the balance design findings, the electronics findings, fab ordering, and how the project works. That last one covers the two-repo split, the Opus-plans/Sonnet-acts routine and your standing preferences.
+- **lab:** each of its 19 notes gets checked and updated where this work changed things, with no stale paths to the moved files, plus an index.
+
+**Handoff (G4):** a dated note saying what's done, what waits on you, the next three tasks and which files to read first.
+
+Here's a blurb to start the next chat with. Open it from `lab.code-workspace`, as you do now, so the same memory loads.
+
+```
+Context: I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), a force-noise model,
+  and JLCPCB-assembled RP2040 electronics (KiCad 9, ngspice).
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes.
+Workflow: in Opus mode, analyze and write tasks as lettered Parts at the top of docs/TODO-agent.md without
+actioning; in Sonnet mode, action them top to bottom. My hands-on tasks live in docs/TODO-arcticoder.md.
+Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
+lab/docs/kb/README.md.
+```
+<!-- ------ -->
+---
