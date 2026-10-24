@@ -4,11 +4,168 @@ Work that needs no hands, eyes or purchasing decision from the user: writing fil
 documents for this experiment. The user's own list is [TODO-arcticoder.md](TODO-arcticoder.md); finished
 items move to [TODO-completed.md](TODO-completed.md) (dated entries). The list conventions are in the `lab`
 repo's [todo_list_conventions](https://github.com/arcticoder/lab/blob/main/docs/kb/todo_list_conventions.md).
-This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Part F (2026-10-24) comes first; Part D is done; then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
+This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Part G (2026-10-24) sets the order: G1, then Part F with G2's amendments, then G3–G4; Part D is done; then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
 
 ---
 
-## Part F — licenses, the magnet test, the placed order, and a fabrication review (Opus 5.5 for Sonnet 5.5, 2026-10-24; do this first)
+## Part G — fab-ordering research, its effect on Part F, and the knowledge-base handoff (Opus 5.5 for Sonnet 5.5, 2026-10-24)
+
+The user added `Chat Analysis for Build Design Strategies.md` at the repo root: a Gemini chat about JLC shipping and a Grok
+review of it. Order of work:
+1. G1 (ingest);
+2. Part F, with the G2 amendments applied as each F step is done;
+3. G3 (knowledge base) last, so it records F's results;
+4. G4 (the handoff note).
+
+The user will start a new chat session after this run, so G3 is what the next session starts from.
+
+### G1 — Ingest the chat analysis into the knowledge base
+
+- [ ] Write `docs/kb/fab_ordering_notes.md` (LLM-facing, paraphrased, no quotes of either chat). Each claim gets a status tag:
+      **[second-hand]** (LLM chat output, not checked), **[community data]** (Peter Tanner's 2024 weight-vs-price table and
+      r/PCB threads, as cited by the chats, not opened), **[verify at checkout]**, or **[confirmed]** (only if Sonnet confirms
+      it from JLC's own pages: try `jlcpcb.com/help` and the shipping/combine-shipping help articles with WebFetch, and record
+      the URL and date). The claims:
+  - JLC shipping costs more than AliExpress's free tier: no retail margin to subsidize freight, dense FR-4, and per-order custom
+    packing, against AliExpress's consolidated Cainiao shipping and postal-union rates.
+  - **The 0.3 kg cliff on Global Standard Direct Line:** about $3.18 at 0.29 kg and $14.35+ at 0.30 kg [community data]; promos
+    have gone lower (about $1.50 for 100 × 100 mm, 5-piece orders, 2025) [second-hand].
+  - Quoted board weight uses the bounding rectangle × thickness, not the routed outline [second-hand; check one quote].
+  - **Board size:** each design over 100 × 100 mm leaves the $2 price tier and gets heavier.
+  - **Thickness:** 1.0–1.2 mm cuts weight by about 35–40% against 1.6 mm (weight scales with thickness).
+  - **MOQ:** 5 bare boards per design, so a 1-off means keeping or recycling 4.
+  - **Economic PCBA:** at least 2 of the 5 assembled; never 1 [second-hand; verify].
+  - **Combine shipping:** separate orders (PCB, PCBA, stencil, 3D print, CNC) can be merged into one parcel, and finished items are
+    held up to 15 days free (Gemini said 7; Grok corrected it to 15) [verify]. One order can't be split across parcels. The slowest
+    process (often CNC or 3DP) sets the shipping date.
+  - Assembled boards' and stencils' estimated weights can push a small order over the cliff, so leave the stencil out unless needed.
+  - **Panelizing several designs:** customer panels with mouse-bites or V-cuts are allowed, with a small multi-design fee (about
+    $3–4) [verify]. Two separate under-cliff shipments can beat one combined over-cliff one.
+  - **Freight forwarders / factory pickup:** inbound handling plus courier minimums cost more than they save at this volume; not used.
+  - **OSHPark:** area pricing (about $5 per square inch for 3 boards, shipping included) can beat JLC for very small boards. Check
+    whether shipping to Canada is still included and whether ENIG is standard [verify]; ENIG would suit electrodes.
+  - **Canada imports:** a low de minimis for non-US origin (taxes above about CAD 20) and possible carrier handling fees on postal
+    imports [verify the current CRA/CBSA thresholds and whether JLC collects GST at checkout].
+- [ ] The raw file at the repo root is a third-party chat transcript. Don't commit it. Add its name to `.gitignore` and leave
+      the file in place; the user decides whether to keep it. The kb note is the record. Mention in the note that the source
+      file exists locally and is untracked.
+
+### G2 — Amendments to Part F's fabrication plan (apply while doing F4)
+
+These refine F4.2/F4.3; the decisions there stand unless an amendment below changes them.
+
+1. **Every JLC package targets the cheap tier:** quoted weight under 0.29 kg on Global Standard Direct Line (or whatever is
+   cheapest at checkout). Add a weight estimate to each order note: bounding box × thickness × FR-4 at 1.85 g/cm³ × 5, plus about
+   40 g of packing [assume]. Add a smoke check that the mechanical-board order's estimate is under 0.25 kg (margin to the cliff).
+2. **Hold time can't bridge A5.** With at most 15 days of hold, the mechanical boards (now) and the electronics (after A5, weeks
+   later) are two shipments. Each in the cheap tier is a few dollars. Put the estimate in `fabrication.md` and in the
+   TODO-arcticoder order line.
+3. **The arm is the one board over 100 mm** (200 × 28 mm today). Compare in `fabrication.md`:
+   - (a) one 200 mm board, paying the size premium [quote];
+   - (b) two ≤ 100 mm half-arms joined at the hub by a through-bolted FR-4 doubler (no PLA in the joint); count the joint's
+     asymmetry and its slip risk;
+   - (c) a shorter arm. Run `tools/force_noise_budget.py` with `ARM_HALF_LENGTH` at 0.05 and 0.075 m. The air-current force acts
+     on the arm's area too, so a shorter arm may lose little. Keep the 200 mm arm unless (c) is within 20% on resolution or (a)'s
+     premium is large; record the numbers either way.
+4. **Thickness.** Use 1.6 mm only where stiffness needs it (the arm; justify with the sag and bending-mode numbers from F4.4).
+   Clamp plates, the electrode board and the device tab take 1.0 or 1.2 mm if the stiffness and clamping checks pass. That cuts
+   weight and keeps options.
+5. **One panel for the small mechanical boards** (clamp plates, fixed electrode, device tab, any torsion-head plate), within
+   100 × 100 mm with mouse-bites. The arm is its own design if it stays 200 mm. Compare panel-plus-fee against separate designs, and
+   record the cheaper. MOQ 5 means five sets of spares, which is fine: note it as spares, not waste.
+6. **CNC or 3DP extras** (the brass ballast option, any SLA part) ride in the same parcel as the mechanical boards, under the weight
+   target. A 12 g brass ballast is no weight problem.
+7. **The electronics order** (Part A's WP7/WP10, later): 5 bare boards with 2 assembled. Set `BOARDS_PER_ORDER` in
+   `hardware/instrument/parts.py` to the assembled count (2) and the bare count separately (5), and rerun the stock-factor check.
+   Panelize the sensor heads (LED head, photodiode head, magnetometer head) into one design so they share one assembly setup.
+   No stencil in that package. Add a weight estimate including parts.
+8. **OSHPark** as the fallback for the tiny ENIG electrode or clamp boards, only if JLC's panel fee plus ENIG surcharge makes them
+   dearer than OSHPark's area price with shipping included [verify both]. Default: JLC, one parcel.
+
+### G3 — Bring both knowledge bases up to date (do this after Part F; the next chat session starts from these)
+
+Audience: a future LLM session with no memory of this one. Each note is topical (not a diary), states dates for facts that change,
+and links rather than repeats. Read every existing note in both `docs/kb/` directories first; update rather than duplicate.
+
+**`spurious-force-balance/docs/kb/`** (today only `pcb_toolchain_notes.md`):
+- [ ] `README.md` — an index: one line per note, with what it is for.
+- [ ] `pcb_toolchain_notes.md` — current state:
+  - KiCad 9.0.9 (`sch erc`, `pcb drc`, `pcb render`);
+  - the venv `~/.venvs/lab-hw` and its packages, with magpylib 6.0.0;
+  - the jlcparts snapshot (location, rebuild recipe, the machine-placed SMT filter, basic vs extended parts);
+  - Freerouting 2.5.0 (bundled runtime);
+  - `kiutils` board generation (after F4);
+  - the multi-part split-zip reassembly trick.
+- [ ] `balance_design_notes.md` — every physics and design finding, with its number and the check that guards it:
+  - strip κ (448 µN·m/rad), resonance 0.20 Hz;
+  - the force-noise budget, its anchors (Soni & Roy 2013; arXiv:2206.02890), 0.108 nN at 1σ in 1000 s; air currents
+    dominate (4.8 nN/√Hz) and the verdict flips at about 4 mm/s;
+  - no magnet on the arm (7 nN/√Hz); masses non-magnetic (brass);
+  - the damper: radial discs on edge, the magpylib field integral (the analytic estimate was 1.6× high), pads 0.45/0.90;
+  - tilt: offset / hang, 66 mrad per mm at a 15 mm hang, against 16 mrad of clearance;
+  - slicer masses; the trim seats;
+  - the electrostatic plates and the guard-ring/ENIG decision;
+  - DUT heating against PLA's Tg; PLA creep in the torsion path; the torsion-head requirement;
+  - the enclosure's stock-size design;
+  - the strip-cutting and saw jigs; the fixed-PLA thermal estimate (0.31 nN/K, rejected by the lock-in);
+  - the foil path (superseded by the FR4 ground trace, if F4 lands).
+  Mark anything superseded as superseded, with what replaced it.
+- [ ] `instrument_electronics_notes.md` — WP1–WP3 findings:
+  - RP2040 over RP2350 (peripheral bases differ; erratum E9);
+  - ADS131A04 over ADS1220 (simultaneous sampling);
+  - the USB power budget and the 300 mA DUT cap;
+  - TIA polarity (the photodiode cathode to the inverting input);
+  - the LED sink (no gate resistor; behavioral switch + Ron for stability in simulation);
+  - the DUT sink's 1 kΩ/10 nF compensation;
+  - the plate driver's 10 pF fix for an 8.6% overshoot;
+  - the BOM errors caught (shunt value, missing resistors);
+  - the behavioral op-amp model and its limits;
+  - the open points list.
+- [ ] `fab_ordering_notes.md` (G1), plus F4's decisions in brief (FR4 as structure, PLA-only home printing, two JLC
+      shipments, the AliExpress rules). Link `docs/fabrication.md` for the full record.
+- [ ] `project_workflow_notes.md`:
+  - the two-repo split and what lives where (shared inventory/ledger in `lab`; cross-repo links by GitHub URL; the workspace
+    file in `lab`);
+  - the Opus-plans / Sonnet-actions workflow (Opus writes lettered Parts at the top of TODO-agent.md, Sonnet works them top to
+    bottom; nothing is actioned in Opus mode);
+  - the user's standing preferences that shape this repo: paraphrase, never quote; design to stock sizes; carts with no
+    single-item fees; no local-store suggestions; no hand soldering; machine-placed JLC SMT only; USB power, under 50 V DC /
+    30 V AC; PLA only at home; licenses CERN-OHL-P/MIT;
+  - where the user's own bench and ordering status lives (TODO-arcticoder).
+  Keep it short; the memory files hold the same preferences for Claude Code sessions, and this note makes them visible in
+  the repo too.
+
+**`lab/docs/kb/`** (19 notes): read each and update what this session changed; don't rewrite what is still right.
+- [ ] `circuit_lifecycle_and_repo_scope.md`: check it reflects the 2026-10-23 split and per-experiment repos. Add the licenses
+      once F1 lands.
+- [ ] `todo_list_conventions.md`:
+  - the Opus/Sonnet workflow (lettered Parts at the top of TODO-agent.md);
+  - the "En route" section;
+  - cross-repo TODO pointers (one line in lab's TODO-arcticoder pointing to the experiment's).
+- [ ] `ordering_ingestion_notes.md`:
+  - AliExpress listing quirks seen this round: spec tables contradicting titles (copper pads listed as "Carbide");
+    variant names hiding single- vs double-sided conductive adhesive; "shortest rod sold" limits;
+  - recording cart → ordered → received across repos in `orders.md`;
+  - a pointer to the experiment repo's `fab_ordering_notes.md` for JLC.
+- [ ] `repo_docs_conventions.md`: license split and scope (after F1); cross-repo GitHub links rather than relative paths.
+- [ ] `lockin_bench_notes.md`, `rp2040_performance_notes.md`, `rp2350_notes.md`, `rp2040_zero_notes.md`, `inventory_storage_notes.md`:
+  - check each against the current repo state;
+  - correct anything stale (for example, any reference to `hardware/` or `research_instrument_plan.md` now in the other repo);
+  - add a `README.md` index like the experiment repo's.
+- [ ] `grep -rn "hardware/\|research_instrument_plan\|force_noise_budget" lab/docs/kb` returns nothing but links to the new repo.
+- [ ] Commit and push both repos when done (one commit each, message naming the kb update).
+
+### G4 — Handoff note for the next chat session
+
+- [ ] `spurious-force-balance/docs/kb/session_handoff.md`, dated:
+  - the state at the end of this chat: what is done, what is in progress, what waits on the user (the magnet twist test, the
+    mechanical JLC order approval, the AliExpress order after the redesign, printing after the redesign, the lock-in and optical
+    readout builds in `lab`);
+  - the next three agent tasks in order;
+  - which files to read first (both kb indexes, both TODO pairs, `docs/plan.md`, `docs/fabrication.md`).
+  Replace this note at each handoff; don't append.
+
+## Part F — licenses, the magnet test, the placed order, and a fabrication review (Opus 5.5 for Sonnet 5.5, 2026-10-24; do this after G1, with G2's amendments)
 
 The user replied on five points. F1–F3 are bookkeeping. F4 is the real work: the user prints PLA only at home (fumes from ABS,
 PETG and nylon rule the others out) and asked whether any part is better made by a fab service (JLCPCB's PCBs, JLC3DP, JLCCNC,
