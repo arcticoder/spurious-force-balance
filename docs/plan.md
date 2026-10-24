@@ -3,7 +3,7 @@
 Status: gates G1–G3, requirements (WP1), candidate parts (WP2) and the analog block simulations (WP3) done
 2026-10-22 (G1 confirmed 2026-10-23); no schematic, layout or order yet; layout waits on the A5 prototype check. The task list that drives this is
 [TODO-agent.md](TODO-agent.md) Part A; the scope decision is recorded in
-[kb/circuit_lifecycle_and_repo_scope.md](kb/circuit_lifecycle_and_repo_scope.md).
+[circuit_lifecycle_and_repo_scope](https://github.com/arcticoder/lab/blob/main/docs/kb/circuit_lifecycle_and_repo_scope.md) in the `lab` repo.
 
 The aim is one instrument that can support a publishable measurement, built from a printed
 balance and JLCPCB-assembled electronics, not a set of single-circuit boards. Constraints that

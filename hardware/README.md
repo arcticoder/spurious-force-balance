@@ -1,6 +1,6 @@
 # hardware/ — the force balance and its fab-assembled electronics
 
-The plan is in [docs/research_instrument_plan.md](../docs/research_instrument_plan.md); the task list is
+The plan is in [docs/plan.md](../docs/plan.md); the task list is
 [docs/TODO-agent.md](../docs/TODO-agent.md) Part A.
 
 | Folder | Contents |
