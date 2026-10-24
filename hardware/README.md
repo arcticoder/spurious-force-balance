@@ -17,7 +17,7 @@ The plan is in [docs/plan.md](../docs/plan.md); the task list is
 |-------|-------|------------------|
 | KiCad 9.0.9 and `kicad-cli` | `/usr/bin` | installed by the user from the KiCad 9 PPA on 2026-10-23; the CLI has `sch erc`, `pcb drc`, `pcb render` and the Gerber/drill/BOM exports. The symbol and footprint library packages are still 7.0.11 |
 | Python environment | `~/.venvs/lab-hw` | `/usr/bin/python3 -m venv --system-site-packages ~/.venvs/lab-hw`; the system site packages carry `pcbnew` (KiCad's Python module, version 9.0.9 since the upgrade) |
-| `skidl`, `kiutils`, `easyeda2kicad`, `cadquery`, `numpy`, `scipy`, `matplotlib` | the venv | `~/.venvs/lab-hw/bin/pip install skidl kiutils easyeda2kicad cadquery numpy scipy matplotlib` |
+| `skidl`, `kiutils`, `easyeda2kicad`, `cadquery`, `numpy`, `scipy`, `matplotlib`, `magpylib` 6.0.0 | the venv | `~/.venvs/lab-hw/bin/pip install skidl kiutils easyeda2kicad cadquery numpy scipy matplotlib magpylib` (magpylib models the damper magnets' field) |
 | Freerouting 2.5.0 (autorouter) | `~/tools/freerouting/freerouting-2.5.0-linux-x64/bin/freerouting` | the release zip (it bundles its own Java 25 runtime; the system's Java 21 can't run the plain jar). Headless: `-de in.dsn -do out.ses -mp 20` |
 | JLC parts snapshot | `~/jlcparts/cache.sqlite3` (1.6 GB) | `https://yaqwsx.github.io/jlcparts/data/cache.z01 .. cache.z04` and `cache.zip` (a split zip with no `unzip` available: reassemble with a short Python script that adds each disk's offset, see `docs/kb/pcb_toolchain_notes.md`). Refresh before an order: stock and prices are a daily snapshot |
 | ngspice | `/usr/bin/ngspice` | already installed; used for every analog block |
