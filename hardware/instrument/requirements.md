@@ -50,7 +50,7 @@ resistive output impedance, rails); TI's SPICE macro models replace it before la
 
 ## Decisions made so far
 
-- RP2040 on the board (not RP2350: see `docs/kb/rp2350_notes.md`), 16 Mbit flash as on the Pico.
+- RP2040 on the board (not RP2350: see [rp2350_notes](https://github.com/arcticoder/lab/blob/main/docs/kb/rp2350_notes.md) in `lab`), 16 Mbit flash as on the Pico.
 - One regulator part number (LP5907) for both 3.3 V rails, to keep the extended-part count down; connectors reduced to two JST-SH sizes (4-pin, 2-pin) and one 2.54 mm SMD header.
 - ADC: ADS131A04 (3 V analog with the charge pump, 16.384 MHz crystal, 79 nV/√Hz input-referred). The ADS1220 ($2.23, 2 kSPS) was the cheaper option; it can't take the signal and reference photodiodes at the same instant.
 - DAC: MCP4728 (12-bit, I2C, $2.33): LED current, plate drive, device-current set. A 16-bit DAC8554 costs $11; 12 bits give 42 pN steps on the plate and 10 µA steps on the LED.
