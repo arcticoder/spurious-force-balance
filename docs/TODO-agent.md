@@ -4,9 +4,166 @@ Work that needs no hands, eyes or purchasing decision from the user: writing fil
 documents for this experiment. The user's own list is [TODO-arcticoder.md](TODO-arcticoder.md); finished
 items move to [TODO-completed.md](TODO-completed.md) (dated entries). The list conventions are in the `lab`
 repo's [todo_list_conventions](https://github.com/arcticoder/lab/blob/main/docs/kb/todo_list_conventions.md).
-This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Part D is done; the next work is Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
+This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Part F (2026-10-24) comes first; Part D is done; then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
 
 ---
+
+## Part F — licenses, the magnet test, the placed order, and a fabrication review (Opus 5.5 for Sonnet 5.5, 2026-10-24; do this first)
+
+The user replied on five points. F1–F3 are bookkeeping. F4 is the real work: the user prints PLA only at home (fumes from ABS,
+PETG and nylon rule the others out) and asked whether any part is better made by a fab service (JLCPCB's PCBs, JLC3DP, JLCCNC,
+others) than bought on AliExpress and cut by hand. The question is weighed by material plus time cost against the risk that a
+hand-made part adds noise or error to the experiment. Opus did the analysis below and made the decisions; Sonnet carries them
+out. Work top to bottom.
+
+### F1 — Licenses: CERN-OHL-P v2 for hardware, MIT for code, in this repo and in `lab`
+
+- [ ] In both repos, add `LICENSE` (MIT, "Copyright (c) 2026 Arcticoder") and `LICENSE-HARDWARE` (the CERN-OHL-P v2 text,
+      fetched verbatim from `https://ohwr.org/cern_ohl_p_v2.txt`; check the first lines read "CERN Open Hardware Licence Version 2 -
+      Permissive"). GitHub's license detection reads `LICENSE`, so the repo badge will say MIT; the README carries the split.
+- [ ] README "License" section in both, saying which files fall under which license:
+      - **MIT:** code, meaning `*.py`, MicroPython `main.py`/`diagnose_*.py`, `tools/`.
+      - **CERN-OHL-P-2.0:** hardware sources and their documentation, meaning CadQuery sources' outputs (STL, STEP), KiCad files,
+        SPICE netlists, BOMs/parts tables, breadboard guides, assembly and build docs.
+      - CadQuery `.py` files are code (MIT) whose output is hardware (CERN-OHL-P). Say so in one line.
+- [ ] Remove "Pick a license" from this repo's TODO-arcticoder. Note the decision in `TODO-completed.md` in both repos.
+      Commit and push both (the user asked for licenses in both; push `lab` only with its own pending changes reviewed first:
+      `git -C ../lab status`).
+
+### F2 — Magnet test: the phone result is inconclusive; replace it with a test that needs no phone
+
+What the user saw: the needle moved a little as the disc turned and settled back. The disc couldn't come closer than 2–3 cm,
+because it stuck to steel inside the phone. The compass sensor's position in a Pixel 9 is unknown. Reading it:
+- At 3 cm from the sensor, a 6 × 3 mm N42 disc (0.089 A·m²) makes about 0.3–0.7 mT, ten times the Earth's field. A diametric
+  disc turned there would drag the needle all the way round.
+- At 10 cm it makes about 10–20 µT, below the Earth's field: a small wobble either way.
+- So the result says only that the sensor was far from the disc. It doesn't tell axial from diametric.
+- Compass apps also smooth their readings. A strong magnet near the phone can leave a hard-iron offset, so if the compass misbehaves
+  afterwards, the user recalibrates it with the figure-of-eight motion. Nothing is damaged.
+
+- [ ] TODO-arcticoder "What I need from you", replacing the compass item:
+      - **Twist test.** Stack two discs flat face to flat face and hold the bottom one. Turn the top one about the common axis.
+        If it springs back to one angle (a detent once per turn), they're magnetized across the diameter. If it turns freely with no
+        preferred angle, they're axial (an axial pair is symmetric about the axis, so there's no torque).
+      - **Nut check, to confirm.** Touch a black carbon-steel M3 nut to the disc. Axial: it jumps to the centre of a flat face.
+        Diametric: it's pulled to two opposite points on the curved side.
+      - The user answers with one word: "detent" or "free".
+- [ ] Make the CAD ready for either answer. Add an axial layout to the damper holder (flat discs facing the vane, pockets with a
+      retaining lip, the same 1.4 mm to the vane mid-plane), selected by `MAGNET_MAGNETIZATION`. `model.eddy_damping_field()`
+      already handles both. The smoke test checks ζ for whichever layout is selected.
+
+### F3 — The order: five lines placed 2026-10-24
+
+The user placed the AliExpress order for the 0.05 mm 304 stainless sheet, the foam tape (3 mm × 10 m × 0.3 mm), the copper pads
+(20 × 20 × 0.3 mm, 5), the copper foil tape (10 mm × 1 m) and the brass rod (10 × 100 mm).
+- [ ] `lab/docs/orders.md`: move the five entries from "In cart" to an ordered section dated 2026-10-24.
+      `lab/docs/inventory.md` "On Order": one row each (bag to assign on arrival).
+- [ ] This repo's TODO-arcticoder: an "En route" section (after the actionable sections, per lab's conventions) listing the five.
+      Remove them from "Next order".
+
+### F4 — Fabrication review: what to make, buy or print, and the design gaps the review found
+
+Write the decision record as `docs/fabrication.md` (for a reader of the repo, not chat style). It holds a per-part table (function,
+what it does to the measurement, current method, failure mode, options, cost and time estimates, decision) and the reasoning
+below. Cost figures not read from a live quote page are marked "[estimate; verify on the quote page]". Sonnet can't open JLC's
+interactive quote pages, so the user confirms totals before ordering.
+
+**F4.1 — Design gaps found by this review (true whatever the fabrication route; fix them in the redesign):**
+
+1. **No zero adjustment (a torsion head).** The 1 mm electrode gap at 80 mm allows only ±0.4° of arm rotation, and the flag and
+   vane need the arm near its design angle. A strip clamped by hand will sit some degrees off. Every torsion balance carries a
+   rotatable fibre head for this.
+   - Add a torsion head at the top clamp: ±5° of range, about 0.05° resolution, lockable.
+   - Suggested form: a disc turned by an M3 screw pushing a 40 mm lever against a spring (a printed flexure, or a rubber band
+     hooked on two posts). It's locked by two screws clamping it to the gantry beam through arc slots, with metal (washer)
+     faces at the lock.
+   - Smoke test: the range covers ±5°; one screw turn (0.5 mm pitch over a 40 mm lever, about 0.7°) is under 1°, so finer
+     setting is a fraction of a turn.
+   - Assembly step: set the zero by centring the flag before the plates are brought within 5 mm (the fixed plate's bracket gets a
+     slot so it slides in after zeroing).
+2. **A dissipating device can't sit on PLA.** G1's device cards dissipate up to about 0.9 W (300 mA in 10 Ω) on the arm. A 20 ×
+   30 mm card in still air (about 10 W/m²K on both faces) warms by about 80 K/W, so 0.2 W is about +17 K and 0.9 W about +75 K.
+   PLA softens around 55–60 °C, so a PLA mount near the card creeps, synchronously with the device's power. That is exactly the
+   thermal term the experiment measures, so the instrument would add its own artifact.
+   - The device mount and the arm near it must be FR4 (glass transition 130 °C or more; JLC sells higher-Tg FR4, 155/170
+     [verify]).
+   - The DUT card must stand off the arm on a short thermal break.
+   - Add a check that the card's estimated temperature at the planned top power stays 40 K under the mount's Tg. If it doesn't,
+     cap the power in `params.py` and in the plan's G1 table.
+3. **Self-tapping screws into PLA in the torsion path.** Both strip clamps' half-a screws thread into PLA pilot holes, and PLA creeps
+   under the bolt preload. As the joints relax, the clamps rotate a little, and that is zero drift with no signature. Every joint
+   between the strip and the arm, and between the strip and the gantry, becomes a through-bolt with a nut and washers.
+   Clamping faces are metal or FR4, never PLA.
+4. **Centre-of-mass tilt.** It is 66 mrad per mm of offset, against 16 mrad of clearance, so the centre of mass has to sit within
+   about 0.1 mm of the axis. The ±15% mass uncertainty of printed parts is the main source. Two levers:
+   - Make the moving parts from materials with known density in a symmetric layout (F4.2), so a uniform density error moves
+     nothing.
+   - Lower the centre of mass relative to the strip's lower end (hang 15 mm today; tilt = offset / hang). Aim for 30 mm or more,
+     by hanging the heavy parts low (ballast and device card below the arm plane) and putting the clamp high on the arm.
+   - Report the new mrad-per-mm figure and check it against the clearances in the smoke test.
+
+**F4.2 — Decisions (Opus's call, made on the criteria the user set; record them in `fabrication.md` and `plan.md`):**
+
+| Part | Decision | Why |
+|---|---|---|
+| Arm, with the flag and the moving electrode | **FR4 PCB from JLCPCB**, 1.6 mm (or 2.0 mm [verify the options]), black solder mask, ENIG finish, no components. One board, symmetric about the axis. | In-plane CTE about 14 ppm/K against PLA's 70 (the budget's arm-expansion term already sweeps 70→23→1 ppm/K). Tg 130 °C+ (gap 2). Density known (FR4 about 1.85 g/cm³, board thickness ±10% scales a symmetric arm uniformly, so the centre of mass doesn't move; gap 4). The routed edge is a straight flag edge. Copper pours on both faces under black mask make the flag opaque (bare FR4 passes IR, so this matters). The moving electrode is an ENIG pad, and a trace runs to the strip clamp's pad, so the foil route and its 0.3 g asymmetric mass go away. Machined to about ±0.1–0.2 mm with no user labour. |
+| Strip clamp plates (top and bottom, four pieces) | **FR4 PCB** small boards (or one panel of them) with ENIG clamping pads. | FR4 doesn't creep like PLA (gap 3). The ENIG pad gives the strip's electrical contact, so the ground path is copper and clamp pressure, not tape adhesive. |
+| Fixed electrode | **FR4 PCB**: ENIG pad 20 × 8 mm with a grounded guard ring (a Kelvin guard: it pins the field edge, so the effective area is the pad's) and a plated M3 hole as the wire terminal (wire under a washer, no solder). | The calibration plates are the instrument's absolute force reference. Copper tape on a PLA face has uncertain flatness (±0.1 mm over 20 mm is ±10% of the gap, ±20% of the force), adhesive at the edges and oxidizing copper (patch potentials). A PCB pad is flat, gold-faced and has a defined area. Also evaluate (as a note in `plan.md`, not a design change yet) measuring the plates' capacitance on the fab board, which gives F = ½V² dC/dx (the electrostatic force-balance method). Check the JLC library for a CDC part (AD7746, FDC1004) and record stock and price. |
+| Device-card mount (thermal break) | **FR4 PCB** standoff tab, part of the arm or a small board. | Gap 2. |
+| Base, gantry, sensor bracket, damper holder, electrode bracket, enclosure posts and shelves, jigs | **Keep PLA on the K1.** | Fixed parts: their thermal motion is slow, and the lock-in at 0.05 Hz rejects it (0.31 nN/K of apparent force from 100 mm of PLA at 70 ppm/K, times 1 mK/√Hz, is far under the air-current term; record this number). The torsion-path joints become through-bolts (gap 3). The damper holder carries the magnets' attraction: compute it with magpylib's force function (check the version supports it) and check the cradle lips' stress against a long-term PLA creep allowance (about 5 MPa [assume, cite a source if one is found]); thicken them if needed. |
+| Enclosure | **Acrylic from AliExpress (stock 2 mm, 150 × 250 mm, 7 sheets)**, as designed. | Already cut-free and cheap. Fab'd acrylic adds nothing. |
+| Ballast | Decide after the FR4 arm is designed (its mass changes). In order of preference: (a) a standard brass part, used whole, if one fits the mass and keeps the centre of mass low (brass M3 standoffs, nuts or washers stacked on a 304 screw: count the stack height against the hang, gap 4); (b) one saw cut from the rod already ordered, with the saw guide (needs a junior hacksaw and a file, about $5–8 on AliExpress, tools the user keeps); (c) a JLCCNC brass part, only if a JLC mechanical order is happening anyway and its marginal cost is under (b)'s tools. | The trim absorbs a ±0.2 mm hand-cut error (±1% of the ballast's mass), so precision isn't the deciding factor; cost and labour are. |
+| Torsion strip | **Hand-cut from the ordered sheet with the printed guide**, as designed. | κ is calibrated from the measured period, so a ±0.2 mm width error doesn't matter. Edge quality affects anelastic loss (drift, 1/f noise). A5 measures the quality factor and drift. Fallback, if A5 shows a low Q or creep: photo-etched strip (stress-free, burr-free edges; find a service, and check whether JLC's laser-cut stainless stencils come in 0.05 mm [verify; they are likely 0.08–0.2 mm, which would need a narrower strip for the same κ ∝ w t³]). Record the fallback; don't act on it. |
+| Vane | **The ordered copper pad, uncut.** | Already right. |
+| Copper foil tape (ordered) | Becomes trim material and a spare ground strap. | The FR4 parts make it unnecessary for the plates. |
+| JLC3DP / JLCCNC parts | **None for now.** | No part left on PLA needs a non-PLA print or a machined part once the above is done. Revisit only if a PLA part fails a creep, stress or tolerance check (the damper lips, the torsion head). JLC3DP's SLA and MJF are the first choices then, since the user can't print those materials at home. |
+
+**F4.3 — Order logistics (a decision for the user, put to them in one line):**
+- **Two JLC orders.** A mechanical-boards order now (unassembled FR4: arm, clamp plates, fixed electrode, device-card tab), and the
+  electronics order after A5, as planned.
+  - Reason: A5 should measure the mechanics the experiment will use. A PLA prototype measured at A5 and then rebuilt in FR4 would
+    leave A5's drift and thermal results not transferring.
+  - Cost: one extra JLC shipment [estimate shipping and the board cost from JLC's published pricing; verify].
+  - Unassembled boards have no setup or extended-part fees.
+  - Note the panel rule: different designs on one board usually cost extra; compare that with separate small boards.
+  - Check whether JLC ships PCB, 3D-print and CNC items in one parcel if any non-PCB part is added [verify].
+- **AliExpress:** hold the remaining lines (washers, 304 nuts, JST-SH cable, weights, tools) until the redesign fixes the fastener
+  list. The fastener counts will change with through-bolts and the torsion head; M3×16/20 may be needed, so check what the owned
+  10/12/14 mm screws cover. Then it's one AliExpress order with no single-item fees. The acrylic doesn't change and can go in that
+  same order.
+- **Printing:** tell the user to hold all printing until the redesign lands. The fixed parts' geometry moves with the FR4 arm (gantry
+  height, bracket positions).
+
+**F4.4 — The redesign (Sonnet's work after writing `fabrication.md`):**
+- [ ] `hardware/balance/`:
+  - The arm as a 2D board outline plus thickness (from `params.py`), with copper features: electrode pad, ground trace, flag pour,
+    clamp pads.
+  - Clamp plates, fixed electrode board and device tab as boards.
+  - The torsion head, through-bolted joints, lowered centre of mass.
+  - Re-solve the ballast; rerun every check: collisions over the swing (with the torsion head's range), tilt per mm, ζ, enclosure,
+    fasteners against owned stock, printability.
+- [ ] Board outputs:
+  - Generate each mechanical board as a KiCad PCB (outline on Edge.Cuts, pads and pours, plated M3 holes) with `kiutils` from the
+    same CadQuery numbers, so the CAD and the boards can't disagree.
+  - `kicad-cli pcb drc` clean against JLC's published rules (min drill, annular ring, copper-to-edge).
+  - Gerbers and drill in `hardware/balance/boards/fab/`, an order note per board (thickness, finish, mask colour, quantity 5).
+  - A render with `kicad-cli pcb render`.
+  - Smoke test: board outline equals the CAD's outline; holes match the CAD's bolt positions to 0.01 mm.
+- [ ] Mass model: FR4 1.85 g/cm³ and 35 µm copper per layer (1 oz) for the boards. The slicer-mass step stays only for printed
+      moving parts, if any are left.
+- [ ] Update `docs/assembly.md`, `plan.md` (G2 table, design decisions, the metrology section's plate description, the
+      artifacts list), the README status, and this repo's TODO-arcticoder:
+      - the JLC mechanical order as a "Next order" entry with board list and estimated cost;
+      - the revised AliExpress list;
+      - the print list (fixed parts only);
+      - the hold notice.
+- [ ] Commit and push this repo when the checks pass.
+
+### F5 — Memory (Sonnet, after F4)
+
+- [ ] A user-preference memory: home printing is PLA only (fumes rule out ABS, PETG and nylon). Fab services (JLC PCB as structure,
+      JLC3DP, JLCCNC) are in scope when they beat buying and hand-cutting on cost, time or measurement risk. Link
+      `feedback_design_to_stock_sizes`.
 
 ## Part D — balance materials review (done 2026-10-23; details in TODO-completed.md)
 
