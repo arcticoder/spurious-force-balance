@@ -70,7 +70,8 @@ BOM = [
 ]
 
 # boards and their order quantity: JLC's minimum for assembled prototypes is read at order time
-BOARDS_PER_ORDER = 5
+BOARDS_PER_ORDER = 2  # assembled boards per order: JLC's economic assembly takes 2 to 50 of the 5 bare boards (a 1-piece assembly is not offered)
+BARE_BOARDS_PER_ORDER = 5  # JLC's minimum of bare boards per design (the other 3 are unpopulated spares)
 STOCK_FACTOR = 20  # stock must cover this many times the whole order's need
 
 

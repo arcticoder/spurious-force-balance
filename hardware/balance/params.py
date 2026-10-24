@@ -20,10 +20,20 @@ T_K = 295.0  # room temperature
 
 # --- the balance: a horizontal arm on a taut stainless-steel strip [design] ---
 ARM_HALF_LENGTH = 0.100  # pivot to the end mass / flag / device mount; l in the model
+# The arm is an FR4 board standing on edge (its faces face +-y), so a face of it is the moving electrode and its edge is the flag. Positions
+# along it scale with ARM_HALF_LENGTH (a 0.075 m arm is the fallback if the long board's quote is dear).
+ARM_HEIGHT = 60e-3  # m, board height: the centre of mass hangs about half of it below the strip's lower end (tilt = offset / hang)
+ARM_TOP_Z = 80e-3  # m, the arm board's top edge and the lower end of the strip's free length
+BOARD_T = 1.2e-3  # m, thickness of every mechanical board (weight scales with it; JLC offers 1.0, 1.2 and 1.6 mm [verify])
+FR4_DENSITY = 1.85e3  # kg/m^3
+FR4_TG_C = 130.0  # deg C, glass transition of standard FR4 [verify on the order page; high-Tg is a menu option]
+# electrode centre, then the vane: fractions of the arm on the 200 mm baseline; on a short arm they keep their footprints apart instead
+PLATE_X = 0.8 * ARM_HALF_LENGTH if ARM_HALF_LENGTH > 0.09 else ARM_HALF_LENGTH - 26e-3  # m
+VANE_X = min(0.55 * ARM_HALF_LENGTH, PLATE_X - 21.5e-3)  # m, where the damper vane sits along the arm
 # mass and inertia of the whole moving assembly come from the CAD (balance.py prints them; the
 # smoke test fails if these two numbers drift more than 3% from it) [design]
-MOVING_MASS = 0.0467  # kg
-MOVING_INERTIA = 2.825e-4  # kg*m^2 about the pivot axis
+MOVING_MASS = 0.0515  # kg
+MOVING_INERTIA = 2.472e-4  # kg*m^2 about the pivot axis
 STRIP_WIDTH = 4.0e-3  # m; stainless shim stock
 STRIP_THICKNESS = 50e-6  # m
 STRIP_LENGTH = 30e-3  # m, free length between the two clamps
@@ -47,10 +57,11 @@ VANE_SIZE = (20e-3, 20e-3)  # m, the pad as it arrives (x along the arm, y along
 # the discs are radially magnetized (poles on the curved sides, per the listing): they stand on edge, axes along x, one pair
 # of discs above and one below the vane, each disc's N-S diameter vertical, discs of a pair side by side with opposite poles
 MAGNET_GAP = 1.4e-3  # m, from the vane's mid-plane to the nearest disc surface (>= 1 mm clearance to a 2-pad stack)
-MAGNET_X = (56e-3, 64e-3)  # m, disc centres along the arm (vane centred at 60 mm)
+MAGNET_X = (VANE_X - 4e-3, VANE_X + 4e-3)  # m, disc centres along the arm (about the vane's centre)
 MAGNET_Y = 20.5e-3  # m, disc centres across the swing
-MAGNET_MAGNETIZATION = "diametric"  # "axial" if the phone-compass check says the poles are on the flat faces
-DAMPING_RATIO = 0.45  # zeta assumed by the noise budget: what eddy_damping_field() gives for one pad (two pads: 0.90)
+MAGNET_LIP = 0.6e-3  # m, the retaining lip over an axial disc's face (axial layout only): the discs' effective gap is MAGNET_GAP + this
+MAGNET_MAGNETIZATION = "diametric"  # "axial" if the twist test says the poles are on the flat faces (then the discs lie flat, facing the vane)
+DAMPING_RATIO = 0.40  # zeta assumed by the noise budget: what eddy_damping_field() gives for one pad (two pads: 0.81; the axial layout gives 0.43 / 0.86)
 
 # --- readout: a flag crossing an LED-to-photodiode gap, lock-in demodulated ---
 LED_PHOTOCURRENT = 100e-6  # A at mid-flag, 20 mA LED [ds estimate: IR26-21C 4.25 mW/sr x 0.09 sr x ~0.5 / VBPW34S 0.67 A/W (50 uA at 1 mW/cm2 on 7.5 mm2), halved by the flag; A5 measures the real number]
@@ -66,13 +77,14 @@ SEISMIC_ACC = 1e-6  # m/s^2/sqrt(Hz) of floor acceleration at F_REF
 COM_OFFSET = 0.2e-3  # m, centre-of-mass offset from the pivot axis after balancing
 # Printed-part masses read from the slicer (g), by part name. A real print differs from the CAD estimate (infill, walls) by +-15%,
 # which moves the centre of mass by about +-1 mm; entering the slicer's figure replaces the density estimate for that part.
-PRINTED_MASS_G = {}
-TRIM_SEAT = (16e-3, 8e-3, 1.0e-3)  # m, a recess at x = +-72 mm on the arm's top face for copper-pad or foil trim, (along x, across, depth)
+PRINTED_MASS_G = {}  # only the PLA parts that move (the vane holder) are left; the boards' mass follows from their thickness
 AIR_AREA = 2e-3  # m^2, projected area the air can push on (flag, device mount)
 AIR_SPEED_RMS = 1.0e-3  # m/s mean flow inside the draught shield
 AIR_SPEED_FLUCT = 1.0e-3  # m/s fluctuation, at F_REF, per sqrt(Hz) of bandwidth
 TEMP_NOISE = 1e-3  # K/sqrt(Hz) inside the enclosure at F_REF
-ARM_EXPANSION = 70e-6  # 1/K, printed PLA [assume; a metal arm is the fallback]
+ARM_EXPANSION = 14e-6  # 1/K, FR4 in the board's plane [assume: handbook range 12-16 ppm/K]
+PLA_EXPANSION = 70e-6  # 1/K, printed PLA [assume]
+FRAME_PATH = 0.10  # m, PLA between the strip's top clamp and the sensor bracket (gantry leg, base, bracket): its drift moves the flag against the sensor [assume]
 B_NOISE = 10e-9  # T/sqrt(Hz) of ambient magnetic field noise at F_REF
 STRAY_MOMENT = 1e-4  # A*m^2 residual moment of screws and leads on the moving arm [assume]
 F_REF = 0.1  # Hz, where the environmental densities above apply
@@ -93,7 +105,7 @@ MODEL_ERROR_FACTOR = 10.0  # allowance for the [assume] terms being wrong
 # linear force 2 * (eps0 A / (2 d^2)) * V_b * dV. All voltages stay under the repo's 50 V DC line.
 PLATE_AREA = 16e-4 * 0.5  # m^2: 20 mm x 8 mm overlap of the two plates
 PLATE_GAP = 1.0e-3  # m
-PLATE_RADIUS = 0.080  # m, where the plates act on the arm (their lever arm)
+PLATE_RADIUS = PLATE_X  # m, where the plates act on the arm (their lever arm)
 PLATE_BIAS_MAX = 40.0  # V
 EPS0 = 8.8541878128e-12
 
@@ -117,6 +129,7 @@ ENCL_MIN_CLEARANCE = 10e-3  # nearest moving or fixed balance part to a panel
 FASTENER_OWNED = {"M3 nut": 55, "M3x10 pan head screw": 50, "M3x12 pan head screw": 50, "M3x14 pan head screw": 50}
 
 # --- printing -------------------------------------------------------------------
+FASTENER_TO_BUY = {"M3 nut, 304 stainless": 20, "M3 flat washer": 50}  # the planned AliExpress lines (not yet ordered)
 PRINT_VOLUME = (220e-3, 220e-3, 250e-3)  # Creality K1 build volume [assume; check the manual]
 MIN_WALL = 1.2e-3  # m, 3 perimeters at 0.4mm
 
@@ -135,3 +148,10 @@ def n42_moment():
     """Magnetic moment of one disc, A*m^2 (m = Br V / mu0)."""
     v = math.pi * (N42_DIAMETER / 2) ** 2 * N42_THICKNESS
     return N42_BR * v / (4e-7 * math.pi)
+
+# --- the device under test and its heat [assume: still air, 10 W/m^2/K from both faces of a 16 x 24 mm card] ---
+DEVICE_POWER_MAX = 0.5  # W, the top dissipation of a device card: 0.9 W (300 mA through 10 ohm) would put the card 117 K up, past FR4's glass transition less 40 K; 0.5 W is 224 mA through 10 ohm
+DEVICE_CARD_AREA = 2 * 16e-3 * 24e-3  # m^2, both faces
+HEAT_H = 10.0  # W/m^2/K
+AMBIENT_C = 22.0
+TG_MARGIN_K = 40.0  # the board that carries the card must stay this far below its glass transition

@@ -61,7 +61,7 @@ else:
     missing = [(l, r) for g, role, l, q, w, r in rows if r is None]
     check("functional — every candidate part is in the JLC snapshot", not missing, f"{len(rows)} part numbers" + (f", missing {missing}" if missing else ""))
     thin = [(role, r["stock"], q * parts.BOARDS_PER_ORDER) for g, role, l, q, w, r in rows if r and r["stock"] < parts.STOCK_FACTOR * q * parts.BOARDS_PER_ORDER]
-    check(f"functional — stock covers {parts.STOCK_FACTOR}x the order's need for every part", not thin, f"{thin}" if thin else "all parts")
+    check(f"functional — stock covers {parts.STOCK_FACTOR}x the order's need (2 assembled boards of the 5 bare) for every part", not thin, f"{thin}" if thin else "all parts")
     tht = [role for g, role, l, q, w, r in rows if r and not parts.machine_placed(l)]
     check("safety — every part is machine-placed SMT, none is hand-soldered through-hole", not tht, f"{tht}" if tht else "44 parts" if len(rows) == 44 else f"{len(rows)} parts")
     ext = {l for g, role, l, q, w, r in rows if r and r["type"] == "extended"}

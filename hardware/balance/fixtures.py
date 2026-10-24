@@ -6,6 +6,7 @@ fixtures.py — printed jigs for cutting the balance's raw materials (no worksho
   saw guide:   holds the 10 mm brass rod in a groove under a clamp plate (two M3 screws), with a stop so the hacksaw's kerf falls
                one ballast length (plus 0.5 mm to file off) from the rod's end.
   strip guide: a plate with a 0.8 mm knife slot exactly the strip width from a ridge the shim's straight edge butts against.
+  gap gauge:   a 1.00 mm plate that sets the gap between the two calibration electrodes.
 """
 
 import os
@@ -55,10 +56,16 @@ def strip_guide(width_mm):
     return {"fixture_strip_guide": plate.union(ridge)}, y_far
 
 
+def gap_gauge():
+    """A flat 1.00 mm (PLATE_GAP) gauge with a handle, to set the electrode gap between the arm board and the fixed electrode board."""
+    return {"fixture_gap_gauge": B.box(0, 30, 0, P.PLATE_GAP * MM, 0, 20).union(B.box(10, 20, 0, P.PLATE_GAP * MM, 20, 45))}
+
+
 def build_all():
     bl, by = B.balance_solve()
     parts = {}
     parts.update(saw_guide(bl))
+    parts.update(gap_gauge())
     g, y_far = strip_guide(P.STRIP_WIDTH * MM)
     parts.update(g)
     return parts, bl, y_far
