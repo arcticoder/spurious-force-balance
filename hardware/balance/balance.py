@@ -13,7 +13,7 @@ Layout (z up, the pivot axis is the z axis):
   base plate, two uprights and a cross beam carry the top strip clamp at z = 110..120.
   A stainless strip (4 mm x 50 um x 30 mm, z = 80..110) hangs from it to the hub of the arm. The arm lies
   along x: the device mount (+x), a counterweight pocket (-x).
-  Eddy-current damper (+x, y > 0): a 0.3 mm copper vane on the arm moves between two N42 discs held fixed to
+  Eddy-current damper (+x, y > 0): a copper vane (one or two 0.3 mm pads) on the arm moves between four N42 discs on edge held fixed to
   the base. Optical sensor (-x end): a flag tab on the arm moves through a C-bracket whose two prongs carry
   the LED board (above) and the photodiode board (below). Electrostatic plates at x = 72..88.
   Every fixed part stands on a flanged foot bolted through the base with M3 screws into captured nuts; the
@@ -62,6 +62,10 @@ def box(x0, x1, y0, y1, z0, z1):
 
 def cyl_z(x, y, z0, z1, d):
     return cq.Workplane("XY").circle(d / 2).extrude(z1 - z0).translate((x, y, z0))
+
+
+def cyl_x(y, z, x0, x1, d):
+    return cq.Workplane("YZ").circle(d / 2).extrude(x1 - x0).translate((x0, y, z))
 
 
 def cyl_y(x, z, y0, y1, d):
@@ -121,6 +125,8 @@ def build(ballast_len=14.0, ballast_y=0.0):
     base_holes = []
 
     def add(name, wp, density, moving, printed=False):
+        if printed and name in P.PRINTED_MASS_G:  # the slicer's figure beats the infill estimate
+            density = P.PRINTED_MASS_G[name] / wp.val().Volume()
         parts[name] = (wp, density, moving, printed)
 
     pla = PLA_G_MM3 * INFILL
@@ -148,6 +154,9 @@ def build(ballast_len=14.0, ballast_y=0.0):
     arm = arm.union(box(L - 8, L, -14, 14, Z_ARM0 - 6, Z_ARM1 + 18))  # device mount plate
     arm = arm.union(box(-L, -L + 16, -10, 10, Z_ARM0 - 6, Z_ARM1 + 4))  # counterweight pocket body
     arm = arm.cut(cyl_z(-L + 8, ballast_y, Z_ARM0 - 6.5, Z_ARM1 + 4.5, 10.3))  # ballast hole
+    tx, ty, td = (v * MM for v in P.TRIM_SEAT)
+    for sx in (1, -1):  # trim seats: shallow recesses where copper-pad pieces or foil squares are taped to trim the balance
+        arm = arm.cut(box(sx * 72 - tx / 2, sx * 72 + tx / 2, -ty / 2, ty / 2, Z_ARM1 - td, Z_ARM1 + 0.1))
     for x in (-60, -30, 30, 60):  # lightening holes through the arm's web
         arm = arm.cut(cq.Workplane("XY").circle(2.5).extrude(20, both=True).translate((x, 0, (Z_ARM0 + Z_ARM1) / 2)))
     # the lower clamp's half a is screwed down into the hub from below: counterbored M3x12
@@ -170,24 +179,61 @@ def build(ballast_len=14.0, ballast_y=0.0):
     riser = box(-L - 4, -L, 0, 4, Z_ARM1, 71)
     tab = box(-L - 8, -L + 0.5, 0, 22, 70.0, 70.6)
     add("flag", riser.union(tab), PLA_G_MM3, True, True)
-    # damper vane: 0.3 mm copper plate centred at z = 62.5 between the discs, in a slot of a holder glued to the arm's side
-    vane_box = box(50, 70, 8, 30, 62.5 - VANE_T / 2, 62.5 + VANE_T / 2)
-    add("vane_holder", box(55, 65, 5, 10, Z_ARM0, Z_ARM1 + 1).cut(vane_box), pla, True, True)
+    # damper vane: VANE_PADS uncut 20 x 20 mm copper pads stacked, centred at z = 62.5 between the discs, lying in a slot of a
+    # holder fixed to the arm's side (slot 0.8 mm: room for two pads; the foam tape from the order holds the pad flat)
+    vx0, vx1 = 60 - P.VANE_SIZE[0] * MM / 2, 60 + P.VANE_SIZE[0] * MM / 2
+    vy0, vy1 = 8.0, 8.0 + P.VANE_SIZE[1] * MM
+    vane_box = box(vx0, vx1, vy0, vy1, 62.5 - VANE_T / 2, 62.5 + VANE_T / 2)
+    slot = box(vx0 - 0.2, vx1 + 0.2, vy0 - 0.2, vy0 + 6, 62.5 - 0.4, 62.5 + 0.4)
+    add("vane_holder", box(54, 66, 5, vy0 + 6, 60.0, Z_ARM1 + 1).cut(slot), pla, True, True)
     add("vane", vane_box, CU_G_MM3, True)
     # electrostatic plates at x = 72..88: a moving tab on the arm's +y side (copper foil tape on its +y face, reached
     # through the strip's clamp) and a fixed plate on the base, 1 mm across
     add("elec_arm", box(72, 88, 5, 7, 52.0, 70.0), pla, True, True)
+    # the moving plate's copper foil (0.05 mm, counted as a moving mass): over the tab's +y face, around its -x edge, along the arm's +y
+    # side (low, under the vane holder) and the hub, up the lower clamp's half b and into the strip's clamp, which carries it to the top clamp (ground)
+    f = 0.05
+    foil = (box(72, 88, 7, 7 + f, 52, 70).union(box(12, 72, 5, 5 + f, 58, 60)).union(box(12, 12 + f, 5, 12, 58, 60))
+            .union(box(-2, 12, 12, 12 + f, 58, 60)).union(box(-2, 2, 12, 12 + f, 58, 72)).union(box(-2, 2, 5.025, 12 + f, 72, 72 + f))
+            .union(box(-2, 2, 5.025, 5.025 + f, 72, 80)))
+    add("plate_foil", foil, CU_G_MM3, True)
     elec = box(72, 88, 8, 12, 6.0, 70.0)
-    add("elec_fixed", with_foot(elec, 72, 88, -2, 22, [(80, 3), (80, 17)], base_holes, "elec_fixed"), pla, False, True)
+    elec = with_foot(elec, 72, 88, -2, 22, [(80, 3), (80, 17)], base_holes, "elec_fixed")
+    # a terminal on the flange for the plate wire and the foil tail: M3x10 from above, washer clamping both, nut captured under the flange
+    elec = elec.cut(cyl_z(85, 17, FOOT_Z0 - 0.1, FOOT_Z1 + 0.1, M3_CLEAR)).cut(nut_pocket_z(85, 17, FOOT_Z0 + NUT_DEPTH))
+    base_holes.append((85, 17))
+    FASTENERS.append(("M3x10 pan head screw", "plate terminal: clamps the plate wire and the foil tail"))
+    FASTENERS.append(("M3 nut", "plate terminal, captured under the flange"))
+    FASTENERS.append(("M3 flat washer", "plate terminal, over the foil and wire"))
+    add("elec_fixed", elec, pla, False, True)
 
-    # ---- fixed: damper (two N42 discs) and sensor bracket ------------------------------------------
-    holder = box(52, 68, 36, 44, 6, 70).union(box(52, 68, 20, 44, 54.0, 58.0)).union(box(52, 68, 20, 44, 67.0, 70.0))
-    holder = holder.union(box(52, 68, 20, 44, 58.0, 61.0).cut(cyl_z(60, 25, 57.0, 62.0, 6.2)))
-    holder = holder.union(box(52, 68, 20, 44, 64.0, 67.0).cut(cyl_z(60, 25, 63.0, 68.0, 6.2)))
+    # ---- fixed: damper (four N42 discs on edge, two below the vane and two above) and sensor bracket --------
+    gz = P.MAGNET_GAP * MM
+    dd = P.N42_DIAMETER * MM
+    dh = P.N42_THICKNESS * MM
+    my = P.MAGNET_Y * MM
+    mxs = [x * MM for x in P.MAGNET_X]
+    zl, zu = 62.5 - (gz + dd / 2), 62.5 + (gz + dd / 2)  # disc centre heights
+    lip = math.sqrt((dd / 2 + 0.1) ** 2 - 2.25**2)  # a 4.5 mm window in the bore's wall holds a 6 mm disc in
+    holder = box(52, 68, 36, 44, 6, 74)
+    low_slab = box(52, 68, my - 4.0, 44, zl - 5.5, zl + lip)
+    up_slab = box(52, 68, my - 4.0, 44, zu - lip, zu + 5.5)
+    for xc in mxs:
+        for zc, slab_dir in ((zl, 1), (zu, -1)):
+            # bore along x, closed at -x (1.8 mm back wall), open at +x to push the disc in; a window toward the vane
+            low_slab = low_slab.cut(cyl_x(my, zc, xc - dh / 2 - 0.1, xc + dh / 2 + 4, dd + 0.2)) if slab_dir == 1 else low_slab
+            up_slab = up_slab.cut(cyl_x(my, zc, xc - dh / 2 - 0.1, xc + dh / 2 + 4, dd + 0.2)) if slab_dir == -1 else up_slab
+            win = box(xc - dh / 2 - 0.1, xc + dh / 2 + 4, my - 2.25, my + 2.25, zc if slab_dir == 1 else zc - lip - 1, zc + lip + 1 if slab_dir == 1 else zc)
+            if slab_dir == 1:
+                low_slab = low_slab.cut(win)
+            else:
+                up_slab = up_slab.cut(win)
+    holder = holder.union(low_slab).union(up_slab)
     holder = with_foot(holder, 52, 68, 26, 54, [(60, 31), (60, 49)], base_holes, "damper_holder")
     add("damper_holder", holder, pla, False, True)
-    add("magnet_low", cyl_z(60, 25, 58.0, 61.0, 6.0), ND_G_MM3, False)
-    add("magnet_up", cyl_z(60, 25, 64.0, 67.0, 6.0), ND_G_MM3, False)
+    for i, xc in enumerate(mxs):
+        add(f"magnet_low_{i}", cyl_x(my, zl, xc - dh / 2, xc + dh / 2, dd), ND_G_MM3, False)
+        add(f"magnet_up_{i}", cyl_x(my, zu, xc - dh / 2, xc + dh / 2, dd), ND_G_MM3, False)
     bracket = box(-L - 8, -L + 8, 36, 44, 6, 84).union(box(-L - 8, -L + 8, 16, 44, 73.0, 76.0)).union(box(-L - 8, -L + 8, 16, 44, 64.0, 67.0))
     bracket = with_foot(bracket, -L - 8, -L + 8, 26, 54, [(-L, 31), (-L, 49)], base_holes, "sensor_bracket")
     add("sensor_bracket", bracket, pla, False, True)
@@ -198,20 +244,22 @@ def build(ballast_len=14.0, ballast_y=0.0):
         base = base.cut(cyl_z(hx, hy, -0.1, 6.1, M3_CLEAR))
     add("base", base, pla, False, True)
 
-    # ---- enclosure: four corner posts with slots, four pinwheel side panels, a lid ------------------
+    # ---- enclosure: four corner posts with slots, four identical pinwheel walls (uncut stock sheets), a two-sheet lid ----
     wi, di, hi = (v * MM for v in P.ENCL_INNER)
     t = P.PANEL_T * MM
-    slot_clear = 0.4
+    slot_clear = 2 * P.SEAL_T * MM + 0.2  # total slack across the wall: the foam shim on both faces plus 0.2 mm
     hx, hy = wi / 2, di / 2
-    # a pinwheel: the y panels run the full width plus one thickness at one end, the x panels butt against them,
-    # so the four corner squares each belong to exactly one panel
+    # each wall is S + t long and owns one corner square (the next wall stops at its inner face), so the four sheets are identical
     panels = {
-        "panel_px": box(hx, hx + t, -hy, hy, 0, hi),
-        "panel_nx": box(-hx - t, -hx, -hy, hy, 0, hi),
         "panel_py": box(-hx, hx + t, hy, hy + t, 0, hi),
+        "panel_px": box(hx, hx + t, -hy - t, hy, 0, hi),
         "panel_ny": box(-hx - t, hx, -hy - t, -hy, 0, hi),
+        "panel_nx": box(-hx - t, -hx, -hy, hy + t, 0, hi),
     }
-    lid = box(-hx - t - 10, hx + t + 10, -hy - t - 10, hy + t + 10, hi, hi + t)
+    # the lid: two stock sheets, long sides along x, meeting at y = 0; they rest on the wall tops, the posts and a printed shelf
+    lid_x = P.PANEL_STOCK[0] * MM / 2
+    lid_w = P.PANEL_STOCK[1] * MM
+    lids = {"encl_lid_a": box(-lid_x, lid_x, 0, lid_w, hi, hi + t), "encl_lid_b": box(-lid_x, lid_x, -lid_w, 0, hi, hi + t)}
     pw = P.ENCL_POST * MM
     for sx in (1, -1):
         for sy in (1, -1):
@@ -222,9 +270,17 @@ def build(ballast_len=14.0, ballast_y=0.0):
                 grown = box(bb.xmin - slot_clear / 2, bb.xmax + slot_clear / 2, bb.ymin - slot_clear / 2, bb.ymax + slot_clear / 2, bb.zmin - 1, bb.zmax + 1)
                 post = post.cut(grown)
             add(f"encl_post_{'p' if sx > 0 else 'n'}{'p' if sy > 0 else 'n'}", post, pla, False, True)
+    # lid shelves: 6 mm ledges on the inside of the +x and -x walls at the top (taped to the wall), two pieces each so they print
+    seat = P.LID_SEAT * MM
+    edge = P.ENCL_POST * MM / 2 + 1.0  # keep clear of the corner posts' inner faces
+    for sx in (1, -1):
+        for k, (y0, y1) in enumerate(((-(hy - 10 + 1), -1.0), (1.0, hy - 10 + 1))):
+            xa, xb = (hx - seat, hx) if sx > 0 else (-hx, -hx + seat)
+            add(f"encl_shelf_{'p' if sx > 0 else 'n'}x_{k}", box(xa, xb, y0, y1, hi - 6, hi), pla, False, True)
     for pn, pnl in panels.items():
         add(pn, pnl, ACRYLIC_G_MM3, False, False)
-    add("encl_lid", lid, ACRYLIC_G_MM3, False, False)
+    for ln, lid in lids.items():
+        add(ln, lid, ACRYLIC_G_MM3, False, False)
     return parts
 
 
@@ -276,7 +332,7 @@ def _disjoint(ba, bb):
     return ba.xmax < bb.xmin or ba.xmin > bb.xmax or ba.ymax < bb.ymin or ba.ymin > bb.ymax or ba.zmax < bb.zmin or ba.zmin > bb.zmax
 
 
-def interference(parts, angles_deg=(-1.5, 0, 1.5), skip_pairs=(("elec_arm", "elec_fixed"), ("arm", "elec_fixed")), narrow=(("elec_arm", "elec_fixed", 0.4), ("arm", "elec_fixed", 0.4))):
+def interference(parts, angles_deg=(-1.5, 0, 1.5), skip_pairs=(("elec_arm", "elec_fixed"), ("arm", "elec_fixed"), ("plate_foil", "elec_fixed")), narrow=(("elec_arm", "elec_fixed", 0.4), ("arm", "elec_fixed", 0.4), ("plate_foil", "elec_fixed", 0.4))):
     """Largest overlap volume (mm^3) between any moving part and any fixed part over the arm's swing.
     Only parts that are close in height are tested pairwise (a bounding-box prefilter)."""
     worst = (0.0, None)

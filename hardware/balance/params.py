@@ -22,8 +22,8 @@ T_K = 295.0  # room temperature
 ARM_HALF_LENGTH = 0.100  # pivot to the end mass / flag / device mount; l in the model
 # mass and inertia of the whole moving assembly come from the CAD (balance.py prints them; the
 # smoke test fails if these two numbers drift more than 3% from it) [design]
-MOVING_MASS = 0.0463  # kg
-MOVING_INERTIA = 2.807e-4  # kg*m^2 about the pivot axis
+MOVING_MASS = 0.0467  # kg
+MOVING_INERTIA = 2.825e-4  # kg*m^2 about the pivot axis
 STRIP_WIDTH = 4.0e-3  # m; stainless shim stock
 STRIP_THICKNESS = 50e-6  # m
 STRIP_LENGTH = 30e-3  # m, free length between the two clamps
@@ -36,10 +36,21 @@ FLAG_AT = ARM_HALF_LENGTH  # the optical flag sits at the arm end
 BRASS_DENSITY = 8.5e-3  # g/mm^3 (C360 brass; rod listings say H59/H62/C36000)
 
 # --- damping: copper vane on the arm moving between fixed N42 discs [design] ---
-VANE_THICKNESS = 0.3e-3  # m: the damping goes with thickness; 1 mm gave a damping ratio of 2.1 fully engaged, 0.3 mm gives about 0.6
 # the same non-contact eddy-current damper as Soni & Roy [pub]: no power, no
-# permanent magnet on the moving arm (the magnets are fixed to the base)
-DAMPING_RATIO = 0.5  # zeta; set by the vane-to-magnet gap (tuned on the bench)
+# permanent magnet on the moving arm (the magnets are fixed to the base).
+# The vane is VANE_PADS uncut 20 x 20 x 0.3 mm copper pads stacked (touching, so they act as one sheet): damping goes with
+# total thickness, so a second pad doubles it and a pad can be added or removed on the bench.
+PAD_T = 0.3e-3  # m, one copper pad (listing: 20 x 20 x 0.3 mm)
+VANE_PADS = 1
+VANE_THICKNESS = VANE_PADS * PAD_T  # m
+VANE_SIZE = (20e-3, 20e-3)  # m, the pad as it arrives (x along the arm, y along the swing)
+# the discs are radially magnetized (poles on the curved sides, per the listing): they stand on edge, axes along x, one pair
+# of discs above and one below the vane, each disc's N-S diameter vertical, discs of a pair side by side with opposite poles
+MAGNET_GAP = 1.4e-3  # m, from the vane's mid-plane to the nearest disc surface (>= 1 mm clearance to a 2-pad stack)
+MAGNET_X = (56e-3, 64e-3)  # m, disc centres along the arm (vane centred at 60 mm)
+MAGNET_Y = 20.5e-3  # m, disc centres across the swing
+MAGNET_MAGNETIZATION = "diametric"  # "axial" if the phone-compass check says the poles are on the flat faces
+DAMPING_RATIO = 0.45  # zeta assumed by the noise budget: what eddy_damping_field() gives for one pad (two pads: 0.90)
 
 # --- readout: a flag crossing an LED-to-photodiode gap, lock-in demodulated ---
 LED_PHOTOCURRENT = 100e-6  # A at mid-flag, 20 mA LED [ds estimate: IR26-21C 4.25 mW/sr x 0.09 sr x ~0.5 / VBPW34S 0.67 A/W (50 uA at 1 mW/cm2 on 7.5 mm2), halved by the flag; A5 measures the real number]
@@ -53,6 +64,10 @@ RIN_REJECTION = 30.0  # ratiometric (reference photodiode) rejection of LED inte
 TILT_NOISE_RAD = 1e-7  # rad/sqrt(Hz) of floor tilt at F_REF
 SEISMIC_ACC = 1e-6  # m/s^2/sqrt(Hz) of floor acceleration at F_REF
 COM_OFFSET = 0.2e-3  # m, centre-of-mass offset from the pivot axis after balancing
+# Printed-part masses read from the slicer (g), by part name. A real print differs from the CAD estimate (infill, walls) by +-15%,
+# which moves the centre of mass by about +-1 mm; entering the slicer's figure replaces the density estimate for that part.
+PRINTED_MASS_G = {}
+TRIM_SEAT = (16e-3, 8e-3, 1.0e-3)  # m, a recess at x = +-72 mm on the arm's top face for copper-pad or foil trim, (along x, across, depth)
 AIR_AREA = 2e-3  # m^2, projected area the air can push on (flag, device mount)
 AIR_SPEED_RMS = 1.0e-3  # m/s mean flow inside the draught shield
 AIR_SPEED_FLUCT = 1.0e-3  # m/s fluctuation, at F_REF, per sqrt(Hz) of bandwidth
@@ -88,8 +103,13 @@ N42_DIAMETER = 6e-3
 N42_THICKNESS = 3e-3
 
 # --- enclosure: a printed frame with drop-in acrylic panels (the air-current term is the budget's largest) [design] ---
-ENCL_INNER = (240e-3, 240e-3, 160e-3)  # clear volume, m
-PANEL_T = 3e-3  # acrylic thickness bought; the frame's slots are PANEL_T + 0.4 mm, so a thickness change is one number
+# Sized to uncut stock: 2 mm clear acrylic, 150 x 250 mm sheets (a size sold ready-made). Four identical walls in a pinwheel give an
+# inner span of stock length - thickness; two more sheets side by side are the lid.
+PANEL_T = 2e-3  # acrylic thickness bought; the frame's slots are PANEL_T + 2*SEAL_T + 0.2 mm, so a thickness change is one number
+PANEL_STOCK = (250e-3, 150e-3)  # m, the sheet as sold (long side, short side)
+SEAL_T = 0.3e-3  # m, double-sided PE foam tape used as a shim on both faces of each wall inside its slot
+ENCL_INNER = (PANEL_STOCK[0] - PANEL_T, PANEL_STOCK[0] - PANEL_T, PANEL_STOCK[1])  # clear volume, m
+LID_SEAT = 6e-3  # m, bearing of the lid on a printed shelf along each x wall (the lid sheets are 250 mm long, the opening 248)
 ENCL_POST = 20e-3  # corner post cross-section, m
 ENCL_MIN_CLEARANCE = 10e-3  # nearest moving or fixed balance part to a panel
 

@@ -68,7 +68,8 @@ def disc_field_on_axis(z, br=None, radius=None, height=None):
 
 
 def eddy_damping_estimate(face_gap=None, vane_t=None, vane_radius=0.060, sigma=5.8e7):
-    """First-order eddy-current damping of a copper vane between two opposed N42 discs [assume:
+    """Upper-bound estimate for AXIAL discs, treating the on-axis field as uniform over the disc (it overstates by about 1.6x
+    against eddy_damping_field(); kept as a cross-check). First-order eddy-current damping of a copper vane between two opposed N42 discs [assume:
     c = sigma B^2 t A with A the disc footprint; right to about a factor of two at best].
     Returns (c at the vane, N*s/m; the damping ratio it gives at the flag radius when the vane
     fully covers the discs; B between the discs, T)."""
@@ -82,6 +83,57 @@ def eddy_damping_estimate(face_gap=None, vane_t=None, vane_radius=0.060, sigma=5
     kappa = strip_stiffness()
     zeta = c_flag / (2 * math.sqrt(k_eff(kappa, l) * inertia() / l**2))
     return c_vane, zeta, b
+
+
+def tilt_from_com(offset, hang):
+    """Arm tilt (rad) when the centre of mass sits `offset` (m) off the strip's axis and `hang` (m) below the strip's lower end:
+    the arm hangs until the strip's line passes through the centre of mass, so the tilt is offset / hang [assume: the ribbon bends
+    only within a few mm of its clamps, sqrt(EI/T) = 4 mm]."""
+    return offset / hang
+
+
+def _damper_discs(gap, magnetization):
+    """The damper's N42 discs as magpylib magnets, in metres, vane mid-plane at z = 0, vane centre at (0, 0)."""
+    import magpylib as mp
+    from scipy.spatial.transform import Rotation as R
+
+    xc = [x - 0.5 * (P.MAGNET_X[0] + P.MAGNET_X[1]) for x in P.MAGNET_X]
+    d, h = P.N42_DIAMETER, P.N42_THICKNESS
+    discs = []
+    for i, x in enumerate(xc):
+        sign = 1 if i % 2 == 0 else -1  # neighbours have opposite poles
+        for side in (1, -1):  # above, below: the same direction, so the facing poles are opposite
+            if magnetization == "axial":
+                z = side * (gap + h / 2)
+                discs.append(mp.magnet.Cylinder(dimension=(d, h), polarization=(0, 0, P.N42_BR), position=(x, 0, z)))
+            else:
+                z = side * (gap + d / 2)
+                c = mp.magnet.Cylinder(dimension=(d, h), polarization=(sign * P.N42_BR, 0, 0), position=(x, 0, z))
+                c.rotate(R.from_euler("y", 90, degrees=True))
+                discs.append(c)
+    return mp.Collection(*discs)
+
+
+def eddy_damping_field(vane_t=None, gap=None, magnetization=None, vane_radius=0.060, sigma=5.8e7, half=14e-3, n=141):
+    """Eddy-current damping from the modelled field of the real disc arrangement [assume: low magnetic Reynolds number, so
+    c = sigma t * integral(Bz^2 dA) over the vane plane; right to about a factor of two at best]. Needs magpylib (checked against
+    disc_field_on_axis() for an axial disc in the smoke test). Returns (c at the vane, N*s/m; damping ratio at the flag radius; peak Bz, T)."""
+    import numpy as np
+
+    vane_t = P.VANE_THICKNESS if vane_t is None else vane_t
+    gap = P.MAGNET_GAP if gap is None else gap
+    magnetization = P.MAGNET_MAGNETIZATION if magnetization is None else magnetization
+    coll = _damper_discs(gap, magnetization)
+    xs = np.linspace(-half, half, n)
+    X, Y = np.meshgrid(xs, xs)
+    pts = np.stack([X.ravel(), Y.ravel(), np.zeros(X.size)], 1)
+    bz = coll.getB(pts)[:, 2]
+    integral = float((bz**2).sum() * (xs[1] - xs[0]) ** 2)
+    c_vane = sigma * vane_t * integral
+    l = P.ARM_HALF_LENGTH
+    c_flag = c_vane * (vane_radius / l) ** 2
+    zeta = c_flag / (2 * math.sqrt(k_eff(strip_stiffness(), l) * inertia() / l**2))
+    return c_vane, zeta, float(np.abs(bz).max())
 
 
 def displacement_noise_readout():

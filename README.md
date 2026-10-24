@@ -15,7 +15,7 @@ measurement, at a parts cost to be filled in from the final bill of materials.
 | Piece | State |
 |---|---|
 | G1 measurement goal | confirmed 2026-10-23 |
-| G2 mechanics | printable CadQuery model, collision-free over the swing, centre of mass solved onto the axis |
+| G2 mechanics | printable CadQuery model, collision-free over the swing, centre of mass solved onto the axis; stock-size acrylic enclosure; field-modelled eddy damper; cutting jigs; [assembly steps](docs/assembly.md) |
 | G3 force-noise prediction | 0.108 nN (1σ, 1000 s, in air): a conditional go |
 | WP1–WP3: requirements, 48 JLC-stocked parts, analog block simulations | done |
 | WP4 schematic onward | not started |

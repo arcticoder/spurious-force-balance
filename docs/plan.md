@@ -53,16 +53,16 @@ are exported to `hardware/balance/cad/` (printable on the K1: the largest part i
 | Item | Value |
 |------|-------|
 | Type | Torsion balance: a horizontal arm on a taut stainless strip (4 mm × 50 µm × 30 mm), ±100 mm |
-| Torsion constant | 452 µN·m/rad (thin-strip formula plus the ribbon's tension term) |
-| Moving mass / inertia | 46.3 g / 2.81 × 10⁻⁴ kg·m² (from the CAD) |
-| Resonance | 0.196 Hz (period 5.1 s) |
-| Stiffness at the arm end | 0.0452 N/m: 1 µN moves the flag 22 µm (the Soni & Roy stand, below, is 54× stiffer) |
+| Torsion constant | 448 µN·m/rad (thin-strip formula plus the ribbon's tension term) |
+| Moving mass / inertia | 46.7 g / 2.83 × 10⁻⁴ kg·m² (from the CAD; the printed parts' slicer masses replace its density estimate) |
+| Resonance | 0.200 Hz (period 5.0 s) |
+| Stiffness at the arm end | 0.0448 N/m: 1 µN moves the flag 22 µm (the Soni & Roy stand, below, is 54× stiffer) |
 | Measurement frequency | 0.05 Hz (the device under test is switched at this rate; the readout is lock-in demodulated) |
-| Damping | Copper vane on the arm between two N42 discs **fixed** to the base (eddy-current damper, as in Soni & Roy). The 0.3 mm vane fully engaged gives a damping ratio of about 0.6 (first-order estimate; 1 mm would give 2.1); the bench tunes it to 0.5 by engagement |
+| Damping | A 20 × 20 mm copper vane on the arm (one uncut 0.3 mm pad, or two stacked) between four N42 discs **fixed** to the base (eddy-current damper, as in Soni & Roy). The discs are radially magnetized, so they stand on edge in printed cradles, two above and two below the vane, 1.4 mm from its mid-plane. The field is modelled with magpylib (checked against the analytic on-axis field of an axial disc to 0.01%) and integrated over the vane: one pad gives a damping ratio of 0.45 (what the budget assumes), two pads 0.90 [first-order estimate, good to about a factor of two]. The earlier analytic estimate overstated damping about 1.6× because it took the on-axis field as uniform over the disc |
 | Displacement readout | Flag on the arm crossing an LED-to-photodiode gap in a C-bracket (LED board above, photodiode board below, both small fab-assembled boards) |
-| Calibration and disturbance injection | Electrostatic plates (20 × 8 mm, 1 mm gap, at 80 mm). The moving plate is grounded through the strip, so it needs no lead wire and carries no magnetic moment. 5.7 µN at 40 V; around a 40 V bias, 283 nN per volt, so 1 mV is 0.28 nN |
+| Calibration and disturbance injection | Electrostatic plates (20 × 8 mm, 1 mm gap, at 80 mm), faced with copper foil tape. The moving plate is grounded through the strip, so it needs no lead wire and carries no magnetic moment: its foil tail runs along the arm and hub into the lower strip clamp, and a second foil tail leaves the top clamp under a screw washer together with the plate driver's ground wire. No joint depends on the tape's adhesive being conductive (every joint is clamped). The fixed plate has a foil tail and wire under a washer on a terminal screw in its foot. 5.7 µN at 40 V; around a 40 V bias, 283 nN per volt, so 1 mV is 0.28 nN |
 | Device mount | Vertical plate at +x for a terminal block and the device's leads; a dummy brass block stands in for the device's mass |
-| Balance trim | A brass ballast in the −x pocket, its hole offset in y, is solved so the centre of mass is on the axis (CAD: 0.00 mm); a bench balancing procedure with the ballast trims it further |
+| Balance trim | A brass ballast in the −x pocket, its hole offset in y, is solved so the centre of mass is on the axis (CAD: 0.00 mm). The arm hangs 15 mm below the strip's lower end, so each millimetre of centre-of-mass offset tilts it by 66 mrad, and the vane and flag clearances allow about 16 mrad: a ±15% error in a printed part's mass (a real print against the infill estimate) moves the centre of mass about ±1 mm and would tilt the arm past them. So the slicer's masses go into `params.py` before the final ballast is cut, and two 16 × 8 mm recesses on the arm's top face take copper-pad pieces or foil squares for the bench trim (1.06 mm of authority from two stacked pad pieces at one end) |
 
 **Design decisions this work forced** (each from a check that failed or a number that surprised):
 
@@ -77,13 +77,26 @@ are exported to `hardware/balance/cad/` (printable on the K1: the largest part i
   the fixed electrode; each was fixed in the CAD (swing limit ±1.5°, ±0.4° at the 1 mm plate gap).
 - *The first layout's centre of mass was 10.8 mm off the axis*, which would have coupled floor tilt
   into torque far above the model's assumed 0.2 mm; the ballast and counter-mass are now solved.
+- *The damper magnets are radially magnetized* (poles on the curved sides, per the listing), which the first damper design
+  ignored: flat-face mounting would have put the field in the vane's plane. Standing the discs on edge restores the field
+  through the vane; a field model replaced the analytic estimate, and a stack of 0.3 mm pads tunes the damping (so the 1.0 mm
+  pad is not needed).
+- *Centre-of-mass offset tilts the arm* far more than first assumed (see "Balance trim"); this made bench trim and slicer masses part
+  of the design rather than a refinement.
 
 Parts the mechanics need that are not on hand (an AliExpress cart item list, in
 `TODO-arcticoder.md`): stainless-steel shim stock, 50 µm (in the cart); copper sheet, 0.3 mm; conductive copper foil tape;
 a brass rod, 10 mm diameter, for the ballast (steel would feel the damper magnets); M3 washers and 304
-stainless nuts (screws and carbon-steel nuts are on hand); 3 mm acrylic panels and foam tape; and 1 mg
-to 500 mg calibration weights. The enclosure (draught shield) is decided: a printed frame with drop-in
-3 mm acrylic panels sealed with foam tape, sized by `PANEL_T` in `hardware/balance/params.py`.
+stainless nuts (screws and carbon-steel nuts are on hand); six uncut 2 mm acrylic sheets, 150 × 250 mm, and double-sided
+foam tape; a JST-SH 1.0 mm 2-pin cable with flying leads for the plate driver; and 1 mg to 500 mg calibration weights.
+The enclosure (draught shield) is decided: a printed frame with four identical 250 mm wall sheets in a pinwheel (inner span
+248 mm, 150 mm tall) and a lid of two more sheets, the walls held in slots shimmed with 0.3 mm foam tape; sheet size and
+thickness are `PANEL_STOCK` and `PANEL_T` in `hardware/balance/params.py`. Acrylic rather than printed clear PETG: the optics
+are all inside the box, so clarity only matters for looking in; the 240+ mm panels exceed the 220 mm print bed; and solid
+panels would take about a kilogram of filament. If A5 shows the air-current term above the model's assumption, a compressible gasket
+is the next step.
+Design to stock sizes: every piece bought is used uncut (acrylic sheets, copper pads, the brass rod's one saw cut, the
+shim sheet's 4 mm strip), with printed jigs for the cuts (`hardware/balance/fixtures.py`).
 
 ## G3 — the end-to-end force-noise prediction, and the go/no-go
 

@@ -24,7 +24,7 @@ def draw(ax, parts, elev, azim, title):
         v = np.array([(p.x, p.y, p.z) for p in verts])
         t = np.array(tris)
         col = COLORS.get(name, "#2a7fff" if moving else "#9fb6c9")
-        poly = Poly3DCollection(v[t], facecolor=col, edgecolor="none", alpha=0.9 if name != "base" else 0.35)
+        poly = Poly3DCollection(v[t], facecolor=col, edgecolor="none", alpha=(0.04 if name.startswith(("panel_", "encl_lid")) else 0.5 if name.startswith("encl_") else 0.35 if name == "base" else 0.9))
         # simple shading by face normal
         n = np.cross(v[t][:, 1] - v[t][:, 0], v[t][:, 2] - v[t][:, 0])
         n = n / (np.linalg.norm(n, axis=1)[:, None] + 1e-12)
