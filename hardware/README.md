@@ -5,7 +5,7 @@ The plan is in [docs/plan.md](../docs/plan.md); the task list is
 
 | Folder | Contents |
 |--------|----------|
-| `balance/` | The torsion balance: `params.py` (single source of numbers), `model.py` (analytic model), `balance.py` (CadQuery CAD, exports `cad/*.stl` and `balance.step`), `render.py` (PNG views), `smoke_test.py` |
+| `balance/` | The torsion balance: `params.py` (single source of numbers), `model.py` (analytic model), `balance.py` (CadQuery CAD, exports `cad/*.stl` and `balance.step`), `boards.py` (the FR4 boards as KiCad files, DRC, Gerbers: `boards/` and `boards/fab/`), `fixtures.py` (printed cutting and setting jigs), `render.py` (PNG views), `smoke_test.py` |
 | `tools/` | `jlc_query.py`: search the JLCPCB parts library snapshot for stock, price, basic/extended and whether a part is machine-placed |
 | `instrument/` | The fab-assembled electronics: requirements, parts, schematic (in progress) |
 

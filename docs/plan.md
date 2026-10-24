@@ -1,6 +1,6 @@
 # Research instrument plan — a fab-assembled force balance
 
-Status: gates G1–G3, requirements (WP1), candidate parts (WP2) and the analog block simulations (WP3) done
+Status: gates G1–G3, requirements (WP1), candidate parts (WP2), the analog block simulations (WP3) and the mechanical redesign to FR4 boards (fabrication.md) done
 2026-10-22 (G1 confirmed 2026-10-23); no schematic, layout or order yet; layout waits on the A5 prototype check. The task list that drives this is
 [TODO-agent.md](TODO-agent.md) Part A; the scope decision is recorded in
 [circuit_lifecycle_and_repo_scope](https://github.com/arcticoder/lab/blob/main/docs/kb/circuit_lifecycle_and_repo_scope.md) in the `lab` repo.
@@ -43,60 +43,55 @@ scaling check F ∝ I), lead orientation (a 90° rotation should null a Lorentz 
 geometry (straight, twisted pair, coaxial return), and dissipated power with the current held
 fixed (heater resistor on the device mount).
 
-## G2 — the mechanical design (first cut, with a model)
+## G2 — the mechanical design (with a model)
 
-Source: `hardware/balance/` (`params.py` is the single source of numbers, `model.py` the analytic
-model, `balance.py` the CadQuery model, `render.py` the picture, `smoke_test.py` the checks). Run
-the CAD with `~/.venvs/lab-hw/bin/python hardware/balance/balance.py`; STL files for each part
-are exported to `hardware/balance/cad/` (printable on the K1: the largest part is 200 × 32 × 28 mm).
+Source: `hardware/balance/` (`params.py` is the single source of numbers, `model.py` the analytic model, `balance.py` the CadQuery model,
+`boards.py` the KiCad files of the FR4 boards, `render.py` the picture, `smoke_test.py` the checks). Run the CAD with
+`~/.venvs/lab-hw/bin/python hardware/balance/balance.py`; STL files for the printed parts go to `hardware/balance/cad/` (the largest, the gantry,
+is 132 × 102 × 50 mm). How each part is made, and why, is in [fabrication.md](fabrication.md); the build steps are in [assembly.md](assembly.md).
 
 | Item | Value |
 |------|-------|
-| Type | Torsion balance: a horizontal arm on a taut stainless strip (4 mm × 50 µm × 30 mm), ±100 mm |
-| Torsion constant | 448 µN·m/rad (thin-strip formula plus the ribbon's tension term) |
-| Moving mass / inertia | 46.7 g / 2.83 × 10⁻⁴ kg·m² (from the CAD; the printed parts' slicer masses replace its density estimate) |
-| Resonance | 0.200 Hz (period 5.0 s) |
-| Stiffness at the arm end | 0.0448 N/m: 1 µN moves the flag 22 µm (the Soni & Roy stand, below, is 54× stiffer) |
+| Type | Torsion balance: an FR4 board (200 × 60 × 1.2 mm) standing on edge, hung from its top edge by a taut stainless strip (4 mm × 50 µm × 30 mm free length); half-length 100 mm |
+| Torsion constant | 450 µN·m/rad (thin-strip formula plus the ribbon's tension term) |
+| Moving mass / inertia | 51.5 g / 2.47 × 10⁻⁴ kg·m² (from the CAD, including the bolts and nuts that move) |
+| Resonance | 0.215 Hz (period 4.7 s) |
+| Stiffness at the arm end | 0.0450 N/m: 1 µN moves the flag 22 µm (the Soni & Roy stand, below, is 54× stiffer) |
 | Measurement frequency | 0.05 Hz (the device under test is switched at this rate; the readout is lock-in demodulated) |
-| Damping | A 20 × 20 mm copper vane on the arm (one uncut 0.3 mm pad, or two stacked) between four N42 discs **fixed** to the base (eddy-current damper, as in Soni & Roy). The discs are radially magnetized, so they stand on edge in printed cradles, two above and two below the vane, 1.4 mm from its mid-plane. The field is modelled with magpylib (checked against the analytic on-axis field of an axial disc to 0.01%) and integrated over the vane: one pad gives a damping ratio of 0.45 (what the budget assumes), two pads 0.90 [first-order estimate, good to about a factor of two]. The earlier analytic estimate overstated damping about 1.6× because it took the on-axis field as uniform over the disc |
-| Displacement readout | Flag on the arm crossing an LED-to-photodiode gap in a C-bracket (LED board above, photodiode board below, both small fab-assembled boards) |
-| Calibration and disturbance injection | Electrostatic plates (20 × 8 mm, 1 mm gap, at 80 mm), faced with copper foil tape. The moving plate is grounded through the strip, so it needs no lead wire and carries no magnetic moment: its foil tail runs along the arm and hub into the lower strip clamp, and a second foil tail leaves the top clamp under a screw washer together with the plate driver's ground wire. No joint depends on the tape's adhesive being conductive (every joint is clamped). The fixed plate has a foil tail and wire under a washer on a terminal screw in its foot. 5.7 µN at 40 V; around a 40 V bias, 283 nN per volt, so 1 mV is 0.28 nN |
-| Device mount | Vertical plate at +x for a terminal block and the device's leads; a dummy brass block stands in for the device's mass |
-| Balance trim | A brass ballast in the −x pocket, its hole offset in y, is solved so the centre of mass is on the axis (CAD: 0.00 mm). The arm hangs 15 mm below the strip's lower end, so each millimetre of centre-of-mass offset tilts it by 66 mrad, and the vane and flag clearances allow about 16 mrad: a ±15% error in a printed part's mass (a real print against the infill estimate) moves the centre of mass about ±1 mm and would tilt the arm past them. So the slicer's masses go into `params.py` before the final ballast is cut, and two 16 × 8 mm recesses on the arm's top face take copper-pad pieces or foil squares for the bench trim (1.06 mm of authority from two stacked pad pieces at one end) |
+| Zero adjustment | A torsion head: the strip's upper clamp hangs from a printed disc turning in the gantry, set over ±5° by two push-push M3 screws on a 26 mm lever (1.1° a turn). It zeroes the arm before the fixed electrode is set |
+| Damping | A 20 × 20 mm copper vane on a printed holder on the arm's +y face (one uncut 0.3 mm pad, or two stacked) between four N42 discs **fixed** to the base (eddy-current damper, as in Soni & Roy). The discs are radially magnetized, so they stand on edge in printed cradles, two above and two below, 1.4 mm from the vane's mid-plane (an axial layout, discs lying flat with a 0.6 mm lip, is in the CAD behind `MAGNET_MAGNETIZATION`). The field is modelled with magpylib (checked against the analytic on-axis field of an axial disc to 0.01%) and integrated over the vane: one pad gives a damping ratio of 0.40, two pads 0.81 [first-order estimate, good to about a factor of two] |
+| Displacement readout | The arm board's end finger (copper both faces under black mask, so opaque to IR) crosses an LED-to-photodiode gap in a printed C-bracket (LED board above, photodiode board below, both small fab-assembled boards); 3 mm clear above and below |
+| Calibration and disturbance injection | Electrostatic plates: a 20 × 8 mm ENIG pad on the arm board's +y face at 80 mm, 1.0 mm from a fixed 20 × 8 mm ENIG pad inside a grounded ENIG guard on a small board. The moving pad is wired by a copper trace to a contact pad under the lower clamp plate; the strip carries it to the upper clamp's ground pad and a wire threaded through a plated hole. It needs no lead wire on the arm and has no magnetic moment. 5.7 µN at 40 V; around a 40 V bias, 283 nN per volt, so 1 mV is 0.28 nN |
+| Device mount | A 16 × 24 mm FR4 device card on two stacked 304 nuts per bolt (a 4.8 mm air gap) on the arm board's −y face at the +x end; its power is capped at 0.5 W (224 mA through 10 Ω) so the card stays 3 K under FR4's glass transition less 40 K |
+| Balance trim | A brass ballast rod (10 mm, along y) through a hole in the arm board at −90 mm: its length (about 15 mm) balances x, and sliding it along y levels the arm. Spare copper pads taped to the board move the centre of mass about 1.9 mm per pad at the arm's end. The arm hangs 32 mm below the strip's lower end, so each millimetre of centre-of-mass offset tilts it by 31 mrad; the vane and flag clearances allow about 20 mrad, so the offset must be trimmed to under about 0.6 mm, and the budget assumes 0.2 mm |
 
 **Design decisions this work forced** (each from a check that failed or a number that surprised):
 
-- *No permanent magnet on the moving arm.* One N42 6 × 3 mm disc has a moment of 0.089 A·m²;
-  against 10 nT/√Hz of ambient field noise (assumed) that alone is about 7 nN/√Hz of force noise,
-  more than every term except air currents. The earlier idea of calibrating with a coil acting on
-  an N42 disc on the arm is dropped; the discs only damp, and they are fixed to the base.
-- *Electrostatic calibration transferred from masses.* The V² law is checked against known weights
-  at micronewtons (1 mg is 9.8 µN) and then used down to nanonewtons.
-- *A moving-assembly collision check across the arm's swing* found the counterweight pocket
-  touching the sensor bracket, the vane tip touching the damper holder, and the arm's edge touching
-  the fixed electrode; each was fixed in the CAD (swing limit ±1.5°, ±0.4° at the 1 mm plate gap).
-- *The first layout's centre of mass was 10.8 mm off the axis*, which would have coupled floor tilt
-  into torque far above the model's assumed 0.2 mm; the ballast and counter-mass are now solved.
-- *The damper magnets are radially magnetized* (poles on the curved sides, per the listing), which the first damper design
-  ignored: flat-face mounting would have put the field in the vane's plane. Standing the discs on edge restores the field
-  through the vane; a field model replaced the analytic estimate, and a stack of 0.3 mm pads tunes the damping (so the 1.0 mm
-  pad is not needed).
-- *Centre-of-mass offset tilts the arm* far more than first assumed (see "Balance trim"); this made bench trim and slicer masses part
-  of the design rather than a refinement.
+- *No permanent magnet on the moving arm.* One N42 6 × 3 mm disc has a moment of 0.089 A·m²; against 10 nT/√Hz of ambient field noise (assumed) that alone is about
+  7 nN/√Hz of force noise, more than every term except air currents. The earlier idea of calibrating with a coil acting on an N42 disc on the arm is dropped; the discs only
+  damp, and they are fixed to the base. Masses on the arm are brass, 304 stainless or plastic.
+- *Electrostatic calibration transferred from masses.* The V² law is checked against known weights at micronewtons (1 mg is 9.8 µN) and then used down to nanonewtons.
+- *A moving-assembly collision check across the arm's swing* found the counterweight pocket touching the sensor bracket, the vane tip touching the damper holder, the arm's
+  edge touching the fixed electrode, and (in the FR4 redesign) a screw's nut at the same height as the vane; each was fixed in the CAD (swing limit ±1.5°, ±0.4° at the 1 mm
+  plate gap, ±5° for the torsion head).
+- *The first layout's centre of mass was 10.8 mm off the axis*, which would have coupled floor tilt into torque far above the model's assumed 0.2 mm; the ballast is solved.
+- *The damper magnets are radially magnetized* (poles on the curved sides, per the listing), which the first damper design ignored: flat-face mounting would have put the field in
+  the vane's plane. Standing the discs on edge restores the field through the vane; a field model replaced the analytic estimate (which overstated damping about 1.6×), and
+  a stack of 0.3 mm pads tunes the damping (so the 1.0 mm pad is not needed).
+- *Centre-of-mass offset tilts the arm* far more than first assumed: the printed 20 mm arm hung 15 mm, 66 mrad per mm against about 20 mrad of clearance, and a ±15% error in a
+  printed part's mass moved the centre of mass about ±1 mm. The 60 mm board on edge halves the tilt per millimetre, makes the arm's mass independent of print variation (a
+  fab board of known density, symmetric), and a bench trim with spare copper pads and the ballast's position closes the rest.
+- *No zero adjustment, PLA near a dissipating device, and PLA in the strip's clamping loop* were found in the fabrication review and fixed: the torsion head, an FR4 device
+  card with a power cap, and a clamping loop of FR4 and steel only (a smoke check fails if a printed plastic part enters it). See [fabrication.md](fabrication.md).
 
-Parts the mechanics need that are not on hand (an AliExpress cart item list, in
-`TODO-arcticoder.md`): stainless-steel shim stock, 50 µm (in the cart); copper sheet, 0.3 mm; conductive copper foil tape;
-a brass rod, 10 mm diameter, for the ballast (steel would feel the damper magnets); M3 washers and 304
-stainless nuts (screws and carbon-steel nuts are on hand); six uncut 2 mm acrylic sheets, 150 × 250 mm, and double-sided
-foam tape; a JST-SH 1.0 mm 2-pin cable with flying leads for the plate driver; and 1 mg to 500 mg calibration weights.
-The enclosure (draught shield) is decided: a printed frame with four identical 250 mm wall sheets in a pinwheel (inner span
-248 mm, 150 mm tall) and a lid of two more sheets, the walls held in slots shimmed with 0.3 mm foam tape; sheet size and
-thickness are `PANEL_STOCK` and `PANEL_T` in `hardware/balance/params.py`. Acrylic rather than printed clear PETG: the optics
-are all inside the box, so clarity only matters for looking in; the 240+ mm panels exceed the 220 mm print bed; and solid
-panels would take about a kilogram of filament. If A5 shows the air-current term above the model's assumption, a compressible gasket
-is the next step.
-Design to stock sizes: every piece bought is used uncut (acrylic sheets, copper pads, the brass rod's one saw cut, the
-shim sheet's 4 mm strip), with printed jigs for the cuts (`hardware/balance/fixtures.py`).
+Parts the mechanics need beyond the stock on hand: the FR4 boards (a JLC order, four designs); stainless-steel shim stock, 50 µm (ordered), copper pads 0.3 mm (ordered), a brass rod (ordered), foam tape (ordered) and copper foil tape (ordered, now a trim and spare-strap material); six uncut 2 mm acrylic sheets, 150 × 250 mm (one spare);
+M3 flat washers and 304 stainless nuts (screws and carbon-steel nuts are on hand); a JST-SH 1.0 mm 2-pin cable with flying leads for the plate driver; and 1 mg to 500 mg
+calibration weights. The enclosure (draught shield) is decided: a printed frame with four identical 250 mm wall sheets in a pinwheel (inner span 248 mm, 150 mm tall) and a lid
+of two more sheets, the walls held in slots shimmed with 0.3 mm foam tape; sheet size and thickness are `PANEL_STOCK` and `PANEL_T` in `hardware/balance/params.py`. Acrylic
+rather than printed clear PETG: the optics are all inside the box, so clarity only matters for looking in; the 240+ mm panels exceed the 220 mm print bed; and solid panels would
+take about a kilogram of filament, and the home printer is PLA only. If A5 shows the air-current term above the model's assumption, a compressible gasket is the next step.
+Design to stock sizes: every piece bought is used uncut (acrylic sheets, copper pads, the brass rod's one saw cut, the shim sheet's 4 mm strip), with printed jigs for the cuts
+(`hardware/balance/fixtures.py`).
 
 ## G3 — the end-to-end force-noise prediction, and the go/no-go
 
@@ -116,12 +111,13 @@ Predicted force-noise density at the 0.05 Hz measurement frequency:
 | Term | nN/√Hz | Basis |
 |------|--------|-------|
 | Air currents | 4.80 | assumed 1 mm/s mean flow and fluctuation inside a draught shield, 20 cm² flag |
-| Temperature (arm expansion) | 0.63 | assumed 1 mK/√Hz, printed arm at 70 ppm/K |
-| Floor acceleration through the centre-of-mass offset | 0.22 | assumed 10⁻⁶ m/s²/√Hz, 0.2 mm offset |
-| Floor tilt through the same offset | 0.22 | assumed 10⁻⁷ rad/√Hz |
-| Thermal (Brownian, eddy damper) | 0.025 | computed |
+| Temperature (printed frame to the sensor) | 0.63 | assumed 1 mK/√Hz, 100 mm of PLA at 70 ppm/K between the strip's top clamp and the sensor bracket |
+| Temperature (arm expansion) | 0.13 | assumed 1 mK/√Hz, FR4 arm at 14 ppm/K |
+| Floor acceleration through the centre-of-mass offset | 0.21 | assumed 10⁻⁶ m/s²/√Hz, 0.2 mm offset |
+| Floor tilt through the same offset | 0.20 | assumed 10⁻⁷ rad/√Hz |
+| Thermal (Brownian, eddy damper) | 0.021 | computed |
 | Magnetic (stray moment × field noise) | 0.020 | assumed 10⁻⁴ A·m², 10 nT/√Hz |
-| Optical readout | 0.005 | computed (123 pm/√Hz: shot 90, ADC 76, LED 33, TIA 18) |
+| Optical readout | 0.006 | computed (146 pm/√Hz: shot 79, ADC 112, LED 47, TIA 18) |
 | **Total** | **4.85** | |
 
 One 1000 s lock-in measurement resolves **0.11 nN (1σ)**. The claim needs ≤ 0.40 nN (a 20 nN term at 5σ,

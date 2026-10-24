@@ -15,7 +15,7 @@ measurement, at a parts cost to be filled in from the final bill of materials.
 | Piece | State |
 |---|---|
 | G1 measurement goal | confirmed 2026-10-23 |
-| G2 mechanics | printable CadQuery model, collision-free over the swing, centre of mass solved onto the axis; stock-size acrylic enclosure; field-modelled eddy damper; cutting jigs; [assembly steps](docs/assembly.md) |
+| G2 mechanics | an FR4 arm board on edge hung from a torsion head, collision-free over the swing, centre of mass solved onto the axis; JLC mechanical boards (Gerbers and DRC done); stock-size acrylic enclosure; field-modelled eddy damper; cutting jigs; [fabrication decisions](docs/fabrication.md), [assembly steps](docs/assembly.md) |
 | G3 force-noise prediction | 0.108 nN (1σ, 1000 s, in air): a conditional go |
 | WP1–WP3: requirements, 48 JLC-stocked parts, analog block simulations | done |
 | WP4 schematic onward | not started |
@@ -30,7 +30,8 @@ Soni and Roy (Rev. Sci. Instrum. 84, 095103, 2013) and the cryogenic torsion bal
 | Path | What |
 |---|---|
 | `docs/plan.md` | the plan: goal, mechanics, noise budget, environment control, calibration |
-| `hardware/balance/` | parametric CAD (`balance.py`, STL and STEP in `cad/`), analytic model, parameters, checks |
+| `docs/fabrication.md`, `docs/assembly.md` | how each part is made (fab boards, PLA, bought) and how to build it |
+| `hardware/balance/` | parametric CAD (`balance.py`, STL and STEP in `cad/`), the FR4 boards for JLC (`boards.py`, `boards/fab/`), jigs, analytic model, parameters, checks |
 | `hardware/instrument/` | the electronics: requirements, pin map, parts table, ngspice simulations, checks |
 | `hardware/tools/jlc_query.py` | search of the JLCPCB parts snapshot |
 | `tools/force_noise_budget.py` | the force-noise prediction and the anchor checks |
@@ -59,3 +60,10 @@ python3 tools/force_noise_budget.py                       # the noise prediction
 The bench circuits this experiment uses for its prototype check (lock-in amplifier, optical shadow readout,
 R-2R signal generator) live in [arcticoder/lab](https://github.com/arcticoder/lab), which also holds the shared
 parts inventory and order ledger.
+
+## License
+
+- **Code** (MIT, [LICENSE](LICENSE)): the Python sources, including the CadQuery scripts and the noise model.
+- **Hardware designs and their documentation** (CERN-OHL-P v2, [LICENSE-HARDWARE](LICENSE-HARDWARE)): the CAD outputs (STL, STEP), KiCad
+  files when they exist, SPICE netlists, parts tables and BOMs, and the assembly and design documents. A CadQuery `.py` file is code (MIT)
+  whose output is hardware (CERN-OHL-P).

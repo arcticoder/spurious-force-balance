@@ -67,7 +67,7 @@ def disc_field_on_axis(z, br=None, radius=None, height=None):
     return br / 2 * ((z + h) / math.sqrt(r**2 + (z + h) ** 2) - z / math.sqrt(r**2 + z**2))
 
 
-def eddy_damping_estimate(face_gap=None, vane_t=None, vane_radius=0.060, sigma=5.8e7):
+def eddy_damping_estimate(face_gap=None, vane_t=None, vane_radius=None, sigma=5.8e7):
     """Upper-bound estimate for AXIAL discs, treating the on-axis field as uniform over the disc (it overstates by about 1.6x
     against eddy_damping_field(); kept as a cross-check). First-order eddy-current damping of a copper vane between two opposed N42 discs [assume:
     c = sigma B^2 t A with A the disc footprint; right to about a factor of two at best].
@@ -79,10 +79,15 @@ def eddy_damping_estimate(face_gap=None, vane_t=None, vane_radius=0.060, sigma=5
     area = math.pi * (P.N42_DIAMETER / 2) ** 2
     c_vane = sigma * b**2 * vane_t * area
     l = P.ARM_HALF_LENGTH
-    c_flag = c_vane * (vane_radius / l) ** 2
+    c_flag = c_vane * ((P.VANE_X if vane_radius is None else vane_radius) / l) ** 2
     kappa = strip_stiffness()
     zeta = c_flag / (2 * math.sqrt(k_eff(kappa, l) * inertia() / l**2))
     return c_vane, zeta, b
+
+
+def device_card_rise(power=None):
+    """Steady temperature rise (K) of a device card dissipating `power` W in still air."""
+    return (P.DEVICE_POWER_MAX if power is None else power) / (P.HEAT_H * P.DEVICE_CARD_AREA)
 
 
 def tilt_from_com(offset, hang):
@@ -114,15 +119,15 @@ def _damper_discs(gap, magnetization):
     return mp.Collection(*discs)
 
 
-def eddy_damping_field(vane_t=None, gap=None, magnetization=None, vane_radius=0.060, sigma=5.8e7, half=14e-3, n=141):
+def eddy_damping_field(vane_t=None, gap=None, magnetization=None, vane_radius=None, sigma=5.8e7, half=14e-3, n=141):
     """Eddy-current damping from the modelled field of the real disc arrangement [assume: low magnetic Reynolds number, so
     c = sigma t * integral(Bz^2 dA) over the vane plane; right to about a factor of two at best]. Needs magpylib (checked against
     disc_field_on_axis() for an axial disc in the smoke test). Returns (c at the vane, N*s/m; damping ratio at the flag radius; peak Bz, T)."""
     import numpy as np
 
     vane_t = P.VANE_THICKNESS if vane_t is None else vane_t
-    gap = P.MAGNET_GAP if gap is None else gap
     magnetization = P.MAGNET_MAGNETIZATION if magnetization is None else magnetization
+    gap = (P.MAGNET_GAP + (P.MAGNET_LIP if magnetization == "axial" else 0.0)) if gap is None else gap
     coll = _damper_discs(gap, magnetization)
     xs = np.linspace(-half, half, n)
     X, Y = np.meshgrid(xs, xs)
@@ -131,7 +136,7 @@ def eddy_damping_field(vane_t=None, gap=None, magnetization=None, vane_radius=0.
     integral = float((bz**2).sum() * (xs[1] - xs[0]) ** 2)
     c_vane = sigma * vane_t * integral
     l = P.ARM_HALF_LENGTH
-    c_flag = c_vane * (vane_radius / l) ** 2
+    c_flag = c_vane * ((P.VANE_X if vane_radius is None else vane_radius) / l) ** 2
     zeta = c_flag / (2 * math.sqrt(k_eff(strip_stiffness(), l) * inertia() / l**2))
     return c_vane, zeta, float(np.abs(bz).max())
 
@@ -174,6 +179,7 @@ def force_terms(f=None):
         "floor acceleration through centre-of-mass offset": m_total * P.SEISMIC_ACC * s * P.COM_OFFSET / l,
         "air currents": 1.2 * 1.0 * P.AIR_AREA * P.AIR_SPEED_RMS * P.AIR_SPEED_FLUCT * s,
         "temperature (arm expansion)": k * P.ARM_EXPANSION * l * P.TEMP_NOISE * s,
+        "temperature (printed frame to the sensor)": k * P.PLA_EXPANSION * P.FRAME_PATH * P.TEMP_NOISE * s,
         "magnetic (stray moment x field noise)": P.STRAY_MOMENT * P.B_NOISE * s / l,
     }
     return terms

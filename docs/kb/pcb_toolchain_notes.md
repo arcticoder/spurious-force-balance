@@ -1,7 +1,7 @@
-# KB: PCB toolchain in this repo (2026-10-22)
+# KB: PCB and CAD toolchain in this repo (2026-10-22, updated 2026-10-24)
 
 Audience: future LLM sessions. Facts found while setting up the fab-assembled instrument work
-(`docs/research_instrument_plan.md`). User-facing setup is in `hardware/README.md`.
+(`docs/plan.md`). User-facing setup is in `hardware/README.md`.
 
 ## What exists and what doesn't
 
@@ -39,3 +39,22 @@ Audience: future LLM sessions. Facts found while setting up the fab-assembled in
   on (inputs then reach AVSS - 1.5 V), 2.442 V internal reference, 130 kΩ differential input impedance, needs a
   16.384 MHz clock or crystal; input-referred noise 5.01 µVrms at 8 kSPS gain 1 (about 79 nV/√Hz, white), 3.49 µVrms at 4 kSPS.
 - LM358 (TI datasheet): the standard grade has 0.7 MHz gain-bandwidth and 0.3 V/µs slew rate; the B grade 1.2 MHz and 0.5 V/µs.
+
+## Added 2026-10-24 (mechanical boards and the field model)
+
+- **Venv packages** (`~/.venvs/lab-hw`): skidl, kiutils, easyeda2kicad, cadquery 2.8, numpy, scipy, matplotlib, **magpylib 6.0.0** (permanent-magnet fields; `getB` on a
+  `Collection` of `magnet.Cylinder`s; diametric magnetization is a polarization along local x, then rotated; checked against the analytic axial on-axis field to 0.01%).
+- **`hardware/balance/boards.py`** writes the FR4 boards as `.kicad_pcb` with kiutils from the CAD's constants, runs `kicad-cli pcb drc --format json --severity-all`,
+  `pcb export gerbers --layers F.Cu,B.Cu,F.Mask,B.Mask,F.SilkS,B.SilkS,Edge.Cuts`, `pcb export drill --format excellon --excellon-separate-th`, zips with `zip -j`, and renders with
+  `pcb render --side top`. Coordinates: KiCad X is the balance's x, KiCad Y is minus the balance's z; F.Cu is the arm's -y face, B.Cu its +y face.
+- **kiutils pitfalls:** `Board.create_new()` writes the KiCad 6 file format (kicad-cli 9 reads it). Every track, via, graphic and footprint needs a non-empty `tstamp` (an empty one
+  writes `(tstamp)` and the file then fails to load back with an IndexError). Text on a back layer needs `Justify(mirror=True)` or DRC warns. Net-less tracks next to net-less pads make the
+  DRC report `solder_mask_bridge`; give copper that is meant to be one conductor a shared net (`board.nets` plus `Net` on pads and `net=` on segments). Copper rectangles drawn as
+  `GrRect` with `fill="solid"` export as copper regions; a matching rectangle on `F.Mask`/`B.Mask` opens the mask (bare ENIG). Footprints built without a library give
+  `lib_footprint_issues` warnings; they're harmless.
+- **JLC capabilities read 2026-10-24** (`jlcpcb.com/capabilities/Capabilities`): thickness 0.4 / 0.6 / 0.8 / 1.0 / 1.2 / 1.6 / 2.0 mm for 2 layers, finish HASL / ENIG / OSP, mask colours
+  include black, minimum non-plated hole 0.5 mm, minimum plated hole 0.15 mm, copper to routed edge 0.2 mm (0.4 mm to a V-cut), annular ring 0.25 mm recommended, outline +-0.1 mm
+  with routed edges +-0.2 mm, thickness +-10% at 1.0 mm and over. No price tiers are published on that page. ENIG is charged extra when exposed copper exceeds 30% of the board area
+  (`jlcpcb.com/help/article/In-what-cases-will-there-be-charged-extra`).
+- Web tools worked in this session: `WebSearch` and `WebFetch` returned the JLC help pages above, OSH Park's docs and several community posts. JLC's interactive quote page can't be read, so
+  prices are estimates until the user checks them.
