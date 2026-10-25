@@ -18,7 +18,7 @@ measurement, at a parts cost to be filled in from the final bill of materials.
 | G2 mechanics | an FR4 arm board on edge hung from a torsion head, collision-free over the swing, centre of mass solved onto the axis; JLC mechanical boards (Gerbers and DRC done); stock-size acrylic enclosure; field-modelled eddy damper; cutting jigs; [fabrication decisions](docs/fabrication.md), [assembly steps](docs/assembly.md) |
 | G3 force-noise prediction | 0.108 nN (1σ, 1000 s, in air): a conditional go |
 | WP1–WP3: requirements, 48 JLC-stocked parts, analog block simulations | done |
-| WP4 schematic onward | not started |
+| WP4 schematic | done as checked netlists (main board + four head boards, 50 JLC parts); sheet rendering and WP5 layout wait |
 | A5: prototype noise measurement | next; it decides layout and the board order |
 
 The prediction is dominated by air currents (4.8 nN/√Hz), so the verdict flips at about 4 mm/s of air-speed

@@ -3,13 +3,13 @@
 ## State at the end of the last chat
 
 Done:
-- The split from `lab` into this repo (2026-10-23), licenses (MIT + CERN-OHL-P v2) in both repos, G1-G3, WP1-WP3 (requirements, 48 JLC parts, analog simulations).
+- The split from `lab` into this repo (2026-10-23), licenses (MIT + CERN-OHL-P v2) in both repos, G1-G3, WP1-WP3 (requirements, 50 JLC parts, analog simulations), Part H (live JLC lookups with the `jlc` CLI; `parts.py --live`; the electronics order is Standard PCBA), WP4 (the schematic as checked netlists: main board and four heads, `hardware/instrument/schematic/`).
 - The mechanical redesign (Part F): an FR4 arm board on edge, FR4 clamp plates and fixed electrode as JLC boards, a torsion head, a 32 mm centre-of-mass hang, an FR4 device card with a 0.5 W cap, a
   field-modelled eddy damper (diametric and axial layouts), stock-size acrylic enclosure, cutting jigs. Gerbers and a DRC-clean KiCad file exist for four board designs in `hardware/balance/boards/fab/`
   (settings in `ORDER.md`). All smoke tests pass (`~/.venvs/lab-hw/bin/python tools/run_all_smoke_tests.py`); the force-noise verdict is unchanged: 0.108 nN, conditional GO (`python3 tools/force_noise_budget.py`).
 - Knowledge bases of both repos brought up to date; the user's chat transcript on JLC shipping was ingested into `fab_ordering_notes.md` and deleted.
 
-In progress / not started: WP4 (the schematic, `kicad-cli sch erc`), WP5-WP11, A5 (the prototype noise measurement). Nothing is committed in `lab` beyond what the user has committed; this repo's changes are committed and pushed.
+In progress / not started: WP4b-WP4d (a meaningful ERC and sheets, stand-in symbol checks, boost ripple; see TODO-agent.md), WP5-WP11, A5 (the prototype noise measurement). The WP4 work is left uncommitted for the user to commit (standing instruction: the user commits).
 
 ## Waiting on the user
 
@@ -22,8 +22,7 @@ In progress / not started: WP4 (the schematic, `kicad-cli sch erc`), WP5-WP11, A
 ## Next three agent tasks, in order
 
 1. If the twist test says "free": switch to the axial layout, regenerate everything, rerun all checks. Otherwise: nothing here.
-2. WP4: the schematic (Part H is done: `parts.py --live` is the pre-order check; the electronics order is Standard PCBA) with SKiDL + ERC (`kicad-cli sch erc`): the Raspberry Pi RP2040 hardware design reference (crystal, flash, USB), the ADS131A04's pin table and input network (AVSS/VNCP, reference), symbols and
-   footprints from `easyeda2kicad` by LCSC number, a connectivity test that every IC pin is accounted for. Open points are in `instrument_electronics_notes.md`.
+2. WP4b-WP4d in `docs/TODO-agent.md`: pin types and `kicad-cli sch erc`, hierarchical sheets, verify the stand-in symbols (polarity, the ADC crystal footprint), boost ripple and the DAC's 3.3 V ceiling.
 3. Ingest the A5 results when the user has them: the measured noise spectrum, the optical photocurrent (Rf), the trim procedure's real numbers; update `params.py` and rerun the budget; then WP5-WP7 if the verdict stays GO.
 
 ## Read first

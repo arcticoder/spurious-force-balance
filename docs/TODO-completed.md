@@ -2,6 +2,8 @@
 
 Dated entries, newest first.
 
+- 2026-10-24 — WP4, the schematic (as checked netlists): SKiDL descriptions of the main board and four head boards in `hardware/instrument/schematic/`, symbols and footprints for all 50 BOM parts in `hardware/instrument/lib/`; `schematic_test.py` (in the smoke tests) checks pin accounting, data-sheet nets, symbol pins against footprint pads, BOM equality with `parts.py` and design numbers. Reading the RP2040 hardware design guide and the ADS131A04 data sheet against the BOM changed it: the exact Raspberry Pi crystal (ABM8-272-T3), 2 A ferrite beads on the 5 V rail (the 600 ohm bead is rated 200 mA), 50 V capacitors on the 24 V boost; the extended-part budget went from 25 to 27. Open: WP4b-WP4d in TODO-agent.md.
+
 - 2026-10-24 — Part H (H1–H4), live JLC lookups: `@jlcpcb/cli` 0.5.0 installed globally under nvm (chosen over the MCP server); `hardware/tools/jlc_query.py live()` and `parts.py --live` check the
   48-part BOM against JLC's live stock, library type and PCBA type (about 80 s, sequential because JLC answers 429 to bursts); it flagged two Standard-PCBA-only parts (H5 open); `jlc install` compared with
   `easyeda2kicad` on the ADS131A04: same pins and pads, so WP4 keeps `easyeda2kicad`. Notes in `kb/pcb_toolchain_notes.md`.
