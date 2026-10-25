@@ -112,6 +112,23 @@ _sch = subprocess.run([sys.executable, "-I", os.path.join(HERE, "schematic", "sc
 _tail = [ln for ln in _sch.stdout.splitlines() if ln.startswith(("FAIL", "schematic checks passed"))]
 check("functional — the schematic's pin accounting, data-sheet nets, footprints, BOM and design numbers all pass", _sch.returncode == 0, "; ".join(_tail[:3]))
 
+# the firmware layer on the host: the ADS131A04 driver against a simulated device (firmware/test_ads131a04.py)
+_fw = subprocess.run([sys.executable, "-I", os.path.join(HERE, "firmware", "test_ads131a04.py")], capture_output=True, text=True, cwd=os.path.join(HERE, "firmware"))
+_fw_fail = [ln for ln in _fw.stdout.splitlines() if ln.startswith("[FAIL]")]
+check("functional — the ADS131A04 driver passes its host tests against the simulated device (CRC vector, 8 kSPS setting, bring-up, decode, CRC and frame faults)", _fw.returncode == 0, "; ".join(_fw_fail[:2]) or "all pass")
+
+_dac = subprocess.run([sys.executable, "-I", os.path.join(HERE, "firmware", "test_mcp4728.py")], capture_output=True, text=True, cwd=os.path.join(HERE, "firmware"))
+_dac_fail = [ln for ln in _dac.stdout.splitlines() if ln.startswith("[FAIL]")]
+check("safety — the MCP4728 driver enforces the LED (20 mA), plate (18.8 V) and device-current (300 mA) limits, never programs the EEPROM, and powers up at 0 V", _dac.returncode == 0, "; ".join(_dac_fail[:2]) or "all pass")
+
+_fwdir = os.path.join(HERE, "firmware")
+_runs = [subprocess.run([sys.executable, "-I", os.path.join(_fwdir, n)], capture_output=True, text=True, cwd=_fwdir) for n in ("test_sensors.py", "test_lockin.py", "bringup_adc.py", "bringup_sensors.py")]
+check("functional — the sensor drivers and the fixed-point lock-in pass their host tests (TMP117 Table 7-1 codes, MMC5983MA SET/RESET, LIS2DW12 scaling; lock-in DC, mains, phase, linearity, 32-bit headroom) and both bring-up scripts run clean against simulated chips", all(r.returncode == 0 for r in _runs), "; ".join(ln for r in _runs for ln in r.stdout.splitlines() if ln.startswith("[FAIL]"))[:200] or "all pass")
+
+_host = subprocess.run([sys.executable, "-I", os.path.join(HERE, "host", "test_host.py")], capture_output=True, text=True, cwd=os.path.join(HERE, "host"))
+_host_fail = [ln for ln in _host.stdout.splitlines() if ln.startswith("[FAIL]")]
+check("functional — the streaming protocol resynchronizes after garbage, damage and false sync patterns, the logger writes correct CSV, and the noise analysis recovers known ASD, tone amplitude and Allan slopes", _host.returncode == 0, "; ".join(_host_fail[:2]) or "all pass")
+
 if failures:
     print(f"\n{len(failures)} check(s) failed: {failures}")
     sys.exit(1)

@@ -9,7 +9,7 @@ Done:
   (settings in `ORDER.md`). All smoke tests pass (`~/.venvs/lab-hw/bin/python tools/run_all_smoke_tests.py`); the force-noise verdict is unchanged: 0.108 nN, conditional GO (`python3 tools/force_noise_budget.py`).
 - Knowledge bases of both repos brought up to date; the user's chat transcript on JLC shipping was ingested into `fab_ordering_notes.md` and deleted.
 
-In progress / not started: WP8 (see TODO-agent.md); WP4e sheets are in the backlog, WP5-WP11, A5 (the prototype noise measurement). The WP4 work is left uncommitted for the user to commit (standing instruction: the user commits).
+In progress / not started: WP9 and WP11 (see TODO-agent.md); WP4e sheets, WP10 and the experiment analysis are in the backlog; the firmware drivers (ADS131A04, MCP4728, sensors, lock-in, USB protocol, logger and analysis) are done and host-tested, the rest of WP8 waits for the board, WP5-WP11, A5 (the prototype noise measurement). The WP4 work is left uncommitted for the user to commit (standing instruction: the user commits).
 
 ## Waiting on the user
 
@@ -22,7 +22,7 @@ In progress / not started: WP8 (see TODO-agent.md); WP4e sheets are in the backl
 ## Next three agent tasks, in order
 
 1. If the twist test says "free": switch to the axial layout, regenerate everything, rerun all checks. Otherwise: nothing here.
-2. WP8 in `docs/TODO-agent.md` (firmware bring-up scripts and the host-side logger; the ADS131A04 is wired for 32-bit words, asynchronous interrupt mode, charge pump to be enabled in firmware).
+2. WP9 (`docs/bringup.md`, `docs/procedures.md`) and WP11 (paper skeleton) in `docs/TODO-agent.md`; the firmware's remaining items (device-side `main.py`, PIO/DMA, running the bring-up scripts) are in `TODO-BLOCKED.md` because they need the board.
 3. Ingest the A5 results when the user has them: the measured noise spectrum, the optical photocurrent (Rf), the trim procedure's real numbers; update `params.py` and rerun the budget; then WP5-WP7 if the verdict stays GO.
 
 ## Read first
