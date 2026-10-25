@@ -4,7 +4,45 @@ Work that needs no hands, eyes or purchasing decision from the user: writing fil
 documents for this experiment. The user's own list is [TODO-arcticoder.md](TODO-arcticoder.md); finished
 items move to [TODO-completed.md](TODO-completed.md) (dated entries). The list conventions are in the `lab`
 repo's [todo_list_conventions](https://github.com/arcticoder/lab/blob/main/docs/kb/todo_list_conventions.md).
-This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Parts F and G (2026-10-24) are done; Part D is done; then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
+This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Parts F and G (2026-10-24) are done; Part D is done. Next: Part H (live JLC part checks), then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
+
+---
+
+## Part H — live JLC/LCSC part lookups from the terminal (planned 2026-10-24; startable now, do before WP4)
+
+**Why.** WP2's 48 parts were checked against the jlcparts snapshot of 2026-10-22 (`~/jlcparts/cache.sqlite3`), which goes stale and has no
+Economic-versus-Standard PCBA flag. WP4 fixes part numbers and WP7 orders them, so a session needs live stock, basic/extended, PCBA type and
+price tiers for any LCSC number. JLCONE (the desktop app) has no CLI, API or MCP server; community tools fill the gap.
+
+**Decision: the CLI `@jlcpcb/cli`, not the MCP server.** Both are the same unofficial project (github.com/l3wi/jlc-cli, v0.5.0, 2026-09-28;
+not affiliated with JLCPCB) and query the same backend, so nothing is lost. The CLI wins because:
+- a session already has Bash; an MCP server only loads at session start, needs a config change and a restart, and adds its tool schemas to
+  every session in every workspace repo;
+- `jlc info C<n> --json` can be scripted into a repo check that anyone can rerun (the end user too), which an MCP tool call cannot;
+- the MCP can still be added later with one line (`claude mcp add jlc -- npx -y @jlcpcb/mcp@0.5.0`) if interactive browsing turns out useful.
+
+Traps found while checking: the package name `jlc-mcp` in the MCP's own README returns 404 on npm (the real package is `@jlcpcb/mcp`, whose
+binary is named `jlc-mcp`); a third package, `jlcpcb-mcp` (Eyalm321), is unrelated and not chosen. Pin the version; do not use `@latest`.
+
+- [ ] **H1 — install and probe.** `npm install -g @jlcpcb/cli@0.5.0` (node 22.15 under nvm in `~/.nvm`, so no sudo). Check `jlc --version`,
+  then `jlc info C2040 --json` (RP2040) and `jlc info C882747 --json` (ADS131A04). Record the JSON field names actually returned (stock,
+  library type, `pcba_type`, price tiers, package, datasheet URL). Check whether `jlc search "<q>" --in-stock --basic-only` prints plain rows
+  when stdout is not a TTY or opens the Ink TUI and hangs; if it hangs, use `info` only and note it. If the install or a lookup fails
+  (JLC changed its web endpoints), record the error and fall back to the snapshot; do not try other packages without a note here first.
+- [ ] **H2 — a live BOM check.** Add `--live` to `hardware/instrument/parts.py` (through a small function in `hardware/tools/jlc_query.py`
+  that runs `jlc info C<n> --json` via `subprocess`, with a timeout and a clear error if `jlc` is missing). For each BOM row print snapshot
+  versus live stock, basic/extended, PCBA type and the unit price at the order quantity; flag (a) any part out of stock or with stock under
+  ten times the quantity for one order, (b) any "Standard only" part, since one forces the whole board onto Standard PCBA (cost goes into
+  `kb/fab_ordering_notes.md`), (c) any part that moved basic to extended. Do not add it to `run_all_smoke_tests.py` (network-dependent);
+  document the command in `parts.md`'s header and in `docs/fabrication.md` as the pre-order check for WP7. Fix or replace flagged parts
+  before WP4 starts, rerunning `parts.py --write`.
+- [ ] **H3 — symbols/footprints: compare, do not switch yet.** WP4's plan uses `easyeda2kicad`. Run `jlc install C882747 --project
+  <scratch dir> --yes` (never the global library) and compare the footprint's pads and the symbol's pin names against `easyeda2kicad`'s output
+  for the same part. Adopt `jlc install` for WP4 only if it is clearly better (its README claims built-in KiCad footprints for 2-terminal R/C/L
+  and a `library_fix` path for pin corrections); write the outcome either way.
+- [ ] **H4 — knowledge base.** `kb/pcb_toolchain_notes.md`: the tool, the pinned version, the JSON fields, the TTY behavior, the npm-name trap,
+  and that it is unofficial and can break when JLC changes its site. `kb/project_workflow_notes.md` "Tools available": add `jlc`. Move this
+  Part to `TODO-completed.md` with a short dated entry.
 
 ---
 

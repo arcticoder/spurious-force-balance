@@ -73,3 +73,28 @@ lab/docs/kb/README.md.
 ```
 <!-- ------ -->
 ---
+I chose Option B, the CLI (`@jlcpcb/cli`). I haven't installed it yet: the install is step H1 of a new **Part H** at the top of [docs/TODO-agent.md](docs/TODO-agent.md), which Sonnet will do next.
+
+**What I checked on npm:**
+- Both options come from the same unofficial project (l3wi/jlc-cli, v0.5.0, not affiliated with JLCPCB) and use the same data source. Picking the CLI loses nothing the MCP server would give.
+- The MCP config you pasted wouldn't work. `jlc-mcp@latest` returns 404 on npm. The real package is `@jlcpcb/mcp`, and `jlc-mcp` is only the name of the command it installs. The plan pins version 0.5.0 instead of using `@latest`.
+
+**Why the CLI:**
+- Sonnet can already run terminal commands, so the CLI needs no setup. The MCP server needs a config change and a session restart, and it adds its tool definitions to every session in every repo.
+- `jlc info C<n> --json` can be scripted into a repo check that you or I can rerun before an order. MCP lookups only happen inside a chat.
+- If browsing parts in chat ever proves useful, the MCP server can be added later with one command.
+
+**Part H steps:**
+- **H1:** install the CLI, look up the RP2040 and the ADS131A04, record which fields it returns, and check that its search command doesn't hang when run from a script.
+- **H2:** add a `parts.py --live` check that flags four problems in the 48-part list:
+  - parts out of stock or running low;
+  - "Standard only" parts, since one of these forces the whole board onto the more expensive Standard assembly;
+  - parts that moved from basic to extended, which adds a fee per part.
+
+  It stays out of the smoke tests because it needs the network. Flagged parts get fixed before the schematic work (WP4) starts.
+- **H3:** compare the CLI's KiCad footprint output with `easyeda2kicad`, the tool WP4 currently plans to use, on the ADS131A04. Switch only if the CLI's output is clearly better.
+- **H4:** record the tool and its pitfalls in the knowledge base.
+
+I also added Part H to the next-task list in [docs/kb/session_handoff.md](docs/kb/session_handoff.md), ahead of WP4. Your TODO list doesn't change because none of this needs your hands. Both edits are uncommitted.
+<!-- ------ -->
+---
