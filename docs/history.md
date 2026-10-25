@@ -98,3 +98,22 @@ I chose Option B, the CLI (`@jlcpcb/cli`). I haven't installed it yet: the insta
 I also added Part H to the next-task list in [docs/kb/session_handoff.md](docs/kb/session_handoff.md), ahead of WP4. Your TODO list doesn't change because none of this needs your hands. Both edits are uncommitted.
 <!-- ------ -->
 ---
+H1–H4 are done and committed locally as 5c777ae (not pushed). H5 stays open. Your TODO list and JLC order are unchanged, since none of this needs your hands. The smoke tests pass (2 run, 0 failed).
+
+- **H1, install:** `@jlcpcb/cli` 0.5.0 is installed globally under nvm.
+  - `jlc info --json` returns no stock, price or assembly type. The live data comes from `jlc search C<n> --json`.
+  - `search` only gives clean output with `--json`. Without it, it prints a terminal UI full of escape codes.
+  - JLC returns HTTP 429 when lookups come too fast.
+- **H2, live check:** `parts.py --live` checks all 48 BOM parts against JLC's live data. It takes about 80 seconds and exits non-zero if any part is flagged. It runs one lookup at a time with retry and backoff, because of the 429s. It stays out of the smoke tests because it needs the network.
+  - **Result:** every part is in stock and no part has moved between basic and extended. Two parts are Standard-assembly-only: the LIS2DW12 accelerometer (C189624) and the MMC5983MA magnetometer (C404329). One such part forces the whole board onto Standard assembly, which costs about $17 more in setup and is the two-sided service.
+- **H3, symbols and footprints:** `jlc install` and `easyeda2kicad` produced the same 32 pins and the same pad geometry for the ADS131A04. WP4 keeps `easyeda2kicad`.
+- **H4, docs:** I updated the knowledge base, TODO-completed.md, and the pre-order step in docs/fabrication.md. parts.md was regenerated with a new line saying to run `parts.py --live` before ordering.
+
+**H5, open:** it decides how to handle the two Standard-only sensors.
+- **Accelerometer:** a drop-in LIS2DW12 clone from MSKSEMI (C50385411) is Economic-compatible at $0.49. Its datasheet needs a compatibility check first.
+- **Magnetometer:** no Economic 3-axis magnetometer turned up in my searches.
+- **Both sides:** H5 also asks whether the main board needs parts on both sides, because that alone forces Standard assembly.
+
+It's queued ahead of the schematic work (WP4) in docs/TODO-agent.md and in the session handoff.
+<!-- ------ -->
+---
