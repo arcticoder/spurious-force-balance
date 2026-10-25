@@ -17,7 +17,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, ".."))
-os.environ.setdefault("KICAD_SYMBOL_DIR", "/usr/share/kicad/symbols")
+os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 from skidl import KICAD9, Net, Part, set_default_tool, lib_search_paths, reset, SKIDL  # noqa: E402
 import pins as pinmap  # noqa: E402
@@ -54,6 +54,14 @@ def part(lcsc, note=None):
     if note:
         p.fields["Role"] = note
     return p
+
+
+def flag(n):
+    """PWR_FLAG on a net: tells KiCad's ERC the net is driven from outside the schematic (a connector, or a source it cannot see). LCSC 0 = not a BOM part."""
+    f = Part("power", "PWR_FLAG", tool=KICAD9)
+    f.fields["LCSC"] = "C0"
+    n += f[1]
+    return f
 
 
 def R(value, a, b, note=None):
@@ -491,6 +499,9 @@ def build():
         kat += jl[3]
         net(sig).__iadd__(jl[4])
 
+    # PWR_FLAGs: nets whose supply arrives through passive parts (fuse, beads, inductor, filter) or from the connector have no power-output pin
+    for n in (gnd, v5, v3a, v5b, v24):
+        flag(n)
     return N
 
 

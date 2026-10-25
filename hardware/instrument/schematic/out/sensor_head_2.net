@@ -2,7 +2,7 @@
   (version "D")
   (design
     (source "generate.py")
-    (date "10/24/2026 08:33 PM")
+    (date "10/24/2026 08:52 PM")
     (tool "SKiDL (3.0.0)")
     (sheet
       (number 1)
@@ -43,6 +43,58 @@
           (value "")))))
   (components
     (comp
+      (ref "#FLG1")
+      (value "PWR_FLAG")
+      (description "")
+      (footprint "")
+      (fields
+        (field
+          (name "LCSC") "C0")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint"))
+        (field
+          (name "Datasheet") "~")
+        (field
+          (name "SKiDL Tag") "ELxUpVkh1h")
+        (field
+          (name "SKiDL Line") "main_board.py:61"))
+      (libsource
+        (lib "power")
+        (part "PWR_FLAG"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "6260996f-b0e4-5809-8b65-180d92d0d44f"))
+    (comp
+      (ref "#FLG2")
+      (value "PWR_FLAG")
+      (description "")
+      (footprint "")
+      (fields
+        (field
+          (name "LCSC") "C0")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint"))
+        (field
+          (name "Datasheet") "~")
+        (field
+          (name "SKiDL Tag") "PcKAdVho8W")
+        (field
+          (name "SKiDL Line") "main_board.py:61"))
+      (libsource
+        (lib "power")
+        (part "PWR_FLAG"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "bd9d13f4-96cf-50fb-bb3e-a5515b3491ac"))
+    (comp
       (ref "C1")
       (value "CC0603KRX7R9BB104")
       (description "")
@@ -57,7 +109,7 @@
         (field
           (name "Datasheet") "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_100nF-104-10-50V_C14663.html")
         (field
-          (name "SKiDL Tag") "FX04bDg8C9")
+          (name "SKiDL Tag") "_8DJC_XRKf")
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
@@ -67,7 +119,7 @@
         (names "/")
         (tstamps "/"))
       (component_classes)
-      (tstamps "2442edc9-7cbb-5102-b764-4e88b4ab6743"))
+      (tstamps "448eb5a3-cb0f-5f4d-8f33-7cb8d8ca09eb"))
     (comp
       (ref "CN1")
       (value "SM04B-SRSS-TB")
@@ -85,7 +137,7 @@
         (field
           (name "Datasheet") "https://lcsc.com/product-detail/Others_JST-Sales-America__JST-Sales-America-SM04B-SRSS-TB-LF-SN_C160404.html")
         (field
-          (name "SKiDL Tag") "_zmLRCCuvL")
+          (name "SKiDL Tag") "xavt1jSl_E")
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
@@ -95,7 +147,7 @@
         (names "/")
         (tstamps "/"))
       (component_classes)
-      (tstamps "6862f21f-79a4-503b-9e57-944e4a068191"))
+      (tstamps "e4e555cb-44bc-5352-83b7-7ffa364970e1"))
     (comp
       (ref "U1")
       (value "TMP117AIDRVR")
@@ -113,7 +165,7 @@
         (field
           (name "Datasheet") "https://www.lcsc.com/datasheet/C699536.pdf")
         (field
-          (name "SKiDL Tag") "V5vrSVLCF2")
+          (name "SKiDL Tag") "mEuDuhZcNi")
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
@@ -123,52 +175,60 @@
         (names "/")
         (tstamps "/"))
       (component_classes)
-      (tstamps "aeb00ce1-6ea9-57d7-be2d-23f1591ec511")))
+      (tstamps "3962b18b-d190-5144-8257-d5b0415b09d2")))
   (nets
     (net
       (code 1)
       (name "3V3_D")
       (class "Default")
       (node
+        (ref "#FLG2")
+        (pin "1")
+        (pintype "POWER-OUT"))
+      (node
         (ref "C1")
         (pin "1")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "CN1")
         (pin "1")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "5")
-        (pintype "UNSPECIFIED")))
+        (pintype "POWER-IN")))
     (net
       (code 2)
       (name "GND")
       (class "Default")
       (node
+        (ref "#FLG1")
+        (pin "1")
+        (pintype "POWER-OUT"))
+      (node
         (ref "C1")
         (pin "2")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "CN1")
         (pin "2")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "CN1")
         (pin "5")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "CN1")
         (pin "6")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "2")
-        (pintype "UNSPECIFIED"))
+        (pintype "POWER-IN"))
       (node
         (ref "U1")
         (pin "7")
-        (pintype "UNSPECIFIED")))
+        (pintype "POWER-IN")))
     (net
       (code 3)
       (name "I2C_SCL")
@@ -176,11 +236,11 @@
       (node
         (ref "CN1")
         (pin "4")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "1")
-        (pintype "UNSPECIFIED")))
+        (pintype "INPUT")))
     (net
       (code 4)
       (name "I2C_SDA")
@@ -188,12 +248,12 @@
       (node
         (ref "CN1")
         (pin "3")
-        (pintype "UNSPECIFIED"))
+        (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "4")
-        (pintype "UNSPECIFIED"))
+        (pintype "INPUT"))
       (node
         (ref "U1")
         (pin "6")
-        (pintype "UNSPECIFIED")))))
+        (pintype "BIDIRECTIONAL")))))

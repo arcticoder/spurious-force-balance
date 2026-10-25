@@ -90,4 +90,14 @@ def plate():
     settle = [tt for tt, vv in seg(50e-6, 900e-6) if abs(vv - final) > 0.01 * final]
     dc = d["plate_dc.txt"]
     worst = max(abs(y - 5.7 * x) / (5.7 * x) for x, y in dc if 0.5 <= x <= 4.0)
-    return {"final_V": final, "overshoot_pct": (max(v) - final) / final * 100, "settle_us": (max(settle) - 50e-6) * 1e6, "gain_err_pct": worst * 100, "max_V": max(max(y for _, y in dc), max(v))}
+    worst33 = max(abs(y - 5.7 * x) / (5.7 * x) for x, y in dc if 0.5 <= x <= 3.3)  # the DAC runs from 3.3 V and cannot go higher
+    return {"gain_err_3v3_pct": worst33 * 100, "final_V": final, "overshoot_pct": (max(v) - final) / final * 100, "settle_us": (max(settle) - 50e-6) * 1e6, "gain_err_pct": worst * 100, "max_V": max(max(y for _, y in dc), max(v))}
+
+
+def boost():
+    """Pulse-skipping 24 V boost (sim/boost.spice): ripple of the boost output and of the filtered rail over 1-3 ms."""
+    d = _run("boost.spice")
+    rows = d["boost_tran.txt"]
+    sel = [r for r in rows if r[0] >= 1e-3]
+    vr, v24 = [r[1] for r in sel], [r[3] for r in sel]
+    return {"vr_pp": max(vr) - min(vr), "v24_pp": max(v24) - min(v24), "v24_avg": sum(v24) / len(v24)}

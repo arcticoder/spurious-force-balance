@@ -15,7 +15,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, ".."))
-os.environ.setdefault("KICAD_SYMBOL_DIR", "/usr/share/kicad/symbols")
+os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 import heads  # noqa: E402
 import main_board  # noqa: E402
@@ -38,6 +38,8 @@ def main():
     open(os.path.join(OUT, "sym-lib-table"), "w").write(f'(sym_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "{os.path.abspath(lib)}/jlc.kicad_sym")(options "")(descr ""))\n)\n')
     open(os.path.join(OUT, "fp-lib-table"), "w").write(f'(fp_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "{os.path.abspath(lib)}/jlc.pretty")(options "")(descr ""))\n)\n')
     for name, build, sch in BOARDS:
+        # a project file next to each board lets kicad-cli use the project-local library tables
+        open(os.path.join(OUT, f"{name}.kicad_pro"), "w").write("{}\n")
         build()
         cwd = os.getcwd()
         os.chdir(OUT)

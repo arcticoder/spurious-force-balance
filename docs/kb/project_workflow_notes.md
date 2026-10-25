@@ -34,3 +34,4 @@ list (hands, eyes, purchases only; one-line justifications; "En route" after the
 
 `~/.venvs/lab-hw/bin/python` (CadQuery, magpylib, kiutils, SKiDL, numpy/scipy/matplotlib), KiCad 9.0.9 `kicad-cli`, ngspice, Freerouting (see `pcb_toolchain_notes.md`), `jlc` (live JLC stock/PCBA-type lookups; see `pcb_toolchain_notes.md`), `gh` (logged in as arcticoder), `git-filter-repo`,
 `WebSearch`/`WebFetch` for vendor help pages, and read-only Pico probes through `mpremote` when the user leaves a rig plugged in (see `lab` `docs/kb/live_bench_measurement_notes.md`).
+- **TODO-agent.md holds open items only** (the format of `aqei-bridge/docs/TODO.md`): a header pointing to `TODO-completed.md` (dated entries), `TODO-BLOCKED.md` (waiting on the user's build or A5) and `TODO-backlog.md`; finished work leaves the file the same session, and long notes go to `docs/kb/`. The old Part A planning text is in `kb/part_a_planning_archive.md`.

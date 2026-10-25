@@ -16,7 +16,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-os.environ.setdefault("KICAD_SYMBOL_DIR", "/usr/share/kicad/symbols")
+os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 import main_board as mb  # noqa: E402
 from skidl import KICAD9, Net, lib_search_paths, reset, set_default_tool  # noqa: E402
@@ -29,6 +29,11 @@ def _start():
     gnd = Net("GND")
     mb.GND_NET[:] = [gnd]
     return gnd
+
+
+def _flags(*nets):
+    for n in nets:
+        mb.flag(n)
 
 
 def _tia(v3a, gnd, sig, label):
@@ -66,6 +71,7 @@ def led_head():
     v3a += led[2]
     kat += led[1]
     _tia(v3a, gnd, ref, "REF")
+    _flags(gnd, v3a)
 
 
 def pd_head():
@@ -76,6 +82,7 @@ def pd_head():
     gnd += j[2], j[4], j[5], j[6]
     sig += j[3]
     _tia(v3a, gnd, sig, "PD")
+    _flags(gnd, v3a)
 
 
 def _sensor_connector(gnd):
@@ -108,6 +115,7 @@ def sensor_head_1():
     mb.C("10u", cap)
     mb.C("1u", v3d)
     mb.C("100n", v3d)
+    _flags(gnd, v3d)
 
 
 def sensor_head_2():
@@ -120,3 +128,4 @@ def sensor_head_2():
     sda += t[4], t[6]
     scl += t[1]
     mb.C("100n", v3d)
+    _flags(gnd, v3d)
