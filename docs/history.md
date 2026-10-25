@@ -117,3 +117,17 @@ H1–H4 are done and committed locally as 5c777ae (not pushed). H5 stays open. Y
 It's queued ahead of the schematic work (WP4) in docs/TODO-agent.md and in the session handoff.
 <!-- ------ -->
 ---
+Part H is finished (H5 closed). The remaining items in `docs/TODO-agent.md` are the schematic (WP4), which I'm stopping before, and the A5 prototype noise measurement, which needs your build. Everything is committed locally (4beafe6 plus a small wording fix); nothing is pushed.
+
+**H5 decision:** the electronics order will use Standard assembly. It keeps both Standard-only sensors, the LIS2DW12 accelerometer and the MMC5983MA magnetometer.
+- **Magnetometer:** it measures the field term in the lead-force budget, and I found no Economic 3-axis magnetometer.
+- **Accelerometer:** with Standard assembly already required, the genuine ST LIS2DW12 beats a substitute.
+- **Rejected substitute:** the cheaper MSKSEMI LIS2DW12 clone (C50385411) has no datasheet link, and its listing says 12-bit ±16 g, which doesn't match ST's part.
+- **Cost:** about $17 more in setup on that one order (a community figure). Standard assembly also allows parts on both board sides.
+- **Fallback:** if the magnetometer is ever dropped, the NXP MMA8452Q (C11360) is the Economic accelerometer to use.
+
+`parts.py --live` now reports 0 flagged parts and lists the two accepted exceptions. The accepted-exception set (`STANDARD_PCBA_ACCEPTED`) is in `hardware/instrument/parts.py`, and the order plan in `docs/fabrication.md`, the knowledge base and the handoff are updated to match.
+
+WP4 is a large separate task, so I stopped here. The schematic work is next in `docs/kb/session_handoff.md`. Nothing new was added to your TODO list.
+<!-- ------ -->
+---
