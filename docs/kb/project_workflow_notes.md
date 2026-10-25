@@ -32,5 +32,5 @@ list (hands, eyes, purchases only; one-line justifications; "En route" after the
 
 ## Tools available to a session
 
-`~/.venvs/lab-hw/bin/python` (CadQuery, magpylib, kiutils, SKiDL, numpy/scipy/matplotlib), KiCad 9.0.9 `kicad-cli`, ngspice, Freerouting (see `pcb_toolchain_notes.md`), `gh` (logged in as arcticoder), `git-filter-repo`,
+`~/.venvs/lab-hw/bin/python` (CadQuery, magpylib, kiutils, SKiDL, numpy/scipy/matplotlib), KiCad 9.0.9 `kicad-cli`, ngspice, Freerouting (see `pcb_toolchain_notes.md`), `jlc` (live JLC stock/PCBA-type lookups; see `pcb_toolchain_notes.md`), `gh` (logged in as arcticoder), `git-filter-repo`,
 `WebSearch`/`WebFetch` for vendor help pages, and read-only Pico probes through `mpremote` when the user leaves a rig plugged in (see `lab` `docs/kb/live_bench_measurement_notes.md`).

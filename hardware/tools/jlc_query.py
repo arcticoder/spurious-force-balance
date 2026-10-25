@@ -13,8 +13,11 @@ per-part setup fee on an assembled order, "expand" parts (extended) do, so prefe
 import argparse
 import json
 import os
+import shutil
 import sqlite3
+import subprocess
 import sys
+import time
 
 DB = os.path.expanduser(os.environ.get("JLCPARTS_DB", "~/jlcparts/cache.sqlite3"))
 
@@ -66,6 +69,31 @@ def search(text=None, lcsc=None, cat=None, sub=None, min_stock=1, basic_only=Fal
         lcsc_, mfr, pkg, lt, stock, price, c, s, desc, ds, attrs, joints = r
         out.append(dict(lcsc=f"C{lcsc_}", mfr=mfr, package=pkg, type="basic" if lt == "base" else "extended", stock=stock, unit_price=unit_price(price, qty), category=f"{c} / {s}", description=desc, datasheet=ds, attributes=json.loads(attrs), joints=joints))
     return out
+
+
+def live(lcsc, timeout=90):
+    """Live stock, library type, PCBA type and unit price of one LCSC number, through the unofficial `jlc` CLI
+    (npm @jlcpcb/cli 0.5.0). `jlc info --json` has no stock or price; `jlc search C<n> --json` does, and the
+    exact match is picked out of its results (the other rows are look-alikes). Price is a single unit price
+    (no tiers). Retries on 429. Returns None if the number is not found; raises RuntimeError if `jlc` is missing or fails."""
+    exe = shutil.which("jlc")
+    if exe is None:
+        raise RuntimeError("`jlc` not found; npm install -g @jlcpcb/cli@0.5.0")
+    for attempt in range(5):  # JLC answers 429 to bursts; the CLI marks it retryable
+        cp = subprocess.run([exe, "search", f"C{int(lcsc)}", "--limit", "5", "--json"], capture_output=True, text=True, timeout=timeout, stdin=subprocess.DEVNULL)
+        try:
+            data = json.loads(cp.stdout)
+        except ValueError:
+            raise RuntimeError(f"jlc search C{lcsc}: not JSON (rc {cp.returncode}): {(cp.stdout + cp.stderr)[:200]}")
+        if data.get("success") or not data.get("error", {}).get("retryable"):
+            break
+        time.sleep(2 * 2**attempt)
+    if not data.get("success"):
+        raise RuntimeError(f"jlc search C{lcsc}: {data}")
+    for r in data["results"]:
+        if r.get("lcsc_id") == f"C{int(lcsc)}":
+            return dict(lcsc=r["lcsc_id"], mfr=r["name"], package=r["package"], type=r["library_type"], stock=r["stock"], unit_price=r["price"], pcba=r["pcba_type"], datasheet=r.get("datasheet"))
+    return None
 
 
 def main():

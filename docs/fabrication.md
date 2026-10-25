@@ -68,3 +68,4 @@ interactive, so the user confirms totals before paying.
    everything else).
 3. **The electronics order (later, after the A5 prototype measurement):** 5 bare boards with 2 assembled (economic PCBA allows 2 of 5 [confirmed: minimum 2 pcs]),
    the sensor heads panelized together, no stencil. Two JLC shipments in total, because the free hold can't bridge A5.
+   Before placing it, run `~/.venvs/lab-hw/bin/python hardware/instrument/parts.py --live` (needs the `jlc` CLI and network): live stock, basic/extended and Economic-versus-Standard PCBA for every part.

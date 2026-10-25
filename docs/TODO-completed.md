@@ -2,6 +2,9 @@
 
 Dated entries, newest first.
 
+- 2026-10-24 — Part H (H1–H4), live JLC lookups: `@jlcpcb/cli` 0.5.0 installed globally under nvm (chosen over the MCP server); `hardware/tools/jlc_query.py live()` and `parts.py --live` check the
+  48-part BOM against JLC's live stock, library type and PCBA type (about 80 s, sequential because JLC answers 429 to bursts); it flagged two Standard-PCBA-only parts (H5 open); `jlc install` compared with
+  `easyeda2kicad` on the ADS131A04: same pins and pads, so WP4 keeps `easyeda2kicad`. Notes in `kb/pcb_toolchain_notes.md`.
 - 2026-10-24 — Parts F and G: licenses (MIT + CERN-OHL-P v2) in both repos; the user's JLC-shipping chat ingested into `docs/kb/fab_ordering_notes.md` (checked against JLC's Combine Shipping page, capabilities page,
   OSH Park docs) and deleted; fabrication review in `docs/fabrication.md`: the arm, clamp plates and fixed electrode become FR4 boards for JLC (KiCad files, DRC clean, Gerbers and `ORDER.md` in
   `hardware/balance/boards/fab/`), a torsion head, FR4 device card with a 0.5 W cap, a clamping loop with no printed plastic, the centre of mass hanging 32 mm below the strip (31 mrad per mm), a field-modelled
