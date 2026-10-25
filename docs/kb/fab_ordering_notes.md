@@ -40,7 +40,8 @@ The user is in Canada (British Columbia area) and pays by the cheapest postal ti
 - **Assembly:** economic PCBA accepts 2–50 pieces [confirmed, `jlcpcb.com/solutions/pcb-prototype-assembly`], so a 5-board order can
   have 2 assembled; one assembled is not offered. Economic assembly places parts on one side. [community guide]
   Each **extended** part adds a loading fee of about $3 [community guide; the repo's `parts.py` counts 25 extended]. Standard (two-sided)
-  assembly has a setup fee about $17 higher. [community guide]
+  assembly has a setup fee about $17 higher. [community guide] JLC also marks individual parts "Standard only"; one such part puts the whole board on Standard.
+  As of the live check of 2026-10-24, two of the instrument BOM's 48 parts are (the accelerometer C189624 and magnetometer C404329); Part H5 settles them. [`jlc` CLI, live]
 - **Thickness:** weight scales with thickness, so 1.0 or 1.2 mm instead of 1.6 mm cuts board mass about 35–40%. [arithmetic; second-hand]
   FR-4 is about 1.85 g/cm³, so a 100 × 100 mm 1.6 mm board is about 30 g and five are about 150 g, plus packing.
 - **Panelizing:** designs can share a board with mouse-bites or V-cuts. JLC's panel page suggests 150–200 mm panels and says nothing

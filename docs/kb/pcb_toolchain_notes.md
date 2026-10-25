@@ -58,3 +58,15 @@ Audience: future LLM sessions. Facts found while setting up the fab-assembled in
   (`jlcpcb.com/help/article/In-what-cases-will-there-be-charged-extra`).
 - Web tools worked in this session: `WebSearch` and `WebFetch` returned the JLC help pages above, OSH Park's docs and several community posts. JLC's interactive quote page can't be read, so
   prices are estimates until the user checks them.
+- **Live JLC lookups: `jlc` (npm `@jlcpcb/cli` 0.5.0, installed globally under nvm; unofficial, from github.com/l3wi/jlc-cli, so it can break when JLC changes its web endpoints; if it does,
+  fall back to the snapshot above).** Chosen over the sibling MCP server (`@jlcpcb/mcp`; the MCP README's `npx jlc-mcp` name 404s on npm, the binary is called `jlc-mcp` but the package is scoped) because a
+  session has Bash and the CLI is scriptable. Behaviour found on 2026-10-24:
+  - `jlc info C<n> --json` returns only name, manufacturer, package, pin count, `has3DModel`: **no stock, price or PCBA type.** Use `jlc search C<n> --json` instead: an exact-LCSC query returns the part
+    plus look-alikes, so pick the row whose `lcsc_id` matches. Fields: `stock`, `price` (one unit price, no tiers), `library_type` (`basic`/`extended`), `pcba_type` (`economic-and-standard` or
+    `standard-only`), `package`, `datasheet`, `attributes`. `--economic-only`, `--in-stock`, `--basic-only` filter.
+  - Without `--json`, `search` renders an Ink TUI and prints escape codes even with stdin from `/dev/null` (it does not hang, but the output is unusable): always pass `--json`.
+  - Rapid or parallel calls get `{"success": false, "error": {"code": "search_failed", "message": "JLCPCB API returned 429", "retryable": true}}`; `jlc_query.live()` retries with backoff and `parts.py --live` is sequential.
+  - Pre-order check: `~/.venvs/lab-hw/bin/python hardware/instrument/parts.py --live` (network, not in the smoke tests); exit code 1 if any part is flagged.
+  - `jlc install C<n> --project <dir> --yes --json` writes a project-local symbol library, footprint library, 3D STEP and `sym-lib-table`/`fp-lib-table`. On C882747 (ADS131A04) it gives the same 32 pins
+    and the same pad geometry as `easyeda2kicad` (the same EasyEDA source); only the active-low names differ (`RESET#` versus `~{RESET}`) and both leave pin types unspecified. WP4 keeps `easyeda2kicad`.
+

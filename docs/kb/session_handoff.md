@@ -22,7 +22,7 @@ In progress / not started: WP4 (the schematic, `kicad-cli sch erc`), WP5-WP11, A
 ## Next three agent tasks, in order
 
 1. If the twist test says "free": switch to the axial layout, regenerate everything, rerun all checks. Otherwise: nothing here.
-2. Part H in `docs/TODO-agent.md`: install `@jlcpcb/cli` 0.5.0 (chosen over the MCP server), add `parts.py --live`, fix any flagged part. Then WP4: the schematic with SKiDL + ERC (`kicad-cli sch erc`): the Raspberry Pi RP2040 hardware design reference (crystal, flash, USB), the ADS131A04's pin table and input network (AVSS/VNCP, reference), symbols and
+2. Part H5 in `docs/TODO-agent.md` (H1–H4 done: `jlc` installed, `parts.py --live` works and flags two Standard-PCBA-only sensors). Then WP4: the schematic with SKiDL + ERC (`kicad-cli sch erc`): the Raspberry Pi RP2040 hardware design reference (crystal, flash, USB), the ADS131A04's pin table and input network (AVSS/VNCP, reference), symbols and
    footprints from `easyeda2kicad` by LCSC number, a connectivity test that every IC pin is accounted for. Open points are in `instrument_electronics_notes.md`.
 3. Ingest the A5 results when the user has them: the measured noise spectrum, the optical photocurrent (Rf), the trim procedure's real numbers; update `params.py` and rerun the budget; then WP5-WP7 if the verdict stays GO.
 
