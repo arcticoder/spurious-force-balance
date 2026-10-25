@@ -186,3 +186,28 @@ You've committed the earlier WP4 work. Regenerating the netlists deleted the com
 WP8 (firmware bring-up scripts and the host-side logger) is next.
 <!-- ------ -->
 ---
+The firmware drivers and the host side of WP8 are done and tested on the host, and the smoke tests pass. Nothing has run on a real board. Nothing is committed.
+
+**What now exists**
+- **ADS131A04 ADC driver:** it follows the datasheet protocol (32-bit words, six-word frames with CRC, the reset/unlock/configure/wake-up order). It enables the charge pump and sets 8 kSPS from the 16.384 MHz crystal, matching the schematic's wiring.
+- **DAC driver:** the LED, plate and device-current limits (20 mA, 18.8 V, 300 mA) are enforced in code, and a request over a limit writes nothing. Only the DAC's non-EEPROM write commands are implemented, and a test proves no EEPROM command is ever sent. The datasheet shows factory defaults of 0 V, so power-up is safe.
+- **Sensor drivers:** the TMP117 is tested against the datasheet's own temperature examples, and the MMC5983MA recovers field and offset to one count using the datasheet's SET/RESET procedure. The LIS2DW12's register values come from memory, because ST's site blocked the download, so they are flagged unverified.
+- **Lock-in:** it recovers a 20,000-count modulation on a 2,000,000-count DC level, rejects DC and mains, finds the optical delay, and stays linear from 1,000 to 1,000,000 counts. A port to the Pico needs 16-bit input to fit 32-bit integers.
+- **USB stream and host tools:**
+  - The framed stream resynchronizes after garbage, a damaged packet and false sync patterns.
+  - The logger writes CSV files, and the analysis tool computes noise spectra and Allan deviation, checked against signals of known noise.
+- **Bring-up scripts:** `bringup_adc.py` and `bringup_sensors.py` run on the Pico, and on the host against the simulated chips to test the scripts themselves.
+
+**Bugs the tests caught**
+- A sign bug in the voltage conversion.
+- The lock-in's first design failed its own tests. Its integrator ripples inside each carrier period, so a DC level leaked into the output. Summing whole periods first fixed it.
+
+**Not verified against real chips:** the simulated devices encode my reading of the datasheets, so the tests can't catch where the real chips differ. The assumptions are listed in `kb/instrument_electronics_notes.md`. They include how the ADC's CRC covers 32-bit words, how long the charge pump takes to settle, and the DAC's read-back byte layout.
+
+**TODO files:** `TODO-agent.md` now has two open items:
+- **WP9:** bring-up and experiment procedures for you, in `docs/bringup.md` and `docs/procedures.md`.
+- **WP11:** a skeleton for the paper.
+
+The rest of WP8 (the on-board `main.py`, PIO/DMA, and running the bring-up scripts on hardware) moved to `TODO-BLOCKED.md`, because it needs the board.
+<!-- ------ -->
+---
