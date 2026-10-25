@@ -131,3 +131,26 @@ Part H is finished (H5 closed). The remaining items in `docs/TODO-agent.md` are 
 WP4 is a large separate task, so I stopped here. The schematic work is next in `docs/kb/session_handoff.md`. Nothing new was added to your TODO list.
 <!-- ------ -->
 ---
+WP4 (the schematic) is done as checked netlists, not rendered sheets. The main board and the four head boards are written in SKiDL, all 50 parts have KiCad symbols and footprints, and the smoke tests pass (2 run, 0 failed). Nothing is committed, as you asked.
+
+**Defects the build caught and fixed:**
+- **Ferrite bead:** the BOM's 600 Ω bead (C1002) is rated 200 mA, but the 5 V rail carries up to 389 mA. The supply-entry and boost-input beads are now Murata's 120 Ω, 2 A part (C14709). C1002 stays on the analog rail, which draws under 50 mA.
+- **RP2040 crystal:** the BOM's C9002 was 20 pF load and 80 Ω ESR. Raspberry Pi's design guide says a crystal with different specs needs extensive testing, so it's now their exact part (ABM8-272-T3) with 15 pF capacitors and a 1 kΩ series resistor.
+- **Boost capacitors:** the 25 V capacitors would lose most of their capacitance at the 24 V boost output. They're now 50 V parts.
+- **Plate voltage:** the DAC runs from 3.3 V, so the electrostatic plate reaches about 18.8 V, not the 22.8 V in the simulation. That is still far more than the experiment needs.
+
+The extended-part budget went from 25 to 27 (the new crystal and 50 V capacitor), and the BOM is now 50 part numbers.
+
+**How it's checked:** `schematic_test.py` runs inside the smoke tests. It checks that every pin is connected or has a data-sheet reason to float, that supply and strap pins sit on the nets the data sheets require, that symbol pins match footprint pads, and that the five boards' parts equal `parts.py` exactly. I confirmed it fails when a pin is unwired or a supply pin is on the wrong net.
+
+**What isn't done:**
+- **KiCad's own ERC isn't a gate yet.** The generated symbols have no electrical pin types, so `kicad-cli sch erc` only reports noise.
+- **The main board has no rendered sheet.** SKiDL couldn't place all 164 parts on one flat sheet. Three of the four head boards rendered; sensor head 1 failed to route.
+- **The ADC crystal (C21900468) has no entry in EasyEDA**, so it uses the 12 MHz crystal's symbol and footprint as a stand-in. That needs checking against its datasheet.
+- **Polarity of several parts is unchecked.** The photodiode, IR LED, Schottky diode, status LED and USB ESD chip use EasyEDA's pin assignments, not verified against datasheets.
+
+These are queued as WP4b–WP4d in `docs/TODO-agent.md`, along with checking the boost ripple. The handoff and knowledge base are updated. I removed stray SKiDL logs and added a `.gitignore` for them.
+
+Your TODO list is unchanged.
+<!-- ------ -->
+---

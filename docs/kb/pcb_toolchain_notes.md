@@ -69,4 +69,5 @@ Audience: future LLM sessions. Facts found while setting up the fab-assembled in
   - Pre-order check: `~/.venvs/lab-hw/bin/python hardware/instrument/parts.py --live` (network, not in the smoke tests); exit code 1 if any part is flagged.
   - `jlc install C<n> --project <dir> --yes --json` writes a project-local symbol library, footprint library, 3D STEP and `sym-lib-table`/`fp-lib-table`. On C882747 (ADS131A04) it gives the same 32 pins
     and the same pad geometry as `easyeda2kicad` (the same EasyEDA source); only the active-low names differ (`RESET#` versus `~{RESET}`) and both leave pin types unspecified. WP4 keeps `easyeda2kicad`.
+- **SKiDL 3.0 and the `jlc` library (WP4):** see `instrument_electronics_notes.md` ("Pitfalls") for the net-merge name loss, `builtins.default_circuit`, the unspecified pin types that make KiCad's ERC noise, and the flat-sheet routing failure. `easyeda2kicad --lcsc_id=C<n> --symbol --footprint --output=<dir>/jlc` appends to one library; "Footprint ... already exists" errors are shared footprints (harmless). A burst of 50 calls worked; C21900468 returned HTTP 403 from the EasyEDA API.
 

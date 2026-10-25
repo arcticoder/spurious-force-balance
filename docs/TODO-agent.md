@@ -65,13 +65,22 @@ publishable (arXiv-level) experimental study, not a set of one-circuit boards.
 - A4 toolchain done (KiCad 7 + venv with SKiDL, kiutils, easyeda2kicad, CadQuery; Freerouting 2.5.0; JLC parts
   snapshot); KiCad was upgraded to 9.0.9 on 2026-10-23, so `kicad-cli sch erc` / `pcb drc` / `pcb render` are available.
 - A5 (prototype before layout) needs the user: the print, the materials order, the lock-in and optical readout.
-- WP1 (requirements, pin map, USB power budget), WP2 (48 JLC-stocked parts, all machine-placed SMT, 25 extended) and
+- WP1 (requirements, pin map, USB power budget), WP2 (50 JLC-stocked parts, all machine-placed SMT, 27 extended) and
   WP3 (TIA, LED sink, device-current sink, plate driver in ngspice) are done: `hardware/instrument/`. WP3 caught an 8.6%
-  plate-driver overshoot and a wrong shunt value in the BOM. **Next: WP4 (schematic).** It needs: the Raspberry Pi RP2040
-  hardware design reference (fetch from datasheets.raspberrypi.com and follow it for the crystal, flash and USB), the ADS131A04's
-  pin table and input network (datasheet pages on AVSS/VNCP and the reference), symbols and footprints from `easyeda2kicad` by
-  LCSC number, and a SKiDL description with connectivity checks (every IC pin accounted for). ERC is `kicad-cli sch erc` (KiCad 9.0.9) plus a pin-table test. WP5 (layout) and WP7 (order) wait on A5
-  per the plan's own rule.
+  plate-driver overshoot and a wrong shunt value in the BOM.
+- **WP4 (schematic) done as checked netlists, 2026-10-24** (`hardware/instrument/schematic/`, details in `kb/instrument_electronics_notes.md`): the main board and four head boards
+  as SKiDL, symbols/footprints from `easyeda2kicad` for all 50 parts, `schematic_test.py` in the smoke tests (pin accounting, data-sheet nets, footprint pads, BOM equality, design numbers).
+  It followed the RP2040 hardware design guide and the ADS131A04 data sheet, and caught four defects (200 mA ferrite bead on a 390 mA rail, a non-reference RP2040 crystal, 25 V capacitors on the 24 V boost,
+  a DAC that cannot reach the simulated 4.096 V).
+
+- [ ] **WP4b — a real ERC and the sheets.** (1) Add per-IC electrical pin types from the data sheets (RP2040, ADS131A04, LP5907, MT3608, op-amps, switches) to the generated library, then make
+  `kicad-cli sch erc` pass with PWR_FLAGs on the supply nets; (2) split `main_board.build()` into `@subcircuit` blocks (power/USB, RP2040, ADC, analog drivers, motors/connectors) so that
+  `generate_schematic` produces hierarchical sheets for the main board (it does not finish flat) and make the sensor-head-1 sheet route; (3) write the ERC result into the smoke test.
+- [ ] **WP4c — verify the stand-in symbols.** Polarity and pin names against the data sheets for VBPW34S, IR26-21C, SS14, KT-0603R, USBLC6-2SC6, the SM02B/SM04B tab pins, and the TS-1187A pad pairs;
+  the 3X016384UP crystal's pinout and pad size against the 12 MHz crystal's footprint used as a stand-in (EasyEDA has no entry, C21900468). Fix `main_board.py`/`heads.py`, rerun the test.
+- [ ] **WP4d — ripple and the DAC range.** Simulate the 24 V boost output ripple at the plate through the 51 ohm / 4.7 uF filter (ngspice, MT3608 behavioral switch) and rerun the plate driver with a 3.3 V
+  DAC limit (about 18.8 V); put the ripple into the force-noise budget if it matters above 0.2 Hz (it should not).
+- WP5 (layout) and WP7 (order) wait on A5 per the plan's own rule.
 
 **Hard constraints:**
 - **All electronic parts are SMT parts sourced and placed by JLCPCB** from its own

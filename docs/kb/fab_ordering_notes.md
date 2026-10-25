@@ -39,9 +39,9 @@ The user is in Canada (British Columbia area) and pays by the cheapest postal ti
 - **Minimum 5 bare boards per design.** Keep or recycle the rest. Panelization (below) is the way to get several designs per 5 boards.
 - **Assembly:** economic PCBA accepts 2–50 pieces [confirmed, `jlcpcb.com/solutions/pcb-prototype-assembly`], so a 5-board order can
   have 2 assembled; one assembled is not offered. Economic assembly places parts on one side. [community guide]
-  Each **extended** part adds a loading fee of about $3 [community guide; the repo's `parts.py` counts 25 extended]. Standard (two-sided)
+  Each **extended** part adds a loading fee of about $3 [community guide; the repo's `parts.py` counts 27 extended]. Standard (two-sided)
   assembly has a setup fee about $17 higher. [community guide] JLC also marks individual parts "Standard only"; one such part puts the whole board on Standard.
-  As of the live check of 2026-10-24, two of the instrument BOM's 48 parts are (the accelerometer C189624 and magnetometer C404329); **Decision (H5, 2026-10-24): the electronics order uses Standard assembly**, keeping both sensors (the magnetometer measures the budget's field term and has no Economic equivalent). Fallbacks if it is dropped: NXP MMA8452Q C11360 for the accelerometer. [`jlc` CLI, live]
+  As of the live check of 2026-10-24, two of the instrument BOM's 50 parts are (the accelerometer C189624 and magnetometer C404329); **Decision (H5, 2026-10-24): the electronics order uses Standard assembly**, keeping both sensors (the magnetometer measures the budget's field term and has no Economic equivalent). Fallbacks if it is dropped: NXP MMA8452Q C11360 for the accelerometer. [`jlc` CLI, live]
 - **Thickness:** weight scales with thickness, so 1.0 or 1.2 mm instead of 1.6 mm cuts board mass about 35–40%. [arithmetic; second-hand]
   FR-4 is about 1.85 g/cm³, so a 100 × 100 mm 1.6 mm board is about 30 g and five are about 150 g, plus packing.
 - **Panelizing:** designs can share a board with mouse-bites or V-cuts. JLC's panel page suggests 150–200 mm panels and says nothing

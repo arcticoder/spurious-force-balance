@@ -1,0 +1,422 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-24T20:34:06-0700",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.9",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/c66f2f0c-9900-4e9d-987d-000d3d3d2415",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR001 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.4732,
+                                "y": 0.9525
+                            },
+                            "uuid": "4039d6c2-06a4-5173-800b-0296693f4fd4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 3 [ALERT, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6637,
+                                "y": 0.8763
+                            },
+                            "uuid": "193a7019-8205-571e-bc78-535f73b959b5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'power'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR001 [GND]",
+                            "pos": {
+                                "x": 1.4732,
+                                "y": 0.9525
+                            },
+                            "uuid": "3c194880-2d3f-5300-9134-188d608c678f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Pins of type Unspecified and Power input are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 6 [6, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.2827,
+                                "y": 1.2573
+                            },
+                            "uuid": "93be2bad-0128-5d60-9da9-3678ef9a4da7"
+                        },
+                        {
+                            "description": "Symbol #PWR002 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.5748,
+                                "y": 1.3335
+                            },
+                            "uuid": "3e897c6f-4e66-55f4-b5e3-71074ddad027"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 1 [1, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.3335,
+                                "y": 1.2573
+                            },
+                            "uuid": "cda8c5d6-27fd-5731-b027-b2a8a6e4cbb9"
+                        },
+                        {
+                            "description": "Symbol U1 Pin 5 [V+, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6383,
+                                "y": 1.1049
+                            },
+                            "uuid": "50613e28-9e6f-50cd-b892-5ca626a09dfe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 2 [2, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.3589,
+                                "y": 1.2573
+                            },
+                            "uuid": "87465dab-7bb7-56c7-bb77-19806356e0c7"
+                        },
+                        {
+                            "description": "Symbol CN1 Pin 6 [6, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.2827,
+                                "y": 1.2573
+                            },
+                            "uuid": "93be2bad-0128-5d60-9da9-3678ef9a4da7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Power input are connected",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 2 [GND, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6383,
+                                "y": 0.8763
+                            },
+                            "uuid": "299c7839-9193-516e-a14e-800454ed3baa"
+                        },
+                        {
+                            "description": "Symbol #PWR001 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.4732,
+                                "y": 0.9525
+                            },
+                            "uuid": "4039d6c2-06a4-5173-800b-0296693f4fd4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 3 [3, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.3843,
+                                "y": 1.2573
+                            },
+                            "uuid": "b5d24708-9e3d-57cb-91ac-52285c91e3ee"
+                        },
+                        {
+                            "description": "Symbol U1 Pin 6 [SDA, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6129,
+                                "y": 1.1049
+                            },
+                            "uuid": "6fa46bea-4a1c-53de-b5bc-3ecf6a44cfb1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'jlc'.",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 [SM04B-SRSS-TB]",
+                            "pos": {
+                                "x": 1.3716,
+                                "y": 1.2954
+                            },
+                            "uuid": "f9f935c7-f00d-555e-8f50-b98da6966e6a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'jlc'",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 [SM04B-SRSS-TB]",
+                            "pos": {
+                                "x": 1.3716,
+                                "y": 1.2954
+                            },
+                            "uuid": "f9f935c7-f00d-555e-8f50-b98da6966e6a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 4 [4, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.4097,
+                                "y": 1.2573
+                            },
+                            "uuid": "a88c8143-8eaf-5274-a6e2-a79deb440736"
+                        },
+                        {
+                            "description": "Symbol U1 Pin 1 [SCL, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6129,
+                                "y": 0.8763
+                            },
+                            "uuid": "292e6a16-59ec-5b6a-8a6b-cdf233011573"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'jlc'.",
+                    "items": [
+                        {
+                            "description": "Symbol U1 [TMP117AIDRVR]",
+                            "pos": {
+                                "x": 1.6256,
+                                "y": 0.9906
+                            },
+                            "uuid": "f8fce87b-acde-5341-b554-4e93a034d648"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'jlc'",
+                    "items": [
+                        {
+                            "description": "Symbol U1 [TMP117AIDRVR]",
+                            "pos": {
+                                "x": 1.6256,
+                                "y": 0.9906
+                            },
+                            "uuid": "f8fce87b-acde-5341-b554-4e93a034d648"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Pins of type Unspecified and Power input are connected",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 Pin 5 [5, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.4605,
+                                "y": 1.2573
+                            },
+                            "uuid": "68e05373-9335-5317-b7d3-afc61a08d7f6"
+                        },
+                        {
+                            "description": "Symbol #PWR002 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.5748,
+                                "y": 1.3335
+                            },
+                            "uuid": "3e897c6f-4e66-55f4-b5e3-71074ddad027"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Power input are connected",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 7 [EP, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.5875,
+                                "y": 1.1049
+                            },
+                            "uuid": "3d49c98f-1fcc-55f1-9a4a-dc7f62d344e4"
+                        },
+                        {
+                            "description": "Symbol #PWR001 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.4732,
+                                "y": 0.9525
+                            },
+                            "uuid": "4039d6c2-06a4-5173-800b-0296693f4fd4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 4 [ADD0, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6637,
+                                "y": 1.1049
+                            },
+                            "uuid": "ae490f54-55dc-518c-bcd6-6c6490b4217f"
+                        },
+                        {
+                            "description": "Symbol U1 Pin 6 [SDA, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6129,
+                                "y": 1.1049
+                            },
+                            "uuid": "6fa46bea-4a1c-53de-b5bc-3ecf6a44cfb1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'power'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR002 [GND]",
+                            "pos": {
+                                "x": 1.5748,
+                                "y": 1.3335
+                            },
+                            "uuid": "5d241ad8-a026-52fa-b98d-b80652f67be6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Pins of type Unspecified and Power input are connected",
+                    "items": [
+                        {
+                            "description": "Symbol C1 Pin 2 [2, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.5748,
+                                "y": 1.3335
+                            },
+                            "uuid": "ccb8ddea-67d0-502e-ad49-e98c963ccac0"
+                        },
+                        {
+                            "description": "Symbol #PWR002 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.5748,
+                                "y": 1.3335
+                            },
+                            "uuid": "3e897c6f-4e66-55f4-b5e3-71074ddad027"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'jlc'.",
+                    "items": [
+                        {
+                            "description": "Symbol C1 [CC0603KRX7R9BB104]",
+                            "pos": {
+                                "x": 1.6256,
+                                "y": 1.3335
+                            },
+                            "uuid": "b514d237-c153-5f6d-afe2-53badf97a864"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'jlc'",
+                    "items": [
+                        {
+                            "description": "Symbol C1 [CC0603KRX7R9BB104]",
+                            "pos": {
+                                "x": 1.6256,
+                                "y": 1.3335
+                            },
+                            "uuid": "b514d237-c153-5f6d-afe2-53badf97a864"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Pins of type Unspecified and Unspecified are connected",
+                    "items": [
+                        {
+                            "description": "Symbol C1 Pin 1 [1, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6764,
+                                "y": 1.3335
+                            },
+                            "uuid": "4eaacbec-bda5-5de7-b256-211acd2fa654"
+                        },
+                        {
+                            "description": "Symbol U1 Pin 5 [V+, Unspecified, Line]",
+                            "pos": {
+                                "x": 1.6383,
+                                "y": 1.1049
+                            },
+                            "uuid": "50613e28-9e6f-50cd-b892-5ca626a09dfe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                }
+            ]
+        }
+    ],
+    "source": "sensor_head_2.kicad_sch"
+}

@@ -65,7 +65,8 @@ else:
     tht = [role for g, role, l, q, w, r in rows if r and not parts.machine_placed(l)]
     check("safety — every part is machine-placed SMT, none is hand-soldered through-hole", not tht, f"{tht}" if tht else "44 parts" if len(rows) == 44 else f"{len(rows)} parts")
     ext = {l for g, role, l, q, w, r in rows if r and r["type"] == "extended"}
-    check("functional — the extended-part count (each carries a setup fee) is at most 25", len(ext) <= 25, f"{len(ext)} extended of {len(rows)}")
+    # budget 27 (was 25): the exact RP2040 reference crystal (ABM8-272-T3, extended) and the 50 V boost capacitor (extended) were added at WP4
+    check("functional — the extended-part count (each carries a setup fee) is at most 27", len(ext) <= 27, f"{len(ext)} extended of {len(rows)}")
 
 # ---- the analog blocks in ngspice (WP3) -------------------------------------------------------------------
 import shutil  # noqa: E402
@@ -96,6 +97,13 @@ else:
     pl = A.plate()
     check("functional — plate driver: linear to 0.1% from 2.9 V to 22.8 V, overshoot under 5%, settles in under 5 us with 300 pF of cable", pl["gain_err_pct"] < 0.1 and pl["overshoot_pct"] < 5 and pl["settle_us"] < 5, f"gain error {pl['gain_err_pct']:.4f}%, overshoot {pl['overshoot_pct']:.1f}%, settles {pl['settle_us']:.1f} us")
     check("safety — the plate voltage never exceeds the repo's 50 V DC line, with the driver at its worst", pl["max_V"] < 50, f"peak {pl['max_V']:.1f} V on a 24 V rail")
+
+# the schematic: pin accounting, data-sheet nets, footprints, BOM against parts.py, design numbers (schematic/schematic_test.py)
+import subprocess  # noqa: E402
+
+_sch = subprocess.run([sys.executable, "-I", os.path.join(HERE, "schematic", "schematic_test.py")], capture_output=True, text=True)
+_tail = [ln for ln in _sch.stdout.splitlines() if ln.startswith(("FAIL", "schematic checks passed"))]
+check("functional — the schematic's pin accounting, data-sheet nets, footprints, BOM and design numbers all pass", _sch.returncode == 0, "; ".join(_tail[:3]))
 
 if failures:
     print(f"\n{len(failures)} check(s) failed: {failures}")

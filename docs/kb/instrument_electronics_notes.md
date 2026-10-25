@@ -1,6 +1,6 @@
 # KB: the instrument board — what was decided, what the simulations found, what is open
 
-Audience: future LLM sessions. State of 2026-10-24: WP1 (requirements), WP2 (parts), WP3 (analog block simulations) are done; WP4 (schematic) is next and not started. Sources: `hardware/instrument/`
+Audience: future LLM sessions. State of 2026-10-24: WP1 (requirements), WP2 (parts), WP3 (analog block simulations) and WP4 (schematic, as checked netlists) are done; rendering the main-board sheet and WP5 (layout, waits on A5) are next. Sources: `hardware/instrument/`
 (`requirements.md`, `pins.py`, `parts.py`/`parts.md`, `analog_sims.py`, `sim/*.spice`, `smoke_test.py`). The board is a JLCPCB-assembled RP2040 design: no hand soldering, machine-placed SMT from JLC's library only, USB power, under 50 V DC.
 
 ## Decisions and their reasons
@@ -16,7 +16,7 @@ Audience: future LLM sessions. State of 2026-10-24: WP1 (requirements), WP2 (par
 - **Coin motors** (two AO3400A drivers, PWM capped at 60% duty from 5 V) disturb the balance for transfer-function measurements; environment sensors: TMP117 (three), LIS2DW12 accelerometer, MMC5983MA magnetometer (heads on JST-SH cables).
 - **Power budget** (`pins.py`): measurement 89 mA; lead-current run 389 mA; disturbance 329 mA from the 5 V USB rail; polyfuse holds 750 mA; each mode stays under 90% of USB's 500 mA.
 - **Pins:** 30 signals on 30 GPIOs, every function checked against RP2040 datasheet Table 2; ADC on SPI0 (GP16-19), I2C0 on GP4/GP5, motor PWMs on one slice, four ADC monitors on GP26-29.
-- **Parts:** 48 part numbers, 25 extended (each extended part adds about a $3 loading fee at assembly [community]); all in stock at 20x the order's need (2 assembled boards of 5 bare).
+- **Parts:** 50 part numbers, 27 extended (each extended part adds about a $3 loading fee at assembly [community]); all in stock at 20x the order's need (2 assembled boards of 5 bare).
 - **The device card** (16 x 24 mm FR4 with the device's resistor and a header) belongs to the electronics order; its power cap is 0.5 W (see `balance_design_notes.md`).
 
 ## What the simulations found (ngspice, behavioral op-amp models from the data sheets; TI macro models replace them before layout)
@@ -27,11 +27,33 @@ Audience: future LLM sessions. State of 2026-10-24: WP1 (requirements), WP2 (par
 - Plate driver: 8.6% overshoot without feedback capacitance; 10 pF removes it (linear to 0.001%, settles in 3.9 us into 300 pF of cable).
 - BOM errors caught by the checks: a 100 mohm shunt where 1 ohm was needed; the ballast and sense resistors were missing.
 
-## Open points before layout (WP4/WP5)
+## WP4 schematic: what was built, found and decided (2026-10-24)
 
-1. ADS131A04 input network, charge-pump pins (AVSS/VNCP) and input protection (datasheet pages).
-2. The 24 V boost's feedback network and ripple filtering (mechanical bandwidth is 0.2 Hz, so ripple matters through the ADC and optics).
-3. Analog ground partitioning: the plate driver and LED sinks are the noisiest blocks.
+Files: `hardware/instrument/schematic/` (`main_board.py`, `heads.py`, `generate.py`, `schematic_test.py`), `hardware/instrument/lib/` (the `jlc` symbol and footprint libraries from `easyeda2kicad`, one symbol per BOM part, each with its LCSC number in the symbol's "LCSC Part" field). The test is in the smoke tests; it checks pin accounting (every pin on a net with another pin or in `ALLOWED_OPEN` with a data-sheet reason), pins that need a given net (`EXPECT`), every symbol pin against its footprint's pads, the five boards' parts against `parts.BOM`, and design numbers. It was mutation-checked: a pin pulled off its net and a supply pin moved to GND both fail it.
+
+Defects the work caught (all fixed in the BOM and schematic):
+- The supply-entry ferrite bead (C1002, 600 ohm) is rated 200 mA with 450 mohm DCR, but the 5 V rail carries up to 389 mA: the entry and boost-input beads are now C14709 (120 ohm, 2 A, basic); C1002 stays on 3V3_A (under 50 mA).
+- The RP2040 crystal (C9002) had 20 pF load and 80 ohm ESR; the hardware design guide wants 10 pF and 50 ohm max and says any deviation needs extensive testing. Now ABM8-272-T3 (C20625731, extended, 3,856 in stock) with 15 pF caps and a 1 kohm in series with XOUT.
+- 25 V-rated 10 uF capacitors would have lost most of their capacitance at the boost's 24 V: boost output and filter use 4.7 uF 50 V (C132170).
+- The MCP4728 cannot output 4.096 V from a 3.3 V supply (see requirements.md).
+- The BOM's quantities were estimates; the schematic fixed them (the test enforces equality).
+
+Design choices worth knowing: ADS131A04 with AVSS on ground and the negative charge pump on (VNCP to AVSS through three 100 nF in parallel, about the required 270 nF; the firmware must enable it), internal reference (1 uF on REFP-REFN and on REFEXT), M0 and M1 high (asynchronous interrupt mode, 32-bit words), M2 low, 100 kohm pull-up on DOUT, DONE and pin 24 floating; each input through 1 kohm legs with 1 nF across the pair; channels 1-4 = photodiode head, reference photodiode, shunt, plate monitor (the plate and the 24 V rail each have a 100k/10k divider, 2.19 V full scale). LED2's reference photodiode output goes to the RP2040's ADC3 (MON_SPARE), because the ADC has only four channels. The boost feedback is 200 kohm over 5.1 kohm, 24.1 V. Spare GPIOs are on four 2-pin headers; SWD on a fifth.
+
+Pitfalls (SKiDL 3.0, KiCad symbols from easyeda2kicad):
+- `net_a += net_b` merges the nets and keeps ONE name (the netlist then has no "3V3_D" if another net was named later): build() must alias one Net object (`iov = v3d`), and `schematic_test.py` fails if any name asked for does not survive. Rebinding a net with `+=` inside a nested function makes it a local variable: use `.__iadd__` or `net(name)`.
+- The circuit is `builtins.default_circuit`, not importable from skidl. Use `-I` and put the schematic directory on `sys.path` yourself.
+- The easyeda2kicad symbols have no electrical pin types (all "unspecified"), so KiCad's ERC on SKiDL's output reports only noise (undriven inputs, unconfigured libraries, `pin_to_pin`); it only proves the file loads. The pin-accounting test is the real gate. A useful ERC needs pin types per IC added from the data sheets.
+- `generate_schematic()` places and routes one flat sheet: it fails (RoutingFailure) or does not finish (164 parts: over 15 CPU-minutes) on the main board; `retries=6` makes the head boards route (sensor head 1 still fails). Hierarchical `@subcircuit` blocks are the next step.
+- Tactile switch TS-1187A-B-A-B: wire only the diagonal pins (1 and 4); the pairs on one side are common, the contact bridges the sides.
+- EasyEDA has no entry for C21900468 (the ADC crystal, HTTP 403): the 3.2 x 2.5 mm 4-pad symbol and footprint of the 12 MHz crystal stand in (pads 1 and 3 the crystal, 2 and 4 ground). Check against the 3X016384UP data sheet before layout.
+- Component values come from the LCSC attribute list (`jlc search ... --json`, "Current Rating", "Load Capacitance", "ESR") and are a quick way to check a part against a design requirement.
+
+## Open points before layout (WP5)
+
+1. Pin electrical types and a hierarchical schematic so that `kicad-cli sch erc` means something; the main-board sheet.
+2. Verify the EasyEDA symbols' polarity against the data sheets for polarized parts (VBPW34S, IR26-21C, SS14, KT-0603R, USBLC6 pin names) and the crystal footprint (see above).
+3. The 24 V boost: ripple at the plate output has not been simulated (a 51 ohm / 4.7 uF filter follows two 4.7 uF capacitors); mechanical bandwidth is 0.2 Hz, so only the ADC and optics see it. Analog ground partitioning is a layout rule: the plate driver and LED sinks are the noisiest blocks.
 4. The real photocurrent (assumed 100 uA at mid-flag): the A5 prototype measures it, and Rf may change.
 5. A5 itself, with the balance as built (FR4 arm): the measured noise spectrum, before layout or the electronics order. WP5 (layout) and WP7 (order) wait on A5.
-6. Tools: schematic via SKiDL + `kicad-cli sch erc`; symbols/footprints from `easyeda2kicad` by LCSC number (library packages are still KiCad 7.0.11).
+6. TI SPICE macro models for the TLV9062 and OPA197 replace the behavioral models.

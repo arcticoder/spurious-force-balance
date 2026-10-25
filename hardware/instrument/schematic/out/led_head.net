@@ -1,0 +1,501 @@
+(export 
+  (version "D")
+  (design
+    (source "generate.py")
+    (date "10/24/2026 08:32 PM")
+    (tool "SKiDL (3.0.0)")
+    (sheet
+      (number 1)
+      (name "/")
+      (tstamps "/")
+      (title_block
+        (title)
+        (company)
+        (rev)
+        (date)
+        (source "out/generate.py")
+        (comment
+          (number "1")
+          (value ""))
+        (comment
+          (number "2")
+          (value ""))
+        (comment
+          (number "3")
+          (value ""))
+        (comment
+          (number "4")
+          (value ""))
+        (comment
+          (number "5")
+          (value ""))
+        (comment
+          (number "6")
+          (value ""))
+        (comment
+          (number "7")
+          (value ""))
+        (comment
+          (number "8")
+          (value ""))
+        (comment
+          (number "9")
+          (value "")))))
+  (components
+    (comp
+      (ref "C1")
+      (value "CC0603KRX7R9BB104")
+      (description "")
+      (footprint "jlc:C0603")
+      (fields
+        (field
+          (name "LCSC") "C14663")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:C0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_100nF-104-10-50V_C14663.html")
+        (field
+          (name "SKiDL Tag") "E1Wps1AfKn")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "CC0603KRX7R9BB104"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "38bfa495-24df-55ab-8214-6c19b9ca9bd6"))
+    (comp
+      (ref "C2")
+      (value "CL10A105KB8NNNC")
+      (description "")
+      (footprint "jlc:C0603")
+      (fields
+        (field
+          (name "LCSC") "C15849")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:C0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10A105KB8NNNC_1uF-105-10-50V_C15849.html")
+        (field
+          (name "SKiDL Tag") "68FGu7gdT1")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "CL10A105KB8NNNC"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "9061d166-00d7-562e-b834-5de16e029d04"))
+    (comp
+      (ref "C3")
+      (value "CC0603KRX7R9BB104")
+      (description "")
+      (footprint "jlc:C0603")
+      (fields
+        (field
+          (name "LCSC") "C14663")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:C0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_100nF-104-10-50V_C14663.html")
+        (field
+          (name "SKiDL Tag") "dShPDo3P6j")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "CC0603KRX7R9BB104"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "26079029-e622-5dca-a4d0-662b08bbc679"))
+    (comp
+      (ref "C4")
+      (value "CL10B102KB8NNNC")
+      (description "")
+      (footprint "jlc:C0603")
+      (fields
+        (field
+          (name "LCSC") "C1588")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:C0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_SAMSUNG_CL10B102KB8NNNC_1nF-102-10-50V_C1588.html")
+        (field
+          (name "SKiDL Tag") "n1Ud6LovhT")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "CL10B102KB8NNNC"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "d6e322a0-e875-5d4d-9f2f-9137527f2b71"))
+    (comp
+      (ref "CN1")
+      (value "SM04B-SRSS-TB")
+      (description "")
+      (footprint "jlc:CONN-SMD_4P-P1.00_SM04B-SRSS-TB-LF-SN")
+      (fields
+        (field
+          (name "LCSC") "C160404")
+        (field
+          (name "Role") "LED head cable")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:CONN-SMD_4P-P1.00_SM04B-SRSS-TB-LF-SN")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Others_JST-Sales-America__JST-Sales-America-SM04B-SRSS-TB-LF-SN_C160404.html")
+        (field
+          (name "SKiDL Tag") "R9dq4xVAAn")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "SM04B-SRSS-TB"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "7cef7057-977b-5bd7-868a-be7a3364279e"))
+    (comp
+      (ref "LED1")
+      (value "VBPW34S")
+      (description "")
+      (footprint "jlc:SENSOR-SMD_L4.4-W3.9")
+      (fields
+        (field
+          (name "LCSC") "C145262")
+        (field
+          (name "Role") "REF photodiode")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:SENSOR-SMD_L4.4-W3.9")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Infrared-Receivers_VISHAY_VBPW34S_VBPW34S_C145262.html")
+        (field
+          (name "SKiDL Tag") "WeFd9L3iwv")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "VBPW34S"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "1cbc01cb-074b-55e2-abe0-cae4b26c79ac"))
+    (comp
+      (ref "R1")
+      (value "0603WAF3302T5E")
+      (description "")
+      (footprint "jlc:R0603")
+      (fields
+        (field
+          (name "LCSC") "C4216")
+        (field
+          (name "Role") "bias divider, top (97 mV)")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:R0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_33KR-3302-1_C4216.html")
+        (field
+          (name "SKiDL Tag") "42ZieJpfIL")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "0603WAF3302T5E"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "97e560a8-3b6a-5419-b156-01e04b8f96cc"))
+    (comp
+      (ref "R2")
+      (value "0603WAF1001T5E")
+      (description "")
+      (footprint "jlc:R0603")
+      (fields
+        (field
+          (name "LCSC") "C21190")
+        (field
+          (name "Role") "bias divider, bottom")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:R0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_1KR-1001-1_C21190.html")
+        (field
+          (name "SKiDL Tag") "2v0OLf3Bag")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "0603WAF1001T5E"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "063266c4-0a04-578a-acc5-448cb354c0c4"))
+    (comp
+      (ref "R3")
+      (value "0603WAF1002T5E")
+      (description "")
+      (footprint "jlc:R0603")
+      (fields
+        (field
+          (name "LCSC") "C25804")
+        (field
+          (name "Role") "Rf: 10 kV/A")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:R0603")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount-UniOhm_10KR-1002-1_C25804.html")
+        (field
+          (name "SKiDL Tag") "NvGQzPWIeJ")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "0603WAF1002T5E"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "fcc7ce41-f328-582e-a84f-30e2396ecd6e"))
+    (comp
+      (ref "U1")
+      (value "IR26-21C/L110/CT")
+      (description "")
+      (footprint "jlc:LED-SMD_L3.2-W1.6-RD_RED")
+      (fields
+        (field
+          (name "LCSC") "C131280")
+        (field
+          (name "Role") "940 nm IR LED")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:LED-SMD_L3.2-W1.6-RD_RED")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/Infrared-IR-LEDs_1206SMD_C131280.html")
+        (field
+          (name "SKiDL Tag") "WNbC2e3XDX")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "IR26-21C_L110_CT"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "8d88c388-36f5-5c80-9873-bb387771835d"))
+    (comp
+      (ref "U2")
+      (value "TLV9062IDR")
+      (description "")
+      (footprint "jlc:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL")
+      (fields
+        (field
+          (name "LCSC") "C398355")
+        (field
+          (name "Role") "REF transimpedance amplifier")
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "jlc:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL")
+        (field
+          (name "Datasheet") "https://lcsc.com/product-detail/General-Purpose-Amplifiers_Texas-Instruments-TI-TLV9062IDR_C398355.html")
+        (field
+          (name "SKiDL Tag") "skILNoOM2v")
+        (field
+          (name "SKiDL Line") "main_board.py:52"))
+      (libsource
+        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (part "TLV9062IDR"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "b38b952b-ab47-5a12-831f-8181ca3e0102")))
+  (nets
+    (net
+      (code 1)
+      (name "3V3_A")
+      (class "Default")
+      (node
+        (ref "C1")
+        (pin "1")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "C2")
+        (pin "1")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "CN1")
+        (pin "1")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "R1")
+        (pin "1")
+        (pintype "INPUT"))
+      (node
+        (ref "U1")
+        (pin "2")
+        (pintype "INPUT"))
+      (node
+        (ref "U2")
+        (pin "8")
+        (pintype "POWER-IN")))
+    (net
+      (code 2)
+      (name "GND")
+      (class "Default")
+      (node
+        (ref "C1")
+        (pin "2")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "C2")
+        (pin "2")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "C3")
+        (pin "2")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "CN1")
+        (pin "2")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "CN1")
+        (pin "5")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "CN1")
+        (pin "6")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "LED1")
+        (pin "1")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "R2")
+        (pin "2")
+        (pintype "INPUT"))
+      (node
+        (ref "U2")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U2")
+        (pin "5")
+        (pintype "UNSPECIFIED")))
+    (net
+      (code 3)
+      (name "LED_K")
+      (class "Default")
+      (node
+        (ref "CN1")
+        (pin "3")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "U1")
+        (pin "1")
+        (pintype "INPUT")))
+    (net
+      (code 4)
+      (name "REF_IN")
+      (class "Default")
+      (node
+        (ref "C4")
+        (pin "2")
+        (pintype "INPUT"))
+      (node
+        (ref "LED1")
+        (pin "2")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "R3")
+        (pin "2")
+        (pintype "INPUT"))
+      (node
+        (ref "U2")
+        (pin "2")
+        (pintype "UNSPECIFIED")))
+    (net
+      (code 5)
+      (name "REF_PARK")
+      (class "Default")
+      (node
+        (ref "U2")
+        (pin "6")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "U2")
+        (pin "7")
+        (pintype "OUTPUT")))
+    (net
+      (code 6)
+      (name "REF_SIG")
+      (class "Default")
+      (node
+        (ref "C4")
+        (pin "1")
+        (pintype "INPUT"))
+      (node
+        (ref "CN1")
+        (pin "4")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "R3")
+        (pin "1")
+        (pintype "INPUT"))
+      (node
+        (ref "U2")
+        (pin "1")
+        (pintype "OUTPUT")))
+    (net
+      (code 7)
+      (name "REF_VB")
+      (class "Default")
+      (node
+        (ref "C3")
+        (pin "1")
+        (pintype "UNSPECIFIED"))
+      (node
+        (ref "R1")
+        (pin "2")
+        (pintype "INPUT"))
+      (node
+        (ref "R2")
+        (pin "1")
+        (pintype "INPUT"))
+      (node
+        (ref "U2")
+        (pin "3")
+        (pintype "UNSPECIFIED")))))
