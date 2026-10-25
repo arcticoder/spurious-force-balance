@@ -66,6 +66,6 @@ interactive, so the user confirms totals before paying.
 2. **AliExpress (after the print list is final):** acrylic (7 sheets, 2 mm, 150 x 250 mm), 50 M3 flat washers (304), 20 M3 hex nuts (304; 10 needed), the JST-SH plate cable,
    weights, and the hand tools if not owned. Held until now because the redesign changed the fastener counts (computed in `balance.py`; the owned screws and nuts cover
    everything else).
-3. **The electronics order (later, after the A5 prototype measurement):** 5 bare boards with 2 assembled (economic PCBA allows 2 of 5 [confirmed: minimum 2 pcs]),
+3. **The electronics order (later, after the A5 prototype measurement):** 5 bare boards with 2 assembled (JLC assembly takes 2 of 5 [confirmed: minimum 2 pcs]; Standard rather than Economic PCBA, because two sensors are Standard-only, Part H5),
    Standard (not economic) assembly, because two sensors are Standard-only (`parts.py`, Part H5); the sensor heads panelized together, no stencil. Two JLC shipments in total, because the free hold can't bridge A5.
    Before placing it, run `~/.venvs/lab-hw/bin/python hardware/instrument/parts.py --live` (needs the `jlc` CLI and network): live stock, basic/extended and Economic-versus-Standard PCBA for every part.
