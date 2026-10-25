@@ -74,6 +74,11 @@ BOM = [
 # boards and their order quantity: JLC's minimum for assembled prototypes is read at order time
 BOARDS_PER_ORDER = 2  # assembled boards per order: JLC's economic assembly takes 2 to 50 of the 5 bare boards (a 1-piece assembly is not offered)
 BARE_BOARDS_PER_ORDER = 5  # JLC's minimum of bare boards per design (the other 3 are unpopulated spares)
+# Parts JLC lists as Standard-PCBA-only. Accepted (decision of 2026-10-24, Part H5): the magnetometer measures the field term of the lead-force budget and has no
+# Economic equivalent, so the electronics order uses Standard assembly (about $17 more setup, two-sided placement allowed); with that fixed, the genuine ST
+# accelerometer is kept. If the magnetometer is ever dropped, the Economic fallbacks are NXP MMA8452Q (C11360, extended, 12-bit, I2C) for the accelerometer; the
+# MSKSEMI LIS2DW12TR-MS (C50385411) was rejected: no datasheet link and its listing says 12-bit, +/-16 g, which does not match ST's part.
+STANDARD_PCBA_ACCEPTED = {189624, 404329}
 STOCK_FACTOR = 20  # stock must cover this many times the whole order's need
 
 
@@ -133,7 +138,7 @@ def live_check():
             need = qty * BOARDS_PER_ORDER * STOCK_FACTOR
             if lv["stock"] < need:
                 f.append(f"stock < {need}")
-            if lv["pcba"] != "economic-and-standard":
+            if lv["pcba"] != "economic-and-standard" and lcsc not in STANDARD_PCBA_ACCEPTED:
                 f.append("STANDARD PCBA ONLY")
             if snap and snap["type"] != lv["type"]:
                 f.append(f"{snap['type']} -> {lv['type']}")
@@ -144,7 +149,9 @@ def live_check():
             print(f"| C{lcsc} | {role} | {qty} | {s_txt} | {lv['stock']:,} | {lv['type']} | {lv['pcba']} | ${lv['unit_price']:.4f} | {'; '.join(f)} |")
         else:
             print(f"| C{lcsc} | {role} | {qty} | {s_txt} | | | | | {'; '.join(f)} |")
-    print(f"\n{len(BOM)} parts checked live; {len(flags)} flagged." + "".join(f"\n  C{l} {r}: {', '.join(f)}" for l, r, f in flags))
+    std = sorted(r[2] for r, lv in zip(BOM, results) if lv and lv["pcba"] != "economic-and-standard")
+    print(f"\nStandard-PCBA-only parts in the BOM (accepted, so the order needs Standard assembly): {', '.join(f'C{c}' for c in std) or 'none'}")
+    print(f"{len(BOM)} parts checked live; {len(flags)} flagged." + "".join(f"\n  C{l} {r}: {', '.join(f)}" for l, r, f in flags))
     return 1 if flags else 0
 
 

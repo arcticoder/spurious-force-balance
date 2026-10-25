@@ -4,53 +4,15 @@ Work that needs no hands, eyes or purchasing decision from the user: writing fil
 documents for this experiment. The user's own list is [TODO-arcticoder.md](TODO-arcticoder.md); finished
 items move to [TODO-completed.md](TODO-completed.md) (dated entries). The list conventions are in the `lab`
 repo's [todo_list_conventions](https://github.com/arcticoder/lab/blob/main/docs/kb/todo_list_conventions.md).
-This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Parts F and G (2026-10-24) are done; Part D is done. Next: Part H (live JLC part checks), then Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
+This repo split out of `lab` on 2026-10-23; Parts A and D came with it (path fixes only). Parts F and G (2026-10-24) are done; Part D is done. Part H is done. Next: Part A's WP4 (schematic) onward, and A5 once the user has built the balance.
 
 ---
 
-## Part H — live JLC/LCSC part lookups from the terminal (H1–H4 done 2026-10-24; H5 open, do before WP4)
+## Part H — live JLC/LCSC part lookups (done 2026-10-24; details in TODO-completed.md)
 
-**Why.** WP2's 48 parts were checked against the jlcparts snapshot of 2026-10-22 (`~/jlcparts/cache.sqlite3`), which goes stale and has no
-Economic-versus-Standard PCBA flag. WP4 fixes part numbers and WP7 orders them, so a session needs live stock, basic/extended, PCBA type and
-price tiers for any LCSC number. JLCONE (the desktop app) has no CLI, API or MCP server; community tools fill the gap.
-
-**Decision: the CLI `@jlcpcb/cli`, not the MCP server.** Both are the same unofficial project (github.com/l3wi/jlc-cli, v0.5.0, 2026-09-28;
-not affiliated with JLCPCB) and query the same backend, so nothing is lost. The CLI wins because:
-- a session already has Bash; an MCP server only loads at session start, needs a config change and a restart, and adds its tool schemas to
-  every session in every workspace repo;
-- `jlc info C<n> --json` can be scripted into a repo check that anyone can rerun (the end user too), which an MCP tool call cannot;
-- the MCP can still be added later with one line (`claude mcp add jlc -- npx -y @jlcpcb/mcp@0.5.0`) if interactive browsing turns out useful.
-
-Traps found while checking: the package name `jlc-mcp` in the MCP's own README returns 404 on npm (the real package is `@jlcpcb/mcp`, whose
-binary is named `jlc-mcp`); a third package, `jlcpcb-mcp` (Eyalm321), is unrelated and not chosen. Pin the version; do not use `@latest`.
-
-- [x] **H1 — install and probe.** `npm install -g @jlcpcb/cli@0.5.0` (node 22.15 under nvm in `~/.nvm`, so no sudo). Check `jlc --version`,
-  then `jlc info C2040 --json` (RP2040) and `jlc info C882747 --json` (ADS131A04). Record the JSON field names actually returned (stock,
-  library type, `pcba_type`, price tiers, package, datasheet URL). Check whether `jlc search "<q>" --in-stock --basic-only` prints plain rows
-  when stdout is not a TTY or opens the Ink TUI and hangs; if it hangs, use `info` only and note it. If the install or a lookup fails
-  (JLC changed its web endpoints), record the error and fall back to the snapshot; do not try other packages without a note here first.
-- [x] **H2 — a live BOM check.** Add `--live` to `hardware/instrument/parts.py` (through a small function in `hardware/tools/jlc_query.py`
-  that runs `jlc info C<n> --json` via `subprocess`, with a timeout and a clear error if `jlc` is missing). For each BOM row print snapshot
-  versus live stock, basic/extended, PCBA type and the unit price at the order quantity; flag (a) any part out of stock or with stock under
-  ten times the quantity for one order, (b) any "Standard only" part, since one forces the whole board onto Standard PCBA (cost goes into
-  `kb/fab_ordering_notes.md`), (c) any part that moved basic to extended. Do not add it to `run_all_smoke_tests.py` (network-dependent);
-  document the command in `parts.md`'s header and in `docs/fabrication.md` as the pre-order check for WP7. Fix or replace flagged parts
-  before WP4 starts, rerunning `parts.py --write`.
-- [x] **H3 — symbols/footprints: compare, do not switch yet.** WP4's plan uses `easyeda2kicad`. Run `jlc install C882747 --project
-  <scratch dir> --yes` (never the global library) and compare the footprint's pads and the symbol's pin names against `easyeda2kicad`'s output
-  for the same part. Adopt `jlc install` for WP4 only if it is clearly better (its README claims built-in KiCad footprints for 2-terminal R/C/L
-  and a `library_fix` path for pin corrections); write the outcome either way.
-- [x] **H4 — knowledge base.** `kb/pcb_toolchain_notes.md`: the tool, the pinned version, the JSON fields, the TTY behavior, the npm-name trap,
-  and that it is unofficial and can break when JLC changes its site. `kb/project_workflow_notes.md` "Tools available": add `jlc`. Move H1–H4 to
-  `TODO-completed.md` with a short dated entry when H5 is closed.
-- [ ] **H5 — settle the two Standard-PCBA-only parts** (found by H2: the LIS2DW12 accelerometer C189624 and the MMC5983MA magnetometer C404329; every
-  other part is Economic-compatible and in stock). Standard assembly costs about $17 more in setup and is the two-sided service (`kb/fab_ordering_notes.md`).
-  Options: (a) the accelerometer: C50385411, an MSKSEMI LIS2DW12TR-MS in the same LGA-12 package, Economic-compatible, $0.49, 11.6k in stock; read its datasheet for
-  register and pinout compatibility with ST's LIS2DW12 before adopting it, since an unverified second source is a risk to a measurement instrument, although this sensor
-  only logs floor motion and tilt; (b) the magnetometer sits on the head boards, which are separate small boards: decide whether they are ordered as their own Standard
-  assembly or the sensor is dropped from the head (no Economic 3-axis magnetometer turned up in searches of `jlc search --economic-only` for "magnetometer", "MMC5983MA", "QMC5883L",
-  "LIS3MDL"; the ICM-20948 is Economic but costs $20). Also settle whether the main board needs parts on both sides (that alone forces Standard). Write the decision into `parts.py`, rerun
-  `parts.py --live` until it reports 0 flagged (or the flags are explained in the BOM comment), and `parts.py --write`.
+The `jlc` CLI (`@jlcpcb/cli` 0.5.0, chosen over the MCP server) is installed; `parts.py --live` is the pre-order check (usage and quirks in `kb/pcb_toolchain_notes.md`). Decision from H5: **the electronics
+order uses Standard PCBA**, because the magnetometer (C404329) and accelerometer (C189624) are Standard-only; `parts.py` records the accepted exception and the fallbacks. Run `parts.py --live` again
+before WP7 (stock and PCBA flags change).
 
 ---
 
