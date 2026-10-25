@@ -96,12 +96,19 @@ else:
     check("safety — device current sink: junction rise at 300 mA under 60 K (AOD4184A, 55 K/W steady state on its test footprint) and the 4.7 ohm ballast under half its 1 W rating", p_fet * 55 < 60 and p_bal < 0.5, f"FET {p_fet:.2f} W -> {p_fet*55:.0f} K; ballast {p_bal:.2f} W")
     pl = A.plate()
     check("functional — plate driver: linear to 0.1% from 2.9 V to 22.8 V, overshoot under 5%, settles in under 5 us with 300 pF of cable", pl["gain_err_pct"] < 0.1 and pl["overshoot_pct"] < 5 and pl["settle_us"] < 5, f"gain error {pl['gain_err_pct']:.4f}%, overshoot {pl['overshoot_pct']:.1f}%, settles {pl['settle_us']:.1f} us")
+    check("functional — the plate driver stays linear to 0.1% over the DAC's real range (0.5 to 3.3 V: the MCP4728 runs from 3.3 V), full scale 18.8 V", pl["gain_err_3v3_pct"] < 0.1, f"gain error {pl['gain_err_3v3_pct']:.4f}%, 5.7 x 3.3 V = {5.7 * 3.3:.1f} V")
+    bo = A.boost()
+    # supply ripple to force: OPA197 PSRR taken as 80 dB at the burst frequency (about 1 kHz; the data sheet's DC figure is far better); force on the plates 7.08e-10 N/V^2
+    # (20 x 8 mm, 1 mm gap), dF = 2 k V dV at the 18.8 V full scale; the budget is 0.108 nN and the pendulum (0.2 Hz) filters a 1 kHz force by a further factor of about 1e7
+    dF_pN = 2 * 7.08e-10 * 18.8 * bo["v24_pp"] * 1e-4 * 1e12
+    check("functional — boost (worst case, hysteretic pulse skipping): the filtered 24 V rail stays near 24 V and under 0.5 V peak to peak", 23.5 < bo["v24_avg"] < 24.5 and bo["v24_pp"] < 0.5, f"mean {bo['v24_avg']:.2f} V, {bo['v24_pp']:.2f} V p-p after the filter ({bo['vr_pp']:.2f} V at the boost output)")
+    check("safety — boost ripple through the plate driver is under 1% of the 0.108 nN force-noise budget (1 pN) before the pendulum's filtering", dF_pN < 1.0, f"{dF_pN:.2f} pN at the burst frequency (PSRR 80 dB assumed)")
     check("safety — the plate voltage never exceeds the repo's 50 V DC line, with the driver at its worst", pl["max_V"] < 50, f"peak {pl['max_V']:.1f} V on a 24 V rail")
 
 # the schematic: pin accounting, data-sheet nets, footprints, BOM against parts.py, design numbers (schematic/schematic_test.py)
 import subprocess  # noqa: E402
 
-_sch = subprocess.run([sys.executable, "-I", os.path.join(HERE, "schematic", "schematic_test.py")], capture_output=True, text=True)
+_sch = subprocess.run([sys.executable, "-I", os.path.join(HERE, "schematic", "schematic_test.py")], capture_output=True, text=True, cwd=os.path.join(HERE, "schematic"))  # SKiDL writes .erc/.log files into the working directory
 _tail = [ln for ln in _sch.stdout.splitlines() if ln.startswith(("FAIL", "schematic checks passed"))]
 check("functional — the schematic's pin accounting, data-sheet nets, footprints, BOM and design numbers all pass", _sch.returncode == 0, "; ".join(_tail[:3]))
 

@@ -1,0 +1,47 @@
+boost: MT3608 24 V boost as a behavioral pulse-skipping converter, with the board's output filter and the 24 V rail's load
+* The real controller is current mode with pulse skipping at light load; here: a 1.2 MHz clock, a fixed 600 ns on-time (22 uH from 5 V reaches 136 mA, 200 nJ per pulse: several times the load, so the converter skips pulses and the hysteresis sets the ripple,
+* DCM: the inductor resets in about 160 ns of the 233 ns left) and a hysteretic comparator on the feedback node (0.595 V on, 0.605 V off). The hysteresis is the assumed
+* quantity: it sets the ripple (10 mV at the feedback node = 10 mV x 205.1k/5.1k = 0.40 V at the output). Capacitances are derated for DC bias: the 4.7 uF 50 V X7R
+* parts keep about 45% at 24 V (4.2 uF for two), the 10 uF 25 V parts about 85% at 5 V.
+* Load on the filtered 24 V rail: OPA197 about 1 mA plus the 100k/10k rail monitor (0.22 mA) and the plate monitor's current (0.17 mA at 18.8 V).
+.param vin=5
+.options method=gear reltol=1e-3 abstol=1e-10 vntol=1e-6 itl4=200
+
+Vin  vin0 0 DC {vin}
+Rbd  vin0 vin 0.1
+Cin  vin 0 17u
+L1   vin sw1 22u
+Rl1  sw1 sw 0.1
+Sm   sw 0 clk 0 smod
+.model smod SW(Ron=0.15 Roff=10Meg Vt=0.5 Vh=0.05)
+* clock gated by the comparator
+Vclk ck 0 PULSE(0 1 0 1n 1n 600n 833.3n)
+Ben  en 0 V = V(fb) < 0.595 ? 1 : (V(fb) > 0.605 ? 0 : V(end))
+Ren  en end 1k
+Cen  end 0 10p
+Bclk clk 0 V = V(ck) * V(en)
+D1   sw vr dss
+.model dss D(IS=2e-5 N=1.05 RS=0.04 BV=40 CJO=100p)
+Cr1  vr 0 2.1u
+Cr2  vr 0 2.1u
+Rf1  vr fb 200k
+Rf2  fb 0 5.1k
+Cfb  fb 0 10p
+Rfl  vr v24 51
+Cf   v24 0 2.1u
+Iload v24 0 DC 1.4m
+Rmon v24 0 110k
+.ic v(vr)=24.1 v(v24)=24.1 v(fb)=0.6
+
+.control
+set wr_vecnames
+tran 2n 3m uic
+meas tran vrmax MAX v(vr) from=1m to=3m
+meas tran vrmin MIN v(vr) from=1m to=3m
+meas tran vfmax MAX v(v24) from=1m to=3m
+meas tran vfmin MIN v(v24) from=1m to=3m
+meas tran vfavg AVG v(v24) from=1m to=3m
+wrdata boost_tran.txt v(vr) v(v24)
+quit
+.endc
+.end

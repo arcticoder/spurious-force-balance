@@ -154,3 +154,35 @@ These are queued as WP4b–WP4d in `docs/TODO-agent.md`, along with checking the
 Your TODO list is unchanged.
 <!-- ------ -->
 ---
+`TODO-agent.md` now holds only open items, in the aqei-bridge layout, and I finished WP4b–WP4d. The smoke tests pass (2 run, 0 failed). Nothing is committed.
+
+**TODO restructure**
+- `TODO-agent.md` has the same header pattern as aqei-bridge, pointing to the completed, blocked and backlog files, and the only open item is WP8.
+- New [TODO-BLOCKED.md](docs/TODO-BLOCKED.md) holds A5, WP5–WP7 and a WP7 precheck.
+- New [TODO-backlog.md](docs/TODO-backlog.md) holds WP4e (readable schematic sheets) and WP9–WP11.
+- The old Part A planning text and the finished Parts D, F, G and H are archived in [kb/part_a_planning_archive.md](docs/kb/part_a_planning_archive.md). The convention is recorded in the workflow notes.
+
+**WP4b, the ERC**
+- **Pin types:** `lib/set_pin_types.py` gives the generated symbols datasheet pin types (132 IC pins, everything else passive).
+- **Electrical rules on the netlist:** SKiDL's drawn wiring produced false KiCad ERC errors even though the netlist was right, so I run the rules on the netlist directly in `schematic_test.py`.
+- **What the rules cover:** power inputs need a source, inputs need a driver, one driving part per net, and no unspecified pins. Four supply nets got PWR_FLAGs. I mutation-checked it.
+- **Sheet rendering:** SKiDL's rendering is flaky (about half the head boards fail to route on any run), so the sheets moved to the backlog.
+
+**WP4c, symbols checked**
+- **Verified:** the TMP117 pins, the VBPW34S polarity and land pattern (Vishay's drawing), the SS14 and the IR LED.
+- **Not verifiable:** manufacturer sites blocked the status LED, USB ESD chip, JST tabs, tactile switch and the ADC crystal's pinout. They're now an explicit check in JLC's placement preview before ordering.
+
+**WP4d, boost ripple and DAC ceiling**
+- **Boost ripple:** the worst case is 0.29 V p-p on the plate driver's supply at about 1 kHz. That gives about 0.76 pN of plate force, under the 1 pN check (1% of the force-noise budget), before the pendulum's filtering.
+- **Assumption:** the op-amp supply rejection is taken as 80 dB.
+- **Plate driver:** it stays linear to 0.001% over the DAC's real range, which tops out at 18.8 V.
+
+**Two small fixes**
+- The tests only worked when `KICAD9_SYMBOL_DIR` was exported in my shell, because the code set the wrong variable name. It's fixed.
+- SKiDL's logs no longer land in the repo root.
+
+You've committed the earlier WP4 work. Regenerating the netlists deleted the committed `.kicad_sch` and ERC files for the LED and photodiode heads under `schematic/out/`, because those sheets didn't render on the new run. `git checkout -- hardware/instrument/schematic/out` restores them, but they predate the pin types and flags.
+
+WP8 (firmware bring-up scripts and the host-side logger) is next.
+<!-- ------ -->
+---

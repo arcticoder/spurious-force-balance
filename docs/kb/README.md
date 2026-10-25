@@ -11,3 +11,4 @@ are in github.com/arcticoder/lab `docs/kb/README.md`.
 | `fab_ordering_notes.md` | JLC shipping, minimums, tactics (tagged by source), and this repo's fabrication decisions |
 | `pcb_toolchain_notes.md` | KiCad 9, the venv, magpylib, kiutils pitfalls, the JLC parts snapshot, JLC capabilities |
 | `project_workflow_notes.md` | the repos, the Opus-plans/Sonnet-actions routine, the user's standing preferences, tools |
+| `part_a_planning_archive.md` | the instrument project's original planning text (constraints, gates, environment, architecture, toolchain) and the notes of finished Parts D, F, G, H |

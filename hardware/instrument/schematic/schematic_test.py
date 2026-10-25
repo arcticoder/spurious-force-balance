@@ -19,7 +19,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, ".."))
-os.environ.setdefault("KICAD_SYMBOL_DIR", "/usr/share/kicad/symbols")
+os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 import heads  # noqa: E402
 import main_board  # noqa: E402
@@ -126,6 +126,65 @@ def check_net_names(nets):
     return bad
 
 
+# Electrical rules on the netlist (what KiCad's ERC checks, evaluated on the real connectivity instead of SKiDL's drawn wires).
+# SKiDL pin type numbers: 1 input, 2 output, 3 bidirectional, 5 passive, 6 unspecified, 7 power input, 8 power output, 13 no connect.
+INPUT, OUTPUT, BIDIR, PASSIVE, UNSPEC, PWRIN, PWROUT, NOCONN = 1, 2, 3, 5, 6, 7, 8, 13
+# (net, rule) -> reason the rule is waived
+ERC_WAIVERS = {
+    ("XIN", "undriven input"): "the RP2040's oscillator drives it through the crystal",
+    ("ADC_XTAL1", "undriven input"): "the ADS131A04's oscillator drives it through the crystal",
+    ("RUN", "undriven input"): "internal pull-up in the RP2040; the reset switch pulls it low",
+    ("SWCLK", "undriven input"): "driven by the debug probe on the SWD header",
+    ("PD_SIG", "undriven input"): "driven by the photodiode head over its cable",
+    ("REF_SIG", "undriven input"): "driven by the LED head over its cable",
+    ("I2C_SCL", "undriven input"): "a head board's clock is driven by the main board over the cable",
+}
+# parts that pass a signal through (resistors, shunt, ballast): an input on one side is driven by an output on the other
+TRANSPARENT = set(main_board.RES.values()) | {17928, 25489}
+
+
+def check_erc(circuit):
+    bad = 0
+    nets = list(circuit.get_nets())
+    # union nets joined by transparent two-pin parts, for the "input has a driver" rule
+    parent = {n.name: n.name for n in nets}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for p in circuit.parts:
+        if lcsc_of(p) in TRANSPARENT and len(p.pins) == 2 and all(q.net is not None for q in p.pins):
+            parent[find(p.pins[0].net.name)] = find(p.pins[1].net.name)
+    groups = collections.defaultdict(list)
+    for n in nets:
+        groups[find(n.name)].append(n)
+    for net in nets:
+        pins = [p for p in net.pins if p.part is not None]
+        kinds = collections.Counter(int(p.func) for p in pins)
+        names = [f"{p.part.ref}.{p.num}" for p in pins]
+        if kinds[UNSPEC]:
+            bad += fail(f"net {net.name}: {kinds[UNSPEC]} pin(s) of unspecified type: {[nm for p, nm in zip(pins, names) if int(p.func) == UNSPEC]}")
+        if kinds[PWRIN] and not kinds[PWROUT]:
+            bad += fail(f"net {net.name}: power input pins {[nm for p, nm in zip(pins, names) if int(p.func) == PWRIN][:3]} but nothing drives the net (no power output or PWR_FLAG)")
+        # several outputs on a net is a conflict unless they are pins of one part (the connector's two VBUS contacts)
+        drivers = {p.part.ref for p in pins if int(p.func) in (OUTPUT, PWROUT)}
+        if len(drivers) > 1:
+            bad += fail(f"net {net.name}: more than one driving part: {sorted(drivers)}")
+        if kinds[NOCONN] and len(pins) > 1:
+            bad += fail(f"net {net.name}: a no-connect pin is wired to something")
+    for members in groups.values():
+        pins = [p for n in members for p in n.pins if p.part is not None]
+        kinds = collections.Counter(int(p.func) for p in pins)
+        if kinds[INPUT] and not (kinds[OUTPUT] or kinds[BIDIR] or kinds[PWROUT]):
+            if any((n.name, "undriven input") in ERC_WAIVERS for n in members):
+                continue
+            bad += fail(f"nets {[n.name for n in members]}: input pins {[f'{p.part.ref}.{p.num}' for p in pins if int(p.func) == INPUT][:3]} with no driver (not even through resistors)")
+    return bad
+
+
 def footprint_pads(fp_name):
     lib, _, name = fp_name.partition(":")
     path = os.path.join(LIB, f"{lib}.pretty", f"{name}.kicad_mod")
@@ -135,6 +194,8 @@ def footprint_pads(fp_name):
 def check_footprints(circuit):
     bad = 0
     for p in circuit.parts:
+        if lcsc_of(p) == 0:  # PWR_FLAG
+            continue
         fp = p.footprint
         if not fp:
             bad += fail(f"{p.ref} {p.name}: no footprint")
@@ -213,12 +274,12 @@ def main():
         nets = build()
         c = builtins.default_circuit  # SKiDL puts its circuit in the builtins
         print(f"{name}: {len(c.parts)} parts, {len(c.get_nets())} nets")
-        n = check_pins(c) + check_expect(c, seen) + check_footprints(c)
+        n = check_pins(c) + check_expect(c, seen) + check_footprints(c) + check_erc(c)
         if nets:
             n += check_net_names(nets)
-        print(f"  pin accounting, data-sheet nets, footprint pads: {'ok' if not n else str(n) + ' problem(s)'}")
+        print(f"  pin accounting, data-sheet nets, footprint pads, electrical rules: {'ok' if not n else str(n) + ' problem(s)'}")
         bad += n
-        total.update(lcsc_of(p) for p in c.parts)
+        total.update(lcsc_of(p) for p in c.parts if lcsc_of(p))
     missing = set(EXPECT) - seen
     if missing:
         bad += fail(f"EXPECT entries with no such pin on any board: {sorted(missing)}")
