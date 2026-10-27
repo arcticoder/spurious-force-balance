@@ -60,7 +60,7 @@ MAGNET_GAP = 1.4e-3  # m, from the vane's mid-plane to the nearest disc surface 
 MAGNET_X = (VANE_X - 4e-3, VANE_X + 4e-3)  # m, disc centres along the arm (about the vane's centre)
 MAGNET_Y = 20.5e-3  # m, disc centres across the swing
 MAGNET_LIP = 0.6e-3  # m, the retaining lip over an axial disc's face (axial layout only): the discs' effective gap is MAGNET_GAP + this
-MAGNET_MAGNETIZATION = "diametric"  # "axial" if the twist test says the poles are on the flat faces (then the discs lie flat, facing the vane)
+MAGNET_MAGNETIZATION = "axial"  # twist test 2026-10-26: free turning, no preferred angle = poles on the flat faces, so the discs lie flat facing the vane ("diametric" if a detent is found)
 DAMPING_RATIO = 0.40  # zeta assumed by the noise budget: what eddy_damping_field() gives for one pad (two pads: 0.81; the axial layout gives 0.43 / 0.86)
 
 # --- readout: a flag crossing an LED-to-photodiode gap, lock-in demodulated ---

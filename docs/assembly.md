@@ -30,11 +30,9 @@ inner end holds it flat.
 
 ## 3. The damper
 
-The four N42 discs go in the two cradles above and the two below the vane's slot. **If the twist test showed the discs are magnetized across the diameter** (the default,
-`MAGNET_MAGNETIZATION = "diametric"`): the discs stand on edge, axes along x, and slide in from the +x end of each bore; each turns freely until it settles with its upper or lower
-partner (they attract; the N–S line ends up vertical, which is what the field through the vane needs). Cap each bore with a piece of foam tape. Whether the two columns end up with the
-same or opposite polarity changes the damping by about 6%, so you needn't check. **If the discs are axial** (poles on the flat faces): set `MAGNET_MAGNETIZATION = "axial"`, rerun
-`balance.py` to get the flat layout, and press each disc into its round pocket from the open face, flat face to the vane, and cap it with tape. Keep steel tools away from loose discs.
+The four N42 discs go flat in the round pockets, two above and two below the vane's slot (the twist test of 2026-10-26 showed they are magnetized through the flat faces: `MAGNET_MAGNETIZATION = "axial"`).
+Press each disc into its pocket from the open face with its flat face toward the vane, and cap it with foam tape. Keep steel tools away from loose discs. (If another batch of discs turns out to be
+magnetized across the diameter, set `MAGNET_MAGNETIZATION = "diametric"` and rerun `balance.py` for the on-edge cradles.)
 
 ## 4. Frame
 

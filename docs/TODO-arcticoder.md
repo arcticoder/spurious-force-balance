@@ -8,10 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Twist test on the N42 discs** (one word back: "detent" or "free"; it decides which damper holder to print). Stack two discs flat face to flat face and hold the bottom one;
-   turn the top one about the common axis. A spring-back to one angle (a detent once a turn) means they are magnetized across the diameter; free turning with no preferred angle means
-   through the flat faces. Confirm with a black M3 nut: on a flat-face disc it jumps to the centre of a flat face; on a cross-diameter disc it is pulled to two opposite points on the curved side.
-2. **Check the JLC quote** (see "Next order"): the arm board is the one item that could cost more than expected. If its 5-piece quote is over about $60, or the parcel is over 0.29 kg, stop and tell me.
+1. **Check the JLC quote** (see "Next order"): the arm board is the one item that could cost more than expected. If its 5-piece quote is over about $60, or the parcel is over 0.29 kg, stop and tell me.
 
 ## Next order — JLC mechanical boards (four designs, one cart)
 
@@ -34,7 +31,7 @@ Hold these until the JLC boards are on their way, then one checkout, with whatev
 
 1. [ ] **Print the balance's frame** (`hardware/balance/cad/*.stl`, PLA, 3 walls, about 30% infill, 0.2 mm layers): `base`, `gantry` (lay it on its side), `head`, `sensor_bracket`, `elec_bracket`,
        `vane_holder`, the four `encl_post_*`, the four `encl_shelf_*`, and the four jigs `fixture_saw_guide_base`, `fixture_saw_guide_plate`, `fixture_strip_guide`, `fixture_gap_gauge`.
-       **Wait for the twist test before printing `damper_holder`** (its cradles differ for the two kinds of disc). The arm, clamp plates and electrode board come as fab boards, not prints.
+       `damper_holder` is the flat-disc version (the twist test of 2026-10-26 found the discs magnetized through the flat faces). The arm, clamp plates and electrode board come as fab boards, not prints.
        The prototype check (A5) needs the lock-in and the optical readout from `lab` built first (`signal_conditioning/lockin_amplifier`, `signal_conditioning/optical_shadow_readout`).
        Steps: [assembly.md](assembly.md).
 
