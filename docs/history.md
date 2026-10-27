@@ -9,7 +9,7 @@ I've written your points up as **Part F** at the top of [spurious-force-balance/
 
 A test that needs no phone:
 - **Twist test:** stack two discs flat face to flat face and twist the top one. If it springs back to one angle, they're magnetized across the diameter. If it turns freely with no preferred angle, they're magnetized through the flat faces.
-- **Nut check:** a black steel nut jumps to the centre of a flat face on the second kind, and to two opposite points on the curved side on the first.
+- **Nut check:** the twist test decides; the nut is only a hint. A steel nut is pulled to the rim of a flat face on a disc magnetized through its faces (the field is strongest at the edge, so it does not stay in the centre of the face), and to two opposite points on the curved side on a disc magnetized across the diameter. Result 2026-10-26: free turning, so through the flat faces.
 
 The CAD will get a layout for both kinds of magnet, so either answer is ready.
 
@@ -209,5 +209,19 @@ The firmware drivers and the host side of WP8 are done and tested on the host, a
 - **WP11:** a skeleton for the paper.
 
 The rest of WP8 (the on-board `main.py`, PIO/DMA, and running the bring-up scripts on hardware) moved to `TODO-BLOCKED.md`, because it needs the board.
+<!-- ------ -->
+---
+**1. Twist test.** Free turning with no preferred angle means the discs are magnetized through the flat faces, so I switched the design to the flat-disc (axial) layout.
+- I set `MAGNET_MAGNETIZATION = "axial"` in `params.py` and regenerated the CAD. `damper_holder.stl` and the four magnet models now have flat round pockets.
+- The damping is 0.43 for one 0.3 mm pad and 0.86 for two, against the 0.40 the force-noise budget assumes. No parts overlap, the force-noise result is unchanged, and the smoke tests pass.
+- The JLC board files don't depend on the magnets. They regenerated with only ID noise, so I reverted them and left the Gerbers alone.
+- On the nut test, my instructions were wrong. I said a nut goes to the centre of a flat face on this kind of disc. It actually goes to the rim, where the field is strongest, so "jumps to the curved side" fits an axial disc. The twist test is the real discriminator. I corrected `docs/history.md`.
+- I removed the twist test from your TODO list and unblocked printing `damper_holder`. The flat-disc assembly step is in `docs/assembly.md`.
+
+**2.1. Why the JLC board order is bare.** The four boards in `ORDER.md` carry no components. The arm is a structural beam with gold pads, and the clamp plates and electrode are plain plates. They're ordered as FR4 mechanical parts, so there is nothing for JLC to reflow.
+
+The reflow-soldered, JLC-assembled board is the separate electronics order: the main board and sensor heads, Standard assembly, with all 50 parts placed by JLC. It comes after the prototype noise measurement, because layout waits on that result. The device card (the small board with the load resistor and header) goes in that order too.
+
+I haven't changed `ORDER.md`. If you meant to put parts on one of the mechanical boards, tell me which and I'll plan it. Nothing is committed.
 <!-- ------ -->
 ---
