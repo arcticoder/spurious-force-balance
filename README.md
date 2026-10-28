@@ -30,12 +30,14 @@ Soni and Roy (Rev. Sci. Instrum. 84, 095103, 2013) and the cryogenic torsion bal
 | Path | What |
 |---|---|
 | `docs/plan.md` | the plan: goal, mechanics, noise budget, environment control, calibration |
-| `docs/fabrication.md`, `docs/assembly.md` | how each part is made (fab boards, PLA, bought) and how to build it |
+| `docs/fabrication.md`, `docs/assembly.md` | how each part is made (fab boards, PLA, bought; JLC orders, coupons and parcels) and how to build it |
+| `docs/bringup.md`, `docs/procedures.md` | powering up the electronics step by step; the prototype check, calibration and measurement campaign |
+| `docs/paper/` | the paper skeleton (LaTeX; results are placeholders) |
 | `hardware/balance/` | parametric CAD (`balance.py`, STL and STEP in `cad/`), the FR4 boards for JLC (`boards.py`, `boards/fab/`), jigs, analytic model, parameters, checks |
 | `hardware/instrument/` | the electronics: requirements, pin map, parts table, ngspice simulations, checks |
 | `hardware/tools/jlc_query.py` | search of the JLCPCB parts snapshot |
 | `tools/force_noise_budget.py` | the force-noise prediction and the anchor checks |
-| `docs/TODO-agent.md`, `docs/TODO-arcticoder.md` | the work lists |
+| `docs/TODO-agent.md`, `docs/TODO-arcticoder.md` | the work lists (`TODO-BLOCKED.md`, `TODO-backlog.md`, `TODO-completed.md` beside them) |
 
 ## Running the checks
 

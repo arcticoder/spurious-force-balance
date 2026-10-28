@@ -8,7 +8,18 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Check the JLC quote** (see "Next order"): the arm board is the one item that could cost more than expected. If its 5-piece quote is over about $60, or the parcel is over 0.29 kg, stop and tell me.
+1. **Read three JLC quotes and the shipping table** (the mechanical order is the first order, and its New User PCB coupon, C$8.40, ends 2026-11-25; place the order by about 11-20). On the quote page:
+   (a) the arm alone, 5 pieces, 208 x 60 mm, 1.2 mm, black, ENIG: price, the mass the page shows, and the shipping options with prices for Canada; (b) the same at 1.0 mm; (c) the four designs as listed in
+   [ORDER.md](../hardware/balance/boards/fab/ORDER.md). If the arm alone is over about $60, or a parcel is over 0.29 kg, stop and tell me.
+2. **Shipping price table** for the cheap Global Standard Direct Line tier (and the next tier up): the price the quote page shows for estimated masses of about 100 g, 200 g, 290 g and 310 g to your address (change the
+   quantity or thickness of any board to move the mass). It tells me where the real cliff is for Canada and whether splitting into parcels pays.
+3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
+4. **JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
+   Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
+5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
+   using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
+   It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
+6. **JLCMC fasteners:** check whether M3 stainless (304/A2) hex nuts and flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service.
 
 ## Next order — JLC mechanical boards (four designs, one cart)
 

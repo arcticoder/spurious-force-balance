@@ -19,11 +19,14 @@ In progress / not started: WP9 and WP11 (see TODO-agent.md); WP4e sheets, WP10 a
 4. Printing the PLA frame (`docs/TODO-arcticoder.md` item 1) and building the balance (`docs/assembly.md`).
 5. In `lab`: build the lock-in (`signal_conditioning/lockin_amplifier`) and the optical readout (`optical_shadow_readout`); the A5 prototype check needs both.
 
-## Next three agent tasks, in order
+## Next agent tasks, in order
 
-1. Nothing from the twist test remains (axial layout adopted).
-2. WP9 (`docs/bringup.md`, `docs/procedures.md`) and WP11 (paper skeleton) in `docs/TODO-agent.md`; the firmware's remaining items (device-side `main.py`, PIO/DMA, running the bring-up scripts) are in `TODO-BLOCKED.md` because they need the board.
-3. Ingest the A5 results when the user has them: the measured noise spectrum, the optical photocurrent (Rf), the trim procedure's real numbers; update `params.py` and rerun the budget; then WP5-WP7 if the verdict stays GO.
+Nothing is startable without the user or the board (see `docs/TODO-agent.md`).
+1. When the user returns quotes (`TODO-arcticoder.md` items 1-4): Part J4 in `TODO-BLOCKED.md` (arm material decision; the panel Gerbers if the panel quote wins; update `ORDER.md`). If the user orders the sensor-head panel, check the placement preview notes against `heads_panel/ORDER.md`.
+2. When the user returns the CNC and HDI captures (`lab/docs/jlc/`): Part K and J2 with real CNC options; the A5 results into `params.py` and the budget; then WP5-WP7 if the verdict stays GO.
+3. When a board exists: `bringup_adc.py`, `bringup_sensors.py`, the scripted analog bring-up, the device-side `main.py`, PIO and DMA (`TODO-BLOCKED.md`).
+
+Coupon deadlines (2026-11-25 for most new-user coupons) are in `lab/docs/jlc/coupons.md`; the order plan is in `docs/fabrication.md`.
 
 ## Read first
 

@@ -4,6 +4,16 @@
 
 These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 result.
 
+## Written procedures that need data or hardware to finish
+- [ ] `hardware/instrument/firmware/bringup_analog.py`: scripted `[PASS]`/`[FAIL]` versions of the LED-sink, plate-driver, device-current and motor steps of `docs/bringup.md` section 4 (needs the board; the checks and limits are in that section).
+- [ ] The slow-demodulation analysis script for the measurement campaign (`docs/procedures.md` section C, step 6): demodulate the logged deflection at the modulation frequency and report force per ampere or per watt with uncertainties; write it with the first real data.
+- [ ] Fill the paper skeleton (`docs/paper/main.tex`): every `\todo{}` is a measurement or a figure; the results sections wait on A5 and the campaign.
+
+## Part J4 — the arm's material decision (waits on the user's quotes)
+- [ ] When the user has read the arm quotes (1.2 mm and 1.0 mm FR4, the four-design panel probe from `boards/fab/ORDER.md`) and, if made, the JLCCNC sheet-metal capture (upload `boards/fab/arm_cnc.dxf`): fill the
+      numbers into `docs/fabrication.md` ("Material and process"), apply its decision rule (keep FR4 unless an aluminium arm is cheaper by more than the redesign and the eddy-current and insulation points pass), build the
+      panel Gerbers if the panel quote wins, and update `ORDER.md`.
+
 ## A5 — prototype noise measurement (needs the printed balance, the lock-in and the optical readout)
 - [ ] Test the mechanics and the optical readout's displacement sensitivity on the bench: the printed/FR4 balance, the breadboard optical readout and lock-in (`optical_shadow_readout`), the Pico.
       Compare the measured resonance, Q and displacement noise, the optical photocurrent (Rf) and the trim procedure's real numbers with G2/G3; update `params.py`, rerun `tools/force_noise_budget.py`.
@@ -20,6 +30,9 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 r
 ## After A5, if the verdict stays GO
 - [ ] WP5 — Layout: RP2040 per the reference layout, ADC per its data sheet, analog/digital partition (the plate driver and LED sinks are the noisiest blocks), decoupling, USB pair, mounting holes and
       connector positions from G2, silkscreen pin names; DRC clean against JLC's rules.
+- [ ] WP5 panel rule (Part M, 2026-10-27): Standard PCBA needs at least 70 x 70 mm with edge rails drawn in the design and has a stencil per order; the sensor and optical heads go on the main board's panel (panel by
+      customer, V-cut or mouse bites, rails), not as separate small boards; recompute the electronics parcel mass by JLC's rule (`tools/jlc_parcel_mass.py`: panel rectangle x thickness; the PCBA packaging options add weight).
+      H5 stands: the main board is probably over 70 x 70 mm anyway, so Standard costs the setup and stencil, not a layout constraint.
 - [ ] WP6 — Visual review from `kicad-cli pcb render` images and a written checklist.
 - [ ] WP7 precheck — in JLC's placement preview confirm the parts the schematic could not verify from a data sheet: KT-0603R LED polarity (footprint marks conflict), the ADC crystal C21900468's pad numbering (a stand-in symbol is used), USBLC6-2SC6 pin 1 position, the SM02B/SM04B mounting tabs (pins 3-4 and 5-6 are wired to GND), the TS-1187A pad pairs; and the VBPW34S/IR26-21C rotation (anode/cathode sides per the Vishay and Everlight drawings).
 - [ ] WP7 — Fabrication outputs in `hardware/instrument/fab/`: Gerbers + drill, BOM and CPL in JLC's format (rotations checked against JLC's placement preview), an order-settings README (Standard PCBA,

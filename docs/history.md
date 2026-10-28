@@ -225,3 +225,80 @@ The reflow-soldered, JLC-assembled board is the separate electronics order: the 
 I haven't changed `ORDER.md`. If you meant to put parts on one of the mechanical boards, tell me which and I'll plan it. Nothing is committed.
 <!-- ------ -->
 ---
+I wrote the analysis up as Parts I–N in `docs/TODO-agent.md` and your hands-on items in `docs/TODO-arcticoder.md`, and nothing is actioned, since this is analysis mode. I can't read JLC's live quote pages, so most of the cost comparisons below need your quotes. Nothing is committed.
+
+**1. `history.md`.** Understood: I'll leave it alone unless you ask for a specific change, and I won't treat it as analysis. I've saved that as a standing rule, and corrections go in the real docs from now on.
+
+**2. Is FR4 the cheapest?** I can't claim that yet, because I haven't seen a quote for the alternatives.
+- **Small boards:** the three small boards (clamp plates and the fixed electrode) add almost nothing to a PCB order, while a CNC part starts at C$8 each plus its own parcel. The electrode board also needs real pads and a guard ring, which only a PCB gives.
+- **Arm:** it needs a flat, stiff, light beam, and its pads are functional electrodes.
+  - 0.8 mm aluminium matches the FR4 arm in stiffness and mass (27 g vs 28 g), is conductive, and you'd buy one piece. That is a real candidate, and Part J1 will compute it properly.
+  - PLA is weaker on stiffness than FR4 (about 33 Hz against 64 Hz for the first bending mode, by my estimate). That is only a rough figure.
+- **PLA:** strength isn't the problem, since PLA is plenty strong. What counts for a balance arm is stiffness, creep and moisture, because a slow creep shows up as zero drift. Warping over 208 mm and having no electrodes also count against it.
+- **Quantity:** we buy 5 of each of the four designs, not four of one design. A panel version (Part J3) would put the small boards beside the arm so they cost almost nothing extra.
+
+**3. Coupons.** The ledger will go in `lab/docs/jlc/coupons.md` (Part I1).
+- Most new-user coupons end **2026-11-25**: PCB C$8.40, SMT C$13.99, CNC C$27.99, 3D printing 1 and mechanical parts 1. The rest end 2026-12-25.
+- One coupon applies per checkout, so each coupon needs its own order (Part I2).
+- The shipping coupons only apply when shipping costs above C$20.99, so they don't combine with the cheap postal tier.
+- The CNC coupon would make a first small CNC job almost free apart from freight, but only if Part K finds a part worth it.
+
+**4. Splitting orders and HDI.**
+- The mechanical boards come to about 195 g including packing, which is already under the 300 g cliff.
+- JLC estimates mass from the board's bounding rectangle times its thickness. Cut-outs don't count, and HDI doesn't change the rule. HDI would only help by being thinner, and I don't know its thicknesses.
+- Thinner isn't free: the arm's first bending mode drops from about 64 Hz at 1.2 mm to 42 Hz at 0.8 mm and 21 Hz at 0.4 mm, into the range where building vibration lives.
+- With Combine Shipping on, separate orders merge into one parcel. So combine only below 0.29 kg, and otherwise two parcels at $3–4 each beat one heavy one (Part I3).
+- **New constraint:** Standard assembly needs a board of at least 70 × 70 mm with edge rails (from your PCBA capture). The sensor heads therefore have to ride on a larger panel, and this puts my earlier decision to use Standard assembly under review (Part M).
+- **Optional early order:** an early assembled sensor-head order (Part N) would use the SMT coupon and verify the sensor drivers on real hardware. It's your call after you see the quote.
+- **Unverified tips:** 5.3 and 5.4 are recorded as unverified in the notes.
+
+**6. Quote settings and the CNC page.** I can't see the CNC sheet-metal specifications: the page only shows an upload box until a file is uploaded. I put making that markdown file on your list. Part L rewrites `ORDER.md` field by field against your PCB-quote capture.
+
+**Your list now:**
+- Read three JLC quotes: the arm at 1.2 mm, the arm at 1.0 mm, and the four designs together.
+- Read the Canadian shipping price at about 100, 200, 290 and 310 g.
+- Note the dates on the 30- and 60-day coupons.
+- Capture the CNC and HDI quote pages.
+- Check whether JLCMC lists M3 stainless nuts and washers.-
+<!-- ------ -->
+---
+I worked through the whole agent list: Parts I–N, WP9 and WP11. The smoke tests pass (2 run, 0 failed), and nothing is committed in either repo. I changed nothing in `history.md`.
+
+**Coupons and orders (Part I)**
+- **Ledger:** `lab/docs/jlc/coupons.md` lists all your coupons with expiry dates and planned use.
+- **Order plan:** `docs/fabrication.md` has one row per checkout.
+- **Stacking correction:** only one coupon applies per checkout, so the SMT and stencil coupons can't stack.
+- **Parcel tool:** `tools/jlc_parcel_mass.py` applies JLC's mass rule. The mechanical boards come to 194 g. Adding the printed-part candidates would make 314 g, over the cheap-tier line, so don't combine across services.
+
+**Is FR4 right for the arm? (Part J)**
+- **Stiffness:** with the ballast and device card on it, the arm's first bending mode is about 36 Hz, not the 64 Hz I gave you earlier. That figure ignored those masses. At 1.6 mm it would be about 54 Hz.
+- **Alternatives:** 0.8 mm aluminium matches FR4 on mass and stiffness (24.8 g and 36 Hz against 25.5 g and 36 Hz), is conductive, and you'd buy one piece. A printed PLA arm is ruled out because it creeps, takes up moisture and has about five times the thermal drift.
+- **Decision:** the FR4 versus aluminium choice waits on your quotes, with a decision rule written in `fabrication.md`.
+- **Quote inputs:** `boards/fab/arm_cnc.dxf` is the arm for the CNC quote. The panel numbers are 252 × 60 mm for all four designs.
+- **Printed parts:** I shortlisted `damper_holder` and `head` for JLC3DP, with `gantry` as a maybe. The rest stay home-printed.
+
+**Order recipe (Part L)**
+- **`ORDER.md`:** I rewrote it field by field against your PCB quote capture, including the panel-quote variant.
+- **Standard PCBA rule (Part M):** it needs at least 70 × 70 mm with edge rails, so the heads must ride on a larger panel. That is recorded in the WP5/WP7 plan.
+
+**Early sensor-head order (Part N), optional**
+- **Panel:** `hardware/instrument/heads_panel/` has a 76 × 70 mm panel with two head-1 and two head-2 boards. It is routed with 0 unconnected nets.
+- **DRC:** the only errors are 16 "malformed outline" ones, from the tab gaps being open on purpose.
+- **Files:** it has a JLC-format BOM, a placement file and `ORDER.md`.
+- **Unconfirmed assumptions:** JLC's rail and tooling-hole sizes, the mouse-bite pattern and the part rotations in the placement file are my assumptions, not confirmed with JLC. The order recipe asks for both the production-file and parts-placement confirmations for that reason.
+- **Coupon:** it would use the SMT coupon (C$13.99, ends 2026-11-25).
+
+**Procedures and paper (WP9, WP11)**
+- **Bring-up:** `docs/bringup.md` is the power-up order for the electronics, with the expected output and what each failure means.
+- **Experiment:** `docs/procedures.md` covers the prototype check, the calibration, and the measurement campaign, with the model's numbers beside each measurement.
+- **Paper:** `docs/paper/` is a LaTeX skeleton that builds. Model numbers are marked and every measurement is a red to-do. The bibliography has only the three references the repo already records, with authors and titles left to fill in from the papers.
+
+**On your list now**
+- Read the arm and four-design quotes and the Canadian shipping table.
+- Note the dates on the 30- and 60-day coupons.
+- Capture the CNC and HDI quote pages, and check whether JLCMC lists M3 stainless nuts and washers.
+- Decide on the sensor-head order, which would also need a JST-SH cable on your AliExpress cart. The order recipe says to place it by 11-25 only if you want it.
+
+What remains in `TODO-BLOCKED.md` needs your quotes or a physical board.
+<!-- ------ -->
+---

@@ -13,12 +13,5 @@ Work that needs no hands, eyes or purchasing decision from the user. Keep this f
 
 ## Open Items
 
-### WP9 — bring-up and experiment procedures for the user (startable: write them against the existing drivers and `docs/assembly.md`)
-- [ ] `docs/bringup.md`: the order of power-up and checks for the electronics when they arrive (USB current, rails, `bringup_sensors.py`, `bringup_adc.py`, the device-side safe-start order), each step with its expected
-      [PASS] output and what a [FAIL] means, using the unverified-assumption lists in `kb/instrument_electronics_notes.md`.
-- [ ] `docs/procedures.md`: the calibration sequence (electrostatic plates against weights or wire riders), the measurement campaign (durations, repeats, conditions logged: lead current, geometry, ambient field and temperature
-      from the logged sensors), and the A5 prototype checks, each as numbered steps with the data to record and the analysis command (`host/analyze.py`).
-
-### WP11 — the paper skeleton (startable)
-- [ ] `docs/paper/` LaTeX skeleton: apparatus (from `balance_design_notes.md` and `fabrication.md`), the noise model against measurement (`tools/force_noise_budget.py`), calibration and its uncertainty, systematics (lead
-      Lorentz force, heating, convection), the G1 result placeholders, open-source availability; sections filled from existing numbers, results left as marked placeholders.
+Nothing is startable without the user or the board. Waiting on the user: the JLC quotes and the sensor-head order decision (`TODO-arcticoder.md`), which feed Part J4 in `TODO-BLOCKED.md`; waiting on the board: the rest of WP8 and the
+bring-up. The next work when something arrives: the arm decision and panel Gerbers (J4), the early sensor-head order's file upload checks, or A5's results into the model.

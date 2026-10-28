@@ -1,0 +1,573 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-27T20:36:31-0700",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.9",
+    "schematic_parity": [],
+    "source": "heads_panel.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 37.0,
+                        "y": 8.0
+                    },
+                    "uuid": "0b5f0421-4e51-4e92-a26f-98166f55892c"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 18.0
+                    },
+                    "uuid": "6ae5354a-5a15-4222-aed9-cf717d7be763"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 25.0
+                    },
+                    "uuid": "bf659208-6827-4bcc-b1e3-5d3ee28e1b6c"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 18.0
+                    },
+                    "uuid": "6ae5354a-5a15-4222-aed9-cf717d7be763"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 37.0,
+                        "y": 38.0
+                    },
+                    "uuid": "5dea7902-4179-4919-abb8-3975abfb5339"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 48.0
+                    },
+                    "uuid": "dd625e71-f9ae-4b55-b918-1d509647168a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 55.0
+                    },
+                    "uuid": "08f3142c-6542-4b30-ae65-8bd39e2096e2"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 11.0,
+                        "y": 48.0
+                    },
+                    "uuid": "dd625e71-f9ae-4b55-b918-1d509647168a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 37.0,
+                        "y": 18.0
+                    },
+                    "uuid": "02218d48-c500-4ffe-97f3-4fe206a32a9b"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 37.0,
+                        "y": 48.0
+                    },
+                    "uuid": "26fef7b0-7d10-4ccf-8d33-2c644615b35f"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 65.0,
+                        "y": 8.0
+                    },
+                    "uuid": "00b0efce-ba09-4fea-b7d1-580fc8935cf8"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 18.0
+                    },
+                    "uuid": "a77c6a62-6436-4b8e-9b77-61adf0568029"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 25.0
+                    },
+                    "uuid": "c7954b87-b884-4b03-bbe6-0255b11c847f"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 18.0
+                    },
+                    "uuid": "a77c6a62-6436-4b8e-9b77-61adf0568029"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 65.0,
+                        "y": 38.0
+                    },
+                    "uuid": "10846c8f-1aa6-42c8-98b8-d410577583a0"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 48.0
+                    },
+                    "uuid": "c761d6ae-dd75-4a80-93f5-d5d580f9ef48"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 55.0
+                    },
+                    "uuid": "5d74f89a-561d-4a76-9ef4-9ffae169c620"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 39.0,
+                        "y": 48.0
+                    },
+                    "uuid": "c761d6ae-dd75-4a80-93f5-d5d580f9ef48"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 65.0,
+                        "y": 18.0
+                    },
+                    "uuid": "3abc6bd7-d7f8-4f8d-8eeb-da8009354452"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 65.0,
+                        "y": 48.0
+                    },
+                    "uuid": "aa5b0a48-c4be-4327-beac-276602ffc9d8"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'H1a head 1' on F.Silkscreen",
+                    "pos": {
+                        "x": 24.0,
+                        "y": 24.0
+                    },
+                    "uuid": "70db31f3-48ce-4d03-bf7c-532e626543a7"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'H2a head 2' on F.Silkscreen",
+                    "pos": {
+                        "x": 24.0,
+                        "y": 54.0
+                    },
+                    "uuid": "02288ba6-3554-4891-9174-c57277ee2629"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'H1b head 1' on F.Silkscreen",
+                    "pos": {
+                        "x": 52.0,
+                        "y": 24.0
+                    },
+                    "uuid": "4cf584ab-15b2-4d87-b1c7-d84081ffcb4d"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "PCB text 'H2b head 2' on F.Silkscreen",
+                    "pos": {
+                        "x": 52.0,
+                        "y": 54.0
+                    },
+                    "uuid": "67553667-cc05-40e9-8216-9dd91235670c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C1 on F.Silkscreen",
+                    "pos": {
+                        "x": 24.7,
+                        "y": 18.4
+                    },
+                    "uuid": "b405580f-07f9-4fa5-a0a9-c7314e7f47e6"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C6 on F.Silkscreen",
+                    "pos": {
+                        "x": 59.5,
+                        "y": 23.13
+                    },
+                    "uuid": "0fe09842-c2a3-4a1a-aa1e-2d92b28d0014"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C2 on F.Silkscreen",
+                    "pos": {
+                        "x": 31.5,
+                        "y": 23.13
+                    },
+                    "uuid": "58879074-6fd3-4611-ac91-b49d4bae6ddc"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C7 on F.Silkscreen",
+                    "pos": {
+                        "x": 57.7,
+                        "y": 19.6
+                    },
+                    "uuid": "fc8faf50-401c-4811-9374-1b0c145eda55"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C5 on F.Silkscreen",
+                    "pos": {
+                        "x": 52.7,
+                        "y": 18.4
+                    },
+                    "uuid": "6eb19e1a-346a-4664-a2ea-89634d123046"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C8 on F.Silkscreen",
+                    "pos": {
+                        "x": 61.7,
+                        "y": 19.6
+                    },
+                    "uuid": "c4c79563-2661-4701-a4d4-8a5ad12c1a26"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C10 on F.Silkscreen",
+                    "pos": {
+                        "x": 52.7,
+                        "y": 48.4
+                    },
+                    "uuid": "f57a080d-db3b-48f3-b1a0-3099f0d12bf9"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C9 on F.Silkscreen",
+                    "pos": {
+                        "x": 24.7,
+                        "y": 48.4
+                    },
+                    "uuid": "9e422e63-7e99-48a9-80e0-53c2aa9c4a2b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C3 on F.Silkscreen",
+                    "pos": {
+                        "x": 29.7,
+                        "y": 19.6
+                    },
+                    "uuid": "d6821475-01bd-4bf0-abd0-e4080135619f"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Circle of C4 on F.Silkscreen",
+                    "pos": {
+                        "x": 33.7,
+                        "y": 19.6
+                    },
+                    "uuid": "a0bd8e9c-c5d1-4f3e-b314-854fd1f227b8"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Isolated copper fill",
+            "items": [
+                {
+                    "description": "Zone [H2a/GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 11.5,
+                        "y": 38.5
+                    },
+                    "uuid": "1f1d5de4-87ea-464b-9e27-2d9af288240c"
+                }
+            ],
+            "severity": "warning",
+            "type": "isolated_copper"
+        },
+        {
+            "description": "Isolated copper fill",
+            "items": [
+                {
+                    "description": "Zone [H2a/GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 11.5,
+                        "y": 38.5
+                    },
+                    "uuid": "1f1d5de4-87ea-464b-9e27-2d9af288240c"
+                }
+            ],
+            "severity": "warning",
+            "type": "isolated_copper"
+        },
+        {
+            "description": "Isolated copper fill",
+            "items": [
+                {
+                    "description": "Zone [H1b/GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 39.5,
+                        "y": 8.5
+                    },
+                    "uuid": "b8962848-4913-44b4-af48-14907d7796ed"
+                }
+            ],
+            "severity": "warning",
+            "type": "isolated_copper"
+        },
+        {
+            "description": "Isolated copper fill",
+            "items": [
+                {
+                    "description": "Zone [H1b/GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 39.5,
+                        "y": 8.5
+                    },
+                    "uuid": "b8962848-4913-44b4-af48-14907d7796ed"
+                }
+            ],
+            "severity": "warning",
+            "type": "isolated_copper"
+        },
+        {
+            "description": "Isolated copper fill",
+            "items": [
+                {
+                    "description": "Zone [H2b/GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 39.5,
+                        "y": 38.5
+                    },
+                    "uuid": "fec194e4-ee3c-4a8d-b494-5e7107fec1d0"
+                }
+            ],
+            "severity": "warning",
+            "type": "isolated_copper"
+        }
+    ]
+}
