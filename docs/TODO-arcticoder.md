@@ -8,11 +8,11 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Read three JLC quotes and the shipping table** (the mechanical order is the first order, and its JLCONE $8 PCB coupon, C$11.22, ends 2026-11-26; place the order by about 11-20; in the cart, see whether a second cart line accepts its own coupon, e.g. New User PCB, and tell me). On the quote page:
-   (a) the arm alone, 5 pieces, 208 x 60 mm, 1.2 mm, black, ENIG: price, the mass the page shows, and the shipping options with prices for Canada; (b) the same at 1.0 mm; (c) the four designs as listed in
-   [ORDER.md](../hardware/balance/boards/fab/ORDER.md). If the arm alone is over about $60, or a parcel is over 0.29 kg, stop and tell me.
-2. **Shipping price table** for the cheap Global Standard Direct Line tier (and the next tier up): the price the quote page shows for estimated masses of about 100 g, 200 g, 290 g and 310 g to your address (change the
-   quantity or thickness of any board to move the mass). It tells me where the real cliff is for Canada and whether splitting into parcels pays.
+1. **Nothing to click on the JLC PCB page for now.** The quote lines you read (arm: engineering C$5.61, board C$8.56, ENIG +C$25.25, shipping C$12.05) are in `kb/fab_ordering_notes.md`, and `ORDER.md` now asks for HASL. I cannot see the quote
+   pages, so I will not ask for more PCB clicks until there is a specific question; the two numbers I still need are the **mass the page shows for the arm** and **whether changing the quantity or thickness moves the shipping**,
+   when you next have the arm uploaded anyway. If your coupons are locked, delete the saved (unsubmitted) lines in the cart first: coupons apply at the payment step, and a saved line may be holding them; otherwise ask JLC support.
+2. **JLCCNC quote of the aluminium arm** (the likely cheaper arm: its two coupons are C$28.06 each): upload `hardware/balance/boards/fab/arm_cnc.dxf` at `jlccnc.com/sheet-metal-quote`, pick 6061 aluminium, 0.8 mm, one piece, and tell me the price and
+   shipping; save the options window as `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` while you are there.
 3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
 4. **JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
    Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
