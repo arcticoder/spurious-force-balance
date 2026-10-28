@@ -19,7 +19,7 @@ Four designs, 5 pieces each. The Gerber zips are in this folder; each upload fil
 | PCB Color | **Black** for the arm; **Green** for the other three (fastest; colour is irrelevant) | black mask is low-reflectance beside the optical path; black adds 2 days, and the parcel waits for the slowest board anyway, so use black on all four if Combine Shipping waits |
 | Silkscreen | White (default) | |
 | Material Type | **FR4 TG135** (default) | arm temperature never nears 130 C |
-| Surface Finish | **LeadFree HASL** for all four (ENIG added **C$25.25** to the arm alone, a quote the user read on 2026-10-28; HASL adds nothing) | the force scale comes from the weights calibration, so an uneven electrode surface (HASL is less flat than gold) costs stability, not accuracy; ENIG is only worth that money if the arm's first measurements show surface-potential drift. HASL with lead is the page's default; lead-free is the RoHS choice |
+| Surface Finish | **HASL** (with lead, the page's default, or lead-free) for all four (ENIG added **C$25.25** to the arm alone, a quote the user read on 2026-10-28; HASL adds nothing) | the force scale comes from the weights calibration, so an uneven electrode surface (HASL is less flat than gold) costs stability, not accuracy; ENIG is only worth that money if the arm's first measurements show surface-potential drift. HASL with lead is the page's default; lead-free is the RoHS choice |
 | Gold Thickness | not shown with HASL (only with ENIG; if ENIG is ever chosen: 2 u" for the arm and elec_board only if the quote adds a few dollars) | |
 | Outer Copper Weight | 1 oz | |
 | Via Covering | Tented (default) | the only via (0.8 mm, in the electrode pad's back-face wire) is not a contact surface |
@@ -49,13 +49,15 @@ quoting beside it: an FR4 arm is about C$26 with HASL and shipping before any co
 
 Per balance: 1 arm, 2 clamp_plate, 1 clamp_ground, 1 elec_board. Five of each arrive.
 
-## Coupon and shipping
+## Coupon and shipping (the arm order was quoted by the user on 2026-10-28)
 
-- One coupon per order: apply **JLCONE $8 PCB (C$11.22 off over C$14.03, ends 2026-11-26)** to the arm (the dearest line); if the cart lets another line take its own coupon, **New User PCB (C$8.42, ends 11-25)** on a second line (the user checks this in the cart). The ledger is `lab/docs/jlc/coupons.md`.
-- The four uploads become four cart lines. Use **Combine Shipping** only while the combined estimated mass is under 0.29 kg: boards 194 g with packing (`tools/jlc_parcel_mass.py`), so one parcel is fine
-  here, but do not combine this parcel with a 3D-printing or CNC order (JLC3DP and JLCCNC ship separately anyway, and the sum with the printed-part candidates is 314 g).
-- Pick the cheap postal tier (Global Standard Direct Line) if offered for Canada; read its price at this mass and note it in `TODO-arcticoder.md`.
-- If the arm alone is over about $60, or the parcel over 0.29 kg, stop and ask: a shorter arm needs a damper rework (see `docs/fabrication.md`), so it is not a quick switch.
+- **Arm alone, 5 pieces, FR4 1.2 mm, green, HASL with lead: Engineering C$5.61 + Board C$8.56 + shipping C$2.10 = C$16.27; with the JLCONE coupon (-C$8.42, applied when the line went into the cart) the subtotal is C$7.86.**
+  The page's default thickness is 1.6 mm: at 1.6 mm the estimated mass was **0.34 kg and shipping jumped to C$12.05**; at 1.2 mm it is under 0.3 kg and shipping is C$2.10. **Check the thickness field after every upload: it reverts to 1.6 mm.**
+  (HASL with lead is the page's default and is fine here; LeadFree is only a RoHS choice.)
+- **Order the arm alone.** JLC's mass estimate includes about 155 g of packing (`tools/jlc_parcel_mass.py`): the arm order is 294 g against the 300 g line, so adding the three small designs (+17 g) would cross it. Do **not** use Combine Shipping and do not add the small designs to
+  the arm's order. The three small designs are a second order (170 g with packing, well under the line); a five-piece minimum applies to each, and the engineering fee may be charged per design: read their lines before paying.
+- Coupons are applied in the cart, and the line's price falls by the coupon (a coupon cannot take a line below zero). The ledger is `lab/docs/jlc/coupons.md`.
+- If the arm alone is over about $60 stop and ask; it is not (C$7.86 net).
 
 ## Variant: all four designs as one panel (quote probe first)
 

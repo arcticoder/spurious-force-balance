@@ -222,10 +222,12 @@ check("functional — the arm's DXF for the sheet-metal quote has the board's 20
 import jlc_parcel_mass as JM  # noqa: E402
 
 _parcels = JM.planned_parcels()
-_mech = JM.parcel_total(_parcels["mechanical boards"])
-check("functional — the mechanical-board parcel stays under the 0.29 kg line of JLC's cheap shipping tier (their rule: bounding rectangle x thickness, plus packing)", _mech < JM.LIMIT_G, f"{_mech:.0f} g with packing against {JM.LIMIT_G:.0f} g")
+_arm = JM.parcel_total(_parcels["arm board"])
+_both = JM.combined_total(_parcels, ["arm board", "small boards (3 designs)"])
+check("functional — the arm order alone stays under the 0.3 kg line of JLC's cheap shipping tier at 1.2 mm (their rule plus the packing calibrated on the user's quote)", _arm < JM.LIMIT_G, f"{_arm:.0f} g against {JM.LIMIT_G:.0f} g (1.6 mm would be {(JM.board_mass_g(208, 60, 1.6, 5) + JM.PACKING_G):.0f} g: the quote's 0.34 kg)")
+check("functional — the arm and the three small designs in one parcel would cross the line, so they are ordered and shipped separately", _both > JM.LIMIT_G, f"{_both:.0f} g combined")
 _all = JM.combined_total(_parcels, list(_parcels))
-check("functional — the parcel tool flags that boards plus printed-part candidates combined would cross the line (so Combine Shipping stays off across services)", _all > JM.LIMIT_G, f"{_all:.0f} g combined")
+check("functional — boards plus printed-part candidates combined would also cross the line (Combine Shipping stays off across services)", _all > JM.LIMIT_G, f"{_all:.0f} g combined")
 
 if failures:
     print(f"\n{len(failures)} check(s) failed: {failures}")

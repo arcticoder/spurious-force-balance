@@ -5,8 +5,7 @@ jlc_parcel_mass.py — estimated mass of each planned JLC parcel against the 0.2
     python3 tools/jlc_parcel_mass.py --combine "mechanical boards" "printed parts"
 
 JLC estimates a board's mass from its bounding rectangle times its thickness (cut-outs and panel gaps count; petertanner.dev, 2024), so that rule is used for every board.
-Printed and machined parts: volume of the CAD export (hardware/balance/cad/*.stl) times a density. Packing is an assumption (the earlier estimate of 195 g for 154 g of
-boards gave 40 g). The price side (what a parcel costs at a given mass) is not modelled: it comes from the user's quote readings (`TODO-arcticoder.md`).
+Printed and machined parts: volume of the CAD export (hardware/balance/cad/*.stl) times a density. Packing is calibrated on one data point (the user's quote of 2026-10-28, see PACKING_G); it may depend on the order. The price side (what a parcel costs at a given mass) is not modelled: it comes from the user's quote readings (`TODO-arcticoder.md`).
 """
 
 import os
@@ -19,8 +18,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CAD = os.path.join(HERE, "..", "hardware", "balance", "cad")
 sys.path.insert(0, os.path.join(HERE, "..", "hardware", "balance"))
 
-LIMIT_G = 290.0  # the cheap tier's cliff is at 0.3 kg; keep a margin
-PACKING_G = 40.0  # [assume] box, bags and filler of one JLC parcel
+LIMIT_G = 300.0  # the cheap tier's cliff is at 0.3 kg (user's quote 2026-10-28: 0.34 kg at 1.6 mm cost C$12.05, under 0.3 kg at 1.2 mm cost C$2.10)
+PACKING_G = 155.0  # box, bags and filler of one JLC parcel, from that quote: five 208 x 60 x 1.6 mm arms are 185 g by the rule and the page showed 0.34 kg
 FR4_G_CM3 = 1.85
 DENSITY = {"PLA": 1.24, "ASA": 1.07, "nylon": 1.01, "resin": 1.15, "aluminium": 2.70}  # g/cm^3 [handbook values; resin varies]
 
@@ -54,9 +53,10 @@ def planned_parcels():
 
     arm_w = 2 * P.ARM_HALF_LENGTH * 1e3 + 8  # the board is the arm plus the finger (ORDER.md: 208 x 60)
     t = P.BOARD_T * 1e3
-    mech = [("arm", board_mass_g(arm_w, P.ARM_HEIGHT * 1e3, t, 5)), ("clamp_ground", board_mass_g(17, 19, t, 5)), ("elec_board", board_mass_g(24, 34, t, 5)), ("clamp_plate", board_mass_g(16, 14, t, 5))]
+    arm = [("arm", board_mass_g(arm_w, P.ARM_HEIGHT * 1e3, t, 5))]
+    small = [("clamp_ground", board_mass_g(17, 19, t, 5)), ("elec_board", board_mass_g(24, 34, t, 5)), ("clamp_plate", board_mass_g(16, 14, t, 5))]
     prints = [(n, part_mass_g(n, "PLA")) for n in ("head", "gantry", "damper_holder", "vane_holder")]  # candidates for JLC3DP in Part K, material PLA as a placeholder
-    return {"mechanical boards": mech, "printed parts (candidates, PLA)": prints}
+    return {"arm board": arm, "small boards (3 designs)": small, "printed parts (candidates, PLA)": prints}
 
 
 def parcel_total(items):

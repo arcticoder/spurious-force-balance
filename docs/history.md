@@ -351,3 +351,19 @@ I added the row to `ORDER.md`.
 **Your list now:** nothing to do on the PCB page. When you next have the arm uploaded, read me the page's mass line and whether changing quantity or thickness moves the shipping. Separately, upload `boards/fab/arm_cnc.dxf` at the JLCCNC sheet-metal quote (6061, 0.8 mm, one piece) and send me the price and shipping.
 <!-- ------ -->
 ---
+**1–2. Your quote.** I recorded it. Thickness defaults back to 1.6 mm, and the estimate is then 0.34 kg with C$12.05 shipping. At 1.2 mm it's under 0.3 kg and shipping is C$2.10. The arm alone, FR4 green HASL, comes to C$7.86 after the coupon. That settles it: FR4 and HASL stay, and the aluminium arm is shelved.
+
+Your numbers also corrected my parcel estimate. JLC's mass includes about 155 g of packing, not the 40 g I assumed. The arm's parcel is about 294 g against the 300 g line, so nothing else can ship with it. The three small boards need their own order, which I haven't seen quoted. `ORDER.md` and your TODO list say so, and the parcel tool and its checks are recalibrated.
+
+**3. What the apparatus is meant to look like.** The new labelled picture is [docs/img/apparatus.png](docs/img/apparatus.png). It has an oblique view, a side view and a top view, with a credit card and a 200 mm bar for scale.
+- **What it shows:** the 208 mm arm hangs on edge from a 50 µm strip at the top of a printed frame, with the damper magnets, optical sensor, fixed electrode and ballast around it. The whole instrument is about 250 × 250 × 200 mm inside a clear acrylic box.
+- **Why the arm is long:** the electrode, damper vane, device card, ballast and flag all sit along it. The noise budget barely depends on its length (0.108, 0.109 and 0.112 nN at 100, 75 and 50 mm half-length).
+- **The cost of shortening:** a shorter arm weakens the damper (0.10 per pad at 75 mm) and needs a rework. It might also fit JLC's cheaper 100 × 100 mm board tier.
+- **Your call:** if you want a shorter arm, tell me and that becomes the first task. I recorded it in the handoff as an open question rather than redesigning without you.
+
+**4. Knowledge base.** Both repos are updated for the next agent.
+- **`spurious-force-balance`:** `docs/kb/session_handoff.md` is rewritten (state, what's waiting on you, next tasks, the arm-length question, rules to follow). `fab_ordering_notes.md`, `balance_design_notes.md` and `project_workflow_notes.md` are updated, the last with the rule that JLC quote pages can't be read from here.
+- **`lab`:** the new `docs/kb/jlc_account_and_quotes.md`, indexed in its README, covers what a session can and can't see, the coupon rules and the quote behaviour you found.
+- **Memory:** I saved a note not to present JLC prices as fact or send you clicking for numbers.
+<!-- ------ -->
+---
