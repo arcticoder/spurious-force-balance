@@ -35,7 +35,7 @@ dominated by the Standard setup, the stencil and the extended-part fees: read it
 
 ## Coupon
 
-One coupon per checkout: **New User SMT (C$13.99, ends 2026-11-25)**. The stencil coupon (C$9.80, ends 12-25) cannot be stacked in the same checkout; it is unused unless a later order also needs a stencil.
+One coupon per order: **New User SMT (C$14.03, ends 2026-11-25)**. The stencil coupons cannot be stacked in the same order. A PCBA Special Offer ($9 off) expires about 2026-10-30: it is smaller, so the New User SMT coupon is the better one unless the order is placed at once.
 
 ## Cable
 

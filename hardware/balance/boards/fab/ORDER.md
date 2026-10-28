@@ -44,7 +44,7 @@ Per balance: 1 arm, 2 clamp_plate, 1 clamp_ground, 1 elec_board. Five of each ar
 
 ## Coupon and shipping
 
-- One coupon per checkout: apply **New User PCB (C$8.40, ends 2026-11-25)** to the order it saves most on (the arm). The ledger is `lab/docs/jlc/coupons.md`.
+- One coupon per order: apply **JLCONE $8 PCB (C$11.22 off over C$14.03, ends 2026-11-26)** to the arm (the dearest line); if the cart lets another line take its own coupon, **New User PCB (C$8.42, ends 11-25)** on a second line (the user checks this in the cart). The ledger is `lab/docs/jlc/coupons.md`.
 - The four uploads become four cart lines. Use **Combine Shipping** only while the combined estimated mass is under 0.29 kg: boards 194 g with packing (`tools/jlc_parcel_mass.py`), so one parcel is fine
   here, but do not combine this parcel with a 3D-printing or CNC order (JLC3DP and JLCCNC ship separately anyway, and the sum with the printed-part candidates is 314 g).
 - Pick the cheap postal tier (Global Standard Direct Line) if offered for Canada; read its price at this mass and note it in `TODO-arcticoder.md`.

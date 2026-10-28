@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Read three JLC quotes and the shipping table** (the mechanical order is the first order, and its New User PCB coupon, C$8.40, ends 2026-11-25; place the order by about 11-20). On the quote page:
+1. **Read three JLC quotes and the shipping table** (the mechanical order is the first order, and its JLCONE $8 PCB coupon, C$11.22, ends 2026-11-26; place the order by about 11-20; in the cart, see whether a second cart line accepts its own coupon, e.g. New User PCB, and tell me). On the quote page:
    (a) the arm alone, 5 pieces, 208 x 60 mm, 1.2 mm, black, ENIG: price, the mass the page shows, and the shipping options with prices for Canada; (b) the same at 1.0 mm; (c) the four designs as listed in
    [ORDER.md](../hardware/balance/boards/fab/ORDER.md). If the arm alone is over about $60, or a parcel is over 0.29 kg, stop and tell me.
 2. **Shipping price table** for the cheap Global Standard Direct Line tier (and the next tier up): the price the quote page shows for estimated masses of about 100 g, 200 g, 290 g and 310 g to your address (change the
