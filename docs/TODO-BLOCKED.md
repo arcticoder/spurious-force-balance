@@ -9,11 +9,6 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 r
 - [ ] The slow-demodulation analysis script for the measurement campaign (`docs/procedures.md` section C, step 6): demodulate the logged deflection at the modulation frequency and report force per ampere or per watt with uncertainties; write it with the first real data.
 - [ ] Fill the paper skeleton (`docs/paper/main.tex`): every `\todo{}` is a measurement or a figure; the results sections wait on A5 and the campaign.
 
-## Part J4 — the arm's material decision (waits on the user's quotes)
-- [ ] When the user has read the arm quotes (1.2 mm and 1.0 mm FR4, the four-design panel probe from `boards/fab/ORDER.md`) and, if made, the JLCCNC sheet-metal capture (upload `boards/fab/arm_cnc.dxf`): fill the
-      numbers into `docs/fabrication.md` ("Material and process"), apply its decision rule (keep FR4 unless an aluminium arm is cheaper by more than the redesign and the eddy-current and insulation points pass), build the
-      panel Gerbers if the panel quote wins, and update `ORDER.md`.
-
 ## A5 — prototype noise measurement (needs the printed balance, the lock-in and the optical readout)
 - [ ] Test the mechanics and the optical readout's displacement sensitivity on the bench: the printed/FR4 balance, the breadboard optical readout and lock-in (`optical_shadow_readout`), the Pico.
       Compare the measured resonance, Q and displacement noise, the optical photocurrent (Rf) and the trim procedure's real numbers with G2/G3; update `params.py`, rerun `tools/force_noise_budget.py`.

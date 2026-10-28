@@ -70,11 +70,9 @@ interactive, so the user confirms totals before paying.
 rest of the arm. What changes: no ENIG pad (the bare face of the sheet is the electrode, anodizing off or masked), the strip contact is the clamp pressing on bare metal, the flag finger needs blackening for
 the infrared (an anodized or painted finger), the device card must be insulated from the arm (it sits on it with two bolts: fibre washers), and the arm moves in the damper magnets' stray field, so an eddy-current
 term appears (a vane-like loss in the arm itself: estimate before choosing). What is lost: pad flatness to the ENIG process, the guard-ring geometry (it lives on the fixed board, unchanged). The saving: one piece
-instead of five, no 5-piece minimum. **J4, the decision rule** (the user's quote of 2026-10-28 puts an FR4 arm near C$26 with HASL and shipping before coupons, ENIG +C$25.25: the aluminium quote is now the first thing to read): keep FR4 unless the user's quotes show the aluminium arm cheaper than the arm board by more than the cost of the redesign
-(a day of work, not the user's money) AND a review of the eddy-current and insulation points; the DXF for the quote is `boards/fab/arm_cnc.dxf`. Until then the order recipe in `ORDER.md` stands.
-
-- **OSHPark** (for comparison, confirmed on its docs page): ENIG standard, 1.6 mm, free shipping worldwide, $5 per square inch for three copies. The arm would be
-  about 18.6 square inches = $93, the electrode board about $6: dearer than JLC for the arm, comparable for small boards. Not used.
+instead of five, no 5-piece minimum. **J4, decided 2026-10-28: keep the FR4 arm.** The user's quote: arm alone, 5 pieces, 1.2 mm, green, HASL, C$14.17 of fabrication + C$2.10 shipping, **C$7.86 after the JLCONE coupon**. An aluminium arm would need the redesign above and could not
+cost meaningfully less; it is shelved (the DXF `boards/fab/arm_cnc.dxf` and the study stay as options; the two CNC coupons go unused). The finish is HASL, not ENIG (+C$25.25 on the arm). The three small boards are a separate order (the arm's parcel is 294 g of 300 g
+by JLC's rule with its packing); the panel variant is not pursued (a 252 x 60 mm panel is 323 g with packing).
 
 ## Printed parts worth a JLC3DP job (Part K; a shortlist, nothing ordered)
 
@@ -102,7 +100,8 @@ coupon ledger is `lab/docs/jlc/coupons.md`; prices on the user's account are in 
 
 | # | Checkout | Coupon | Deadline | Mass | Status |
 |---|---|---|---|---|---|
-| 1 | mechanical boards (4 designs, `ORDER.md`) | JLCONE $8 PCB C$11.22 (min C$14.03); New User PCB C$8.42 for a second cart line if the cart allows | 11-26 / 11-25 | 194 g | ready: the user reads the quotes first |
+| 1 | the arm alone (`ORDER.md`) | JLCONE $8 PCB (-C$8.42 applied in the cart) | 11-26 | 294 g with packing | quoted: C$7.86 net, ready to pay |
+| 1b | the three small designs (`ORDER.md`) | New User PCB C$8.42 or JLCONE PCB $5 (a second coupon) | 11-25 | 170 g | not quoted yet; separate order |
 | 2 | sensor-head PCBA panel (Part N, optional; `hardware/instrument/heads_panel/ORDER.md`) | New User SMT C$14.03 (a PCBA Special Offer of $9 expires in about 3 days: only worth it if ordered at once; the stencil coupons cannot stack) | 11-25 | 79 g of boards + packing | layout done; the user decides after the quote |
 | 3 | printed parts at JLC3DP (the shortlist above) | New User 3D Printing 1 C$14.03 | 11-25 | about 25 g | needs the user's pick |
 | 4 | second JLC3DP order, if more parts are worth it | New User 3D Printing 2 C$14.03 | 12-25 | | |

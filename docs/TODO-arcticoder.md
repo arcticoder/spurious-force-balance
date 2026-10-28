@@ -8,24 +8,20 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Nothing to click on the JLC PCB page for now.** The quote lines you read (arm: engineering C$5.61, board C$8.56, ENIG +C$25.25, shipping C$12.05) are in `kb/fab_ordering_notes.md`, and `ORDER.md` now asks for HASL. I cannot see the quote
-   pages, so I will not ask for more PCB clicks until there is a specific question; the two numbers I still need are the **mass the page shows for the arm** and **whether changing the quantity or thickness moves the shipping**,
-   when you next have the arm uploaded anyway. If your coupons are locked, delete the saved (unsubmitted) lines in the cart first: coupons apply at the payment step, and a saved line may be holding them; otherwise ask JLC support.
-2. **JLCCNC quote of the aluminium arm** (the likely cheaper arm: its two coupons are C$28.06 each): upload `hardware/balance/boards/fab/arm_cnc.dxf` at `jlccnc.com/sheet-metal-quote`, pick 6061 aluminium, 0.8 mm, one piece, and tell me the price and
-   shipping; save the options window as `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` while you are there.
+1. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
+2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
 3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
-4. **JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
+4. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
    Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
 5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
    using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
    It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
 6. **JLCMC fasteners:** check whether M3 stainless (304/A2) hex nuts and flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service.
 
-## Next order — JLC mechanical boards (four designs, one cart)
+## Next orders — JLC mechanical boards (two orders)
 
-Upload the four Gerber zips from `hardware/balance/boards/fab/` and use the settings in [ORDER.md](../hardware/balance/boards/fab/ORDER.md): 1.2 mm, black mask, 5 pieces each, ENIG on
-three designs, **Combine Shipping on**, a postal (not courier) tier if one is offered for Canada. Unassembled boards: no setup or extended-part fees. Estimated **$70–140 total** with shipping
-[estimate; the quote page decides]. The estimated parcel mass is about 195 g with packing, under JLC's 0.3 kg line for the cheap tier [community data: see `docs/kb/fab_ordering_notes.md`].
+Settings are in [ORDER.md](../hardware/balance/boards/fab/ORDER.md): 1.2 mm (the page reverts to 1.6 mm: check it), green, HASL, 5 pieces each, no Combine Shipping, the cheap postal tier. Unassembled boards: no setup or extended-part fees.
+(a) The arm alone: quoted C$7.86 after the coupon, shipping C$2.10. (b) The three small designs: not quoted yet. Together about C$10-25 [estimate for (b)]; the old $70-140 estimate was wrong.
 
 ## Next order — AliExpress: what is left for the balance
 

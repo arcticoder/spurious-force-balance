@@ -51,3 +51,10 @@ Past defects found by these checks: counterweight pocket vs bracket, vane tip vs
 
 The printed 20 mm arm, flag tab, vane holder with a copper foil route, steel ballast, 3 mm acrylic panels, a 1 mm copper vane, the 0.3 mm vane at ZETA 0.6, printed clamp halves with self-tapped
 screws, and the foil-tape plates.
+
+## Added 2026-10-28
+
+- The magnets are axial (twist test 2026-10-26): the damper uses flat round pockets, damping 0.43 per pad (0.86 with two); `balance_design_notes` text above that mentions the on-edge cradles describes the unused diametric option.
+- The arm's first bending mode with its loads is about 36 Hz (`hardware/balance/material_study.py`); FR4 stays (decided 2026-10-28 on the user's quote), thickness 1.2 mm, finish HASL.
+- A labelled picture of the whole apparatus (arm 208 mm, 250 x 250 x 200 mm acrylic box) is `docs/img/apparatus.png` (`render_labeled.py`). The user asked why the arm is so long compared with pictures of torsion balances: see the open question in `session_handoff.md`.
+
