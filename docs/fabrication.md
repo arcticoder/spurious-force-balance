@@ -102,15 +102,16 @@ coupon ledger is `lab/docs/jlc/coupons.md`; prices on the user's account are in 
 
 | # | Checkout | Coupon | Deadline | Mass | Status |
 |---|---|---|---|---|---|
-| 1 | mechanical boards (4 designs, `ORDER.md`) | New User PCB C$8.40 | 2026-11-25 | 194 g | ready: the user reads the quotes first |
-| 2 | sensor-head PCBA panel (Part N, optional; `hardware/instrument/heads_panel/ORDER.md`) | New User SMT C$13.99 (the stencil coupon cannot stack in the same checkout) | 11-25 | 79 g of boards + packing | layout done; the user decides after the quote |
-| 3 | printed parts at JLC3DP (Part K shortlist) | New User 3D Printing 1 C$13.99 | 11-25 | by the shortlist | needs the user's pick |
-| 4 | second JLC3DP order, if more parts are worth it | New User 3D Printing 2 C$13.99 | 12-25 | | |
-| 5 | JLCCNC (aluminium arm or other part) | New User CNC C$27.99 | 11-25 | | only if the quote and J2 favour it |
-| 6 | JLCMC fasteners (M3 304 nuts and washers) | Mechanical Parts 1 and 2, C$13.99 each | 11-25 and 12-25 | | needs the user to see the catalogue |
-| - | any order that needs FDM, nylon or resin | the promotional coupons by material | their own dates | | only if a part needs that material |
+| 1 | mechanical boards (4 designs, `ORDER.md`) | JLCONE $8 PCB C$11.22 (min C$14.03); New User PCB C$8.42 for a second cart line if the cart allows | 11-26 / 11-25 | 194 g | ready: the user reads the quotes first |
+| 2 | sensor-head PCBA panel (Part N, optional; `hardware/instrument/heads_panel/ORDER.md`) | New User SMT C$14.03 (a PCBA Special Offer of $9 expires in about 3 days: only worth it if ordered at once; the stencil coupons cannot stack) | 11-25 | 79 g of boards + packing | layout done; the user decides after the quote |
+| 3 | printed parts at JLC3DP (the shortlist above) | New User 3D Printing 1 C$14.03 | 11-25 | about 25 g | needs the user's pick |
+| 4 | second JLC3DP order, if more parts are worth it | New User 3D Printing 2 C$14.03 | 12-25 | | |
+| 5 | JLCCNC, first checkout (aluminium arm or other part) | New User CNC C$28.06 | 11-25 | | only if the quote and J2 favour it |
+| 6 | JLCCNC, second checkout | JLCONE-$20 CNC C$28.06 | 11-26 | | a second CNC part, if any |
+| 7 | JLCMC fasteners (M3 304 nuts and washers) | Mechanical Parts 1 and 2, C$14.03 each | 11-25 and 12-25 | | needs the user to see the catalogue |
+| - | any order that needs FDM, nylon or resin | the promotional coupons by material (minimums of $30 to $200) | 30 or 60 days | | only if a part needs that material |
 
-Do not combine orders from different services in one parcel (3DP and CNC ship from other factories anyway). The shipping coupons (C$13.99 over C$20.99 of shipping, C$13.99 over C$55.97) need a
+Do not combine orders from different services in one parcel (3DP and CNC ship from other factories anyway). The shipping coupons (C$14.03 over C$21.04 of shipping, $10 over $40) need a
 parcel that costs more than the cheap tier: they are not part of the plan. The electronics order (WP7) is not on this list: it comes after A5, and the SMT coupon will have lapsed.
 
 ## The orders

@@ -302,3 +302,21 @@ I worked through the whole agent list: Parts I–N, WP9 and WP11. The smoke test
 What remains in `TODO-BLOCKED.md` needs your quotes or a physical board.
 <!-- ------ -->
 ---
+I've replaced the old coupon ledger in `lab/docs/jlc/coupons.md` with your two new lists, and revised the order plan around it. Nothing is committed.
+
+**What changes in the plan**
+- **Mechanical boards:** the JLCONE $8 PCB coupon (C$11.22 off over C$14.03, ends 2026-11-26) is larger than New User PCB (C$8.42), so it goes on the arm order. New User PCB goes on a second cart line, if the cart lets another line take its own coupon.
+- **Cart lines:** the terms say one coupon per order, and I can't tell whether each cart line counts as its own order. I added that check to your list: apply a coupon to one line, try another on a second, and tell me what happens.
+- **Sensor-head panel:** the best coupon is still New User SMT (C$14.03, ends 11-25). The PCBA Special Offers ($9 and $6) expire in about three days, so they're only worth it if you order immediately. The stencil coupons can't stack with it.
+- **CNC:** there are now two coupons near C$28 (New User CNC to 11-25, JLCONE-$20 CNC to 11-26), so two CNC checkouts would be close to free apart from freight. Whether that's worth doing depends on the aluminium-arm quote.
+- **Not usable or not relevant:**
+  - The "EasyEDA Design" coupons only apply to EasyEDA files, so the KiCad exports can't use them.
+  - JLCCNC $10 and both Parts Special coupons are maxed out.
+  - The layout, multi-layer, flex, motion and enclosure coupons don't apply to this project.
+  - The 3D-printing coupons with $30–$200 minimums won't be reached by two small parts, so only the New User 3D Printing ones apply.
+
+Also, the first list shows amounts without a currency prefix, while the second uses C$ (C$14.03 = US$10 now). I treated the first as US$ and noted that this should be checked at checkout.
+
+I updated `ORDER.md`, the heads-panel order recipe, the order plan in `fabrication.md` and the ordering notes to match. The smoke tests pass.
+<!-- ------ -->
+---
