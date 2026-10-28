@@ -320,3 +320,15 @@ Also, the first list shows amounts without a currency prefix, while the second u
 I updated `ORDER.md`, the heads-panel order recipe, the order plan in `fabrication.md` and the ordering notes to match. The smoke tests pass.
 <!-- ------ -->
 ---
+**1.1 Price estimate dropping to $0.** The coupon covers the goods (freight is excluded), so a C$2.81 board can't go below zero and the rest of the coupon is lost. The "calculated price" stays at C$2.81 because that is the price before the coupon.
+
+I couldn't tell whether the extra coupon you selected went on the same order or a second one. Please tell me which coupons showed as applied. Put the big coupons on the dear lines and the small ones on the cheap boards. Don't spend a large coupon on a board that costs less than it. When you add the arm, check that JLCONE $8 PCB still applies. It needs goods over C$14.03, and the arm should clear that. I noted this in `lab/docs/jlc/coupons.md`.
+
+**1.2.1 Gold thickness.** The choices are 1 µ" (default) or 2 µ".
+- **Arm and electrode board:** take 2 µ" if the quote adds only a few dollars, otherwise 1 µ". The gold pad is the electrostatic electrode, and thicker gold has fewer pores over the nickel. That means fewer oxide patches that could shift the surface potential and so the force, which matters at nanonewton level. This is a precaution I haven't measured.
+- **Strip-contact plate:** 1 µ" is fine, since nothing slides on it.
+- **Wear:** it doesn't matter here.
+
+I added the row to `ORDER.md`.
+<!-- ------ -->
+---
