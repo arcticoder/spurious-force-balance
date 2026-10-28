@@ -20,6 +20,7 @@ Four designs, 5 pieces each. The Gerber zips are in this folder; each upload fil
 | Silkscreen | White (default) | |
 | Material Type | **FR4 TG135** (default) | arm temperature never nears 130 C |
 | Surface Finish | **ENIG** for arm, clamp_ground, elec_board; **LeadFree HASL** for clamp_plate (no copper, cheapest) | flat gold pads are the electrodes and the strip contact; one finish applies to everything in a file |
+| Gold Thickness (appears when ENIG is chosen) | **2 u"** for the arm and elec_board if the quote adds only a few dollars, else the default 1 u" (clamp_ground: 1 u") | the gold pad is the electrostatic electrode: thicker gold has fewer pores over the nickel, so fewer oxide patches that would change the surface potential and the force at the nanonewton level [precaution, not measured]; no wear matters (nothing slides on it) |
 | Outer Copper Weight | 1 oz | |
 | Via Covering | Tented (default) | the only via (0.8 mm, in the electrode pad's back-face wire) is not a contact surface |
 | Via Plating Method | Not Specified | |
