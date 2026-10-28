@@ -332,3 +332,22 @@ I couldn't tell whether the extra coupon you selected went on the same order or 
 I added the row to `ORDER.md`.
 <!-- ------ -->
 ---
+**1. Two coupons.** You told me two work, and I wrote one. I was wrong. The plan now assumes up to two per order, so my question about cart lines was a bad one and I've dropped it.
+
+**2. ENIG's C$25.25.** No, I couldn't see it. The `jlc` tool only searches the parts catalogue (LCSC and EasyEDA). It has no PCB, CNC or shipping quote. JLC's quote pages are script-driven, so my web fetch can't read them either; I tried both pages. Every JLC price in this repo that isn't from your captures is an estimate. I'll stop sending you to click for numbers unless I have one specific question.
+
+**3. FR4 isn't cheap here.**
+- Engineering C$5.61 plus board C$8.56 comes to about C$14.17 with HASL. ENIG adds C$25.25 on top.
+- I switched `ORDER.md` to LeadFree HASL, since the weights calibration absorbs the electrode's geometry. That makes the gold-thickness question moot.
+- The engineering fee looks per design, so four separate designs may mean four fees. That makes the one-file panel version worth quoting. I haven't built real panel Gerbers yet; the 252 × 60 mm numbers in `ORDER.md` are for entering into the quote form.
+- With about C$12 shipping, an FR4 arm is roughly C$26 before coupons. The aluminium arm via JLCCNC now looks worth pricing first. Its two coupons are C$28.06 each.
+
+**4. The coupons and shipping.** Your read is plausible, but I can't confirm any of it.
+- The quote page says "The coupon can be applied when you select a payment method". That means coupons are applied at payment, not in the quote lines.
+- The ~C$2.81 "special offer" is the new-user price for a small board, up to 100 × 100 mm, not a coupon. The arm is over that size, so it lost that price.
+- Locked coupons may be tied to an unsubmitted saved line in the cart. I'd delete those lines before anything else, then ask JLC support if they stay locked. That is a guess.
+- The shipping jump probably isn't the "≤55 × 40 cm" limit, since the arm is far inside it. It's more likely the mass JLC estimates. The quote page's weight line is the missing number.
+
+**Your list now:** nothing to do on the PCB page. When you next have the arm uploaded, read me the page's mass line and whether changing quantity or thickness moves the shipping. Separately, upload `boards/fab/arm_cnc.dxf` at the JLCCNC sheet-metal quote (6061, 0.8 mm, one piece) and send me the price and shipping.
+<!-- ------ -->
+---

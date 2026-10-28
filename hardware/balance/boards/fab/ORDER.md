@@ -19,8 +19,8 @@ Four designs, 5 pieces each. The Gerber zips are in this folder; each upload fil
 | PCB Color | **Black** for the arm; **Green** for the other three (fastest; colour is irrelevant) | black mask is low-reflectance beside the optical path; black adds 2 days, and the parcel waits for the slowest board anyway, so use black on all four if Combine Shipping waits |
 | Silkscreen | White (default) | |
 | Material Type | **FR4 TG135** (default) | arm temperature never nears 130 C |
-| Surface Finish | **ENIG** for arm, clamp_ground, elec_board; **LeadFree HASL** for clamp_plate (no copper, cheapest) | flat gold pads are the electrodes and the strip contact; one finish applies to everything in a file |
-| Gold Thickness (appears when ENIG is chosen) | **2 u"** for the arm and elec_board if the quote adds only a few dollars, else the default 1 u" (clamp_ground: 1 u") | the gold pad is the electrostatic electrode: thicker gold has fewer pores over the nickel, so fewer oxide patches that would change the surface potential and the force at the nanonewton level [precaution, not measured]; no wear matters (nothing slides on it) |
+| Surface Finish | **LeadFree HASL** for all four (ENIG added **C$25.25** to the arm alone, a quote the user read on 2026-10-28; HASL adds nothing) | the force scale comes from the weights calibration, so an uneven electrode surface (HASL is less flat than gold) costs stability, not accuracy; ENIG is only worth that money if the arm's first measurements show surface-potential drift. HASL with lead is the page's default; lead-free is the RoHS choice |
+| Gold Thickness | not shown with HASL (only with ENIG; if ENIG is ever chosen: 2 u" for the arm and elec_board only if the quote adds a few dollars) | |
 | Outer Copper Weight | 1 oz | |
 | Via Covering | Tented (default) | the only via (0.8 mm, in the electrode pad's back-face wire) is not a contact surface |
 | Via Plating Method | Not Specified | |
@@ -32,13 +32,19 @@ Four designs, 5 pieces each. The Gerber zips are in this folder; each upload fil
 | Gold Fingers, Castellated Holes, Edge Plating, Blind Slots, UL Marking, Humidity Indicator Card | No | |
 | PCB Remark | "Arm: the flag finger has copper on both faces under the mask and the large ENIG pads are intentional. No components." | |
 
+## What the arm costs (user's quote, 2026-10-28, C$, before coupons)
+
+Engineering fee 5.61 + Board 8.56 = **14.17** with HASL (+25.25 with ENIG), plus shipping: the Global Standard Direct Line jumped to **12.05** once the arm was uploaded. The small default board's C$2.81 "special offer" does not apply to the arm
+(over 100 x 100 mm). The engineering fee is per design, so four separate designs may carry four fees: the panel variant below (one file, one fee) is worth quoting. The aluminium arm (JLCCNC, `arm_cnc.dxf`, New User CNC and JLCONE-$20 CNC coupons of C$28.06 each) is worth
+quoting beside it: an FR4 arm is about C$26 with HASL and shipping before any coupon.
+
 ## Per design
 
 | Design | File | Size (mm) | Finish | Colour | 5-piece mass (JLC's rule) | Note |
 |---|---|---|---|---|---|---|
-| arm | `arm_gerbers.zip` | 208 x 60 | ENIG | black | 138 g | strip contact pad, moving electrode, flag finger, 7 holes |
-| clamp_ground | `clamp_ground_gerbers.zip` | 17 x 19 | ENIG | green | 4 g | strip pad and the plated wire hole |
-| elec_board | `elec_board_gerbers.zip` | 24 x 34 | ENIG | green | 9 g | fixed electrode and its guard |
+| arm | `arm_gerbers.zip` | 208 x 60 | HASL | black | 138 g | strip contact pad, moving electrode, flag finger, 7 holes |
+| clamp_ground | `clamp_ground_gerbers.zip` | 17 x 19 | HASL | green | 4 g | strip pad and the plated wire hole |
+| elec_board | `elec_board_gerbers.zip` | 24 x 34 | HASL | green | 9 g | fixed electrode and its guard |
 | clamp_plate | `clamp_plate_gerbers.zip` | 16 x 14 | LeadFree HASL | green | 3 g | plain plate; two per balance |
 
 Per balance: 1 arm, 2 clamp_plate, 1 clamp_ground, 1 elec_board. Five of each arrive.
@@ -55,7 +61,7 @@ Per balance: 1 arm, 2 clamp_plate, 1 clamp_ground, 1 elec_board. Five of each ar
 
 Upload the arm zip, then change Dimensions to **252 x 60**, Different Design to **4**, Delivery Format to **Panel by Customer** and Qty to 5 and read the price and mass: the three small boards would sit in two
 columns beside the arm (elec_board over clamp_ground, then two clamp_plates), 2 mm apart. Five panels give 5 arms, 5 elec_boards, 5 clamp_grounds and 10 clamp_plates; the mass by JLC's rule is about 168 g
-against 154 g. One finish applies to the whole panel (ENIG for all) and the colour is black. If the quote beats the sum of the four separate ones, ask the agent to build the panel Gerbers (tabs, mouse bites);
+against 154 g. One finish applies to the whole panel (HASL for all) and the colour is black. If the quote beats the sum of the four separate ones, ask the agent to build the panel Gerbers (tabs, mouse bites);
 do not upload the arm zip as a panel as it is.
 
 ## Checks done before this file was written

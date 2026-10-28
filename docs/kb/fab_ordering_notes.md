@@ -77,3 +77,12 @@ The user is in Canada (British Columbia area) and pays by the cheapest postal ti
 - **JLCCNC's sheet-metal quote page shows only a file upload to a visitor** (the specification window appears after an upload); JLCMC's product pages list fastener categories but no product data without a search: both need the user's captures.
 - **Arm stiffness (computed, `hardware/balance/material_study.py`)**: with the device card, vane and ballast on it the arm's first bending mode is about 36 Hz at 1.2 mm FR4 (E 20 GPa; two 100 mm cantilevers bending in the thin direction), 29 Hz at 1.0 mm, 22 Hz at 0.8 mm, 54 Hz at 1.6 mm; 0.8 mm aluminium matches FR4 1.2 mm (24.8 g, 36 Hz); printed PLA needs 2 mm for 32 Hz and has 5x the thermal drift. (An earlier unloaded estimate of 64 Hz ignored the lumped masses and was wrong.) The decision (FR4 vs aluminium) waits on quotes: `docs/fabrication.md`.
 - **Coupons do not stack in one checkout**: the SMT and the stencil coupons cannot both apply to the same PCBA order.
+
+## Observed quote for the arm (user, 2026-10-28; CAD at the account's rate)
+
+Arm zip uploaded, 5 pieces: **Engineering fee C$5.61, Board C$8.56, ENIG surface finish +C$25.25** (HASL with lead brings the surface-finish line to C$0 and leaves the other two), shipping by Global Standard Direct Line jumps to **C$12.05**
+after the upload (the method's restriction reads "<=55 x 40 cm", which a 208 x 60 mm board is far inside, so the jump is probably the mass JLC estimates: the quote page's weight line is the missing number). The small default board shows the "special offer"
+price of about C$2.81 (5 pieces, up to 100 x 100 mm: the new-user price); the arm is over that size, so the special price no longer applies and neither does the cheap estimate. The coupon is applied at the payment step
+("The coupon can be applied when you select a payment method" on the quote page), so the quote page's "calculated price" is not a coupon price. The user states that two coupons can be used. The `jlc` command-line tool searches the LCSC/EasyEDA
+parts catalogue only: it has no PCB, CNC or shipping quote, and the JLC quote pages are scripts that a fetch cannot read: every price in this repo's JLC notes that is not in the user's captures is an estimate.
+

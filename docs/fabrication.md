@@ -70,7 +70,7 @@ interactive, so the user confirms totals before paying.
 rest of the arm. What changes: no ENIG pad (the bare face of the sheet is the electrode, anodizing off or masked), the strip contact is the clamp pressing on bare metal, the flag finger needs blackening for
 the infrared (an anodized or painted finger), the device card must be insulated from the arm (it sits on it with two bolts: fibre washers), and the arm moves in the damper magnets' stray field, so an eddy-current
 term appears (a vane-like loss in the arm itself: estimate before choosing). What is lost: pad flatness to the ENIG process, the guard-ring geometry (it lives on the fixed board, unchanged). The saving: one piece
-instead of five, no 5-piece minimum. **J4, the decision rule:** keep FR4 unless the user's quotes show the aluminium arm cheaper than the arm board by more than the cost of the redesign
+instead of five, no 5-piece minimum. **J4, the decision rule** (the user's quote of 2026-10-28 puts an FR4 arm near C$26 with HASL and shipping before coupons, ENIG +C$25.25: the aluminium quote is now the first thing to read): keep FR4 unless the user's quotes show the aluminium arm cheaper than the arm board by more than the cost of the redesign
 (a day of work, not the user's money) AND a review of the eddy-current and insulation points; the DXF for the quote is `boards/fab/arm_cnc.dxf`. Until then the order recipe in `ORDER.md` stands.
 
 - **OSHPark** (for comparison, confirmed on its docs page): ENIG standard, 1.6 mm, free shipping worldwide, $5 per square inch for three copies. The arm would be
