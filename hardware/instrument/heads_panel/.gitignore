@@ -1,0 +1,9 @@
+*.dsn
+*.ses
+gerbers/
+*.kicad_prl
+*-backups/
+fp-info-cache
+*.erc
+*.log
+__pycache__/

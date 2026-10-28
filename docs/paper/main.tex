@@ -1,0 +1,64 @@
+% Paper skeleton (Part WP11). Numbers are from the repo's models and are marked [model]; everything that needs a measurement is \todo{...} and stays a placeholder until the data exist.
+% Build: cd docs/paper && latexmk -pdf main.tex
+\documentclass[11pt]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs,amsmath,graphicx,xcolor,hyperref}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\model}{\textcolor{blue}{[model]}}
+\title{An open, fully SMT-assembled torsion balance to quantify the spurious forces of small-thrust measurements}
+\author{\todo{authors and affiliations}}
+\date{\todo{date}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\todo{Write last. Claim to support: on an open, low-cost torsion balance operating in air, the Lorentz force of supply-lead currents in the ambient field and the thermal and convective forces of a dissipating device are measured as functions of current, lead geometry and dissipated power, with the noise floor, calibration constant and drift characterized; instrument claim: forces resolved to $\le 0.4\,\mathrm{nN}$ ($5\sigma$ on a $20\,\mathrm{nN}$ term) in a $1000\,\mathrm{s}$ measurement at a parts cost of \todo{\$X from the final bill of materials}.}
+\end{abstract}
+
+\section{Introduction}
+Small-thrust claims (microwave cavities and similar devices) are measured as nanonewton to micronewton forces on torsion balances, where heat dissipated on the balance, the Lorentz force of direct currents in the supply cables, and the cables' mechanical coupling are the recurring false positives~\cite{duif2017}. Published balances report sensor noise and drift at the level of a few micrometres~\cite{soni2013}, and cryogenic balances reach very low stiffness~\cite{cryo2022}. \todo{Survey properly after reading the papers themselves; the repository's notes on them are secondary summaries.}
+We describe an open balance, built from printed parts and fabricated boards, whose purpose is to measure these spurious forces directly. \todo{Contributions list.}
+
+\section{Apparatus}
+\subsection{Mechanics}
+The balance is a torsion pendulum: a $50\,\mu\mathrm{m}$ thick, $4\,\mathrm{mm}$ wide, $30\,\mathrm{mm}$ long strip supports an FR4 arm board standing on edge (208\,mm $\times$ 60\,mm $\times$ 1.2\,mm) whose moving mass is $51.5\,\mathrm{g}$ and moment of inertia $2.47\times10^{-4}\,\mathrm{kg\,m^2}$ (computed from the CAD). The strip's torsion constant is $4.5\times10^{-4}\,\mathrm{N\,m/rad}$, giving a resonance of $0.215\,\mathrm{Hz}$ \model. Damping is by eddy currents in a copper vane between four fixed N42 magnets (damping ratio $0.43$ with one $0.3\,\mathrm{mm}$ pad, $0.86$ with two \model). \todo{Figure: render of the assembly (hardware/balance/cad). Table: parts and sources. Measured resonance and damping: A5.}
+\subsection{Readout and actuators}
+An infrared LED is modulated at $1\,\mathrm{kHz}$ and a photodiode behind a flag on the arm feeds a transimpedance amplifier ($10\,\mathrm{V/mA}$ at 80\,dB) and a 24-bit simultaneous ADC; a digital lock-in recovers the displacement ($146\,\mathrm{pm}/\sqrt{\mathrm{Hz}}$ predicted \model). Electrostatic plates (a $20\times8\,\mathrm{mm}$ pad on the arm facing a fixed electrode at $1\,\mathrm{mm}$) provide calibrated forces up to about $0.25\,\mu\mathrm{N}$ at $18.8\,\mathrm{V}$ \model. Temperature (three TMP117), field (MMC5983MA) and floor acceleration (LIS2DW12) are logged with the data. \todo{Figure: block diagram. Table: bill of materials with cost.}
+\subsection{Open hardware and software}
+All sources, models, fabrication files and firmware are in two public repositories (\todo{URLs}) under MIT and CERN-OHL-P v2 licenses; the electronics are fabricated and assembled by a board house from its own parts library, so nothing is hand soldered. \todo{Version/commit and archive DOI.}
+
+\section{Force-noise model}
+The predicted force-noise density at $0.05\,\mathrm{Hz}$ is dominated by air currents (Table~\ref{tab:noise}); one $1000\,\mathrm{s}$ lock-in measurement resolves $0.11\,\mathrm{nN}$ ($1\sigma$) \model. The model reproduces published torsion constants, sensor-noise conversions and decay times (checked in the repository's budget script). \todo{Measured spectrum and Allan deviation against this table.}
+\begin{table}[h]\centering
+\begin{tabular}{lrl}\toprule
+Term & $\mathrm{nN}/\sqrt{\mathrm{Hz}}$ & Basis\\\midrule
+Air currents & 4.80 & assumed 1\,mm/s flow, 20\,cm$^2$ flag \model\\
+Temperature (frame to sensor) & 0.63 & assumed 1\,mK/$\sqrt{\mathrm{Hz}}$ \model\\
+Temperature (arm expansion) & 0.13 & assumed \model\\
+Floor acceleration (centre-of-mass offset) & 0.21 & assumed \model\\
+Floor tilt & 0.20 & assumed \model\\
+Thermal (Brownian, eddy damper) & 0.021 & computed \model\\
+Magnetic (stray moment) & 0.020 & assumed \model\\
+Optical readout & 0.006 & computed \model\\\midrule
+Total & 4.85 & \\\bottomrule
+\end{tabular}\caption{Predicted force noise; \todo{add a measured column after A5}.}\label{tab:noise}
+\end{table}
+
+\section{Calibration}
+Force on the plates is $F = cV^2$ with $c\approx7.1\times10^{-10}\,\mathrm{N/V^2}$ from the geometry \model; the absolute scale is transferred from calibrated weights of 1 to 500\,mg hung at a measured radius (procedure in \texttt{docs/procedures.md}). \todo{Calibration constant with uncertainty (weights' class, radius, fit); its drift over a campaign; temperature dependence; the optical displacement scale.}
+
+\section{Systematic effects}
+\todo{For each, the measured coupling and how it was separated: Lorentz force of lead currents, $F = BIL$, expected $\sim0.6\,\mu\mathrm{N}$ at $300\,\mathrm{mA}$ for a $20\,\mu\mathrm{T}$ horizontal field and $0.1\,\mathrm{m}$ of lead; ohmic heating, thermal expansion and radiometric forces; convection; electrostatic charging; magnetic stray moment; floor motion and tilt; arm bending mode (about 36\,Hz \model).}
+
+\section{Results}
+\todo{Noise floor and Allan deviation; resonance and damping; calibration; lead-current coupling for each geometry (force per ampere with uncertainty); heating coupling (force per watt); controls and failure modes.}
+
+\section{Discussion}
+\todo{What the measured couplings imply for published small-thrust claims; limits (air, no vacuum); what a vacuum or shielded iteration would change.}
+
+\section{Conclusion}
+\todo{Write last.}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}

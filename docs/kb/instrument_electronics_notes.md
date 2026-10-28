@@ -52,6 +52,8 @@ Pitfalls (SKiDL 3.0, KiCad symbols from easyeda2kicad):
 
 ## Open points before layout (WP5)
 
+0. Panel rule (2026-10-27): the Standard PCBA the two Standard-only sensors force needs boards of at least 70 x 70 mm with edge rails; the heads ride on the main board's panel. See `docs/fabrication.md`.
+
 1. Symbol/footprint verification is done where a source was reachable (2026-10-24): TMP117 pins, VBPW34S polarity and land pattern, SS14 and IR26-21C polarity. Unverified and queued as a WP7 precheck in JLC's placement preview: KT-0603R polarity, the ADC crystal's pad numbering, USBLC6 pin 1, JST tab pins, TS-1187A pairs.
 2. The 24 V boost ripple is bounded by simulation (`sim/boost.spice`, smoke checks): worst case 0.29 V p-p at the plate driver's supply, about 1 kHz, 0.76 pN of plate force with PSRR assumed 80 dB. The assumptions to confirm at bring-up (WP9): the MT3608's real light-load behaviour (burst hysteresis and minimum on-time), and the OPA197's PSRR near 1 kHz; the RP2040's 12-bit ADC on MON_24V cannot see the ripple, so use the plate output on ADS131A04 channel 4. Analog ground partitioning is a layout rule: the plate driver and LED sinks are the noisiest blocks.
 3. The real photocurrent (assumed 100 uA at mid-flag): the A5 prototype measures it, and Rf may change.

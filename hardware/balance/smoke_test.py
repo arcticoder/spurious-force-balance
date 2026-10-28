@@ -206,6 +206,27 @@ else:
     heavy = [n for n, d, _ in B.printability(parts) if min(d) < P.MIN_WALL * 1e3]
     check("smoke — no printed part is thinner than three perimeters", not heavy, f"{heavy}" if heavy else "all at least 1.2 mm")
 
+import material_study as MS  # noqa: E402
+
+_fr4, _al, _pla = MS.study("FR4 1.2 mm (chosen)"), MS.study("Al 6061 sheet 0.8 mm"), MS.study("PLA printed 2.0 mm")
+check("functional — the chosen arm's first bending mode (with the device card, vane and ballast on it) is above 30 Hz; below that it would sit in the building-vibration band as a spectral line", _fr4["f1_Hz"] > 30, f"{_fr4['f1_Hz']:.0f} Hz (cantilever estimate, FR4 E 20 GPa)")
+check("functional — 0.8 mm aluminium sheet is a like-for-like substitute for the FR4 arm in mass and first mode (within 10%)", abs(_al["arm_g"] / _fr4["arm_g"] - 1) < 0.1 and abs(_al["f1_Hz"] / _fr4["f1_Hz"] - 1) < 0.1, f"{_al['arm_g']:.1f} g and {_al['f1_Hz']:.0f} Hz against {_fr4['arm_g']:.1f} g and {_fr4['f1_Hz']:.0f} Hz")
+check("functional — a printed PLA arm needs about twice the thickness of FR4 for a similar first mode and has five times the thermal drift per kelvin", _pla["f1_Hz"] > 0.8 * _fr4["f1_Hz"] and _pla["t_mm"] / _fr4["t_mm"] > 1.5 and _pla["drift_um_per_K"] > 4 * _fr4["drift_um_per_K"], f"{_pla['t_mm']} mm gives {_pla['f1_Hz']:.0f} Hz, {_pla['drift_um_per_K']:.1f} um/K")
+
+import arm_dxf as AD  # noqa: E402
+
+_dxf, _size, _holes = AD.write_arm_dxf()
+_pw, _ph = AD.panel_layout()
+check("functional — the arm's DXF for the sheet-metal quote has the board's 208 x 60 mm outline and all 7 holes, and the four-design panel fits in 252 x 60 mm", abs(_size[0] - 208) < 1e-6 and abs(_size[1] - 60) < 1e-6 and len(_holes) == 7 and (round(_pw), round(_ph)) == (252, 60), f"outline {_size[0]:.0f} x {_size[1]:.0f}, {len(_holes)} holes, panel {_pw:.0f} x {_ph:.0f} mm")
+
+import jlc_parcel_mass as JM  # noqa: E402
+
+_parcels = JM.planned_parcels()
+_mech = JM.parcel_total(_parcels["mechanical boards"])
+check("functional — the mechanical-board parcel stays under the 0.29 kg line of JLC's cheap shipping tier (their rule: bounding rectangle x thickness, plus packing)", _mech < JM.LIMIT_G, f"{_mech:.0f} g with packing against {JM.LIMIT_G:.0f} g")
+_all = JM.combined_total(_parcels, list(_parcels))
+check("functional — the parcel tool flags that boards plus printed-part candidates combined would cross the line (so Combine Shipping stays off across services)", _all > JM.LIMIT_G, f"{_all:.0f} g combined")
+
 if failures:
     print(f"\n{len(failures)} check(s) failed: {failures}")
     sys.exit(1)

@@ -129,6 +129,10 @@ _host = subprocess.run([sys.executable, "-I", os.path.join(HERE, "host", "test_h
 _host_fail = [ln for ln in _host.stdout.splitlines() if ln.startswith("[FAIL]")]
 check("functional — the streaming protocol resynchronizes after garbage, damage and false sync patterns, the logger writes correct CSV, and the noise analysis recovers known ASD, tone amplitude and Allan slopes", _host.returncode == 0, "; ".join(_host_fail[:2]) or "all pass")
 
+_panel = subprocess.run([sys.executable, "-I", os.path.join(HERE, "heads_panel", "check_panel.py")], capture_output=True, text=True, cwd=os.path.join(HERE, "heads_panel"))
+_panel_fail = [ln for ln in _panel.stdout.splitlines() if ln.startswith("[FAIL]")]
+check("functional — the sensor-head panel for the early PCBA order: BOM equals two head-1 and two head-2 circuits, DRC has no unconnected nets or clearance errors, the panel meets Standard PCBA's 70 x 70 mm minimum", _panel.returncode == 0, "; ".join(_panel_fail[:2]) or "all pass")
+
 if failures:
     print(f"\n{len(failures)} check(s) failed: {failures}")
     sys.exit(1)

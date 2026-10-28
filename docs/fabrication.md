@@ -49,13 +49,69 @@ interactive, so the user confirms totals before paying.
   at the quote page:** if the 5-piece quote for the arm alone is over about $60, or the parcel is estimated over 0.29 kg, stop and put the question to the user, with these
   numbers, before changing the design. Splitting the arm into two 100 x 60 mm halves joined by a through-bolted splice was not chosen: it adds two designs, a joint in the
   torsion path, and a centre-of-mass error from the splice.
-- **Thickness.** All mechanical boards are 1.2 mm: the arm's stiffness is not the limit (above), 1.2 mm is a menu option [confirmed: JLC lists 0.4 to 2.0 mm],
-  and weight scales with thickness. The estimate for five of each design is 154 g plus about 40 g of packing [assume], under the 0.29 kg line.
-- **One panel or four designs.** Four designs are generated (arm, plain plate, ground plate, electrode). The small three would fit one 60 x 50 mm panel, but a
-  mixed-design panel may carry a surcharge [ask JLC support; unconfirmed], and the small boards cost little each. Order them as separate designs unless the quote
-  shows the panel cheaper; the Gerbers are ready for either (JLC can also panelize them, "Pls help me make the panel").
+- **Thickness.** All mechanical boards are 1.2 mm. The arm's stiffness does matter: with the device card, the vane and the ballast on it, its first bending mode is about 36 Hz at 1.2 mm
+  (`hardware/balance/material_study.py`, a cantilever estimate with FR4 E = 20 GPa), 29 Hz at 1.0 mm, 22 Hz at 0.8 mm, 8 Hz at 0.4 mm; building vibration lives at 5-50 Hz, so thinner
+  boards put a line into the spectrum. 1.6 mm (JLC's default) gives about 54 Hz at +33% arm mass (and inertia). 1.2 mm is a menu option [confirmed: JLC lists 0.4 to 2.0 mm]; weight scales
+  with thickness. The estimate for five of each design is 154 g plus about 40 g of packing [assume], under the 0.29 kg line (`tools/jlc_parcel_mass.py`).
+- **One panel or four designs.** Four designs are generated (arm, plain plate, ground plate, electrode). One panel of all four would be 252 x 60 mm (two columns of small boards
+  beside the arm, 2 mm apart; `arm_dxf.py` prints the layout): five panels give five of each design and ten clamp plates, 168 g by JLC's rule against 154 g. A mixed-design panel may carry a
+  surcharge [unconfirmed], so the quote decides: `boards/fab/ORDER.md` ("Variant") says what to enter. The panel Gerbers (tabs, mouse bites) are built only if that quote wins.
+
+## Material and process for the four mechanical parts (Part J; decision pending the user's quotes)
+
+| Part | Needs | FR4 board (chosen) | Alternatives |
+|---|---|---|---|
+| arm | stiff, flat, light; the moving electrode, the strip contact and the flag | ENIG pads and the guard come with the board; 5 pieces; 138 g for 5 | **0.8 mm aluminium sheet** (JLCCNC sheet metal, one piece): same mass and first mode (24.8 g, 36 Hz), conductive so the arm itself is the grounded electrode (no pads, no guard), 23 ppm/K against 14; needs the electrode face and strip contact redesigned (J2 below). **Printed PLA**: 2 mm for a similar mode, but creeps and takes up moisture (zero drift), 68 ppm/K, warps over 208 mm, electrodes would be foil. HDI: no (it changes via technology, not the mass rule or the stiffness of a 2-layer arm) |
+| elec_board | an exact flat pad inside a guard ring, two plated wire holes | a PCB is the right tool | none sensible |
+| clamp_ground | a flat pad against the strip and a plated hole | a PCB is the right tool | a machined plate would need a wire terminal |
+| clamp_plate | a rigid 16 x 14 mm plate, 2 mm holes | rides on the same order for almost nothing | JLCCNC from C$8 each plus a separate parcel: dearer |
+
+**J2, a conductive arm:** the strip's lower clamp already grounds the arm, so the pad against the fixed electrode is just ground; an aluminium arm gives that for free and an electrostatic shield for the
+rest of the arm. What changes: no ENIG pad (the bare face of the sheet is the electrode, anodizing off or masked), the strip contact is the clamp pressing on bare metal, the flag finger needs blackening for
+the infrared (an anodized or painted finger), the device card must be insulated from the arm (it sits on it with two bolts: fibre washers), and the arm moves in the damper magnets' stray field, so an eddy-current
+term appears (a vane-like loss in the arm itself: estimate before choosing). What is lost: pad flatness to the ENIG process, the guard-ring geometry (it lives on the fixed board, unchanged). The saving: one piece
+instead of five, no 5-piece minimum. **J4, the decision rule:** keep FR4 unless the user's quotes show the aluminium arm cheaper than the arm board by more than the cost of the redesign
+(a day of work, not the user's money) AND a review of the eddy-current and insulation points; the DXF for the quote is `boards/fab/arm_cnc.dxf`. Until then the order recipe in `ORDER.md` stands.
+
 - **OSHPark** (for comparison, confirmed on its docs page): ENIG standard, 1.6 mm, free shipping worldwide, $5 per square inch for three copies. The arm would be
   about 18.6 square inches = $93, the electrode board about $6: dearer than JLC for the arm, comparable for small boards. Not used.
+
+## Printed parts worth a JLC3DP job (Part K; a shortlist, nothing ordered)
+
+PLA-only is the home printer's rule; JLC3DP's materials are open. A part earns a JLC job when its accuracy or stability moves a result, it is not mass-critical (a moving part's mass is trimmed on the
+bench), and it is small, so a New User 3D Printing coupon (C$13.99 off over C$1.40) covers it. Solid masses are from the CAD volume (`tools/jlc_parcel_mass.py`).
+
+| Part | Moves? | Why JLC | Solid mass (resin / nylon) | Call |
+|---|---|---|---|---|
+| `damper_holder` | no (fixed to the base) | its flat pockets set the discs' gap, and the damping ratio depends on that gap (0.2 mm of gap changes it visibly); SLA is accurate to about 0.1 mm and smooth | 14.0 g / 12.3 g | **yes** |
+| `head` | no | holds the strip clamp and the torsion adjustment: dimensional stability and clean captured-nut pockets | 11.2 g / 9.8 g | **yes** |
+| `gantry` | no | 74 cm3, the frame: nylon (MJF) is isotropic and creeps far less than home PLA, but it is the biggest part and the price is unknown | 85.3 g / 74.9 g | maybe: read the quote |
+| `sensor_bracket`, `elec_bracket` | no | positions the optics and the electrode: ordinary tolerance is enough | 8.6 g / 15.6 g | no: print at home |
+| `vane_holder` | **yes** (on the arm) | would be heavier solid than the 30%-infill print (1.6 g against 1.03 g, +1.3% of the arm's inertia), so trim and `params.py` change | 1.6 g | no: print at home |
+
+Specification text for the quote form (`lab/docs/jlc/3dp_quote_ui.md`): upload the STL from `hardware/balance/cad/`; 3D Technology **SLA (Resin)** for the two small parts (accuracy), **MJF (Nylon)** only
+if the gantry is quoted; Material **9600 Resin** (the page's default; "8001 Resin" and others are listed without properties, so ask nothing exotic); Color black if offered (an optical enclosure, less stray
+light) else the default white; Surface Finish **No** (sanding adds cost and rounds the pockets); Thread **No** (the parts use captured nuts); Package Box **Blank Box**; Product Desc **Connectors,
+Brackets, Fasteners Category**; Remark: "pockets for 6 mm diameter x 3 mm N42 discs are a light press fit: keep tolerance +-0.1 mm, do not sand the pockets". Both small parts in one order (about 25 g, one parcel) with
+**New User 3D Printing 1**. The user decides after reading the quote; the second coupon (3D Printing 2, to 12-25) is for the gantry or a re-print.
+
+## JLC orders, coupons and parcels (Part I2)
+
+One coupon applies per checkout, and each parcel should stay under 0.29 kg by JLC's rule (bounding rectangle x thickness; `tools/jlc_parcel_mass.py`) to use the $3-4 Global Standard Direct Line tier. The
+coupon ledger is `lab/docs/jlc/coupons.md`; prices on the user's account are in CAD (C$1.399 = US$1).
+
+| # | Checkout | Coupon | Deadline | Mass | Status |
+|---|---|---|---|---|---|
+| 1 | mechanical boards (4 designs, `ORDER.md`) | New User PCB C$8.40 | 2026-11-25 | 194 g | ready: the user reads the quotes first |
+| 2 | sensor-head PCBA panel (Part N, optional; `hardware/instrument/heads_panel/ORDER.md`) | New User SMT C$13.99 (the stencil coupon cannot stack in the same checkout) | 11-25 | 79 g of boards + packing | layout done; the user decides after the quote |
+| 3 | printed parts at JLC3DP (Part K shortlist) | New User 3D Printing 1 C$13.99 | 11-25 | by the shortlist | needs the user's pick |
+| 4 | second JLC3DP order, if more parts are worth it | New User 3D Printing 2 C$13.99 | 12-25 | | |
+| 5 | JLCCNC (aluminium arm or other part) | New User CNC C$27.99 | 11-25 | | only if the quote and J2 favour it |
+| 6 | JLCMC fasteners (M3 304 nuts and washers) | Mechanical Parts 1 and 2, C$13.99 each | 11-25 and 12-25 | | needs the user to see the catalogue |
+| - | any order that needs FDM, nylon or resin | the promotional coupons by material | their own dates | | only if a part needs that material |
+
+Do not combine orders from different services in one parcel (3DP and CNC ship from other factories anyway). The shipping coupons (C$13.99 over C$20.99 of shipping, C$13.99 over C$55.97) need a
+parcel that costs more than the cheap tier: they are not part of the plan. The electronics order (WP7) is not on this list: it comes after A5, and the SMT coupon will have lapsed.
 
 ## The orders
 
@@ -67,5 +123,5 @@ interactive, so the user confirms totals before paying.
    weights, and the hand tools if not owned. Held until now because the redesign changed the fastener counts (computed in `balance.py`; the owned screws and nuts cover
    everything else).
 3. **The electronics order (later, after the A5 prototype measurement):** 5 bare boards with 2 assembled (JLC assembly takes 2 of 5 [confirmed: minimum 2 pcs]; Standard rather than Economic PCBA, because two sensors are Standard-only, Part H5),
-   Standard (not economic) assembly, because two sensors are Standard-only (`parts.py`, Part H5); the sensor heads panelized together, no stencil. Two JLC shipments in total, because the free hold can't bridge A5.
+   Standard (not economic) assembly, because two sensors are Standard-only (`parts.py`, Part H5); the sensor heads on the main board's panel: Standard assembly needs boards of at least 70 x 70 mm with edge rails in the design [user's capture of the quote page, `lab/docs/jlc/pcba_quote_ui.md`] and a stencil per order, so the panel is one Standard-assembly board of the main board plus the four heads (panel by customer, rails), not separate tiny boards; the main board is likely over 70 x 70 mm by itself, so the Standard constraint costs little. Two JLC shipments in total, because the free hold can't bridge A5.
    Before placing it, run `~/.venvs/lab-hw/bin/python hardware/instrument/parts.py --live` (needs the `jlc` CLI and network): live stock, basic/extended and Economic-versus-Standard PCBA for every part.
