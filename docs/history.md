@@ -630,3 +630,29 @@ panel, silkscreen, and the instrument main board.
 **Commits:** nothing is committed. Item 0 in `TODO-arcticoder.md` tells you when and in what order.
 <!-- ------ -->
 ---
+Only part of the sensor-head work is done: head 1 is outlined and routed but not finished, and head 2, the panel, silkscreen and the main board are untouched. DRC on head 1 shows 6 errors, all GND connections, so it isn't clean yet. Nothing is committed.
+
+**Head 1 (`sensor_head_1`)**
+- The 26 × 17 mm outline is drawn around the parts the sync had already laid out in a row.
+- The autorouter connected all four signal nets (3V3_D, I2C_SDA, I2C_SCL, MAG_CAP).
+- The top GND pour is filled.
+- The bottom GND pour is created but not filled.
+- A failed rebuild left `easyeda_pcb_rebuild_copper` refusing every further call. I couldn't clear that from here, and I think it needs a server restart.
+- Once the bottom pour is filled, I'll add stitching vias beside the GND pads that traces enclose and re-run DRC.
+- The project is saved.
+
+**Docs**
+- `kb/easyeda_spark_notes.md` has the new recipe:
+  - reading pad coordinates and nets
+  - the outline call
+  - the autoroute parameters that worked
+  - the pour calls
+  - the rebuild failure
+- `kb/session_handoff.md`, `TODO-agent.md` and the memory note are updated.
+- `TODO-arcticoder.md` now asks you to restart the easyeda-mcp-pro server, after saving in EasyEDA.
+- The commit-when-ready item is unchanged, and no JLC order is needed ahead of anything else.
+- No AliExpress or JLC changes this session, so the parts supply chain is as it was.
+
+**Next, once the server is back:** finish head 1, then head 2 (move its C5 out of the title block and recheck its `valid:false` warning), then the panel, silkscreen on the four mechanical boards, and the main board.
+<!-- ------ -->
+---
