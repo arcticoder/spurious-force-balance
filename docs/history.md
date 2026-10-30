@@ -492,3 +492,19 @@ The EasyEDA bridge is connected, but I haven't started the redesign. No project 
 I updated `TODO-arcticoder.md` item 0 and the kb notes. Nothing is committed.
 <!-- ------ -->
 ---
+I can see the project on the PCB tab now, but I can't build the boards yet because the current tool profile can't create PCB geometry. I switched it to `full`, so you need to restart VS Code Insiders. Nothing is committed.
+
+**Project file:** track `spurious-force-balance.eprj2`, through LFS as you asked. It's a SQLite database that EasyEDA rewrites on every save, so diffs are opaque. It's still worth keeping, because the EasyEDA design is the thing that qualifies the entry. Commit it at milestones rather than on every save. I added `*.eprj2` to `.gitattributes` and staged the 389 KB file as an LFS pointer. The OSHWLab copy is uploaded from EasyEDA itself, not from git.
+
+**Capture:** the canvas capture works and shows an empty PCB.
+
+**Why the profile change:** EasyEDA's own API can create components, pads, lines, pours and vias, and set the outline. The `pro` profile exposes none of that. It only reads the PCB, runs DRC and autorouting, and writes schematics. The `full` profile adds documented API method calls, which is what the 208 mm arm outline and the board geometry need. I changed `TOOL_PROFILE` to `full` in your Insiders `mcp.json`.
+
+**Next steps:**
+1. Restart VS Code Insiders and click MCP Bridge → Connect again.
+2. Keep the project open on the PCB tab and start a new chat.
+3. I'll begin with the simplest mechanical board, the arm, using the KiCad files only as a reference for geometry.
+
+The new first item in `TODO-arcticoder.md` is this restart. Spark registration still waits until the boards exist in EasyEDA.
+<!-- ------ -->
+---
