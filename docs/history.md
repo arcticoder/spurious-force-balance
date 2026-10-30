@@ -551,3 +551,21 @@ I created Board2, Board3 and Board4 through the API, named their PCBs, and rebui
 The recipe and UUIDs are in `kb/easyeda_spark_notes.md`.
 <!-- ------ -->
 ---
+The sensor-head schematics are drawn, but I need one click from you before the PCB side can start.
+
+**What's done**
+- **Sensor head 1:** a new board with its schematic wired to match the SKiDL design. It has the TMP117, MMC5983MA, the 4-pin JST-SH connector and the four capacitors. EasyEDA's netlist check passes with 0 floating pins and no ERC errors.
+- **Sensor head 2:** a new board with its schematic wired the same way. It has the TMP117 (address pin on SDA), the connector and one capacitor.
+- **Parts:** I found every part in EasyEDA's library by its LCSC number.
+
+**Open issues on head 2**
+- **Netlist warning:** the netlist check also says "valid: false", with a warning that 7 components have no net connections. The nets and ERC are right, and I can't yet explain the warning. I'll recheck it after the PCB sync.
+- **Capacitor placement:** its 100 nF capacitor landed inside the title block. I'll move it before the schematic is published.
+
+**What I need from you:** I've requested the sync to PCB for `sensor_head_2`, which opened a confirmation dialog in EasyEDA Pro. Please check that the target is `sensor_head_2` and press its confirm button. If you don't see the dialog, the steps are in item 0 of `TODO-arcticoder.md`. Tell me when it's done and I'll request the same for `sensor_head_1`.
+
+**Commits:** I won't commit anything until you tell me to, and I'll put it in `TODO-arcticoder.md` when it's time. The project is saved and the changed `.eprj2` is staged for LFS.
+
+**After the sync:** I'll place and route the two head boards, then do the panel and the main instrument schematic.
+<!-- ------ -->
+---
