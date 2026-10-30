@@ -569,3 +569,15 @@ The sensor-head schematics are drawn, but I need one click from you before the P
 **After the sync:** I'll place and route the two head boards, then do the panel and the main instrument schematic.
 <!-- ------ -->
 ---
+The menu you pasted gave me the right item: it's **Design → Import Changes from Schematic (Alt+I)**, in the PCB editor. My earlier steps named a menu that doesn't exist, so I've corrected item 0 in `TODO-arcticoder.md`.
+
+I opened the `sensor_head_2` PCB and called the import from the API. It returned true, but the PCB still has no components, so it's waiting on a confirmation dialog. My canvas capture can't show dialogs, so I can't tell whether one is open.
+
+**What to do:**
+1. Open the `sensor_head_2` PCB tab.
+2. If a confirmation dialog is already open, press its Apply or Confirm button. Otherwise press Alt+I to open it, then confirm.
+3. Tell me when it's done. I'll then check the components, request the same import for `sensor_head_1`, and start placing and routing.
+
+I also recorded the menu name and this behaviour in the kb notes. Nothing is committed.
+<!-- ------ -->
+---

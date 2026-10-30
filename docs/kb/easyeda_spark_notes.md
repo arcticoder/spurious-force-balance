@@ -54,3 +54,5 @@
 - Wired with `connect_pins_by_net` (net-label stubs) to the same nets as `schematic/heads.py` (3V3_D, GND, I2C_SDA, I2C_SCL, MAG_CAP), unused pins marked no-connect with `setPinNoConnect`; head 1 validates fully (0 floating, ERC 0). Head 2's nets are right and ERC passes, but `validate_netlist` reports valid:false with "7 component(s) have no net connections" (unexplained; recheck after the PCB sync). Pin numbers equal the KiCad/SKiDL numbers for these parts.
 - Head 2's 100 nF capacitor landed in the title-block area (placed at y=100): move it before publishing the schematic.
 - `schematic_sync_to_pcb` only opens EasyEDA's confirmation dialog; the user must click it (steps in `TODO-arcticoder.md`).
+
+- EasyEDA Pro 3.2.x menu: the sync is Design > Import Changes from Schematic (Alt+I) inside the PCB editor (no "Convert/Update PCB" item). `PCB_Document.importChanges()` via `api_call` with the PCB focused returns true but only raises that dialog; `pcb_components` stayed empty until the user confirms. Canvas captures do not show dialogs.
