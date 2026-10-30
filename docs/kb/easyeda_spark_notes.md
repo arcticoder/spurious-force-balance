@@ -30,3 +30,5 @@
 ## Project file and profiles
 - `hardware/easyeda/spurious-force-balance.eprj2` is a SQLite database (tables: boards, components, ...; 389 KB empty), rewritten on every save, so diffs are opaque: tracked through Git LFS (`*.eprj2` in `.gitattributes`), committed at milestones only, not every save. The OSHWLab copy is uploaded from EasyEDA itself, not from git.
 - `canvas_capture` works with the project open (empty PCB, mil grid). The PCB API (`api_inventory` filter `PCB_`) has create/modify for components, pads, lines, polylines, pours, vias, regions; the `pro` profile exposes none of them. `full` adds "controlled documented API method calls" and CircuitIR floorplanning, so the profile was switched to `full` in the VS Code mcp.json (needs a restart). `dev` adds probes; avoid unless debugging.
+
+- The server a Claude Code session talks to is spawned from `~/.claude.json` (not the VS Code `mcp.json`); changing the profile in the wrong file leaves `easyeda_health_check` reporting the old one. Check `profile` there before relying on `full` tools. Only one server process should run, or the bridge may bind to the wrong one.

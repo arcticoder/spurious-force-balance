@@ -508,3 +508,10 @@ I can see the project on the PCB tab now, but I can't build the boards yet becau
 The new first item in `TODO-arcticoder.md` is this restart. Spark registration still waits until the boards exist in EasyEDA.
 <!-- ------ -->
 ---
+The bridge and project are fine, but the server is still running the `pro` profile. I can't create PCB geometry until it runs `full`, so I haven't started the arm.
+
+The health check still reports `pro`. The one running easyeda server process was started by this Claude Code session from `~/.claude.json`, not from your VS Code `mcp.json`. I had changed the wrong file. I've now set `TOOL_PROFILE` to `full` in `~/.claude.json`. The server only restarts with a new session, so please start a new Claude Code chat. Keep the project open on the PCB tab and MCP Bridge connected.
+
+In the new chat I'll confirm the profile first and then begin the arm. If the `full` tools still don't appear there, I'll check whether the VS Code copy of the server is competing for the bridge. `TODO-arcticoder.md` item 0 and the kb note on this are updated. Nothing is committed.
+<!-- ------ -->
+---
