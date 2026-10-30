@@ -11,7 +11,7 @@ Audience: future LLM sessions. Facts about the repos, the Opus/Sonnet routine an
   the fab-assembled electronics design. Experiment-specific work lives in its own repo; a circuit built for an experiment stays in `lab` if it is reusable (`optical_shadow_readout`, `lockin_amplifier`) and the experiment links to it.
   Cross-repo references are GitHub URLs, not relative paths. `lab/lab.code-workspace` lists all three folders; the user keeps that one workspace.
 - Licenses (both repos): MIT for code, CERN-OHL-P v2 for hardware designs and their documentation (`LICENSE`, `LICENSE-HARDWARE`).
-- Git identity in both: `Arcticoder <10162808+arcticoder@users.noreply.github.com>`. Commit only when asked or when the task says so; the user commits `lab` themselves. Commit messages end with the attribution line the session's system reminder gives.
+- Git identity in both: `Arcticoder <10162808+arcticoder@users.noreply.github.com>`. Never commit: the user stages and commits both repos after each chat. Only flag, in `TODO-arcticoder.md`, milestones at which `hardware/easyeda/spurious-force-balance.eprj2` is worth committing (decided 2026-10-30). Commit messages end with the attribution line the session's system reminder gives.
 
 ## The Opus plans / Sonnet actions routine
 
