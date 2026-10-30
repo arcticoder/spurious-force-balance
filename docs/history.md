@@ -436,3 +436,34 @@ Item 1 is done. Item 2 is half done: the Node fix works, but I couldn't connect 
 - **kb:** a new `kb/easyeda_spark_notes.md`, linked from the kb README.
 <!-- ------ -->
 ---
+**1. Git LFS.** Neither repo ever tracked `*.png`, so there was nothing to swap out. I added `*.jxl` to both:
+- **`spurious-force-balance`:** this repo had no `.gitattributes`, so I created one tracking `*.jxl` through LFS. Its 7 `.jxl` files are now LFS pointers (staged as modified).
+- **`lab`:** it already tracked `*.jpg`, and I added `*.jxl` beside it. It has no `.jxl` files yet. The change is staged and uncommitted.
+
+**2. Bridge.** The EasyEDA tools didn't load in this session, since the MCP server only attaches when a session starts. Start a new chat to get them. I haven't converted anything yet.
+
+**2.1 Spark form answers.** These are also saved in [docs/spark_application.md](docs/spark_application.md), and they use project facts rather than the unconfirmed Spark rules.
+
+*Cost of your DIY work:* keep **$200–$500**. The JLC boards cost tens of dollars, but the assembled electronics board plus the optical and lock-in parts push the total up. A lower bracket would only fit if you left the electronics board out.
+
+*Project idea:*
+> An open, low-cost torsion balance that measures the spurious forces that dominate small-force and small-thrust experiments. Papers that claim a tiny thrust from a powered device rarely separate it from the Lorentz force of the supply leads in the ambient magnetic field, heating, and convection in air. This project builds the instrument that can: it quantifies each of those effects as a function of current, lead geometry and dissipated power, so a claimed thrust can be compared with what the artifacts alone produce.
+>
+> The balance hangs a 208 mm FR4 arm board, on edge, from a torsion head. The arm is a JLCPCB board that carries the electrode and device pads, so the experiment's wiring is part of the arm. The clamps, the fixed electrode and the sensor-head boards are further fabricated boards; the frame, torsion head, eddy-current damper holder and fixtures are PLA parts printed at home and designed in CadQuery; the enclosure is stock-size acrylic. Nothing needs hand soldering: the electronics are JLCPCB-assembled RP2040 boards (ADS131A04 converter, MCP4728 DAC, TMP117, MMC5983MA and LIS2DW12 sensors), designed with KiCad 9 and SKiDL, simulated in ngspice, with MicroPython firmware tested on the host.
+>
+> The design target is a force noise of about 0.1 nN over a 1000 s measurement in air (a 5-sigma resolution of 0.4 nN or better), predicted by an open force-noise model that reproduces six published numbers. The model says air currents dominate, so the acrylic enclosure is the main noise control. The repository contains the model, every board's design files and DRC results, a bring-up procedure, an experiment procedure and a paper skeleton, so another maker can build it, check it and reuse the parts.
+>
+> It is open hardware (CERN-OHL-P v2 for the hardware, MIT for the code) and is being moved into EasyEDA Pro for OSHWLab.
+
+*Services needed besides PCB prototyping:*
+> - PCB assembly (SMT) for the RP2040 instrument board and the four sensor-head boards, using only machine-placed parts from JLC's library, so no hand soldering is needed.
+> - 3D printing for precision parts that must hold tolerance (the torsion head and damper holder, if the home-printed versions are not good enough).
+> - CNC machining for a fallback metal arm and clamps, if the FR4 arm's stiffness or flatness falls short.
+> - JLCMC fasteners: M3 stainless nuts and washers for the clamp stack.
+> - Shipping consolidated into parcels under JLC's 0.3 kg cheap-shipping tier, since the boards are small and light.
+
+Each box is well under the 3000-character limit. The "being moved into EasyEDA Pro" line is true only once the conversion happens, so drop it if you register first.
+
+The first item in `TODO-arcticoder.md` is now registering and then starting a new chat. The conversion and the OSHWLab write-up stay open in `TODO-agent.md`, and the kb notes are updated.
+<!-- ------ -->
+---

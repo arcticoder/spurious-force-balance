@@ -13,7 +13,7 @@ Work that needs no hands, eyes or purchasing decision from the user. Keep this f
 
 ## Open Items
 
-### EasyEDA Pro conversion and Spark submission (startable once the bridge is connected, `TODO-arcticoder.md` item 0)
+### EasyEDA Pro conversion and Spark submission (the bridge is connected on the user's side; the EasyEDA MCP tools were not loaded in the session that wrote this, so check ToolSearch for `easyeda` first)
 - [ ] Import the KiCad designs into EasyEDA Pro (the four balance boards in `hardware/balance/boards/*.kicad_pcb`, `heads_panel.kicad_pcb`, and the `.kicad_sch` from `hardware/instrument/schematic/out/`), through the MCP tools or EasyEDA Pro's own KiCad import; fix what the importer loses (outline, drills, stackup, LCSC part numbers); run DRC; compare with the KiCad DRC results; one project with the boards as separate PCBs.
 - [ ] Write the OSHWLab submission text and the Spark sponsorship application from what the pages show once the user is logged in (the official Spark pages are JS-rendered and could not be read from a session; `kb/easyeda_spark_notes.md` has what is known). Registration closes 2026-11-30.
 Nothing is startable without the user or the board. Waiting on the user: the JLC quotes and the sensor-head order decision (`TODO-arcticoder.md`), which feed Part J4 in `TODO-BLOCKED.md`; waiting on the board: the rest of WP8 and the
