@@ -581,3 +581,52 @@ I opened the `sensor_head_2` PCB and called the import from the API. It returned
 I also recorded the menu name and this behaviour in the kb notes. Nothing is committed.
 <!-- ------ -->
 ---
+Both sensor-head PCBs now have their parts imported, the kb notes are updated in both repos, and a new context block is below. The sensor-head parts are in the PCBs but not yet placed, and there's no outline or routing.
+
+**Imports:** `sensor_head_1` has C1–C4, CN1, U1 and U2. `sensor_head_2` has C5, CN2 and U3. I saved the EasyEDA project.
+
+**Notes updated**
+- **`spurious-force-balance/docs/kb/session_handoff.md`:** rewritten for the next session. It covers the `.jxl` and LFS conversion, the working easyeda-mcp-pro setup, the native EasyEDA rebuild and its state, the next agent tasks, and the open question about the arm length.
+- **`kb/easyeda_spark_notes.md`:** the API recipes, UUIDs, menu names, profile and wiring gotchas, and the handoff state.
+- **`lab/docs/kb/repo_docs_conventions.md`:** a short note on `.jxl` and LFS, plus a staged commit. Lab's `.gitattributes` change is already committed.
+- **`TODO-arcticoder.md`:** item 0 is now "commit when you're ready", with `lab` first, and it says nothing else is waiting on you for the EasyEDA work. The Spark registration stays on hold.
+- **Memory:** two new entries record that I stage but never commit, and that the EasyEDA redesign gates the Spark application.
+
+**Context block for the next chat**
+```context
+Context: I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons, captures
+  of JLC's quote pages).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). It is being rebuilt natively in EasyEDA Pro
+  (hardware/easyeda/spurious-force-balance.eprj2) through the easyeda-mcp-pro tools, because a KiCad/SKiDL
+  design does not qualify for EasyEDA Spark 2026; registration closes 2026-11-30, and I will not register
+  or submit anything until the EasyEDA design really exists.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC's quote pages can't be read from a session and there's no API: treat any JLC price that isn't in my
+words or my captures as an estimate, and ask me for specific numbers only. docs/history.md is my chat
+transcript: don't edit it or use it as an analysis source. Pictures are lossless .jxl; .jxl and .eprj2 are
+Git LFS. Don't commit: stage only, and tell me in TODO-arcticoder.md when a commit is due.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md; anything only I can click (EasyEDA's Design > Import Changes from Schematic,
+Alt+I) goes there as literal steps. Keep docs/kb/*.md (LLM-only notes) up to date with discoveries.
+Start by reading docs/kb/README.md, docs/kb/session_handoff.md and docs/kb/easyeda_spark_notes.md in
+spurious-force-balance, then lab/docs/kb/README.md. Then continue the EasyEDA redesign: call
+easyeda_health_check (profile must be "full"), place and route the two sensor-head PCBs, then the
+panel, silkscreen, and the instrument main board.
+```
+
+**Before the new chat:** keep EasyEDA Pro open with the project and MCP Bridge connected. The MCP servers start with the session.
+
+**Commits:** nothing is committed. Item 0 in `TODO-arcticoder.md` tells you when and in what order.
+<!-- ------ -->
+---
