@@ -478,3 +478,17 @@ Restarting VS Code didn't help, because it configures a different MCP client tha
 **You need to start a new Claude Code chat so the tools load.** I'll then check the bridge and start the redesign with the sensor-head boards and the balance boards. This is item 0 in `TODO-arcticoder.md`, and I recorded the wiring and your qualification rule in the kb. Nothing is committed.
 <!-- ------ -->
 ---
+The EasyEDA bridge is connected, but I haven't started the redesign. No project is open in EasyEDA Pro, so there's nothing to write into.
+
+- **Connection:** the health check reports the bridge connected, with the 1.6.0 extension and Node 24. The tools now load in this session. You were right that VS Code uses the `servers` key, so my `~/.claude.json` entry wasn't the cause.
+- **What I need from you:** please open an empty EasyEDA Pro project with one schematic page and one PCB, and leave the PCB tab focused. A name like `spurious-force-balance` works. I can't create or list projects from here.
+- **What I can do through the tools:**
+  - **Schematic:** place parts, connect pins, run ERC and export a BOM.
+  - **PCB:** read-only, plus DRC and autorouting.
+  - **Sync:** footprints reach the PCB only through a sync that needs your click on a dialog.
+- **Likely harder:** the 208 mm arm outline and the mechanical boards' copper probably need EasyEDA's own UI or its extension API. I'll check what the API exposes before promising that part. The electronics board and the sensor heads are the better place to start, since they're ordinary schematic and layout work.
+- **Spark:** nothing is submitted. The application stays a draft until the EasyEDA design exists, and registration closes 2026-11-30.
+
+I updated `TODO-arcticoder.md` item 0 and the kb notes. Nothing is committed.
+<!-- ------ -->
+---
