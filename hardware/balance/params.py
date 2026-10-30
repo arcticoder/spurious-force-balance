@@ -129,7 +129,7 @@ ENCL_MIN_CLEARANCE = 10e-3  # nearest moving or fixed balance part to a panel
 FASTENER_OWNED = {"M3 nut": 55, "M3x10 pan head screw": 50, "M3x12 pan head screw": 50, "M3x14 pan head screw": 50}
 
 # --- printing -------------------------------------------------------------------
-FASTENER_TO_BUY = {"M3 nut, 304 stainless": 20, "M3 flat washer": 50}  # the planned AliExpress lines (not yet ordered)
+FASTENER_TO_BUY = {"M3 nut, 304 stainless": 20, "M3 flat washer": 50}  # the planned AliExpress lines (nuts ordered 2026-10-30 as thin DIN439; washers not yet ordered)
 PRINT_VOLUME = (220e-3, 220e-3, 250e-3)  # Creality K1 build volume [assume; check the manual]
 MIN_WALL = 1.2e-3  # m, 3 perimeters at 0.4mm
 

@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-0. **Commit when you are ready** (I will not commit): both repos have staged changes: pictures converted to `.jxl` with LFS, the EasyEDA project (`hardware/easyeda/*.eprj2`, LFS), the new `tools/to_jxl.py`, the kb and TODO files,. `lab` already has its `.gitattributes` commit and only a staged kb note; commit it, then this repo; push only after `git lfs ls-files` lists the `.jxl` and `.eprj2` files. Save in EasyEDA Pro first (I saved at the end of this session). One EasyEDA step is waiting on you: restart the easyeda-mcp-pro server (reload the Claude Code session, or restart the MCP server in VS Code) so the copper-rebuild guard resets; I could not rebuild the sensor_head_1 bottom ground pour in this session. Save in EasyEDA first. Registering for Spark waits until the boards are redone in EasyEDA Pro (draft answers: [spark_application.md](spark_application.md)); registration closes 2026-11-30.
+0. **Fill the bottom ground pour of `sensor_head_1`** (the bridge is connected again; the rebuild tool in my session is locked by a failed read-back, saved in the server's own database, and I will not edit that): open the `sensor_head_1` PCB tab, run the copper rebuild from EasyEDA Pro's own menu (the item is under Tools or the Place > Copper Area menu, named Rebuild Copper Area or similar; I have not verified the exact name), then tell me. Afterwards I rerun DRC (currently 6 GND connection errors, the top pour is filled, five GND stitching vias are placed) and go on to `sensor_head_2`. After any computer sleep the bridge drops: reconnect with Advanced > MCP Bridge > Connect. Registering for Spark waits until the boards are redone in EasyEDA Pro (draft answers: [spark_application.md](spark_application.md)); registration closes 2026-11-30. I will list here the milestones at which `hardware/easyeda/spurious-force-balance.eprj2` is worth committing (none reached yet); every other file you commit yourself.
 1. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
 2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
 3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
@@ -17,7 +17,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
    using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
    It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
-6. **JLCMC fasteners:** check whether M3 stainless (304/A2) hex nuts and flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service.
+6. **JLCMC fasteners:** check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
 
 ## Next orders — JLC mechanical boards (two orders)
 
@@ -30,7 +30,6 @@ Hold these until the JLC boards are on their way, then one checkout, with whatev
 
 - **Clear acrylic, 2 mm, 150 × 250 mm, 7 sheets**: four walls, two lid pieces and a spare, used uncut.
 - **M3 flat washers, 304 stainless, 3.2 mm inner and 7 mm outer diameter, 50 pieces** (20 are used).
-- **M3 hex nuts, 304 stainless, 20 pieces** (10 are used, all on the moving arm and the vane holder).
 - **JST-SH 1.0 mm 2-pin cable, flying leads on one end, 100 to 150 mm, 2 pieces**: carries the plate voltage from the fab board to the balance (the leads thread through the board's holes; no soldering).
 - **Calibration weights, 1 mg to 500 mg** (an analytical-balance weight set): turns plate voltage into an absolute force. Pick a class stated in the listing.
 - **If not already owned** (none are in the inventory): a junior hacksaw, a flat needle file, a craft knife and a steel ruler, for the brass ballast and the 4 mm stainless strip.
@@ -47,3 +46,5 @@ Hold these until the JLC boards are on their way, then one checkout, with whatev
 
 The AliExpress order placed 2026-10-24: the 0.05 mm 304 stainless sheet, the 3 mm × 10 m foam tape (0.3 mm thick), the 20 × 20 × 0.3 mm copper pads (5), the 10 mm × 1 m copper foil tape and the
 10 × 100 mm brass rod. Check the pads are non-magnetic on arrival (a disc magnet should not pull them).
+
+The AliExpress order placed 2026-10-30: 20 M3 thin (DIN439) 304 stainless hex nuts (10 are used; thinner than a standard nut, so they sit loosely in the captured pockets) and digital calipers. Check the nuts are non-magnetic on arrival.

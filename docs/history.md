@@ -656,3 +656,21 @@ Only part of the sensor-head work is done: head 1 is outlined and routed but not
 **Next, once the server is back:** finish head 1, then head 2 (move its C5 out of the title block and recheck its `valid:false` warning), then the panel, silkscreen on the four mechanical boards, and the main board.
 <!-- ------ -->
 ---
+Head 1 is still blocked on its bottom ground pour, so its DRC still shows 6 GND connection errors and I haven't started head 2. The bridge is connected again, but `easyeda_pcb_rebuild_copper` refuses every call. A failed rebuild earlier is saved in the server's own database (`~/.easyeda-mcp-pro/easyeda-mcp-pro.sqlite`), and restarting the session didn't clear it. I could have edited that file to get past it, but I didn't, because it exists to stop a half-rebuilt board from being trusted.
+
+**What I need from you:** open the `sensor_head_1` PCB tab and run EasyEDA's own copper rebuild, then tell me. I haven't verified the exact menu name; it's probably under Tools or the copper-area menu, called something like Rebuild Copper Area. After that I'll re-run DRC and move on to head 2. This is now item 0 in `TODO-arcticoder.md`.
+
+**Head 1 state:** the outline, routed signals and top GND pour are done. I also recreated the bottom pour and added five GND stitching vias. The project is saved.
+
+**Your notes**
+- **Commits:** I removed the commit-when-ready note. `TODO-arcticoder.md` will only flag milestones for `spurious-force-balance.eprj2`, and none has been reached yet. I updated the memory and workflow notes to match.
+- **Sleep and the bridge:** I recorded in the notes that the bridge drops on sleep and you reconnect with Advanced > MCP Bridge > Connect. That's the only step after a wake. The rebuild lock is a separate problem and survives a restart.
+- **Nut order:** logged in `lab/docs/orders.md` as placed 2026-10-30.
+  - The nuts are DIN439, which are thin nuts, so they'll sit loosely in the printed captured-nut pockets, which are sized for standard nuts. I noted that in the order entry and in `TODO-arcticoder.md`.
+  - The calipers are recorded as a tool whose listing and price I don't have; they go in `inventory.md` when they arrive.
+  - I removed the nuts from the AliExpress to-buy list and narrowed the JLCMC fastener check to washers only.
+  - The `FASTENER_TO_BUY` comment in `params.py` is updated.
+
+Nothing was committed or staged beyond what you already stage yourself.
+<!-- ------ -->
+---
