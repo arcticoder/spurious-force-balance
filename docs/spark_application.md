@@ -1,5 +1,7 @@
 # EasyEDA Spark 2026: registration answers
 
+**Draft, do not submit yet.** Registration waits until the design has actually been redone in EasyEDA Pro (a KiCad or SKiDL design does not qualify, so the answers must describe the EasyEDA design as it exists).
+
 Text for the registration form at oshwlab.com/activities/easyeda-spark-2026 (maximum 3000 characters per box). The cost bracket should be re-checked against the final parts list once the boards are quoted.
 
 ## Cost of the DIY work
