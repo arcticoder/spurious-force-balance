@@ -531,3 +531,23 @@ The arm board now exists natively in EasyEDA Pro, in PCB1 of your `spurious-forc
 Nothing is committed. The changed `.eprj2` is staged for LFS, and I'd commit once the mechanical boards are in. The Spark application stays unsent until the whole redesign exists. Next I'll do the three small mechanical boards the same way, then the electronics schematic.
 <!-- ------ -->
 ---
+All four mechanical boards are now drawn natively in your EasyEDA project, and the project is saved. DRC was clean on the arm, `clamp_ground` and `elec_board`, which are the three with copper. `clamp_plate` has none, so I only checked its capture.
+
+I created Board2, Board3 and Board4 through the API, named their PCBs, and rebuilt each KiCad outline, hole, pad, trace and via from the KiCad geometry:
+
+| Board | What's in it | Check |
+|---|---|---|
+| `clamp_plate` | 16 × 14 mm outline, two 3.4 mm holes | capture matches |
+| `clamp_ground` | outline with tab, two holes, plated 1.6 mm hole, 5.6 × 12 mm GND pad, 0.6 mm trace | DRC 0 |
+| `elec_board` | 24 × 34 mm outline, central SIG pad, GUARD ring, SIG via, B.Cu and F.Cu traces, two plated holes | DRC 0; capture matches |
+
+- **Still missing:** the silkscreen labels on all four boards.
+- **Board names:** the EasyEDA board names are still Board1 to Board4; only the PCBs are renamed.
+- **Clicks:** none needed so far. The schematic-to-PCB sync is the first thing that will need you to click a dialog. When we reach it I'll tell you exactly where, and I'll wait for you.
+- **Next:** the sensor-head panel, then the instrument schematic and board.
+- **Commit:** nothing is committed. I'd commit the staged `.eprj2` once the sensor-head panel is in.
+- **Spark:** nothing is submitted. The application waits until the whole redesign exists.
+
+The recipe and UUIDs are in `kb/easyeda_spark_notes.md`.
+<!-- ------ -->
+---

@@ -43,3 +43,8 @@
 - `easyeda_pcb_place_component` is disabled by the server; footprints come from the schematic through `schematic_sync_to_pcb` (the user clicks the dialog).
 - `easyeda_drc_run` takes the project UUID and returned 0 violations for the arm.
 - Arm status: outline, 7 NPTH holes, B.Cu pads 1 (5.6 x 12 mm) and 2 (20 x 8 mm), pad 3 (flag, top and bottom copper), the 0.6 mm trace; the net is called `ELEC_LEAD` (it was unnamed in KiCad). Silkscreen text not yet added.
+
+## Mechanical boards done (2026-10-30)
+- Boards in the project: Board1/PCB `arm`, Board2/PCB `clamp_plate` (uuid 3ddf518a3b25253b), Board3/PCB `clamp_ground` (a1c4bc42816028ee), Board4/PCB `elec_board` (05dc52ccb60a9ca9); arm is 7bc3367e1c2d2364. `DMT_Board.createBoard` (no args) makes a Board plus empty schematic and PCB; rename with `DMT_Pcb.modifyPcbName(uuid, name)`; switch the focused document with `DMT_EditorControl.openDocument(pcbUuid)` before PCB calls (DRC and the PCB API act on the focused document). Board names are still Board1..4.
+- All four reproduce the KiCad geometry (outline, NPTH holes, copper pads, tracks, one via on elec_board) with 0 DRC violations each (arm and elec_board and clamp_ground checked after drawing; clamp_plate has no copper). `PCB_PrimitiveVia.create(net, x, y, holeDia, dia)`; plated through pad: layer 12, pad number, net, hole, metallization true.
+- Not yet: silkscreen labels, the sensor-head panel, the instrument schematic and board (sync needs the user's click on the dialog), the Spark texts.
