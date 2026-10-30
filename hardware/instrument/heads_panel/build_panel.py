@@ -23,6 +23,8 @@ sys.path.insert(0, os.path.join(HERE, ".."))
 os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 import pcbnew  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "tools"))
+from to_jxl import to_jxl  # noqa: E402
 
 LIB = os.path.join(HERE, "..", "lib", "jlc.pretty")
 OUT = os.path.join(HERE, "out")
@@ -296,6 +298,9 @@ def exports(path, bom, cpl):
             zf.write(os.path.join(g, fn), fn)
     subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all", "--output", os.path.join(OUT, "drc.json"), path], check=False, capture_output=True)
     subprocess.run(["kicad-cli", "pcb", "render", "--output", os.path.join(OUT, "heads_panel.png"), "--side", "top", "--width", "1400", "--height", "1300", path], check=False, capture_output=True)
+    png = os.path.join(OUT, "heads_panel.png")
+    if os.path.exists(png):
+        to_jxl(png)
     return z
 
 

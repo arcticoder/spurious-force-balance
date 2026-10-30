@@ -29,6 +29,8 @@ from kiutils.items.brditems import Segment, Via
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import balance as B  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
+from to_jxl import to_jxl  # noqa: E402
 import params as P  # noqa: E402
 
 OUT = os.path.join(HERE, "boards")
@@ -225,6 +227,9 @@ def run_fab():
         subprocess.run(["zip", "-q", "-j", zpath] + [os.path.join(gdir, f) for f in os.listdir(gdir)], check=False)
         report.append((name, rpt, zpath))
         subprocess.run(["kicad-cli", "pcb", "render", "--output", os.path.join(FAB, f"{name}.png"), "--side", "top", "--width", "1200", "--height", "500", path], check=False, capture_output=True)
+        png = os.path.join(FAB, f"{name}.png")
+        if os.path.exists(png):
+            to_jxl(png)
     return report
 
 

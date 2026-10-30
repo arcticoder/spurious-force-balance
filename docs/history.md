@@ -410,3 +410,29 @@ I also mentioned `lab/docs/jlc/`, since that's where the coupons and your captur
 The handoff note already tells the next agent to read the lab KB's new JLC note. I didn't change any files this turn.
 <!-- ------ -->
 ---
+Item 1 is done. Item 2 is half done: the Node fix works, but I couldn't connect EasyEDA Pro. Item 3 is blocked on that connection. Nothing is committed; the changes are staged in spurious-force-balance.
+
+**1. PNG to JXL**
+- **`spurious-force-balance`:** all 7 tracked PNGs are now lossless `.jxl`, moved with `git mv`. Each file round-trips pixel-identical, and they're 2–4× smaller (for example, `apparatus` went from 326 KB to 183 KB). Because the bytes changed completely, git will show each as delete-plus-add rather than a rename, so `git log --follow` won't link the old history.
+- **`lab`:** it has no committed PNGs. The `schematic.png` files are generated and gitignored, so I left them alone.
+- **Generators:** `boards.py`, `render.py`, `render_labeled.py` and `build_panel.py` now write a temporary PNG and convert it through a new helper, `tools/to_jxl.py`. This needs `pillow-jxl-plugin`, which I installed in `~/.venvs/lab-hw`, since `cjxl` isn't installed. I re-ran `render.py` and `render_labeled.py`; they produced `views.jxl` and `apparatus.jxl`. I haven't re-run `boards.py` or `build_panel.py`.
+- **Docs:** I updated the references in the kb notes and `heads_panel/ORDER.md`.
+- **GitHub rendering:** GitHub doesn't render `.jxl` inline. Nothing currently embeds these images in a README, but one that needs to show a picture would need a PNG or WebP copy.
+
+**2. easyeda-mcp-pro**
+- **Cause:** `bunx` runs the package with whichever `node` is first on PATH, which was nvm's Node 22.15.0.
+- **Fix:** I installed Node 24.22.1 through nvm and added `env.PATH` to your `mcp.json`, with that Node first. I kept `bunx` and `TOOL_PROFILE=pro`. With that PATH, `extension --open` now runs and prints the install steps.
+- **Not verified:** the bridge connection. It needs you to import the `.eext` in EasyEDA Pro, fully restart it, and click MCP Bridge → Connect. It also needs EasyEDA Pro on Windows to reach the server across WSL. Then reload VS Code or start a new chat so the MCP tools load.
+- **Licence:** the package is PolyForm Noncommercial. That should be fine for an open noncommercial project.
+
+**3. EasyEDA conversion and Spark**
+- **Blocked:** I can't convert until the bridge is connected. As a fallback, EasyEDA Pro can import the KiCad `.kicad_pcb` and `.kicad_sch` files directly. The balance-board and sensor-head KiCad sources are listed in `TODO-agent.md`.
+- **Deadline:** from a third-party blog post, Spark registration closes **2026-11-30**. It lists a $100 JLCPCB coupon per registrant, sponsorship of about 80% of manufacturing and shipping, and a requirement to publish the design on OSHWLab with schematics, layout, BOM, firmware and build instructions.
+- **Unconfirmed:** the official OSHWLab Spark pages are JS-rendered and returned only navigation text, so I can't give you real OSHWLab submission fields or sponsorship application details yet. Everything above is unconfirmed until read on the official page while logged in. Once you're logged in and the conversion exists, I'll write the submission text.
+
+**Docs**
+- **`TODO-arcticoder.md`:** item 0 is the connection steps, plus registering for Spark with your account.
+- **`TODO-agent.md`:** the conversion and the submission write-up are added, to start once the bridge is connected.
+- **kb:** a new `kb/easyeda_spark_notes.md`, linked from the kb README.
+<!-- ------ -->
+---

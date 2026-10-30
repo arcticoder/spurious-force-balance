@@ -13,7 +13,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
+import sys
+
 import balance as B
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
+from to_jxl import to_jxl  # noqa: E402
 
 COLORS = {"base": "#c9c9c9", "arm": "#2a7fff", "strip": "#d4a017", "vane": "#b87333", "ballast": "#555555", "dut_dummy": "#555555", "y_counter": "#555555", "flag": "#111111", "magnet_low": "#aa2222", "magnet_up": "#aa2222"}
 
@@ -52,6 +56,7 @@ def main():
     out = os.path.join(B.OUT, "views.png")
     os.makedirs(B.OUT, exist_ok=True)
     fig.savefig(out, dpi=110, bbox_inches="tight")
+    out = to_jxl(out)
     print("wrote", out)
 
 

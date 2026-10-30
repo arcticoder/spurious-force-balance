@@ -56,5 +56,5 @@ screws, and the foil-tape plates.
 
 - The magnets are axial (twist test 2026-10-26): the damper uses flat round pockets, damping 0.43 per pad (0.86 with two); `balance_design_notes` text above that mentions the on-edge cradles describes the unused diametric option.
 - The arm's first bending mode with its loads is about 36 Hz (`hardware/balance/material_study.py`); FR4 stays (decided 2026-10-28 on the user's quote), thickness 1.2 mm, finish HASL.
-- A labelled picture of the whole apparatus (arm 208 mm, 250 x 250 x 200 mm acrylic box) is `docs/img/apparatus.png` (`render_labeled.py`). The user asked why the arm is so long compared with pictures of torsion balances: see the open question in `session_handoff.md`.
+- A labelled picture of the whole apparatus (arm 208 mm, 250 x 250 x 200 mm acrylic box) is `docs/img/apparatus.jxl` (`render_labeled.py`). The user asked why the arm is so long compared with pictures of torsion balances: see the open question in `session_handoff.md`.
 

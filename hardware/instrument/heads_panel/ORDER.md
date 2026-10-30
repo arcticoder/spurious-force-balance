@@ -2,7 +2,7 @@
 
 What: one 76 x 70 mm panel with two sensor-head-1 boards (TMP117 + MMC5983MA) and two sensor-head-2 boards (TMP117), 26 x 17 mm each, tab-routed with mouse bites in a 5 mm rail with three tooling
 holes and three fiducials. Standard assembly needs at least 70 x 70 mm with edge rails [quote-page capture, `lab/docs/jlc/pcba_quote_ui.md`]; this panel meets it. Files in `out/`:
-`heads_panel_gerbers.zip`, `bom.csv`, `cpl.csv`, `drc.json`, `heads_panel.png`, `heads_panel.kicad_pcb` (rebuild: `~/.venvs/lab-hw/bin/python hardware/instrument/heads_panel/build_panel.py`).
+`heads_panel_gerbers.zip`, `bom.csv`, `cpl.csv`, `drc.json`, `heads_panel.jxl`, `heads_panel.kicad_pcb` (rebuild: `~/.venvs/lab-hw/bin/python hardware/instrument/heads_panel/build_panel.py`).
 Why now (optional): the heads do not depend on the A5 result; the New User SMT coupon (C$13.99) ends 2026-11-25; it exercises JLC's assembly flow and puts the magnetometer and temperature drivers on real hardware
 before the main board. One panel carries 2 + 2 heads: 4 TMP117, 2 MMC5983MA. **It is the user's decision after reading the quote.**
 
