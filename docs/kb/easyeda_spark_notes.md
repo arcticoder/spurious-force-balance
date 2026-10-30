@@ -32,3 +32,14 @@
 - `canvas_capture` works with the project open (empty PCB, mil grid). The PCB API (`api_inventory` filter `PCB_`) has create/modify for components, pads, lines, polylines, pours, vias, regions; the `pro` profile exposes none of them. `full` adds "controlled documented API method calls" and CircuitIR floorplanning, so the profile was switched to `full` in the VS Code mcp.json (needs a restart). `dev` adds probes; avoid unless debugging.
 
 - The server a Claude Code session talks to is spawned from `~/.claude.json` (not the VS Code `mcp.json`); changing the profile in the wrong file leaves `easyeda_health_check` reporting the old one. Check `profile` there before relying on `full` tools. Only one server process should run, or the bridge may bind to the wrong one.
+
+## Native EasyEDA build: recipe that works (2026-10-30, `full` profile)
+- Project UUID `4d31f2a7bcc8695ef8b75bd3a29ba297479082a28cd7122588689b19e4bb50ca`; Board1 holds Schematic1 and PCB1 (one PCB per Board: the other mechanical boards need their own Board/PCB, create through `DMT_Board`/`DMT_Pcb` calls or the UI). `easyeda_api_call` needs `confirmWrite:true` even for getters. Do not call `PCB_Layer.getAllLayers` again: its output is huge.
+- Units are mil; y is up (KiCad y is down: use y_e = -y_k, x_e = x_k, 1 mm = 39.37008 mil).
+- Board outline: `PCB_PrimitivePolyline.create("", 11, {"$polygon":[x0,y0,"L",x1,y1,...]}, 10, false)`, closed by repeating the first point.
+- NPTH hole: `PCB_PrimitivePad.create(12, "", x, y, 0, ["ELLIPSE",d,d], "", ["ROUND",d,d], 0,0,0, false)` (metallization false).
+- SMD pad: shape name is `RECT` (`["RECT",w,h,cornerRadius]`), not RECTANGLE; hole omitted; layer 1 top, 2 bottom; pass the net name as the 7th argument.
+- Track: `easyeda_pcb_add_track` (layer 2 = bottom, width in mil).
+- `easyeda_pcb_place_component` is disabled by the server; footprints come from the schematic through `schematic_sync_to_pcb` (the user clicks the dialog).
+- `easyeda_drc_run` takes the project UUID and returned 0 violations for the arm.
+- Arm status: outline, 7 NPTH holes, B.Cu pads 1 (5.6 x 12 mm) and 2 (20 x 8 mm), pad 3 (flag, top and bottom copper), the 0.6 mm trace; the net is called `ELEC_LEAD` (it was unnamed in KiCad). Silkscreen text not yet added.

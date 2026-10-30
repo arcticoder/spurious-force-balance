@@ -515,3 +515,19 @@ The health check still reports `pro`. The one running easyeda server process was
 In the new chat I'll confirm the profile first and then begin the arm. If the `full` tools still don't appear there, I'll check whether the VS Code copy of the server is competing for the bridge. `TODO-arcticoder.md` item 0 and the kb note on this are updated. Nothing is committed.
 <!-- ------ -->
 ---
+The arm board now exists natively in EasyEDA Pro, in PCB1 of your `spurious-force-balance` project, with DRC clean and the project saved. It is the first board of the redesign.
+
+- **Added:** the 208 mm outline with the flag tab, 7 non-plated holes (3.4 mm and the 10.2 mm torsion bore), bottom-copper pads 1 (5.6 × 12 mm) and 2 (20 × 8 mm), and the 0.6 mm trace joining them. Pad 3 is the flag pad, with copper on both faces.
+- **Net name:** the net is called `ELEC_LEAD`. The KiCad file left it unnamed.
+- **Check:** the canvas capture matches the KiCad geometry, and EasyEDA's own DRC reports 0 violations.
+- **Missing:** the two silkscreen labels from the KiCad arm are not added yet.
+
+**What works:** the `full` profile can draw the outline, holes, pads and tracks. Pad shapes use `RECT`, not `RECTANGLE`. I wrote the working recipe, including the mil units and the y flip, into `kb/easyeda_spark_notes.md`.
+
+**Limits:**
+- **Footprints:** I can't place parts on the PCB directly. They have to come from the schematic through the sync, which needs a click from you.
+- **Other boards:** a PCB1 holds one board, so `clamp_ground`, `clamp_plate`, `elec_board`, the sensor-head panel and the instrument schematic each still need their own board in the project. I expect to create those through the API, but I haven't tried it.
+
+Nothing is committed. The changed `.eprj2` is staged for LFS, and I'd commit once the mechanical boards are in. The Spark application stays unsent until the whole redesign exists. Next I'll do the three small mechanical boards the same way, then the electronics schematic.
+<!-- ------ -->
+---
