@@ -467,3 +467,14 @@ Each box is well under the 3000-character limit. The "being moved into EasyEDA P
 The first item in `TODO-arcticoder.md` is now registering and then starting a new chat. The conversion and the OSHWLab write-up stay open in `TODO-agent.md`, and the kb notes are updated.
 <!-- ------ -->
 ---
+Agreed, I won't register until the design really exists in EasyEDA. I've marked the Spark answers as a draft, and the redesign task in `TODO-agent.md` now says the boards must be built natively in EasyEDA, using the KiCad files only as a reference for geometry, nets and parts. An import alone wouldn't qualify.
+
+Restarting VS Code didn't help, because it configures a different MCP client than Claude Code. The EasyEDA tools still aren't in this session, and no `easyeda-mcp-pro` process is running.
+
+- **Fix:** I added the server to `~/.claude.json`, which is where Claude Code reads its MCP servers. The `claude` CLI isn't on PATH here, so I wrote the entry directly and kept a backup in the scratchpad.
+- **Check:** a direct MCP `initialize` against `bunx easyeda-mcp-pro` under Node 24 answers correctly (v1.6.0).
+- **Not checked:** I haven't confirmed that the EasyEDA Pro bridge connects. EasyEDA Pro is running natively in WSL, so the bridge is localhost. The VS Code copy of the server might also contend for the bridge port, so disable it there if the bridge won't connect.
+
+**You need to start a new Claude Code chat so the tools load.** I'll then check the bridge and start the redesign with the sensor-head boards and the balance boards. This is item 0 in `TODO-arcticoder.md`, and I recorded the wiring and your qualification rule in the kb. Nothing is committed.
+<!-- ------ -->
+---

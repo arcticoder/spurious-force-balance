@@ -17,3 +17,7 @@
 
 ## LFS
 - `*.jxl` is LFS-tracked in both repos (`.gitattributes`); `lab` also keeps `*.jpg`. Neither repo tracked PNG. Existing .jxl were re-added with `git add --renormalize`.
+
+## MCP client wiring
+- The VS Code `mcp.json` configures VS Code's MCP client, not Claude Code. Claude Code reads `~/.claude.json` `mcpServers` (the `claude` CLI is not on PATH in the WSL shell, so the entry was written directly; backup in the scratchpad). A stdio `initialize` against `bunx easyeda-mcp-pro` under Node 24 answers correctly (v1.6.0). EasyEDA Pro itself runs natively in WSL (`/opt/apps/easyeda-pro`), so the bridge is localhost. Two clients running the server at once may fight over the bridge port.
+- Spark rule from the user (2026-10-29): the design must be made in EasyEDA, not imported from KiCad/SKiDL; apply only after the redesign exists.
