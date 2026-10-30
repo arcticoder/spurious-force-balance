@@ -21,3 +21,8 @@
 ## MCP client wiring
 - The VS Code `mcp.json` configures VS Code's MCP client, not Claude Code. Claude Code reads `~/.claude.json` `mcpServers` (the `claude` CLI is not on PATH in the WSL shell, so the entry was written directly; backup in the scratchpad). A stdio `initialize` against `bunx easyeda-mcp-pro` under Node 24 answers correctly (v1.6.0). EasyEDA Pro itself runs natively in WSL (`/opt/apps/easyeda-pro`), so the bridge is localhost. Two clients running the server at once may fight over the bridge port.
 - Spark rule from the user (2026-10-29): the design must be made in EasyEDA, not imported from KiCad/SKiDL; apply only after the redesign exists.
+
+## Bridge state (2026-10-29, later)
+- Connected through the VS Code `mcp.json` (key `servers`, not `mcpServers`); in a Claude Code session the tools appear as `mcp__easyeda-mcp-pro__*` after the server is up. `easyeda_health_check` reports bridge_connected with EasyEDA Pro 1.6.0 extension.
+- With nothing open, `schematic_components` fails and `canvas_capture` returns no image; every tool wants a `projectId` and there is no tool to create or list projects (only API inventory names `dmt_Project`), so the user must open a project first.
+- Tool limits that shape the redesign: schematic writes (place_component, connect_pin_to_net, batch_write, net flags) exist; the PCB side is read-only plus DRC and autoroute; footprints reach the PCB only through `schematic_sync_to_pcb`, whose confirmation dialog the user must click. Custom board outlines, the 208 mm arm shape, placement and copper for the mechanical boards probably need EasyEDA's own UI or the extension API; check `api_inventory` filtered on PCB_ before promising it.
