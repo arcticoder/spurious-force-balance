@@ -18,6 +18,9 @@ from mpl_toolkits.mplot3d import proj3d
 
 import balance as B
 import render as R
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
+from to_jxl import to_jxl  # noqa: E402
 
 LABELS = [  # part name, label, text offset in points (dx, dy) from the part
     ("arm", "FR4 arm board\n208 x 60 x 1.2 mm, on edge", (-190, 130)),
@@ -75,6 +78,7 @@ def main():
     out = os.path.join(os.path.dirname(B.OUT), "..", "..", "docs", "img", "apparatus.png")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     fig.savefig(out, dpi=100, bbox_inches="tight")
+    out = to_jxl(out)
     print("wrote", os.path.relpath(out))
 
 
