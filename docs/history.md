@@ -367,3 +367,46 @@ Your numbers also corrected my parcel estimate. JLC's mass includes about 155 g 
 - **Memory:** I saved a note not to present JLC prices as fact or send you clicking for numbers.
 <!-- ------ -->
 ---
+I updated three things in your prompt: the workflow line, the JLC facts, and the files to read first. Everything else is unchanged.
+
+```prompt-context
+Context: I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons, captures
+  of JLC's quote pages).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host).
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC's quote pages can't be read from a session and there's no API: treat any JLC price that isn't in my
+words or my captures as an estimate, and ask me for specific numbers only. docs/history.md is my chat
+transcript: don't edit it or use it as an analysis source.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md. Keep docs/kb/*.md (LLM-only notes) up to date with discoveries.
+Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
+lab/docs/kb/README.md.
+```
+
+**Workflow.** I removed the Opus/Sonnet split. You told me there's no analysis-only mode, and the first-session wording would make a future agent stop and only write tasks.
+
+**JLC.** I added three things, each of which already caused trouble:
+- the CAD prices and the 0.3 kg parcel line;
+- that quote pages are unreadable from here;
+- your manual-lookup arrangement, with estimates labelled as such.
+
+I also mentioned `lab/docs/jlc/`, since that's where the coupons and your captures live.
+
+**`history.md`.** I added the rule to leave it alone.
+
+**Smaller edits.** The repo description now mentions the FR4 fab boards, SKiDL and the host-tested MicroPython firmware. I added a pointer to the TODO files that sit beside `TODO-agent.md`, plus the instruction to keep `docs/kb` current, which was in your first message but not in this prefix. I left out the "don't quote me" rule because it's saved in memory and applies to every session.
+
+The handoff note already tells the next agent to read the lab KB's new JLC note. I didn't change any files this turn.
+<!-- ------ -->
+---
