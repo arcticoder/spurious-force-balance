@@ -56,3 +56,8 @@
 - `schematic_sync_to_pcb` only opens EasyEDA's confirmation dialog; the user must click it (steps in `TODO-arcticoder.md`).
 
 - EasyEDA Pro 3.2.x menu: the sync is Design > Import Changes from Schematic (Alt+I) inside the PCB editor (no "Convert/Update PCB" item). `PCB_Document.importChanges()` via `api_call` with the PCB focused returns true but only raises that dialog; `pcb_components` stayed empty until the user confirms. Canvas captures do not show dialogs.
+
+## State at 2026-10-30 handoff
+- Both sensor-head PCBs now hold their imported footprints (sensor_head_1: C1-C4, CN1, U1, U2; sensor_head_2: C5, CN2, U3), unplaced and without an outline; footprints: C0603, C0805 (10 uF), WSON-6 2x2 mm (TMP117), LGA-16 3x3 mm 0.5 mm pitch (MMC5983MA), SM04B-SRSS-TB. Designators run project-wide (C5, CN2, U3 on head 2).
+- The user imports with Design > Import Changes from Schematic (Alt+I) in the PCB tab and presses Apply; no tool does it for them.
+- Next: outline, placement, routing, pour, DRC for the heads; the panel in Panel1; silkscreen; the main board.
