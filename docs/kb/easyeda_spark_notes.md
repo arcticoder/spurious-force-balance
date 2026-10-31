@@ -72,6 +72,9 @@
 
 - Head 2 (2026-10-31): same recipe; outline, signals autorouted (3/3 nets), GND_TOP/GND_BOT pours created, waiting for the user's Copper Manager rebuild, then the GND autoroute and DRC. Copper Manager lists nothing until pours exist (a user's empty list on a board without pours is expected). C5 in the schematic title block still to move.
 
+- Head 2 finished (2026-10-31): after the user rebuilt both pours in Copper Manager, a GND-only autoroute gave DRC 0. Its schematic is fine: `schematic_components` and `validate_netlist` are project-wide counts, so head 2's "7 components have no net connections" warning is head 1's parts; C5 at (400,100) is nowhere near the bottom-right title block (A4 1170 x 825, position 3). Nothing to fix.
+- Panels: `DMT_Panel` only has createPanel/copy/delete/getAllPanelsInfo/getPanelInfo/modifyPanelName; `panel1` exists (uuid 7ff8c5b618e84216), with no content API, so the panel is built by the user in the UI.
+
 ## State at 2026-10-30 handoff
 - Both sensor-head PCBs now hold their imported footprints (sensor_head_1: C1-C4, CN1, U1, U2; sensor_head_2: C5, CN2, U3), unplaced and without an outline; footprints: C0603, C0805 (10 uF), WSON-6 2x2 mm (TMP117), LGA-16 3x3 mm 0.5 mm pitch (MMC5983MA), SM04B-SRSS-TB. Designators run project-wide (C5, CN2, U3 on head 2).
 - The user imports with Design > Import Changes from Schematic (Alt+I) in the PCB tab and presses Apply; no tool does it for them.
