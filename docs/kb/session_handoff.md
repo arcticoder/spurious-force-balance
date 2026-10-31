@@ -12,7 +12,7 @@ The arm order payment and the small-board JLC quote (unchanged from before, with
 
 ## Next agent tasks, in order (`docs/TODO-agent.md`)
 
-0. Update (later in 2026-10-30): head 1 now has outline, autorouted signals and a filled top GND pour; its bottom pour and 6 GND connection errors remain (rebuild guard needs a server restart; recipe in `kb/easyeda_spark_notes.md`). The user was asked to restart the server. Head 2 and everything below are unchanged.
+0. Update (later in 2026-10-30): head 1 is outlined, routed, poured and DRC-clean (recipe and the pour-rebuild guard story in `kb/easyeda_spark_notes.md`); the user was told the `.eprj2` is ready to commit. Head 2 is next; the rest below is unchanged.
 1. Sensor heads in EasyEDA: outline (26 x 17 mm, `heads_panel/build_panel.py` has the geometry), place the imported parts (MMC5983MA LGA, TMP117 WSON, JST-SH, caps), route, ground pour, DRC; move head 2's capacitor out of the title block; recheck head 2's `valid:false` warning. Then the panel (76 x 70 mm rails, tooling holes, fiducials, mouse bites) in the project's Panel1.
 2. Silkscreen labels on the four mechanical boards.
 3. The instrument main-board schematic (50 JLC parts, `schematic/main_board.py` is the source of the nets) and board, the same way; then OSHWLab text and the Spark registration answers (`docs/spark_application.md` is a draft; Spark registration closes 2026-11-30).

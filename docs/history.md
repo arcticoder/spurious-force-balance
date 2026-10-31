@@ -674,3 +674,22 @@ Head 1 is still blocked on its bottom ground pour, so its DRC still shows 6 GND 
 Nothing was committed or staged beyond what you already stage yourself.
 <!-- ------ -->
 ---
+Head 1's ground pour is now filled and its DRC reads zero violations, so `sensor_head_1` is routed and clean. I also added the `.epro2` backup folder to `.gitignore`.
+
+**Pour and DRC**
+- Your rebuild of GND_BOT2 worked, but DRC still showed 6 errors afterwards. The cause was six GND pads enclosed by the autorouted 3V3 and SDA traces, not the pour.
+- I ran the autorouter on GND alone, keeping the existing routes, and that connected them. DRC now returns clean and the project is saved.
+- I added the working order (signals, pours, then GND autoroute) to `kb/easyeda_spark_notes.md`.
+- The routing is functional but not pretty: the autorouter took some long detours around the parts.
+- `easyeda_pcb_rebuild_copper` is still locked, so for head 2 you'll need to rebuild its pours from EasyEDA's menu again.
+
+**The `.epro2` backup**
+- EasyEDA itself wrote it. The `spurious-force-balance_backup` folder holds timestamped project exports (two so far, about 360 KB each), made when the project is saved.
+- I added `hardware/easyeda/*_backup/` to `.gitignore`. It matches, and git no longer lists the folder as untracked.
+- That ignore line is the only edit in `.gitignore`, so it will show as a modified file in your next commit.
+
+**Commit flag:** item 0 in `TODO-arcticoder.md` now says `spurious-force-balance.eprj2` is ready to commit. The four mechanical boards and head 1 are drawn, routed and DRC-clean. The next milestone is both heads plus the panel.
+
+Next is head 2, then the panel, silkscreen and the main board.
+<!-- ------ -->
+---
