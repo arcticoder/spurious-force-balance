@@ -768,3 +768,22 @@ On the real board it prints on the bare bottom face, which has no copper there. 
 I noted this in the kb so a later session doesn't take a screenshot for proof. Nothing else changed; I haven't started the main board.
 <!-- ------ -->
 ---
+The main board is only partly done: its schematic has all 164 parts but only about half its nets wired, so it's still short of the Alt+I import, placement and routing.
+
+**Done**
+- Board7 now exists (PCB renamed `main_board`). All 164 parts are placed from the SKiDL netlist, with designators matching the SKiDL refs (RP2040 is U3).
+- I found the library device for each of the 46 part numbers and saved the table in `hardware/easyeda/main_board_devices.json`. One needs checking: the 1 Ω shunt (C17928) resolved to a device named "1206W4F100KT5E", whose name doesn't look like 1 Ω.
+- About 55 of 111 nets are wired, with no pin-number mismatches on the parts I tried.
+- The TLV9062 op-amp is a two-unit symbol, and the placement tool only placed unit A. I placed unit B for U10 and U11 by hand through the raw API (not yet confirmed to merge with unit A in the netlist) and wired their pins. Unit B pins are the ones the tool couldn't find (6/7 on U10 and U11).
+
+**Blocked on the bridge**
+- Nets with three or more pins time out at 15 seconds on this large sheet.
+- The 15-second timeouts leave it unclear whether those calls applied.
+- Net lookups time out too, so I can't confirm any of those nets.
+- Unconfirmed nets include `3V3_AR`, `LED1_MOD`, `LED2_MOD`, `QSPI_SS`, `MON_LED`, `MON_24V`, `ADC_RESET`, `ADC_CS`, `ADC_MISO`, `RUN`, `XIN`, `BOOST_EN` and `DUT_EN`. That's at least 13 nets, plus the big ones I haven't started (GND, 3V3_D, 3V3_A, V5, I2C).
+
+**Next:** I'll read each part type's pin offsets once, then add all the remaining wire stubs in batches of 200 instead of one pin at a time. Then I'll check the wiring through the wire list, mark the 16 no-connect pins, and ask you for the Alt+I import. Placement and routing of the board follow.
+
+I recorded the method, IDs and gotchas in the kb and `TODO-agent.md`; nothing new is waiting on you. The project is saved, and the `.eprj2` commit milestone is still the placed, routed, DRC-clean main board.
+<!-- ------ -->
+---
