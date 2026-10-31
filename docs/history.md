@@ -693,3 +693,23 @@ Head 1's ground pour is now filled and its DRC reads zero violations, so `sensor
 Next is head 2, then the panel, silkscreen and the main board.
 <!-- ------ -->
 ---
+`sensor_head_2` is half done. It has an outline and routed signals, and its GND pours exist, but they aren't filled yet, so DRC isn't clean. Copper Manager was empty because I hadn't started head 2 yet and there were no pours to list. I created the pours just now.
+
+**Your step**
+1. Open the `sensor_head_2` PCB tab.
+2. Open Copper Manager, press rebuild all and confirm. The list should now show GND_TOP and GND_BOT.
+3. Tell me when it's done.
+
+I'll then autoroute GND and run DRC, as I did for head 1. This is item 0 in `TODO-arcticoder.md`.
+
+**Head 2 so far**
+- **Outline:** the same 26 × 17 mm outline as head 1.
+- **Signals:** all three signal nets routed.
+- **DRC:** 6 errors, which I expect to be the unfilled GND pours, as on head 1.
+- **Save:** the project is saved.
+
+I removed the eprj2 commit item now that you've committed it. The next `.eprj2` commit milestone is both heads plus the panel.
+
+Still open on head 2 is C5, which sits in the schematic title block, and the `valid:false` warning. I'll do those after the copper step. Then the panel, silkscreen on the four mechanical boards, and the main board.
+<!-- ------ -->
+---

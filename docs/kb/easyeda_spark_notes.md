@@ -70,6 +70,8 @@
 - Head 1 finished (2026-10-30, evening): the user rebuilt the bottom pour from EasyEDA's menu (the pour was renamed GND_BOT2 and held one fill); the tool's guard stayed locked anyway. The 6 remaining errors were GND pads enclosed by autorouted 3V3/SDA traces; a second `easyeda_pcb_autoroute` with `routingNets:["GND"]`, `existingPrimitiveMode:"keep"` connected them with GND tracks/vias and DRC read 0 (`PCB_Drc.check` returns `[]` when clean). Order that works: signals (ignore GND), pours (user rebuilds copper), then GND autoroute.
 - EasyEDA writes `.epro2` auto-backups to `hardware/easyeda/spurious-force-balance_backup/` on save (timestamped, about 360 KB each); the folder is gitignored (`hardware/easyeda/*_backup/`).
 
+- Head 2 (2026-10-31): same recipe; outline, signals autorouted (3/3 nets), GND_TOP/GND_BOT pours created, waiting for the user's Copper Manager rebuild, then the GND autoroute and DRC. Copper Manager lists nothing until pours exist (a user's empty list on a board without pours is expected). C5 in the schematic title block still to move.
+
 ## State at 2026-10-30 handoff
 - Both sensor-head PCBs now hold their imported footprints (sensor_head_1: C1-C4, CN1, U1, U2; sensor_head_2: C5, CN2, U3), unplaced and without an outline; footprints: C0603, C0805 (10 uF), WSON-6 2x2 mm (TMP117), LGA-16 3x3 mm 0.5 mm pitch (MMC5983MA), SM04B-SRSS-TB. Designators run project-wide (C5, CN2, U3 on head 2).
 - The user imports with Design > Import Changes from Schematic (Alt+I) in the PCB tab and presses Apply; no tool does it for them.
