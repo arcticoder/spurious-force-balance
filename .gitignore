@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 hardware/balance/boards/fab/*/
+
+# EasyEDA Pro auto-backups (.epro2 exports written beside the project)
+hardware/easyeda/*_backup/
