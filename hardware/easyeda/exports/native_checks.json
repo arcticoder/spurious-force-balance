@@ -1,0 +1,42 @@
+{
+ "generated": "2026-11-01",
+ "project_saved_at": "2026-10-31T19:54:20Z",
+ "tool": "easyeda-mcp-pro 1.6.0, EasyEDA Pro 3.2.209",
+ "how": "PCB: PCB_Drc.check(true,false,true) on the focused PCB; schematic: easyeda_erc_run (scope focused) and easyeda_schematic_validate_netlist",
+ "boards": {
+  "arm": {
+   "kind": "pcb",
+   "drc_violations": 0
+  },
+  "clamp_plate": {
+   "kind": "pcb",
+   "drc_violations": 0
+  },
+  "clamp_ground": {
+   "kind": "pcb",
+   "drc_violations": 0
+  },
+  "elec_board": {
+   "kind": "pcb",
+   "drc_violations": 0
+  },
+  "sensor_head_1": {
+   "kind": "pcb",
+   "drc_violations": 0,
+   "erc_errors": 0
+  },
+  "sensor_head_2": {
+   "kind": "pcb",
+   "drc_violations": 0,
+   "erc_errors": 0
+  },
+  "main_board": {
+   "kind": "pcb",
+   "wip": true,
+   "drc_violations": 520,
+   "erc_errors": 0,
+   "erc_warnings": 57,
+   "note": "519 unrouted-connection errors and 1 SMD pad-to-pad clearance error: imported, not yet placed or routed"
+  }
+ }
+}

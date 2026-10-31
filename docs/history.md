@@ -787,25 +787,25 @@ The main board is only partly done: its schematic has all 164 parts but only abo
 I recorded the method, IDs and gotchas in the kb and `TODO-agent.md`; nothing new is waiting on you. The project is saved, and the `.eprj2` commit milestone is still the placed, routed, DRC-clean main board.
 <!-- ------ -->
 ---
-The main board schematic is finished and checks out: **111 nets, no floating pins, 0 ERC errors**, all 164 parts placed and the project saved. Before it can move on, you need to import it into the PCB.
+The validation layer is built, but I haven't run it on the main board yet. It needs a project export that only you can produce.
 
-**What you need to do** (item 0 in `TODO-arcticoder.md`):
-1. Open the `main_board` PCB tab (Board7).
-2. Press Alt+I (Design > Import Changes from Schematic) and confirm Apply.
-3. Leave that tab open and tell me.
+**Your import:** it worked. The `main_board` PCB now holds all 164 components. It is unplaced and unrouted: native DRC shows 519 connection errors plus 1 pad-clearance error from the import.
 
-I'll then place and route it.
+**The validator:** `tools/validate_easyeda.py` reads a project export (`.epro2`) and needs only Python's standard library, so any LLM or CI job can run it without EasyEDA. It checks:
+- **Naming:** designators and net names.
+- **Connectivity:** pads without a net, single-pad nets.
+- **Pull-ups:** I2C lines, reset/enable/run/boot/chip-select nets, and the USB-C CC resistors.
+- **Floating inputs:** input pins left unconnected or undriven, using pin types from the project's KiCad symbol library.
+- **SKiDL cross-check:** every net and part count compared against the SKiDL netlist for the board.
+- **BOM:** parts with no LCSC number, and the crystal stand-in.
+- **EasyEDA's own ERC/DRC results:** read from a recorded file (below).
 
-**Fixed during the check:** I had named the second half of each TLV9062 op-amp "U10" and "U11". Those names collided with the TMP117 and the DAC, and the pads for pins 5–7 would have had no nets on the PCB. They are now U14 and U15, matching their first halves, and I re-validated.
+On the old export (before the main board was imported) it reports 0 errors for the mechanical boards and both sensor heads. I fixed two false alarms along the way: the heads' deliberately open pins, and the I2C pull-ups, which only make sense on the board with the RP2040.
 
-**Not what I assumed:** EasyEDA numbers the parts itself, so designators don't match the SKiDL refs (the RP2040 is U4, not U3). I recorded this in the kb.
+**ERC and DRC:** EasyEDA's own ERC and DRC can't run offline, so I recorded today's results in `hardware/easyeda/exports/native_checks.json`: DRC clean on all six finished boards, and ERC 0 errors with 57 warnings on the main board. At each milestone I'll refresh that file through MCP before running the validator.
 
-**What caused the timeouts:** switching tabs in EasyEDA. When focus left the schematic page, my calls timed out; with focus restored, even 6-pin nets applied in about a second. Please keep the tab I'm working in focused when you're not importing.
+**Why I need you to export:** the export tools only return a file handle the bridge can't read, and the project file stores documents compressed. So please use EasyEDA Pro's File > Export to save the project as `hardware/easyeda/exports/spurious-force-balance.epro2`. I'm not sure of the exact menu name; any `.epro2` of the project works. This is item 0 in `TODO-arcticoder.md`. The routine is in `docs/kb/easyeda_validation.md`, and `.epro2` exports go through LFS.
 
-**Still to fix:**
-- **ADC crystal:** its BOM number is `C9900177807` because it uses a stand-in library part. It needs `C21900468` (3X016384UP) and a pad check before any order.
-- **Schematic layout:** the sheet is a spaced grid, not presentable yet.
-
-I'll do the crystal fix and the layout cleanup after the board work. The `.eprj2` commit milestone is the main board placed, routed and DRC-clean.
+Once you send the export, I'll run the validator and report the result in `TODO-arcticoder.md`, then start placing and routing the board. From now on I'll do this before every `.eprj2` commit request, and I saved that as a standing rule in memory.
 <!-- ------ -->
 ---
