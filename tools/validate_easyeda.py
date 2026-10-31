@@ -3,9 +3,12 @@
 
     python3 tools/validate_easyeda.py                      # newest .epro2 in hardware/easyeda/exports/, else the newest *_backup/
     python3 tools/validate_easyeda.py path/to/project.epro2 --json report.json [--strict] [--board main_board]
+    python3 tools/validate_easyeda.py --netlists hardware/easyeda/exports/netlists   # live PCB netlists saved by an agent (no export needed)
 
-Input: an EasyEDA Pro project export (`.epro2`, a zip whose `*.epru` holds one JSON record per line: DEVICE, FOOTPRINT, SCH_PAGE and PCB documents).
+Input: either an EasyEDA Pro project export (`.epro2`, a zip whose `*.epru` holds one JSON record per line: DEVICE, FOOTPRINT, SCH_PAGE and PCB documents).
 The netlist comes from the PCB documents (designator + pad -> net), the part data from the DEVICE documents (LCSC number, library prefix, value).
+or a folder of `<board>.json` files, each the text returned by `PCB_Net.getNetlist("JLCEDA")` (through the easyeda-mcp-pro `easyeda_api_call`, PCB focused),
+which carries every component's properties and every pad's net; that route needs no user export but has no library prefix, so NAME-4 is skipped.
 Standard library only. Exit code 1 when any ERROR is reported (with --strict also for WARN).
 
 Checks (ids in the report):
@@ -45,6 +48,7 @@ I2C = re.compile(r"(^|_)(SDA|SCL)$", re.I)
 CTRL = re.compile(r"(^|_)(RESET|RESET_N|RST|RUN|EN|ENABLE|BOOTSEL_N|BOOT|CS|CS_N)$", re.I)
 AUTO_NET = re.compile(r"^(\$|N\$|Net-|NET\d|unnamed|\$\d)", re.I)
 CRYSTAL_ALIAS = {"9002": "21900468", "9900177807": "21900468"}  # the ADC crystal uses the C9002 library part as a stand-in
+CRYSTAL_NUMS = set(CRYSTAL_ALIAS) | set(CRYSTAL_ALIAS.values()) | {"9002"}  # a crystal pin drives its oscillator net
 
 
 class Report:
@@ -336,7 +340,7 @@ def check_float(rep, b, comps, nets, pin_types, nc_allow):
                 if not r2:
                     continue
                 t2 = pin_types.get(lcsc_num(r2["lcsc"]), {}).get(p2)
-                if r2["prefix"] in ("CN", "H", "J", "SW") or (t2 and (t2[0] in drivers or t2[0] == "passive" and r2["prefix"] not in ("C",))):
+                if r2["prefix"] in ("CN", "H", "J", "SW") or lcsc_num(r2["lcsc"]) in CRYSTAL_NUMS or (t2 and (t2[0] in drivers or t2[0] == "passive" and r2["prefix"] not in ("C",))):
                     if r2["prefix"] == "R":
                         o = other_pad_net(d2, p2, idx, flat)
                         if o and (RAIL.match(o) or GROUND.match(o)):
@@ -438,33 +442,61 @@ def check_native(rep, boards, path, newest_doc_time):
     rep.add("INFO", "NATIVE-5", "-", f"native results generated {data.get('generated')}; project saved {data.get('project_saved_at')}")
 
 
+def live_netlist(path):
+    """A `PCB_Net.getNetlist` JSON file -> title, comps, nets, unconnected (same shape as pcb_netlist)."""
+    data = json.load(open(path))
+    title = os.path.splitext(os.path.basename(path))[0]
+    comps, nets, unconnected = {}, defaultdict(list), []
+    for cid, c in data.get("components", {}).items():
+        p = c.get("props", {})
+        des = p.get("Designator", "")
+        pre = re.match(r"[A-Za-z]*", des).group(0)
+        pins = c.get("pinInfoMap", {})
+        rec = {"id": cid, "des": des, "device": p.get("DeviceName", ""), "lcsc": p.get("Supplier Part", ""), "prefix": pre, "value": p.get("Value", ""),
+               "bom": p.get("Add into BOM", "yes"), "footprint": p.get("FootprintName", ""), "pads": list(pins), "mpn": p.get("Manufacturer Part", "")}
+        comps.setdefault(des or "?" + cid, []).append(rec)
+        for pad, info in pins.items():
+            if info.get("net"):
+                nets[info["net"]].append((des, pad))
+            else:
+                unconnected.append((des, pad))
+    return title, comps, nets, unconnected
+
+
 # ----------------------------------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("project", nargs="?", help=".epro2 export (default: newest in hardware/easyeda/exports, else newest *_backup)")
+    ap.add_argument("--netlists", help="folder of <board>.json live netlists (PCB_Net.getNetlist text), used instead of an .epro2")
     ap.add_argument("--json", help="write the machine-readable report here")
     ap.add_argument("--strict", action="store_true", help="exit 1 on WARN as well")
     ap.add_argument("--board", action="append", help="limit to these PCB names")
     ap.add_argument("-v", "--verbose", action="store_true", help="also print INFO lines")
     ap.add_argument("--native", default=os.path.join(EXPORTS, "native_checks.json"))
     a = ap.parse_args()
-    path = a.project or newest([os.path.join(EXPORTS, "*.epro2"), os.path.join(ROOT, "hardware", "easyeda", "*_backup", "*.epro2")])
-    if not path:
-        print("no .epro2 found: export the project from EasyEDA Pro first (see docs/kb/easyeda_validation.md)")
-        return 2
-    docs = load_epru(path)
-    dev, foot, pcbs, sch = index_docs(docs)
     pin_types = load_pin_types()
     rep = Report()
     boards = []
-    for d in pcbs:
-        title, comps, nets, unconnected = pcb_netlist(d, dev, foot)
+    if a.netlists:
+        path, newest_doc = a.netlists, 0
+        sources = [(live_netlist(f), None) for f in sorted(glob.glob(os.path.join(a.netlists, "*.json")))]
+        newest_doc = max((os.path.getmtime(f) * 1000 for f in glob.glob(os.path.join(a.netlists, "*.json"))), default=0)
+    else:
+        path = a.project or newest([os.path.join(EXPORTS, "*.epro2"), os.path.join(ROOT, "hardware", "easyeda", "*_backup", "*.epro2")])
+        if not path:
+            print("no .epro2 found and no --netlists folder: see docs/kb/easyeda_validation.md")
+            return 2
+        docs = load_epru(path)
+        dev, foot, pcbs, sch = index_docs(docs)
+        sources = [(pcb_netlist(d, dev, foot), d) for d in pcbs]
+        newest_doc = max((d["head"].get("updateTime", 0) for d in docs), default=0)
+    for (title, comps, nets, unconnected), d in sources:
         if a.board and title not in a.board:
             continue
         boards.append(title)
         if not comps:
             rep.add("INFO", "INFO-0", title, "no components (a mechanical board)")
-            if not any(h["type"] == "POLY" for h, _ in d["items"]):
+            if d is not None and not any(h["type"] == "POLY" for h, _ in d["items"]):
                 rep.add("WARN", "CONN-3", title, "no board outline (POLY) found")
             continue
         n = sum(len(v) for v in comps.values())
@@ -476,9 +508,8 @@ def main():
         check_float(rep, title, comps, nets, pin_types, nc_allow)
         check_bom(rep, title, comps)
         check_skidl(rep, title, comps, nets)
-    newest_doc = max((d["head"].get("updateTime", 0) for d in docs), default=0)
     check_native(rep, boards, a.native, newest_doc)
-    sha = hashlib.sha256(open(path, "rb").read()).hexdigest()[:16]
+    sha = "-" if a.netlists else hashlib.sha256(open(path, "rb").read()).hexdigest()[:16]
     print(f"project: {os.path.relpath(path, ROOT)}  sha256:{sha}  boards: {', '.join(boards)}")
     order = {"ERROR": 0, "WARN": 1, "INFO": 2}
     for i in sorted(rep.items, key=lambda i: (order[i["level"]], i["id"], i["board"])):

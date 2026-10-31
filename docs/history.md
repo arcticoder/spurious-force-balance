@@ -867,3 +867,24 @@ there, and place and route the instrument main board (PCB main_board), then the 
 ```
 <!-- ------ -->
 ---
+The validator now reads live netlists from EasyEDA, so you no longer need to export anything. Its first main-board run found a real problem, and nothing is placed yet.
+
+**Validation (your items 1 and 2)**
+- **Export:** your Ctrl+S did not write a new backup. The newest `.epro2` is still the 2026-10-30 one.
+- **Live netlists:** `PCB_Net.getNetlist`, called through `easyeda_api_call`, returns the netlist as text. I save it per board and run [validate_easyeda.py](tools/validate_easyeda.py) with `--netlists hardware/easyeda/exports/netlists`.
+- **Cleanup:** I wrote no scratch scripts in the repo, so there was nothing to delete. I also stopped counting a crystal pin as an undriven input, which was a false warning on the ADC clock net.
+
+**What the first run found**
+- **Stale import:** the `main_board` PCB was imported before the TLV9062 second-half pins (U14 and U15) were renamed. Pads 5–7 of both chips have no nets. Nets LED2_G, LED2_REF, LED2_SRC and SPARE_OP, plus one GND pin, are missing in the PCB.
+- **Schematic:** I checked LED2_G and SPARE_OP there and they are right. Only the PCB is stale.
+- **Heads:** both sensor heads validate clean.
+
+**Not done**
+- **Placement:** I did not place or route the main board. The re-import has to come first, since routing needs the missing nets. It also needs a board size (the docs give none, only a 70 × 70 mm minimum) and 164 separate placement calls.
+- **Next steps:** OSHWLab text and the crystal's LCSC fields are still open.
+
+**Your next step:** in the `main_board` PCB tab, run Design > Import Changes from Schematic (Alt+I) and Apply, then tell me. This is item 0 in `docs/TODO-arcticoder.md`. After that I place the board, route it, and re-validate before asking you to commit the `.eprj2`.
+
+I updated the kb validation and handoff notes, `TODO-agent.md`, and your item 0. The five saved netlist files in `hardware/easyeda/exports/netlists/` are untracked, ready for you to stage. I committed nothing.
+<!-- ------ -->
+---
