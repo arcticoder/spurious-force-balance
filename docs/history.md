@@ -787,3 +787,25 @@ The main board is only partly done: its schematic has all 164 parts but only abo
 I recorded the method, IDs and gotchas in the kb and `TODO-agent.md`; nothing new is waiting on you. The project is saved, and the `.eprj2` commit milestone is still the placed, routed, DRC-clean main board.
 <!-- ------ -->
 ---
+The main board schematic is finished and checks out: **111 nets, no floating pins, 0 ERC errors**, all 164 parts placed and the project saved. Before it can move on, you need to import it into the PCB.
+
+**What you need to do** (item 0 in `TODO-arcticoder.md`):
+1. Open the `main_board` PCB tab (Board7).
+2. Press Alt+I (Design > Import Changes from Schematic) and confirm Apply.
+3. Leave that tab open and tell me.
+
+I'll then place and route it.
+
+**Fixed during the check:** I had named the second half of each TLV9062 op-amp "U10" and "U11". Those names collided with the TMP117 and the DAC, and the pads for pins 5–7 would have had no nets on the PCB. They are now U14 and U15, matching their first halves, and I re-validated.
+
+**Not what I assumed:** EasyEDA numbers the parts itself, so designators don't match the SKiDL refs (the RP2040 is U4, not U3). I recorded this in the kb.
+
+**What caused the timeouts:** switching tabs in EasyEDA. When focus left the schematic page, my calls timed out; with focus restored, even 6-pin nets applied in about a second. Please keep the tab I'm working in focused when you're not importing.
+
+**Still to fix:**
+- **ADC crystal:** its BOM number is `C9900177807` because it uses a stand-in library part. It needs `C21900468` (3X016384UP) and a pad check before any order.
+- **Schematic layout:** the sheet is a spaced grid, not presentable yet.
+
+I'll do the crystal fix and the layout cleanup after the board work. The `.eprj2` commit milestone is the main board placed, routed and DRC-clean.
+<!-- ------ -->
+---
