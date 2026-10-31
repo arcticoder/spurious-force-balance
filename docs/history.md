@@ -731,3 +731,26 @@ I'm leaving the `.eprj2` for you to commit when the panel is done.
 I'll carry on with silkscreen labels on the four mechanical boards, then the instrument main board.
 <!-- ------ -->
 ---
+I can't place boards in the panel from here, because the EasyEDA API only creates, copies, renames and deletes panels. I should have checked that before sending you at it. I've taken the panel off your list.
+
+**Panel**
+- `panel1` opens as an empty frame, and I found no panel-content API.
+- I haven't verified how EasyEDA's panel editor adds boards, so I wrote no replacement steps. If we come back to it, tell me what the panel tab's menus offer.
+- The JLC order doesn't need it: the KiCad panel Gerbers in `hardware/instrument/heads_panel/out/` are the order files.
+- The panel isn't needed for the EasyEDA design itself either, so it doesn't hold up the Spark entry.
+- Item 0 in `TODO-arcticoder.md` now says nothing is waiting on you for EasyEDA.
+
+**Silkscreen**
+- I carried the KiCad labels over to the four mechanical boards:
+  - the arm's two labels
+  - `CLAMP` on clamp_plate
+  - `GND` on clamp_ground
+  - `SIG`, `GUARD` and the electrode note on elec_board
+- `easyeda_pcb_add_text` fails. I used the raw `PCB_PrimitiveString.create` call instead and wrote that and the text-sizing rules into the kb.
+- DRC read clean on `elec_board`. I didn't re-run it on the other three.
+- I saw the arm and `CLAMP` labels on screen. I didn't see `ELECTRODE: pad faces the arm`, which sits over a copper pad, or the clamp_ground `GND` label, so check them if you open those boards.
+- The project is saved.
+
+I'm moving on to the instrument main board. It's the big one, with 50 JLC parts, and I'll start with the schematic from `schematic/main_board.py`. The `.eprj2` will be ready to commit once the board is placed, routed and DRC-clean.
+<!-- ------ -->
+---
