@@ -888,3 +888,11 @@ The validator now reads live netlists from EasyEDA, so you no longer need to exp
 I updated the kb validation and handoff notes, `TODO-agent.md`, and your item 0. The five saved netlist files in `hardware/easyeda/exports/netlists/` are untracked, ready for you to stage. I committed nothing.
 <!-- ------ -->
 ---
+The "no changes" message was wrong. The PCB really is missing nets, so I deleted the two affected footprints, and I need you to run Alt+I once more.
+
+- **What was wrong:** only Q2 pad 1 was on LED2_G in the PCB, while the schematic also puts U14 pin 7 on it. The same gap affects U14 and U15 pads 5–7. EasyEDA's importer doesn't notice missing pad nets on a part it already has.
+- **What I did:** I deleted U14 and U15 from the `main_board` PCB. Both were unplaced with no copper, so nothing else changed.
+- **What you do:** in the `main_board` PCB tab, run Design > Import Changes from Schematic (Alt+I) and Apply. This time it should list two components to add. Tell me when it's done. I'll check that the pads have their nets, then place and route.
+- **Docs:** item 0 in `docs/TODO-arcticoder.md` is updated, and so are the kb validation and handoff notes.
+<!-- ------ -->
+---
