@@ -713,3 +713,21 @@ I removed the eprj2 commit item now that you've committed it. The next `.eprj2` 
 Still open on head 2 is C5, which sits in the schematic title block, and the `valid:false` warning. I'll do those after the copper step. Then the panel, silkscreen on the four mechanical boards, and the main board.
 <!-- ------ -->
 ---
+Both sensor-head PCBs are now outlined, routed, poured and DRC-clean (`PCB_Drc.check` returns no errors). The project is saved.
+
+**Head 2:** your Copper Manager rebuild worked. After a GND-only autoroute, DRC reads zero.
+
+**The `valid:false` warning:** it's not a real problem. The component list and the validation counts cover the whole project, so "7 components have no net connections" was head 1's parts. Head 2's three parts are all connected.
+
+**C5:** it's fine where it is. It sits at x=400 on the A4 sheet, well clear of the bottom-right title block, so I didn't move it.
+
+**Panel:** this is now yours, and it's item 0 in `TODO-arcticoder.md`. The EasyEDA API can only create and rename panels, so there's no way for me to place boards, rails, tooling holes or mouse bites.
+- `panel1` already exists in the project.
+- The checklist uses the geometry from `build_panel.py`: two of each head board on a 76 × 70 mm panel with 5 mm rails, three tooling holes, three fiducials and mouse-bite tabs.
+- I wrote the menu names from memory and flagged them as unverified. Tell me what the panel tab offers, such as array, rails, stamp holes or V-cut, and I'll record it.
+
+I'm leaving the `.eprj2` for you to commit when the panel is done.
+
+I'll carry on with silkscreen labels on the four mechanical boards, then the instrument main board.
+<!-- ------ -->
+---
