@@ -77,6 +77,8 @@
 
 - Silkscreen (2026-10-31): `easyeda_pcb_add_text` fails ("cannot create text primitive"); use `PCB_PrimitiveString.create(layer, x, y, text, "NotoSansMonoCJKsc-Regular", fontSizeMil, lineWidthMil, 1, 0, false, 0, mirror, false)` through `api_call` (layer 3 top silk, 4 bottom silk with mirror true). The anchor is the text's top-left; width is about 0.68 x font size per character (so centre a label at x - n*0.34*size, y + size/2). Done from the KiCad texts: arm (2 labels), clamp_plate (CLAMP), clamp_ground (GND, bottom), elec_board (SIG, GUARD, ELECTRODE note, bottom). Board uuids and KiCad (x, -y) mapping unchanged; the arm outline spans x +-100 mm, y +20..+80 mm in EasyEDA coordinates.
 
+- Bottom-silk labels under top copper do not show in the combined view (top copper and top solder-mask/paste draw over them): elec_board's ELECTRODE note looked missing to the user but exists (verified with `PCB_PrimitiveString.getAll` and by hiding layers 1, 5 and 7 with `PCB_Layer.setLayerInvisible`, then restoring with `setLayerVisible`). Check text with `getAll` rather than a screenshot, or hide those layers first. Layer ids: 1 top, 2 bottom, 3 top silk, 4 bottom silk, 5 top mask, 6 bottom mask, 7 top paste, 8 bottom paste.
+
 ## State at 2026-10-30 handoff
 - Both sensor-head PCBs now hold their imported footprints (sensor_head_1: C1-C4, CN1, U1, U2; sensor_head_2: C5, CN2, U3), unplaced and without an outline; footprints: C0603, C0805 (10 uF), WSON-6 2x2 mm (TMP117), LGA-16 3x3 mm 0.5 mm pitch (MMC5983MA), SM04B-SRSS-TB. Designators run project-wide (C5, CN2, U3 on head 2).
 - The user imports with Design > Import Changes from Schematic (Alt+I) in the PCB tab and presses Apply; no tool does it for them.

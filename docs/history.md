@@ -754,3 +754,17 @@ I can't place boards in the panel from here, because the EasyEDA API only create
 I'm moving on to the instrument main board. It's the big one, with 50 JLC parts, and I'll start with the schematic from `schematic/main_board.py`. The `.eprj2` will be ready to commit once the board is placed, routed and DRC-clean.
 <!-- ------ -->
 ---
+The `ELECTRODE: pad faces the arm` label is on `elec_board`'s bottom silkscreen; it just doesn't show in EasyEDA's normal view.
+
+**Why you can't see it:** it sits directly under the big top-side pad, which hides it. That pad covers the whole region where the label sits. `SIG` and `GUARD` are visible because they sit outside it.
+
+**How I checked:**
+- Listing the board's text primitives shows all three labels on layer 4 (bottom silk), including the ELECTRODE one.
+- Hiding the top copper, top solder-mask and top paste layers (1, 5 and 7) makes it render.
+- I switched those layers back on afterwards.
+
+On the real board it prints on the bare bottom face, which has no copper there. KiCad had the same arrangement, since the old label also sat behind the top pad. You'll only see it in EasyEDA by hiding those layers.
+
+I noted this in the kb so a later session doesn't take a screenshot for proof. Nothing else changed; I haven't started the main board.
+<!-- ------ -->
+---
