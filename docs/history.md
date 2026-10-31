@@ -896,3 +896,14 @@ The "no changes" message was wrong. The PCB really is missing nets, so I deleted
 - **Docs:** item 0 in `docs/TODO-arcticoder.md` is updated, and so are the kb validation and handoff notes.
 <!-- ------ -->
 ---
+The second import still left U14 and U15 without nets on pads 5–7, because of how the schematic stores the TLV9062 chips.
+
+Each chip is two symbol instances, one per op-amp. The first has a Unique ID (`gge94` on U14, `gge95` on U15) and the second had none. I copied each first half's ID onto its second half, which is probably how EasyEDA links the halves.
+
+**Your step:** in the `main_board` PCB tab, run Alt+I and Apply once more, then tell me whether the dialog lists changes. Item 0 in `docs/TODO-arcticoder.md` has this step.
+
+**If it says "no changes" again:** I haven't found a way to set a pad's net on the PCB directly through the API. The fallback is replacing each TLV9062 with two single op-amps, which changes the BOM and footprints. I'd want your go-ahead on that.
+
+I recorded all of this in `kb/easyeda_spark_notes.md`. Placement and routing still haven't started.
+<!-- ------ -->
+---
