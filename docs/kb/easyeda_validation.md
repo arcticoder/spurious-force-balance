@@ -14,6 +14,8 @@ An agent with MCP access records them in `hardware/easyeda/exports/native_checks
 ## Getting the export (EasyEDA's file-export tools do not work through the bridge)
 `easyeda_export_netlist`, `easyeda_bom_export` and `easyeda_pcb_export_route_context` all answer "Bridge did not return data" on this build (the underlying API returns a `File` object the bridge cannot serialize), and `.eprj2` (SQLite) keeps documents in compressed history blobs. So the `.epro2` comes from the user: EasyEDA Pro File > Export > project file (`.epro2`), saved as `hardware/easyeda/exports/spurious-force-balance.epro2` (menu name unverified; EasyEDA's own backups in `*_backup/` have the same format). Ask for it as a step in `TODO-arcticoder.md` at each milestone, together with the `.eprj2` commit.
 
+Retried 2026-11-01 with `easyeda_export_netlist` in `altium` and `allegro` formats on the focused main-board schematic: same "Bridge did not return export data". The user could not use EasyEDA's per-schematic netlist export either (one click series per schematic). Cheapest user action to try: Ctrl+S in the EasyEDA UI, because the `*_backup/*.epro2` files seem to be written on UI saves (the 2026-10-30 20:58 backup matches the user's last UI save; saves made through `easyeda_project_save` wrote none). Unverified: check for a new file after the user's Ctrl+S.
+
 ## Milestone routine (agent)
 1. Save the project, run ERC/DRC per board through MCP and update `native_checks.json`.
 2. Ask the user for the fresh `.epro2` export (step in `TODO-arcticoder.md`).

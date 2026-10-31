@@ -809,3 +809,61 @@ On the old export (before the main board was imported) it reports 0 errors for t
 Once you send the export, I'll run the validator and report the result in `TODO-arcticoder.md`, then start placing and routing the board. From now on I'll do this before every `.eprj2` commit request, and I saved that as a standing rule in memory.
 <!-- ------ -->
 ---
+Both repos' kb files are up to date, but the netlist export still doesn't work through the API.
+
+**Netlist export:** I retried `easyeda_export_netlist` in the `altium` and `allegro` formats on the main-board schematic, and both returned "Bridge did not return export data". The earlier `pads` attempt failed the same way. The bridge can't carry file contents back, so I can't write any export from here.
+
+**Cheapest alternative:** press Ctrl+S in EasyEDA Pro. The `.epro2` backups in `hardware/easyeda/spurious-force-balance_backup/` seem to be written when you save from the UI, and the newest one matches your last save. This is unverified. If no new file appears, File > Export > project `.epro2` is the fallback. This is item 0 in `TODO-arcticoder.md`; tell me which worked.
+
+**kb updates**
+- `spurious-force-balance/docs/kb/session_handoff.md` is rewritten for the next session. It covers:
+  - the table of boards and their states
+  - the validator
+  - the placement and routing plan for the main board
+  - the loose ends
+  - the gotchas
+  - the supply chain
+  - the standing rules
+- `kb/easyeda_validation.md` records the failed netlist export and the Ctrl+S idea.
+- `lab/docs/kb/ordering_ingestion_notes.md` has a note on the thin DIN439 nuts: read the standard number on a listing before ordering nuts for printed pockets.
+
+**Context block for the next chat**
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons, captures
+  of JLC's quote pages).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). It is being rebuilt natively in EasyEDA Pro
+  (hardware/easyeda/spurious-force-balance.eprj2) through the easyeda-mcp-pro tools, because a KiCad/SKiDL
+  design does not qualify for EasyEDA Spark 2026; registration closes 2026-11-30, and I will not register
+  or submit anything until the EasyEDA design really exists. The four mechanical boards and both sensor-head
+  PCBs are done and DRC-clean; the instrument main board's schematic is complete and imported into its PCB,
+  which still needs placing and routing.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC's quote pages can't be read from a session and there's no API: treat any JLC price that isn't in my
+words or my captures as an estimate, and ask me for specific numbers only. docs/history.md is my chat
+transcript: don't edit it or use it as an analysis source. Pictures are lossless .jxl; .jxl and .eprj2 are
+Git LFS. Don't commit anything: I stage and commit everything after each chat, except that you tell me in
+TODO-arcticoder.md when hardware/easyeda/spurious-force-balance.eprj2 reaches a milestone worth committing.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md; anything only I can click (EasyEDA's Design > Import Changes from Schematic,
+Alt+I; Copper Manager rebuilds; project exports) goes there as literal steps. Keep docs/kb/*.md (LLM-only
+notes) up to date with discoveries. Before asking me to commit the .eprj2, refresh
+hardware/easyeda/exports/native_checks.json through MCP, get my current .epro2 export, and run
+tools/validate_easyeda.py (docs/kb/easyeda_validation.md).
+Start by reading docs/kb/README.md, docs/kb/session_handoff.md, docs/kb/easyeda_spark_notes.md and
+docs/kb/easyeda_validation.md in spurious-force-balance, then lab/docs/kb/README.md. Then continue the
+EasyEDA redesign: call easyeda_health_check (profile must be "full"), get my fresh project export if it is
+there, and place and route the instrument main board (PCB main_board), then the OSHWLab text.
+```
+<!-- ------ -->
+---

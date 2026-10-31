@@ -1,31 +1,44 @@
-# Session handoff — written 2026-10-30 (replace at each handoff; do not append)
+# Session handoff — written 2026-11-01 (replace at each handoff; do not append)
 
-## What this chat did (details in `kb/easyeda_spark_notes.md`)
+## State of the EasyEDA redesign (details and recipes in `kb/easyeda_spark_notes.md`)
 
-- Pictures are lossless `.jxl` now (7 files `git mv`'d; generators call `tools/to_jxl.py`); `*.jxl` and `*.eprj2` are Git LFS-tracked in this repo, `*.jxl` also in `lab` (`.gitattributes`). The user will not commit until `TODO-arcticoder.md` says so.
-- easyeda-mcp-pro works: Node 24.22.1 via nvm on PATH, server entry in `~/.claude.json` (Claude Code) and the VS Code `mcp.json` (key `servers`), `TOOL_PROFILE=full` (needed to create PCB geometry), bridge connected to EasyEDA Pro (native Linux install). The tools are `mcp__easyeda-mcp-pro__*`; `easyeda_health_check` first.
-- The spurious-force-balance redesign is **being rebuilt natively in EasyEDA Pro** (a KiCad/SKiDL design does not qualify for EasyEDA Spark; the user will not register or submit until the EasyEDA design exists, so nothing may be claimed before that). Project file `hardware/easyeda/spurious-force-balance.eprj2`, project UUID in the notes. Done: four mechanical boards drawn and DRC-clean (`arm`, `clamp_plate`, `clamp_ground`, `elec_board`); sensor heads `sensor_head_1` and `sensor_head_2` have valid schematics and their components were imported into the PCBs (unplaced, no board outline or routing yet).
+Project `hardware/easyeda/spurious-force-balance.eprj2` (UUID in the notes; profile `full`; Node 24.22.1; bridge connected through EasyEDA Pro's Advanced > MCP Bridge > Connect, which must be repeated after the computer sleeps).
 
-## Waiting on the user (`docs/TODO-arcticoder.md`)
+| Board (PCB uuid) | State |
+|---|---|
+| `arm` 7bc3367e1c2d2364, `clamp_plate` 3ddf518a3b25253b, `clamp_ground` a1c4bc42816028ee, `elec_board` 05dc52ccb60a9ca9 | drawn, silkscreen done, DRC clean |
+| `sensor_head_1` 6b230bf28446d8f9, `sensor_head_2` 868eebde0c888e1b | outlined, autorouted, GND pours on both layers, DRC clean |
+| `main_board` 85757acc0463db9b (Board7, schematic page a173bbce992e5a91) | schematic complete and validated (164 parts, 111 nets, no floating pins, ERC 0 errors / 57 warnings); imported into the PCB by the user (164 components); **unplaced and unrouted** (DRC: 519 connection errors + 1 clearance) |
+| `panel1` | parked: the API has no panel-content calls and the user could not paste boards into it; the order files are the KiCad panel Gerbers in `hardware/instrument/heads_panel/out/` |
 
-The arm order payment and the small-board JLC quote (unchanged from before, with the coupons ending 2026-11-25/26), optional sensor-head PCBA order, AliExpress lines, the printing and build; plus the item that says when to commit.
+The committed `.eprj2` already holds the four mechanical boards and head 1 (the user commits it at milestones only).
+
+## Offline validation layer (new)
+
+`tools/validate_easyeda.py` (standard library only) checks an `.epro2` export: naming, pads without nets, I2C pull-ups, control-pin bias, floating input pins (pin types from `hardware/instrument/lib/jlc.kicad_sym`), a netlist cross-check against the SKiDL netlist `hardware/instrument/schematic/out/<board>.net`, BOM numbers, and the native ERC/DRC record `hardware/easyeda/exports/native_checks.json`. Details: `kb/easyeda_validation.md`. Run it at every milestone before asking the user to commit the `.eprj2`. It has only been run on the 2026-10-30 backup (0 errors); its first main-board run waits for a current `.epro2`: the file-export tools and netlist export through the API fail in every format ("Bridge did not return export data"), so the user supplies it (Ctrl+S in EasyEDA may write a new `*_backup/*.epro2`; otherwise File > Export; step is item 0 of `TODO-arcticoder.md`).
 
 ## Next agent tasks, in order (`docs/TODO-agent.md`)
 
-0. Update (2026-10-31): both sensor-head PCBs are outlined, routed, poured and DRC-clean; the panel is parked (no panel content API; the user could not paste into panel1); silkscreen on the four mechanical boards is done; the main board schematic is complete and validated (111 nets, no floating pins); the user imported it into the `main_board` PCB (164 components, unplaced and unrouted: DRC 519 connection errors + 1 clearance); next is placement and routing. An offline validator exists (`tools/validate_easyeda.py`, `kb/easyeda_validation.md`) and needs the user's `.epro2` export for its first main-board run (`kb/easyeda_spark_notes.md`, "Main board schematic: wired and validated"). Items 1 below is superseded except for the panel geometry.
-1. Sensor heads in EasyEDA: outline (26 x 17 mm, `heads_panel/build_panel.py` has the geometry), place the imported parts (MMC5983MA LGA, TMP117 WSON, JST-SH, caps), route, ground pour, DRC; move head 2's capacitor out of the title block; recheck head 2's `valid:false` warning. Then the panel (76 x 70 mm rails, tooling holes, fiducials, mouse bites) in the project's Panel1.
-2. Silkscreen labels on the four mechanical boards.
-3. The instrument main-board schematic (50 JLC parts, `schematic/main_board.py` is the source of the nets) and board, the same way; then OSHWLab text and the Spark registration answers (`docs/spark_application.md` is a draft; Spark registration closes 2026-11-30).
-Imports need the user's click (Design > Import Changes from Schematic, Alt+I, in the PCB tab): write each needed click as a step in `TODO-arcticoder.md`.
+1. Main board PCB: get the user's `.epro2`, run the validator; then outline (size from `docs/plan.md`), floorplan by function (power entry and boost on one edge, USB-C, RP2040 with its crystal and flash, the 4-channel ADC with its analog supplies away from the boost converter, op-amp/LED drive, connectors on the edges), place with `easyeda_pcb_modify_component`, autoroute with GND ignored (`easyeda_pcb_autoroute`), create GND pours on both layers, ask the user to rebuild copper in Copper Manager, autoroute GND, DRC to 0, re-run the validator, then tell the user the `.eprj2` is ready to commit. A 164-part 2-layer board may need to be 4 layers or hand-routed in places: check `easyeda_board_stackup` first.
+2. Main-board loose ends: the ADC crystal U13 has the C9002 stand-in's LCSC fields (set C21900468 / 3X016384UP and check pads); the schematic page is a spaced grid, not presentable (tidy it before the OSHWLab upload); the TLV9062 unit B symbols are U14/U15 (second halves of chips U14/U15).
+3. OSHWLab text and the Spark registration answers (`docs/spark_application.md` is a draft); registration closes 2026-11-30 and the user registers only after the EasyEDA design really exists.
+
+## Gotchas learnt (all in `kb/easyeda_spark_notes.md`)
+
+Keep the working tab focused (`DMT_EditorControl.openDocument(uuid)` first; lost focus looks like timeouts or "failed to get pins"); chunk big nets at 6 pins per `connect_pins_by_net`; use primitive ids not designators; EasyEDA numbers designators itself; `easyeda_pcb_rebuild_copper` locks after a failed read-back (persisted in `~/.easyeda-mcp-pro/easyeda-mcp-pro.sqlite`; do not edit it): the user rebuilds copper from the UI; `easyeda_pcb_add_text` fails (use `PCB_PrimitiveString.create`); bottom silk under top copper is invisible in the combined view.
 
 ## Open question from the user, still unanswered in the repo
 
 Why the arm is 208 mm (torsion balances in pictures are shorter): the noise budget barely depends on arm length (0.108 / 0.109 / 0.112 nN at 100 / 75 / 50 mm half-length, `fabrication.md`); a shorter arm weakens the damper and needs rework; it could fit JLC's cheap 100 x 100 mm tier. If the user wants it shorter, parametrize `ARM_HALF_LENGTH` first and requote; the EasyEDA arm would then be redrawn.
 
+## Supply chain
+
+An AliExpress order of 2026-10-30 is en route: 20 M3 thin (DIN439) 304 stainless nuts and digital calipers (`lab/docs/orders.md`). Nothing else is en route; the JLC arm and small-board orders and the AliExpress balance list wait on the user (`TODO-arcticoder.md`, coupons end 2026-11-25/26).
+
 ## Standing rules (see `kb/project_workflow_notes.md`)
 
-Never state a JLC price that is not in the user's words or captures; do not edit or mine `docs/history.md`; do not quote the user; do not commit unless told.
+Never state a JLC price that is not in the user's words or captures; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit (the user stages and commits everything after each chat; only flag `.eprj2` milestones in `TODO-arcticoder.md`).
 
 ## Read first
 
-Both `docs/kb/README.md` files, `kb/easyeda_spark_notes.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`, `docs/plan.md`, `docs/fabrication.md`; then `lab/docs/kb/jlc_account_and_quotes.md`.
+Both `docs/kb/README.md` files, `kb/easyeda_spark_notes.md`, `kb/easyeda_validation.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`; then `lab/docs/kb/jlc_account_and_quotes.md` if a JLC question comes up.
