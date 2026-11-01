@@ -1123,3 +1123,20 @@ I added the router option, but it only takes effect after one more EasyEDA resta
 I recorded all of this in `kb/easyeda_spark_notes.md` and the handoff.
 <!-- ------ -->
 ---
+Routing on `main_board` is not finished: DRC still shows 53 open connections, 33 on GND and 20 on 10 signal nets. The new job calls work, but they didn't connect the signal nets with either router.
+
+- **GND:** a JRouter pass took about 10 minutes and cut open GND connections from 98 to 33.
+- **Signal nets:** a pangolin pass finished in about 4 minutes and changed nothing. A JRouter pass sat at 50% for over 12 minutes, so I cancelled it. Both routers leave the same 10 nets open (`3V3_D`, `I2C_SCL`, `I2C_SDA`, `SPARE_A`, `SPARE_F`, `SPARE_G`, `SPARE_H`, `USB_DP`, `LED1_MOD`, `QSPI_SD1`), two open connections each. Several of the open connections span from the RP2040 area to the bottom-edge parts, so they will need hand routing or moving parts.
+- **Progress polling:** I could poll the progress percentage and read it myself instead of relying on you. JRouter on GND crawled at first but finished in about 10 minutes.
+- **Timer bug:** the app never clears its 15-minute API timeout timer. An earlier job's timer killed a later job after about 8 minutes. I added a guard to [tools/patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py). It takes effect at the next EasyEDA restart, and I'll leave 15 minutes between route starts until then.
+
+**Next on my list:**
+- **GND:** place ground vias beside the 33 open pads.
+- **Signals:** hand-route or re-place parts for the 10 signal nets.
+- **Check:** re-run DRC, then do the milestone routine.
+
+You have nothing to do right now. `TODO-arcticoder.md` item 1 is done.
+
+I recorded the details in the kb notes, the handoff and `TODO-agent.md`.
+<!-- ------ -->
+---

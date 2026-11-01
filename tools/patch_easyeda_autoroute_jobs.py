@@ -6,6 +6,7 @@ cancelAutoJob / getAutoJobLog, but this app version has no handlers, so those ca
 bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: rpc services next to "autoRouting" (job record + progress taken from updateProgress)
   - pro-pcb/*/js/pcb.js: also a `router` option ("pangolin" | "jrouter") that overrides the engine otherwise derived from `optimization`
+  - pro-pcb/*/js/pcb.js: the 15-minute API timeout timer of an earlier job no longer kills a later job
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
   - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig
 Original files are kept as <file>.orig; `--revert` restores them. Restart EasyEDA afterwards (a restart kills a running
@@ -54,6 +55,9 @@ UI_REG_ADD = ('autoRouting:Vg.autoRouting,startAutoRouting:Vg.startAutoRouting,g
 PCB_ROUTER_ANCHOR = 'let s=e?!1:((h=t==null?void 0:t.routingEffectPriority)!=null?h:this.config.routingEffectPriority)===0,'
 PCB_ROUTER_ADD = ('let s=e?!1:t&&t.router==="jrouter"?!0:t&&t.router==="pangolin"?!1:'
                   '((h=t==null?void 0:t.routingEffectPriority)!=null?h:this.config.routingEffectPriority)===0,')
+PCB_TIMER_ANCHOR = 'setTimeout(()=>{this.routingPromiseReject&&(this.routingPromiseReject(new Error("Auto routing timed out after 15 minutes"))'
+PCB_TIMER_ADD = ('setTimeout(()=>{this.routingPromiseResolve===d&&this.routingPromiseReject&&'
+                 '(this.routingPromiseReject(new Error("Auto routing timed out after 15 minutes"))')
 API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
 API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
@@ -94,7 +98,7 @@ def main():
     if len(pcb) != 1 or len(ui) != 1:
         sys.exit('expected one pcb.js and one ui.js, found %d / %d' % (len(pcb), len(ui)))
     ok = patch(pcb[0], [(PCB_ANCHOR, PCB_ANCHOR + PCB_ADD), (PCB_PROGRESS_ANCHOR, PCB_PROGRESS_ADD),
-                       (PCB_ROUTER_ANCHOR, PCB_ROUTER_ADD)], a.revert)
+                       (PCB_ROUTER_ANCHOR, PCB_ROUTER_ADD), (PCB_TIMER_ANCHOR, PCB_TIMER_ADD)], a.revert)
     ok = patch(ui[0], [(UI_ANCHOR, UI_ADD + UI_ANCHOR), (UI_REG_ANCHOR, UI_REG_ADD)], a.revert) and ok
     api = sorted(glob.glob(a.app + '/assets/pro-api/*/api.js'))
     if len(api) != 1:
