@@ -1093,3 +1093,21 @@ Nothing is patched. I'm waiting for the GND autoroute to finish before touching 
 I recorded the findings in `docs/kb/easyeda_spark_notes.md`.
 <!-- ------ -->
 ---
+I patched EasyEDA's files so a route can be started, polled and cancelled, but none of it has run yet. The patch only loads when EasyEDA restarts, and a restart would kill the route you assume is running.
+
+- **Router field (1):** none is needed. The app already picks the engine from the `optimization` setting. The default, 1 ("completion"), uses the pangolin router; 0 ("faster") uses JRouter. My timed-out `startAutoRouting` call used 0, but it never ran (see item 2). The earlier tool runs used the default. I don't know which engine your UI calls HRouter. Patching `app.js` would do nothing, because it is only the Electron shell. The editor code is in `pcb.js` and `ui.js`.
+- **Polling and cancel (2):** this EasyEDA version (3.2.209) has no handlers for `startAutoRouting`, `getAutoJobStatus`, `cancelAutoJob` or `getAutoJobLog`, although `api.js` calls them. That is why my call hung until the timeout. [tools/patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py) adds them.
+  - **Start:** returns a job id at once.
+  - **Status:** returns a state of running, completed, canceled or failed, plus progress as a percentage.
+  - **Log and cancel:** the log call and a cancel call work the same way.
+  - **Backups:** the originals are saved as `pcb.js.orig` and `ui.js.orig` next to the patched files. `--revert` restores them.
+  - **Updates:** the script refuses to patch if EasyEDA updates its files, so re-run it after an update.
+  - **Checks:** both patched files pass a Node syntax check. I don't know whether EasyEDA checks its `extension.json` checksums at startup.
+- **Waiting without you (2):** once the patch is live, I can start a route and wait for "completed" myself. I can also cancel one that stalls.
+- **Progress bar (3):** I can't confirm the current run. I made the patch edits only on disk, so they don't affect the process that is running.
+
+**Your next step** is item 0a in `docs/TODO-arcticoder.md`. Let the GND route run, or give it 20 minutes with the board visibly unchanged. Then restart EasyEDA and click MCP Bridge > Connect. If EasyEDA misbehaves, run the script with `--revert` and tell me. Item 0b is the optional timeout setting.
+
+I added an open item to `TODO-agent.md` to verify the job calls live and then switch the fork's `easyeda_pcb_autoroute` tool to them. The mechanism is recorded in `kb/easyeda_spark_notes.md`.
+<!-- ------ -->
+---
