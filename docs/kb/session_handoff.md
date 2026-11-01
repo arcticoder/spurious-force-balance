@@ -45,3 +45,6 @@ Both `docs/kb/README.md` files, `kb/easyeda_spark_notes.md`, `kb/easyeda_validat
 
 ## Reminders moved out of TODO-arcticoder.md (2026-11-01)
 The EasyEDA bridge drops after computer sleep (user: Advanced > MCP Bridge > Connect; keep the PCB tab focused). Spark registration closes 2026-11-30 and waits for the finished EasyEDA design. Next `.eprj2` milestone to ask the user to commit: main board placed, routed, DRC-clean, validator clean, `native_checks.json` refreshed. `PCB_Document.startAutoLayout` returned nothing and moved no parts (2026-11-01; EasyEDA not busy afterwards, API calls work again).
+
+## Next session start (2026-11-01)
+Load the fork's `easyeda_pcb_place_batch` (ToolSearch select), apply `hardware/easyeda/exports/main_board_placement.json` (the ids are the current PCB primitive ids; if the schematic is re-imported, regenerate `main_board_parts.json` from `PCB_PrimitiveComponent.getAll` + `PCB_PrimitivePad.getAll` first, then run `tools/floorplan_main_board.py`). The parts currently sit in EasyEDA's second auto-layout cluster; the outline is x -100..4100, y -3300..150 mil.

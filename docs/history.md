@@ -943,3 +943,27 @@ The main board is not placed or routed yet, and its PCB is in a worse state than
 **TODO file:** I removed the note-to-self item from `docs/TODO-arcticoder.md`; it now lists only your tasks, each as its own numbered item. The reminders went into `kb/session_handoff.md`, and the TODO-hygiene rule went into `kb/project_workflow_notes.md`. I have no new task for you on the main board right now.
 <!-- ------ -->
 ---
+The board still isn't placed. I found why the batch placement can't work in this session, and I fixed it in a local copy of the MCP server.
+
+**What was wrong**
+- **The built-in placement tool** (`easyeda_pcb_modify_component`) can't work in the shipped server. It requires a project ID that its input schema doesn't accept, so it always fails.
+- **The `api_call` workaround** returns about 3 KB of state per part, which would be roughly 160k tokens of replies for 164 parts.
+- **The 15 s bridge timeouts** are only the bridge giving up while EasyEDA keeps working. EasyEDA's own import and auto-layout were not the cause, so I don't need the other EasyEDA asset folders for now.
+
+**What I did**
+- **Patched copy:** in `~/Downloads/easyeda-mcp-pro` (branch `local/batch-place`), I added a batch placement tool. It takes a list of part IDs with x, y and rotation. It returns only how many moved and any failures. It builds cleanly under Node 24.
+- **Config:** I pointed `~/.claude.json` at the patched copy and kept a backup of the old entry.
+- **Floorplan:** [floorplan_main_board.py](tools/floorplan_main_board.py) is a script I wrote. It reads the part and pad geometry I pulled from EasyEDA and writes a deterministic placement for all 164 parts, saved as `main_board_placement.json`.
+  - Connectors sit on the edges, signal pads facing inward.
+  - USB-C is on the right edge.
+  - The ADC and analog parts are on the left, away from the boost converter at the bottom right.
+  - Everything fits inside the outline.
+- **Not tested:** the placement hasn't been applied or checked on the canvas yet. Connector orientation is inferred from pad layout, so it needs a visual check.
+
+**Your steps** (items 0 and 0.1 in `docs/TODO-arcticoder.md`)
+1. Restart this Claude Code session so it loads the patched server.
+2. In EasyEDA Pro, reconnect with Advanced > MCP Bridge > Connect, and keep the `main_board` PCB tab focused.
+
+In the new session I'll apply the placement, run DRC, route, and re-validate. The `.eprj2` is not ready to commit. The kb notes and `TODO-agent.md` are updated.
+<!-- ------ -->
+---
