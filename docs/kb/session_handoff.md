@@ -1,31 +1,32 @@
-# Session handoff — written 2026-10-31 (evening) (replace at each handoff; do not append)
+# Session handoff — written 2026-11-01 (replace at each handoff; do not append)
 
-## State of the EasyEDA redesign (details and recipes in `kb/easyeda_spark_notes.md`)
+## State of the EasyEDA redesign (recipes and gotchas in `kb/easyeda_spark_notes.md`)
 
-Project `hardware/easyeda/spurious-force-balance.eprj2` (UUID in the notes; profile `full`; Node 24.22.1; bridge connected through EasyEDA Pro's Advanced > MCP Bridge > Connect, which must be repeated after the computer sleeps).
+Project `hardware/easyeda/spurious-force-balance.eprj2` (UUID in the notes; profile `full`; Node 24.22.1). Bridge: EasyEDA Pro Advanced > MCP Bridge > Connect (auto-reconnect is on; it still drops after sleep or a restart of EasyEDA).
 
 | Board (PCB uuid) | State |
 |---|---|
 | `arm` 7bc3367e1c2d2364, `clamp_plate` 3ddf518a3b25253b, `clamp_ground` a1c4bc42816028ee, `elec_board` 05dc52ccb60a9ca9 | drawn, silkscreen done, DRC clean |
-| `sensor_head_1` 6b230bf28446d8f9, `sensor_head_2` 868eebde0c888e1b | outlined, autorouted, GND pours on both layers, DRC clean |
-| `main_board` 85757acc0463db9b (Board7, schematic page a173bbce992e5a91) | schematic complete and validated (164 parts, 111 nets, no floating pins, ERC 0 errors / 57 warnings); imported into the PCB by the user (164 components); **unplaced and unrouted** (DRC: 519 connection errors + 1 clearance) |
-| `panel1` | parked: the API has no panel-content calls and the user could not paste boards into it; the order files are the KiCad panel Gerbers in `hardware/instrument/heads_panel/out/` |
+| `sensor_head_1` 6b230bf28446d8f9, `sensor_head_2` 868eebde0c888e1b | routed, GND pours, DRC clean |
+| `main_board` 85757acc0463db9b (schematic page a173bbce992e5a91) | schematic and PCB netlist agree (164 parts; validator 0 errors); outline 106.7 x 87.6 mm (x -100..4100, y -3300..150 mil); **placed** by `tools/floorplan_main_board.py` (all 164 parts, DRC placement-clean); signals autorouted in two passes (second pass log: "nets completion 90.09%, add tracks 9, vias 2"); **GND pours GND_top (id 6a590aab3806d515, layer 1) and GND_bot (deb152eb4908f417, layer 2) created at the end of this session but not yet filled**: the user rebuilds copper in Copper Manager (item 0 of `TODO-arcticoder.md`) |
+| `panel1` | parked (no panel-content API); order files are the KiCad panel Gerbers in `hardware/instrument/heads_panel/out/` |
 
-The committed `.eprj2` already holds the four mechanical boards and head 1 (the user commits it at milestones only).
-
-## Offline validation layer (new)
-
-`tools/validate_easyeda.py` (standard library only) checks the EasyEDA project from live PCB netlists (`--netlists hardware/easyeda/exports/netlists`, pulled through `easyeda_api_call` `PCB_Net.getNetlist`; no user export needed; recipe in `kb/easyeda_validation.md`) or from an `.epro2`. Checks: naming, pads without nets, I2C pull-ups, control-pin bias, floating inputs (pin types from `hardware/instrument/lib/jlc.kicad_sym`), a cross-check against the SKiDL netlist, BOM numbers, and `exports/native_checks.json`. First main-board run (2026-10-31) found that the **main_board PCB is stale**: imported before the TLV9062 unit-B designators were fixed, so pads 5-7 of U14/U15 have no nets (the schematic is correct). Alt+I said "no changes", so U14/U15 were deleted from the PCB; the user redoes Alt+I to re-add them (item 0 of `TODO-arcticoder.md`). After that, re-pull the netlists and expect 0 errors except the crystal stand-in warning.
+The committed `.eprj2` holds the four mechanical boards and head 1 only. The main board is NOT at a commit milestone.
 
 ## Next agent tasks, in order (`docs/TODO-agent.md`)
 
-1. Main board PCB: wait for the user's re-import, re-pull and validate the live netlists; no placement was done yet (164 parts at `easyeda_pcb_modify_component` one call each, or compute positions in a scratch script first; the sync leaves parts in a spaced grid, 2 layers, no stackup change possible via API); then outline (size from `docs/plan.md`), floorplan by function (power entry and boost on one edge, USB-C, RP2040 with its crystal and flash, the 4-channel ADC with its analog supplies away from the boost converter, op-amp/LED drive, connectors on the edges), place with `easyeda_pcb_modify_component`, autoroute with GND ignored (`easyeda_pcb_autoroute`), create GND pours on both layers, ask the user to rebuild copper in Copper Manager, autoroute GND, DRC to 0, re-run the validator, then tell the user the `.eprj2` is ready to commit. A 164-part 2-layer board may need to be 4 layers or hand-routed in places: check `easyeda_board_stackup` first.
-2. Main-board loose ends: the ADC crystal U13 has the C9002 stand-in's LCSC fields (set C21900468 / 3X016384UP and check pads); the schematic page is a spaced grid, not presentable (tidy it before the OSHWLab upload); the TLV9062 unit B symbols are U14/U15 (second halves of chips U14/U15).
-3. OSHWLab text and the Spark registration answers (`docs/spark_application.md` is a draft); registration closes 2026-11-30 and the user registers only after the EasyEDA design really exists.
+1. Main board routing: after the user's Copper Manager rebuild, run `easyeda_drc_run` (output is 60 KB; save-to-file then count with python: rules, nets), then a GND autoroute (`routingNets:["GND"]`, `existingPrimitiveMode:"keep"`) for pads enclosed by traces, and a signal pass (`routingNets:[...]` for the nets DRC still lists) if signals remain. The autorouter times out the bridge at 15 s but keeps running in EasyEDA (a progress percentage shows; the log line "Auto routing completed" marks the end; the user reports it): never start a second run while one is going. Aim for DRC 0; hand-route or move parts (`easyeda_pcb_place_batch`, `easyeda_pcb_modify_component`) for what the router leaves.
+2. Milestone routine (`kb/easyeda_validation.md`): refresh `hardware/easyeda/exports/native_checks.json` (main_board no longer `wip` once routed), pull live netlists (`PCB_Net.getNetlist` through `api_call`, write `exports/netlists/<board>.json`), run `python3 tools/validate_easyeda.py --netlists hardware/easyeda/exports/netlists -v`, report in `TODO-arcticoder.md`, then ask the user to commit the `.eprj2`. No user export is needed.
+3. Connector orientation: JST SM0xB and USB-C orientation was inferred from pad geometry (signal pads inward, tabs outward); ask the user to check the 3D view once routed.
+4. Main-board loose ends: ADC crystal U13 carries the C9002 stand-in's LCSC fields (set C21900468 / 3X016384UP, check pad numbering); the schematic page is a spaced grid (tidy before the OSHWLab upload); board size could shrink after routing (Standard assembly needs at least 70 x 70 mm).
+5. OSHWLab text and the Spark registration answers (`docs/spark_application.md` is a draft); registration closes 2026-11-30; the user registers only after the EasyEDA design exists.
 
-## Gotchas learnt (all in `kb/easyeda_spark_notes.md`)
+## What changed this session (details in the notes)
 
-Keep the working tab focused (`DMT_EditorControl.openDocument(uuid)` first; lost focus looks like timeouts or "failed to get pins"); chunk big nets at 6 pins per `connect_pins_by_net`; use primitive ids not designators; EasyEDA numbers designators itself; `easyeda_pcb_rebuild_copper` locks after a failed read-back (persisted in `~/.easyeda-mcp-pro/easyeda-mcp-pro.sqlite`; do not edit it): the user rebuilds copper from the UI; `easyeda_pcb_add_text` fails (use `PCB_PrimitiveString.create`); bottom silk under top copper is invisible in the combined view.
+- Validator now reads live netlists (`--netlists`), found the stale main-board import; cause was the second units of the TLV9062 (`AddIntoPcb` false); fixed by setting it true on the unit-B symbols (U14, U15) plus the user's Alt+I.
+- MCP server: `easyeda_pcb_modify_component` was broken upstream (no project id); fixed and `easyeda_pcb_place_batch` added in the user's fork `arcticoder/easyeda-mcp-pro` (branch `fix/pcb-component-project-id`, upstream PR https://github.com/oaslananka/easyeda-mcp-pro/pull/811). `~/.claude.json` runs the fork's `dist/index.js` (rebuild with Node 24.22.1 `npx tsc -p tsconfig.build.json` after changes; the `pnpm` shim for `verify:fast` is in the notes). Upstream may merge; keep using the fork until then.
+- Floorplan tooling: `tools/floorplan_main_board.py` (inputs `exports/main_board_parts.json`, output `exports/main_board_placement.json`; regenerate the inputs from `PCB_PrimitiveComponent.getAll` + `PCB_PrimitivePad.getAll` if the schematic is re-imported and ids change).
+- EasyEDA's own `PCB_Document.autoLayout` is non-deterministic and was abandoned.
 
 ## Open question from the user, still unanswered in the repo
 
@@ -37,14 +38,8 @@ An AliExpress order of 2026-10-30 is en route: 20 M3 thin (DIN439) 304 stainless
 
 ## Standing rules (see `kb/project_workflow_notes.md`)
 
-Never state a JLC price that is not in the user's words or captures; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit (the user stages and commits everything after each chat; only flag `.eprj2` milestones in `TODO-arcticoder.md`).
+Never state a JLC price that is not in the user's words or captures; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit in this repo (the user stages and commits everything after each chat; only flag `.eprj2` milestones in `TODO-arcticoder.md`); `TODO-arcticoder.md` holds only separately numbered tasks for the user (no notes to self), and any task given in chat is also written there.
 
 ## Read first
 
 Both `docs/kb/README.md` files, `kb/easyeda_spark_notes.md`, `kb/easyeda_validation.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`; then `lab/docs/kb/jlc_account_and_quotes.md` if a JLC question comes up.
-
-## Reminders moved out of TODO-arcticoder.md (2026-11-01)
-The EasyEDA bridge drops after computer sleep (user: Advanced > MCP Bridge > Connect; keep the PCB tab focused). Spark registration closes 2026-11-30 and waits for the finished EasyEDA design. Next `.eprj2` milestone to ask the user to commit: main board placed, routed, DRC-clean, validator clean, `native_checks.json` refreshed. `PCB_Document.startAutoLayout` returned nothing and moved no parts (2026-11-01; EasyEDA not busy afterwards, API calls work again).
-
-## Next session start (2026-11-01)
-Load the fork's `easyeda_pcb_place_batch` (ToolSearch select), apply `hardware/easyeda/exports/main_board_placement.json` (the ids are the current PCB primitive ids; if the schematic is re-imported, regenerate `main_board_parts.json` from `PCB_PrimitiveComponent.getAll` + `PCB_PrimitivePad.getAll` first, then run `tools/floorplan_main_board.py`). The parts currently sit in EasyEDA's second auto-layout cluster; the outline is x -100..4100, y -3300..150 mil.

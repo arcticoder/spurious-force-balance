@@ -1006,3 +1006,54 @@ The MCP fix is confirmed live and the PR is open: https://github.com/oaslananka/
 - **Docs:** `kb/easyeda_spark_notes.md` has the full routing plan.
 <!-- ------ -->
 ---
+Both kb folders are up to date. `lab/docs/kb/` needed no changes, since nothing in lab was touched. The handoff in `spurious-force-balance/docs/kb/session_handoff.md` is rewritten.
+
+**Pours:** I created GND pours on both layers of `main_board`, `GND_top` and `GND_bot`. They aren't filled yet. Item 0 in `docs/TODO-arcticoder.md` asks you to rebuild copper for both in Copper Manager and tell me when the fill appears. Your log line shows the signal routing is 90.09% complete, so some signal connections are still open.
+
+**Your next step:** do item 0, then open the next chat with the block below.
+
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons, captures
+  of JLC's quote pages).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). It is being rebuilt natively in EasyEDA Pro
+  (hardware/easyeda/spurious-force-balance.eprj2) through the easyeda-mcp-pro tools, because a KiCad/SKiDL
+  design does not qualify for EasyEDA Spark 2026; registration closes 2026-11-30, and I will not register
+  or submit anything until the EasyEDA design really exists. The four mechanical boards and both sensor-head
+  PCBs are done and DRC-clean. The instrument main board (PCB main_board) is placed (tools/floorplan_main_board.py),
+  its signals are about 90% autorouted, and GND pours exist on both layers (I rebuild their copper in Copper Manager);
+  it still needs the remaining routing, DRC 0, a clean validator run and my connector-orientation check in 3D.
+  The EasyEDA MCP server is my fork (~/Code/typescript/easyeda-mcp-pro, upstream PR #811: fixed
+  easyeda_pcb_modify_component, added easyeda_pcb_place_batch); EasyEDA's API typings are in
+  /opt/apps/easyeda-pro/resources/app/assets/pro-api/.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC's quote pages can't be read from a session and there's no API: treat any JLC price that isn't in my
+words or my captures as an estimate, and ask me for specific numbers only. docs/history.md is my chat
+transcript: don't edit it or use it as an analysis source. Pictures are lossless .jxl; .jxl and .eprj2 are
+Git LFS. Don't commit anything in these two repos: I stage and commit everything after each chat, except that
+you tell me in TODO-arcticoder.md when hardware/easyeda/spurious-force-balance.eprj2 reaches a milestone worth committing.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md as separately numbered tasks for me only (no notes to yourself; any task you give me
+in chat goes there too); anything only I can click (EasyEDA's Design > Import Changes from Schematic, Alt+I;
+Copper Manager rebuilds) goes there as literal steps. Keep docs/kb/*.md (LLM-only notes) up to date with
+discoveries. Before asking me to commit the .eprj2, refresh hardware/easyeda/exports/native_checks.json through
+MCP, pull the live PCB netlists (no export from me needed) and run tools/validate_easyeda.py --netlists
+(docs/kb/easyeda_validation.md).
+Start by reading docs/kb/README.md, docs/kb/session_handoff.md, docs/kb/easyeda_spark_notes.md and
+docs/kb/easyeda_validation.md in spurious-force-balance, then lab/docs/kb/README.md. Then continue the
+EasyEDA redesign: call easyeda_health_check (profile must be "full"), open the main_board PCB
+(DMT_EditorControl.openDocument), check DRC after my Copper Manager rebuild, finish routing main_board, then
+the OSHWLab text.
+```
+<!-- ------ -->
+---

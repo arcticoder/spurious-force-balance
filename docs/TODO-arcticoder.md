@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-0. **Tell me when EasyEDA's autorouter has finished its second pass** (I started it at about 11:45 on 2026-11-01 for the 11 nets the first pass left open; EasyEDA shows a progress percentage while it runs). Do not start another autoroute.
+0. **Rebuild copper for both ground pours in `main_board`**: in the `main_board` PCB tab open Copper Manager, select the pours `GND_top` and `GND_bot` (both created for you), rebuild each, and tell me when the fill appears on both layers.
 1. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
 2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
 3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
