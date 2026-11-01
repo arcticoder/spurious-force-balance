@@ -5,7 +5,9 @@ The pro-api typings (api.js, already present) call PCB_Document.startAutoRouting
 cancelAutoJob / getAutoJobLog, but this app version has no handlers, so those calls hang until the
 bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: rpc services next to "autoRouting" (job record + progress taken from updateProgress)
+  - pro-pcb/*/js/pcb.js: also a `router` option ("pangolin" | "jrouter") that overrides the engine otherwise derived from `optimization`
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
+  - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig
 Original files are kept as <file>.orig; `--revert` restores them. Restart EasyEDA afterwards (a restart kills a running
 autoroute). Re-run after an EasyEDA update (the patch is idempotent; a changed bundle makes it refuse).
 
@@ -49,7 +51,11 @@ UI_ADD = (
 UI_REG_ANCHOR = 'autoRouting:Vg.autoRouting}'
 UI_REG_ADD = ('autoRouting:Vg.autoRouting,startAutoRouting:Vg.startAutoRouting,getAutoJobStatus:Vg.getAutoJobStatus,'
               'getAutoJobLog:Vg.getAutoJobLog,cancelAutoJob:Vg.cancelAutoJob}')
-MARK = 'startAutoRouting'
+PCB_ROUTER_ANCHOR = 'let s=e?!1:((h=t==null?void 0:t.routingEffectPriority)!=null?h:this.config.routingEffectPriority)===0,'
+PCB_ROUTER_ADD = ('let s=e?!1:t&&t.router==="jrouter"?!0:t&&t.router==="pangolin"?!1:'
+                  '((h=t==null?void 0:t.routingEffectPriority)!=null?h:this.config.routingEffectPriority)===0,')
+API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
+API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
 
 def patch(path, edits, revert):
@@ -59,14 +65,18 @@ def patch(path, edits, revert):
             print('restored', path)
         return True
     s = open(path, encoding='utf8').read()
-    if MARK in s:
-        print('already patched', path)
-        return True
+    changed = False
     for anchor, new in edits:
+        if new in s:
+            continue
         if s.count(anchor) != 1:
             print('anchor count', s.count(anchor), 'in', path, '- bundle changed, refusing:', anchor[:60])
             return False
         s = s.replace(anchor, new)
+        changed = True
+    if not changed:
+        print('already patched', path)
+        return True
     if not os.path.exists(path + '.orig'):
         shutil.copyfile(path, path + '.orig')
     open(path, 'w', encoding='utf8').write(s)
@@ -83,8 +93,13 @@ def main():
     ui = sorted(glob.glob(a.app + '/assets/pro-ui/*/js/ui.js'))
     if len(pcb) != 1 or len(ui) != 1:
         sys.exit('expected one pcb.js and one ui.js, found %d / %d' % (len(pcb), len(ui)))
-    ok = patch(pcb[0], [(PCB_ANCHOR, PCB_ANCHOR + PCB_ADD), (PCB_PROGRESS_ANCHOR, PCB_PROGRESS_ADD)], a.revert)
+    ok = patch(pcb[0], [(PCB_ANCHOR, PCB_ANCHOR + PCB_ADD), (PCB_PROGRESS_ANCHOR, PCB_PROGRESS_ADD),
+                       (PCB_ROUTER_ANCHOR, PCB_ROUTER_ADD)], a.revert)
     ok = patch(ui[0], [(UI_ANCHOR, UI_ADD + UI_ANCHOR), (UI_REG_ANCHOR, UI_REG_ADD)], a.revert) and ok
+    api = sorted(glob.glob(a.app + '/assets/pro-api/*/api.js'))
+    if len(api) != 1:
+        sys.exit('expected one api.js, found %d' % len(api))
+    ok = patch(api[0], [(API_ANCHOR, API_ADD)], a.revert) and ok
     sys.exit(0 if ok else 1)
 
 

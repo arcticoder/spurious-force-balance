@@ -1111,3 +1111,15 @@ I patched EasyEDA's files so a route can be started, polled and cancelled, but n
 I added an open item to `TODO-agent.md` to verify the job calls live and then switch the fork's `easyeda_pcb_autoroute` tool to them. The mechanism is recorded in `kb/easyeda_spark_notes.md`.
 <!-- ------ -->
 ---
+I added the router option, but it only takes effect after one more EasyEDA restart, so I haven't used it yet.
+
+- **Router field (1):** I added a `router` option that takes `"pangolin"` or `"jrouter"` and overrides the engine otherwise chosen from `optimization`. It needed edits in `pcb.js` and `api.js`, because `api.js` was dropping unknown options. I put these edits in [tools/patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py), which now covers all three files and keeps `.orig` backups. The patched files pass a Node syntax check.
+- **Job calls (3):** after your restart they work. `getAutoJobStatus` now returns an answer immediately instead of hanging until the timeout.
+- **Progress (2):** I can't tell you the progress of the old run. It was killed by the restart, and I have not re-run DRC since. DRC before was 98 GND and 22 signal connection errors. The new job calls will show progress and state directly.
+- **Numbering (2, 4):** I renumbered `TODO-arcticoder.md` so the new step is item 1 and the existing items became 2 to 7. I dropped the timeout-setting item, and I won't offer it again.
+
+**Your next step** is item 1 in `docs/TODO-arcticoder.md`: restart EasyEDA once more, click MCP Bridge > Connect, and tell me. I'll then start a GND route on `main_board` with the other router and poll it myself. I'll cancel it and switch routers if it crawls.
+
+I recorded all of this in `kb/easyeda_spark_notes.md` and the handoff.
+<!-- ------ -->
+---
