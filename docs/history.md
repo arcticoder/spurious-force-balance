@@ -967,3 +967,26 @@ The board still isn't placed. I found why the batch placement can't work in this
 In the new session I'll apply the placement, run DRC, route, and re-validate. The `.eprj2` is not ready to commit. The kb notes and `TODO-agent.md` are updated.
 <!-- ------ -->
 ---
+The main board is placed and DRC-clean, but I can't confirm routing until EasyEDA's autorouter finishes.
+
+**Placement**
+- All 164 parts moved in three batch calls with no failures. DRC then showed 3 header clearance errors. I respaced H1–H4, and the only DRC errors left are the 526 open connections.
+- Edge connectors face outward with their signal pads inward, and USB-C is on the right edge. The ADC and analog parts sit on the left, away from the boost converter at the bottom right.
+
+**Routing**
+- I started the signal autoroute with GND left for the pours. The canvas shows tracks on both layers.
+- DRC still counts all 526 connections as open, so I think the router hasn't committed yet.
+
+**The MCP fix (for the PR)**
+- **Bug:** `easyeda_pcb_modify_component` always failed because it never sent the project ID.
+- **Fix:** it now reads the project ID first and passes it along. The PR branch also adds the batch placement tool. The branch is `fix/pcb-component-project-id` in `~/Code/typescript/easyeda-mcp-pro`.
+- **Checks:** the unit tests, type check and tool-metadata lint pass, and I added tests for both changes. I built the branch into `dist/index.js`.
+- **Not yet confirmed live.** The running server is still the older build that only has the batch tool. I haven't opened the PR, since you asked for it only once the fix is confirmed.
+
+**Your steps** (items 0 and 0.1 in `docs/TODO-arcticoder.md`)
+1. Tell me when the autorouter reaches 100%, and don't start another one.
+2. Later, point `~/.claude.json` at `/home/echo_/Code/typescript/easyeda-mcp-pro/dist/index.js`, restart Claude Code, and reconnect the bridge. Then I can confirm the fix live and open the PR.
+
+After routing I'll add the GND pours, which will need your Copper Manager rebuild. I haven't checked connector orientation in the 3D view, so that will be a task for you once routing is done.
+<!-- ------ -->
+---
