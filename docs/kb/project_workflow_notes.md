@@ -39,3 +39,6 @@ list (hands, eyes, purchases only; one-line justifications; "En route" after the
 - **JLC quote pages are unreadable from a session** and the `jlc` tool has no quotes: never present an estimated JLC price as fact, and do not send the user clicking through the quote UI for numbers that can be computed; ask for specific numbers only. The user's captures of the pages are in `lab/docs/jlc/`.
 - `docs/history.md` is the user's chat transcript: never edit it unprompted and never use it as an analysis source.
 
+
+## TODO-arcticoder.md hygiene (user's rule, 2026-11-01)
+Only separately numbered tasks for the user's hands, eyes or decisions: no notes to self, no status reports, no placeholder "nothing needed" item. Explanations, EasyEDA recipes, the bridge-reconnect reminder (Advanced > MCP Bridge > Connect after sleep), the Spark registration timing (closes 2026-11-30; register only after the design exists) and the next `.eprj2` milestone belong in `kb/` (`session_handoff.md`, `easyeda_spark_notes.md`). A task I give in chat must also be in this file. Each action is its own numbered item.

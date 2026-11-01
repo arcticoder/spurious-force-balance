@@ -932,3 +932,14 @@ The import fixed it. U14 and U15 now carry all their nets, with no duplicate foo
 I'll check the placement when it's done and fix the critical spots by hand: the crystal next to the RP2040, the analog parts away from the boost converter, and the connectors on the edges.
 <!-- ------ -->
 ---
+The main board is not placed or routed yet, and its PCB is in a worse state than before.
+
+- **Placement:** EasyEDA's auto-placement does run, but it gives different results each time. The first run spread the parts inside the outline, with a handful of pad-to-edge errors. I then ran it again, and it collapsed the parts into a dense, overlapping cluster near the middle.
+- **Outline:** it is now 106.7 × 87.6 mm, because the 100 × 80 mm one gave 7 pad-to-edge DRC errors.
+- **Autorouter:** it timed out at 15 s on this board, and I saw no traces on the canvas afterwards. I don't know whether it is still running.
+- **Next step:** I'll compute a floorplan myself and move each part with one call per part. After that I'll route, using a background job rather than a blocking call.
+- **Don't commit** the `.eprj2` in this state.
+
+**TODO file:** I removed the note-to-self item from `docs/TODO-arcticoder.md`; it now lists only your tasks, each as its own numbered item. The reminders went into `kb/session_handoff.md`, and the TODO-hygiene rule went into `kb/project_workflow_notes.md`. I have no new task for you on the main board right now.
+<!-- ------ -->
+---

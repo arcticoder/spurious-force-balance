@@ -42,3 +42,6 @@ Never state a JLC price that is not in the user's words or captures; do not edit
 ## Read first
 
 Both `docs/kb/README.md` files, `kb/easyeda_spark_notes.md`, `kb/easyeda_validation.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`; then `lab/docs/kb/jlc_account_and_quotes.md` if a JLC question comes up.
+
+## Reminders moved out of TODO-arcticoder.md (2026-11-01)
+The EasyEDA bridge drops after computer sleep (user: Advanced > MCP Bridge > Connect; keep the PCB tab focused). Spark registration closes 2026-11-30 and waits for the finished EasyEDA design. Next `.eprj2` milestone to ask the user to commit: main board placed, routed, DRC-clean, validator clean, `native_checks.json` refreshed. `PCB_Document.startAutoLayout` returned nothing and moved no parts (2026-11-01; EasyEDA not busy afterwards, API calls work again).
