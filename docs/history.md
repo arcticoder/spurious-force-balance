@@ -907,3 +907,16 @@ Each chip is two symbol instances, one per op-amp. The first has a Unique ID (`g
 I recorded all of this in `kb/easyeda_spark_notes.md`. Placement and routing still haven't started.
 <!-- ------ -->
 ---
+I don't think forking the MCP server is worth it, because the server isn't what's failing.
+
+I read the clone. The bridge extension's `api.call` just passes any EasyEDA API path through unchanged. The "No changes" message and the missing pad nets come from EasyEDA's own Import Changes. A forked server would hand EasyEDA the same data. The only thing a fork could add is a way to chain calls on returned objects, so I could set a pad's net on the PCB by hand. That would leave nets in the PCB that the schematic doesn't carry, which undermines the point of a native EasyEDA design. It would also mean rebuilding and re-importing the extension. I'd only come back to it if the fix below fails.
+
+I found a more likely cause and changed it. The second-half symbols of U14 and U15 were flagged "not added to PCB" in the schematic. That flag probably excluded their pins from the PCB netlist. The Unique ID copy from last round made no difference to the result. I've set the flag on for both second halves.
+
+**Your step:** in the `main_board` PCB tab, run Alt+I and Apply once more, then tell me what the dialog says.
+- **Duplicate U14 or U15:** if it offers to add one, tell me and I'll revert the flag.
+- **"No changes" again:** I'd replace each TLV9062 with two single op-amps. That changes the BOM and footprints, so I'll ask you before doing it.
+
+I put this in item 0 of `docs/TODO-arcticoder.md` and in `kb/easyeda_spark_notes.md`.
+<!-- ------ -->
+---
