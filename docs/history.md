@@ -1072,3 +1072,13 @@ After that I'll re-run DRC and route the 22 remaining signal connections. Anythi
 The `.eprj2` shows as modified in git, but it isn't at a commit milestone.
 <!-- ------ -->
 ---
+I can't pick the router from here, and I don't know why the autorouter is crawling. So I restarted the GND route and updated item 0 in `docs/TODO-arcticoder.md` so you can check on it.
+
+- **Router choice:** EasyEDA's API has no field for choosing the router, so JRouter versus HRouter can only be changed on your side. If the autorouter dialog offers a choice, pick HRouter. I've written that into item 0.
+- **Cause:** I think the slowdown comes from the filled pours. The 369 fill pieces on the top layer now act as obstacles, and the earlier fast passes ran before any pour existed. I haven't verified that.
+- **Where things stand:** DRC after your restart still shows 118 connection errors (98 GND and 22 signal). I started the GND route again using the newer job-style autorouter call, which should let me poll progress and cancel. It also timed out after 15 s with no job ID, so I can't tell whether it is running.
+- **What I need from you:** tell me whether a progress percentage is showing. If it stalls again, I'll stop using the autorouter for GND. Instead I'd place a ground via beside each unconnected GND pad so it ties into the pours, then ask you to rebuild copper again.
+
+The kb notes and handoff record all of this.
+<!-- ------ -->
+---
