@@ -990,3 +990,19 @@ The main board is placed and DRC-clean, but I can't confirm routing until EasyED
 After routing I'll add the GND pours, which will need your Copper Manager rebuild. I haven't checked connector orientation in the 3D view, so that will be a task for you once routing is done.
 <!-- ------ -->
 ---
+The MCP fix is confirmed live and the PR is open: https://github.com/oaslananka/easyeda-mcp-pro/pull/811. The board's signal routing isn't finished.
+
+**The PR**
+- **Live test:** `easyeda_pcb_modify_component` now works with the PR build. Preview, apply and restore all succeeded on a real part, and every call failed before the fix.
+- **Checks:** `pnpm verify:fast` passes, and I added tests for the fix and the new batch tool.
+- **Extra commit:** I committed the tool-count and capability-doc updates the repo's checks required, and pushed them to your branch.
+- **Notes:** the `pnpm` shim for `verify:fast` is in `kb/easyeda_spark_notes.md`. Removing `-old` is fine. Everything from it is in the PR branch.
+
+**The board**
+- **Signals:** the first autoroute pass finished. DRC went from 526 open connections to 171: 149 on GND, which wait for the pours, and 22 on 11 signal nets.
+- **Second pass:** I started a second autoroute for just those 11 nets. The bridge timed out waiting again, so it runs inside EasyEDA. After it finishes I add the GND pours.
+- **Your step:** tell me when EasyEDA's progress indicator finishes, and don't start another autoroute. That is item 0 in `docs/TODO-arcticoder.md`.
+- **Later steps:** the pours need your Copper Manager rebuild. You'll also check connector orientation in the 3D view.
+- **Docs:** `kb/easyeda_spark_notes.md` has the full routing plan.
+<!-- ------ -->
+---
