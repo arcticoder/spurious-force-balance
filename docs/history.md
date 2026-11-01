@@ -1082,3 +1082,14 @@ I can't pick the router from here, and I don't know why the autorouter is crawli
 The kb notes and handoff record all of this.
 <!-- ------ -->
 ---
+Nothing is patched. I'm waiting for the GND autoroute to finish before touching the board again.
+
+- **Router field (1.1):** adding it by patching `api.js` wouldn't help. That file is only the client half of EasyEDA's `pro-api` package, and it forwards the routing options to the EasyEDA app (`app.js`). The options it sends have no router-engine field, so the app would have to read a new one. The file is also checksummed in `extension.json`, and I haven't confirmed the MCP bridge loads it. Picking HRouter in the autorouter dialog is still your call.
+- **Timeouts (2):** the 15 s limit is a setting in the MCP server, not in `api.js`. `BRIDGE_TIMEOUT_MS` defaults to 15000 and can go up to 120000, set through the server's `env` in `~/.claude.json`. A longer limit only makes me wait longer for a reply. The autorouter keeps running in EasyEDA either way. I added the edit as optional item 0a in `TODO-arcticoder.md`. The Claude session has to restart for it to apply, and the restart drops the bridge, so do it after the current run ends.
+- **Copper rebuild (3.1):** it's already in the API and the server, so nothing needs patching. The server's `easyeda_pcb_rebuild_copper` tool and EasyEDA's `rebuildCopperRegion` call both exist. What blocked it was a saved read-back guard in `~/.easyeda-mcp-pro/easyeda-mcp-pro.sqlite`. I haven't tried calling `rebuildCopperRegion` directly through `api_call`, which would sidestep that guard. I'll try it next time a rebuild is needed.
+- **Your report (1, 3):** the progress percentage is showing, so a job is running. I won't touch the board or start another run until you tell me it finished. If there's no visible progress for 20 minutes, tell me and I'll switch to placing ground vias by script. The log not showing anything after the project opened could mean the log isn't wired to this job. I didn't check that.
+- **Agent tasks (4):** nothing in `TODO-agent.md` is startable until routing finishes, because every remaining item needs the routed board.
+
+I recorded the findings in `docs/kb/easyeda_spark_notes.md`.
+<!-- ------ -->
+---
