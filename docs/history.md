@@ -920,3 +920,15 @@ I found a more likely cause and changed it. The second-half symbols of U14 and U
 I put this in item 0 of `docs/TODO-arcticoder.md` and in `kb/easyeda_spark_notes.md`.
 <!-- ------ -->
 ---
+The import fixed it. U14 and U15 now carry all their nets, with no duplicate footprints (164 components). The validator reports 0 errors on the main board and both sensor heads. The cause was the second-half symbols being flagged "not added to PCB". I recorded the fix in `kb/easyeda_spark_notes.md`.
+
+**Placement:** I drew a 100 × 80 mm outline on the main board, above the 70 × 70 mm minimum for Standard assembly. The API typings you added showed that EasyEDA has its own auto-placement, so I started it. The call timed out after 15 s and returned nothing. Since then every call into EasyEDA also times out, and no part has moved, so I suspect it is still running or stuck.
+
+**Your step:**
+- **Look at EasyEDA:** check whether it shows a progress or busy indicator. If it finishes, the parts will move inside the outline.
+- **If it looks hung after a few minutes:** tell me, and I'll use the cancel call or you can restart EasyEDA. After a restart, reconnect with Advanced > MCP Bridge > Connect.
+- **Don't start it again** while it is working.
+
+I'll check the placement when it's done and fix the critical spots by hand: the crystal next to the RP2040, the analog parts away from the boost converter, and the connectors on the edges.
+<!-- ------ -->
+---
