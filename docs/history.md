@@ -1175,3 +1175,68 @@ The DRC detail patch worked, so I now see every error's primitive ids and positi
 The notes and handoff are updated.
 <!-- ------ -->
 ---
+The kb files are up to date and ready for the new chat. `lab` has no changes, so its kb stands as is.
+
+**Where `main_board` stands:** DRC shows 0 clearance errors and 44 connection errors. 26 are GND and 18 are on 9 signal nets.
+
+- **Pour rebuild:** the pour rebuild is live and works. I rebuilt both pours, and the 13 stale-fill clearance errors are gone.
+- **Router limits:** neither router connected the 9 signal nets. They need hand routing or moved parts.
+- **Nothing running:** no routing job is running.
+- **Item 1 removed:** I removed the restart item from `docs/TODO-arcticoder.md`, and the others renumbered. Your list now starts with the arm order.
+
+I updated these in `spurious-force-balance`:
+- `docs/kb/session_handoff.md` is rewritten with the state, the ordered next tasks and what changed.
+- `docs/kb/README.md` and `docs/kb/easyeda_validation.md` now mention the patched DRC detail call.
+- `docs/kb/easyeda_spark_notes.md` has the full log from this session.
+
+Context block for the next chat:
+
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons, captures
+  of JLC's quote pages).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). It is being rebuilt natively in EasyEDA Pro
+  (hardware/easyeda/spurious-force-balance.eprj2) through the easyeda-mcp-pro tools, because a KiCad/SKiDL
+  design does not qualify for EasyEDA Spark 2026; registration closes 2026-11-30, and I will not register
+  or submit anything until the EasyEDA design really exists. The four mechanical boards and both sensor-head
+  PCBs are done and DRC-clean. The instrument main board (PCB main_board) is placed (tools/floorplan_main_board.py),
+  both GND pours are filled, and DRC shows 0 clearance errors and 44 connection errors (26 GND, 18 on nine
+  signal nets that neither autorouter could connect); it still needs the rest of the routing, DRC 0, a clean
+  validator run and my connector-orientation check in 3D. I no longer click through EasyEDA for you: you code
+  the changes and ask me to restart EasyEDA when a patch must load. I patched my EasyEDA install with
+  spurious-force-balance/tools/patch_easyeda_autoroute_jobs.py (job-style autorouting with progress polling,
+  cancel and a router option; PCB_Drc.checkJson for full DRC detail; PCB_PrimitivePour.rebuildCopperById); the
+  editor code is in /opt/apps/easyeda-pro/resources/app/assets/pro-pcb, pro-ui and pro-api, and the patcher
+  keeps .orig copies. The EasyEDA MCP server is my fork (~/Code/typescript/easyeda-mcp-pro); upstream merged
+  PRs #813 and #816 (the modify_component fix and place_batch), so the fork is behind upstream main.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC's quote pages can't be read from a session and there's no API: treat any JLC price that isn't in my
+words or my captures as an estimate, and ask me for specific numbers only. docs/history.md is my chat
+transcript: don't edit it or use it as an analysis source. Pictures are lossless .jxl; .jxl and .eprj2 are
+Git LFS. Don't commit anything in these two repos: I stage and commit everything after each chat, except that
+you tell me in TODO-arcticoder.md when hardware/easyeda/spurious-force-balance.eprj2 reaches a milestone worth committing.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md as separately numbered tasks for me only (no notes to yourself; any task you give me
+in chat goes there too); only things that truly need my hands (orders, restarting EasyEDA, 3D checks) go there.
+Keep docs/kb/*.md (LLM-only notes) up to date with discoveries. Before asking me to commit the .eprj2,
+refresh hardware/easyeda/exports/native_checks.json through MCP, pull the live PCB netlists (no export from
+me needed) and run tools/validate_easyeda.py --netlists (docs/kb/easyeda_validation.md).
+Start by reading docs/kb/README.md, docs/kb/session_handoff.md, docs/kb/easyeda_spark_notes.md and
+docs/kb/easyeda_validation.md in spurious-force-balance, then lab/docs/kb/README.md. Then continue the
+EasyEDA redesign: call easyeda_health_check (profile must be "full"), open the main_board PCB
+(DMT_EditorControl.openDocument), run a GND autoroute pass to completion with PCB_Document.startAutoRouting
+and poll it, rebuild the pours, route the nine failed signal nets by hand or by moving parts, get DRC to 0
+with PCB_Drc.checkJson, then the milestone routine and the OSHWLab text.
+```
+<!-- ------ -->
+---
