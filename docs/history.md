@@ -1152,3 +1152,14 @@ I recorded the details in the kb notes, the handoff and `TODO-agent.md`.
 The notes, handoff and `TODO-agent.md` are updated.
 <!-- ------ -->
 ---
+I've patched EasyEDA so I can read the DRC detail myself, and the patch needs one restart to load.
+
+- **Cause:** the `[MaxDepth]` markers come from the bridge extension, which cuts any result at 5 levels deep. EasyEDA itself returns the full result. A string result passes through untouched.
+- **Patch:** I added a `PCB_Drc.checkJson` call to `api.js` through [tools/patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py). It returns the whole DRC result as one JSON string. The patched file passes a Node syntax check, and no change to `easyeda-mcp-pro` was needed.
+- **Unverified:** I don't know yet whether the result keeps the per-error track, via and pad ids and coordinates. If it doesn't, my fallback is to compute the clearance conflicts myself from the primitive data, as I did for the GND connectivity check.
+
+**Your next step** is item 1 in `docs/TODO-arcticoder.md`: restart EasyEDA Pro and click MCP Bridge > Connect. You don't need to read the DRC panel. After that I'll pull the detail and fix the clearance errors and open connections on `main_board`.
+
+I recorded this in `kb/easyeda_spark_notes.md`.
+<!-- ------ -->
+---

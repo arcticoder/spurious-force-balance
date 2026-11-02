@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Send me the `main_board` DRC detail**: in the `main_board` PCB tab open the DRC panel, run the check, expand "Clearance Error" and "Connection Error", and paste the list (or screenshots) of the entries with their coordinates or names. The bridge returns only counts (41 clearance errors and 24 connection errors), so I cannot see which tracks and pads they are, and I need that to fix them without guessing.
+1. **Restart EasyEDA Pro and reconnect the MCP bridge** (Advanced > MCP Bridge > Connect), then tell me: it loads a patch that returns the full DRC detail (which tracks, vias and pads each error involves) to me, so you do not need to read the DRC panel.
 2. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
 3. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
 4. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.

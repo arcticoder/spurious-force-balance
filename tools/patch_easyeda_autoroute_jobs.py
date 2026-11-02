@@ -8,7 +8,8 @@ bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: also a `router` option ("pangolin" | "jrouter") that overrides the engine otherwise derived from `optimization`
   - pro-pcb/*/js/pcb.js: the 15-minute API timeout timer of an earlier job no longer kills a later job
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
-  - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig
+  - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig; adds PCB_Drc.checkJson (the full DRC result
+                         as a JSON string, because the bridge's normalizer replaces anything deeper than 5 levels with [MaxDepth])
 Original files are kept as <file>.orig; `--revert` restores them. Restart EasyEDA afterwards (a restart kills a running
 autoroute). Re-run after an EasyEDA update (the patch is idempotent; a changed bundle makes it refuse).
 
@@ -58,6 +59,11 @@ PCB_ROUTER_ADD = ('let s=e?!1:t&&t.router==="jrouter"?!0:t&&t.router==="pangolin
 PCB_TIMER_ANCHOR = 'setTimeout(()=>{this.routingPromiseReject&&(this.routingPromiseReject(new Error("Auto routing timed out after 15 minutes"))'
 PCB_TIMER_ADD = ('setTimeout(()=>{this.routingPromiseResolve===d&&this.routingPromiseReject&&'
                  '(this.routingPromiseReject(new Error("Auto routing timed out after 15 minutes"))')
+DRC_ANCHOR = 'async check(t=!0,i=!1,n=!1){return await T.extensionApiMessageBus2.rpcCall("extensionApi.PCB_Drc.check",{strict:t,userInterface:i,includeVerboseError:n})}'
+DRC_ADD = (DRC_ANCHOR + 'async checkJson(t=!0,i=!1,n=!0){let r=await this.check(t,i,n),st=[];'
+           'return JSON.stringify(r,function(k,v){while(st.length&&st[st.length-1]!==this)st.pop();'
+           'if(typeof v=="object"&&v!==null){if(st.includes(v))return"[Circular]";st.push(v)}'
+           'else if(typeof v=="function")return"[Function]";return v})}')
 API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
 API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
@@ -103,7 +109,7 @@ def main():
     api = sorted(glob.glob(a.app + '/assets/pro-api/*/api.js'))
     if len(api) != 1:
         sys.exit('expected one api.js, found %d' % len(api))
-    ok = patch(api[0], [(API_ANCHOR, API_ADD)], a.revert) and ok
+    ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD)], a.revert) and ok
     sys.exit(0 if ok else 1)
 
 
