@@ -1240,3 +1240,30 @@ with PCB_Drc.checkJson, then the milestone routine and the OSHWLab text.
 ```
 <!-- ------ -->
 ---
+`main_board` is not routed yet. I stopped because I need you to restart EasyEDA Pro before I can finish it.
+
+**What you need to do:** restart EasyEDA Pro and reconnect the bridge (EasyEDA Pro Advanced > MCP Bridge > Connect). The project is saved. The restart loads a patch I added: bulk via and track creation. Without it, placing about 70 stitching vias costs roughly 100k tokens of tool replies. It's item 0 in [TODO-arcticoder.md](docs/TODO-arcticoder.md).
+
+**Where the board stands:**
+- **Before:** the previous placement was too dense to route. A GND autoroute pass finished but left tracks overlapping signal tracks. Hand-placed GND stitching vias mostly landed in pour fragments.
+- **New layout:** I spread the placement (`FP_SCALE=1.1`, `FP_MARGIN=40`, new options in [floorplan_main_board.py](tools/floorplan_main_board.py)). The outline grew from 106.7 × 87.6 mm to 117.3 × 96.8 mm. The JLC cost effect of the larger board is unknown, so I'll ask you for a quote once the layout is final.
+- **Re-route:** I re-routed the signals, deleted the stale GND copper and recreated both GND pours.
+- **DRC:** 0 clearance errors and 114 connection errors. Of those, 90 are GND pads the pours don't reach and 24 are on nine open signal nets (XIN, DVDD_1V1, DUT_EN, MON_5V, LED1_MOD, LED2_MOD, I2C_SDA, I2C_SCL, SPARE_A/G/H).
+- **Not done:** the stitching vias, hand-routing the nine nets, the milestone validator run and the OSHWLab text. The `.eprj2` is not at a commit milestone, and I haven't edited [TODO-arcticoder.md](docs/TODO-arcticoder.md) for one.
+
+**Next, once you've restarted:**
+1. Place the stitching vias. A scripted plan found a spot for 68 of the 90 pads. The other 22 need a short track or a nudged part.
+2. Hand-route the nine signal nets.
+3. Rebuild the pours and get DRC to 0.
+
+I won't use the autorouter on GND again.
+
+**Docs and repo:**
+- [session_handoff.md](docs/kb/session_handoff.md) is rewritten for the next session.
+- The lessons are the last bullet in [easyeda_spark_notes.md](docs/kb/easyeda_spark_notes.md): remove mode only clears the nets you list, and the GND pass overlaps signals.
+- [TODO-agent.md](docs/TODO-agent.md) is updated.
+- [README.md](README.md) now has an EasyEDA status row.
+- The repo About now mentions the EasyEDA Pro rebuild, with new topics `easyeda` and `oshwlab`.
+- The patch change is in [patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py); it is applied and syntax-checked but not yet loaded.
+<!-- ------ -->
+---

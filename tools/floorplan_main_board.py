@@ -10,8 +10,9 @@ import json, math, re, collections, os
 EXP = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'hardware', 'easyeda', 'exports')
 o = json.load(open(os.path.join(EXP, 'main_board_parts.json')))
 POWER = re.compile(r'^(GND|V5|3V3_D|3V3_A|3V3_AR|VBUS|VBUS_F|V24|V24_RAW|V5_BOOST|DVDD_1V1)$')
-X0, X1, Y0, Y1 = -50, 4050, -3250, 100      # interior limits for part bodies
-MARGIN = 28
+SCALE = float(os.environ.get('FP_SCALE', '1.0'))   # spreads the anchor positions and the interior (1.0 = the 2026-11-01 106.7 x 87.6 mm board)
+X0, X1, Y0, Y1 = -50, 4050 * SCALE, -3250 * SCALE, 100      # interior limits for part bodies
+MARGIN = float(os.environ.get('FP_MARGIN', '28'))
 
 def rot_pads(pads, d):
     d %= 360
@@ -90,6 +91,16 @@ ANCH = [
     ('U5', 2700, -750, None, False), ('Q4', 2800, -2850, None, False), ('Q5', 3200, -2850, None, False),
 ]
 for des, x, y, rot, edge in ANCH:
+    # edge parts keep hugging their edge: left (x ~ 55) and top (y ~ 0) stay, right and bottom edges shift out with the board;
+    # positions along an edge, and the ICs, spread with the scale
+    if edge and x > 3900:
+        x += 4050 * (SCALE - 1)
+    elif x >= 100:
+        x *= SCALE
+    if edge and y < -3000:
+        y -= 3250 * (SCALE - 1)
+    elif y <= -100:
+        y *= SCALE
     place(des, x, y, rot, edge)
 
 # ---- greedy for everything else

@@ -9,6 +9,7 @@ bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: the 15-minute API timeout timer of an earlier job no longer kills a later job
   - pro-pcb/*/js/pcb.js: the API autoroute timeout is 60 minutes instead of 15
   - pro-api/*/api.js:    PCB_PrimitivePour.rebuildCopperById(id | ids) (rebuild copper without the MCP tool's persisted guard)
+  - pro-api/*/api.js:    PCB_PrimitiveVia.createMany([[net,x,y,holeDia,dia],...]) and PCB_PrimitiveLine.createMany([[net,layer,x1,y1,x2,y2,width],...]) (ids only, no 1.5 KB state per primitive)
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
   - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig; adds PCB_Drc.checkJson (the full DRC result
                          as a JSON string, because the bridge's normalizer replaces anything deeper than 5 levels with [MaxDepth])
@@ -72,6 +73,12 @@ POUR_ADD = ('async rebuildCopperById(t){let o=[];for(let i of(Array.isArray(t)?t
             + POUR_ANCHOR)
 PCB_LIMIT_ANCHOR = 'let u=900*1e3;return new Promise((d,p)=>{'
 PCB_LIMIT_ADD = 'let u=36e5;return new Promise((d,p)=>{'
+VIA_ANCHOR = 'async delete(t){let i=[];return typeof t=="string"?i.push(t):t instanceof qi?'
+VIA_ADD = ('async createMany(t){let o=[];for(let i of t){let v=await new qi(i[0],i[1],i[2],i[3],i[4]).create();o.push(v.getState_PrimitiveId())}return o}'
+           + VIA_ANCHOR)
+LINE_ANCHOR = 'async delete(t){let i=[];typeof t=="string"?i.push(t):t instanceof sn?'
+LINE_ADD = ('async createMany(t){let o=[];for(let i of t){let v=await new sn(i[0],i[1],i[2],i[3],i[4],i[5],i[6]).create();o.push(v.getState_PrimitiveId())}return o}'
+            + LINE_ANCHOR)
 API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
 API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
@@ -117,7 +124,8 @@ def main():
     api = sorted(glob.glob(a.app + '/assets/pro-api/*/api.js'))
     if len(api) != 1:
         sys.exit('expected one api.js, found %d' % len(api))
-    ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD), (POUR_ANCHOR, POUR_ADD)], a.revert) and ok
+    ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD), (POUR_ANCHOR, POUR_ADD),
+                       (VIA_ANCHOR, VIA_ADD), (LINE_ANCHOR, LINE_ADD)], a.revert) and ok
     sys.exit(0 if ok else 1)
 
 
