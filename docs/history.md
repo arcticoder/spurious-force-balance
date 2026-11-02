@@ -1140,3 +1140,15 @@ You have nothing to do right now. `TODO-arcticoder.md` item 1 is done.
 I recorded the details in the kb notes, the handoff and `TODO-agent.md`.
 <!-- ------ -->
 ---
+`main_board` is not finished: DRC shows 41 clearance errors and 24 open connections, and I need your help reading them.
+
+- **PR comment:** it needs no action. #813 fixed `easyeda_pcb_modify_component` and #816 added a verified `easyeda_pcb_place_batch`, both merged on 2026-11-01. The owner kept #811 open only until the batch tool landed, so it can now be closed. My local fork is behind upstream main. Switching to upstream needs a rebuild and a session restart, so I haven't done it.
+- **Open connections:** GND dropped from 33 to 6 open connections after a pangolin pass. The signal nets are untouched, with 18 open connections across nine nets: `LED1_MOD`, `3V3_D`, `I2C_SCL`, `SPARE_A`, `SPARE_F`, `SPARE_G`, `SPARE_H`, `USB_DP` and `QSPI_SD1`. `I2C_SDA` is no longer listed.
+- **Clearance errors:** the 41 clearance errors appeared after I cancelled that pangolin pass at 60%, so I suspect the cancelled pass left tracks that violate clearance. I cancelled because it ran 13 minutes, and the 15-minute timeout would have undone the whole run. A second pass that completed fixed nothing.
+- **Why I'm stuck:** the bridge's DRC returns only counts, not which tracks or pads are involved. An offline connectivity check I wrote found 22 isolated GND pad groups. Most are single passive pads with no copper island big enough for a via.
+
+**Your next step** is item 1 in `docs/TODO-arcticoder.md`. Open the DRC panel on `main_board`, run the check, and paste the Clearance Error and Connection Error entries. With those I can fix the errors without guessing, then hand-route or re-place parts for the signal nets.
+
+The notes, handoff and `TODO-agent.md` are updated.
+<!-- ------ -->
+---
