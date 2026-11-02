@@ -1286,3 +1286,15 @@ After your restart, the new bulk-create methods worked. I placed 68 GND stitchin
 [session_handoff.md](docs/kb/session_handoff.md), the last bullets of [easyeda_spark_notes.md](docs/kb/easyeda_spark_notes.md) and [TODO-agent.md](docs/TODO-agent.md) are updated, and item 0 is removed from [TODO-arcticoder.md](docs/TODO-arcticoder.md).
 <!-- ------ -->
 ---
+**1. DRC token cost:** Yes, it can be fixed in the app patch, and I've done that. [patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py) now adds `PCB_Drc.checkCompact(strict, ui, maxErrors)`. By default it returns only error counts per group, about 300 characters. With `maxErrors` set it also returns one short line per error: group, type, objects, ids, x/y and distance. It is applied and syntax-checked, but it only loads after an EasyEDA restart. That is item 1 in [TODO-arcticoder.md](docs/TODO-arcticoder.md): please restart EasyEDA and reconnect the bridge, and tell me when it's connected.
+
+**2. `main_board` routing:** Still not routed. DRC was last run before the final via delete; it showed 1 clearance error and 63 connection errors, and I expect 0 clearance errors now. The project is saved.
+
+- **What I tried:** I wrote [route_open_nets.py](tools/route_open_nets.py), an offline two-layer maze router. It reads the live pads, tracks and vias and outputs plans for the new bulk create calls.
+- **What happened:** It needs a 2.5 mil grid to get through the U4 pin pitch. Only XIN and DUT_EN found paths. Both are absurd detours: XIN, a crystal input, ran about 2,000 mil around the board with 8 vias. I did not apply them.
+- **The other nine nets** (MON_5V, LED1_MOD, LED2_MOD, I2C_SDA, I2C_SCL, SPARE_A/G/H, DVDD_1V1) have no path. Their pads are walled in by the autorouter's fan-out tracks from neighbouring pins.
+- **Decision:** The next step is to rip up the signal tracks around U4 and route those nets together in a deliberate order. Or I make room first by moving U4's decoupling capacitors and the H1–H4 headers. Then I stitch the remaining GND pads and get DRC to 0.
+
+The decision, the router's limits and the `checkCompact` details are in [easyeda_spark_notes.md](docs/kb/easyeda_spark_notes.md). [TODO-agent.md](docs/TODO-agent.md) and [session_handoff.md](docs/kb/session_handoff.md) are updated.
+<!-- ------ -->
+---

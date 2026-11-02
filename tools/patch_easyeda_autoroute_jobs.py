@@ -10,6 +10,7 @@ bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: the API autoroute timeout is 60 minutes instead of 15
   - pro-api/*/api.js:    PCB_PrimitivePour.rebuildCopperById(id | ids) (rebuild copper without the MCP tool's persisted guard)
   - pro-api/*/api.js:    PCB_PrimitiveVia.createMany([[net,x,y,holeDia,dia],...]) and PCB_PrimitiveLine.createMany([[net,layer,x1,y1,x2,y2,width],...]) (ids only, no 1.5 KB state per primitive)
+  - pro-api/*/api.js:    PCB_Drc.checkCompact(strict, ui, maxErrors): JSON {counts per group, errors: up to maxErrors one-line strings 'group|type|obj1|obj2|ids|x_mil|y_mil|distance'}; counts only by default (a checkJson reply can cost 25k tokens of context)
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
   - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig; adds PCB_Drc.checkJson (the full DRC result
                          as a JSON string, because the bridge's normalizer replaces anything deeper than 5 levels with [MaxDepth])
@@ -79,6 +80,13 @@ VIA_ADD = ('async createMany(t){let o=[];for(let i of t){let v=await new qi(i[0]
 LINE_ANCHOR = 'async delete(t){let i=[];typeof t=="string"?i.push(t):t instanceof sn?'
 LINE_ADD = ('async createMany(t){let o=[];for(let i of t){let v=await new sn(i[0],i[1],i[2],i[3],i[4],i[5],i[6]).create();o.push(v.getState_PrimitiveId())}return o}'
             + LINE_ANCHOR)
+COMPACT_ANCHOR = 'async checkJson('
+COMPACT_ADD = ('async checkCompact(t=!0,i=!1,n=0){let r=await this.check(t,i,!0),c={},o=[];'
+               'for(let s of r||[])for(let g of s.list||[]){c[s.name+" / "+g.name]=(g.list||[]).length;'
+               'for(let e of g.list||[]){if(o.length>=n)continue;let d=e.explanation&&e.explanation.errData||{},p=e.pos||{};'
+               'o.push([g.name,e.errorObjType,d.obj1Suffix||"",d.obj2Suffix||"",(e.objs||[]).join(","),Math.round((p.x||0)*10),Math.round((p.y||0)*10),'
+               '(e.explanation&&e.explanation.param&&e.explanation.param.minDistance)||""].join("|"))}}'
+               'return JSON.stringify({counts:c,errors:o})}' + COMPACT_ANCHOR)
 API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
 API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
@@ -125,7 +133,7 @@ def main():
     if len(api) != 1:
         sys.exit('expected one api.js, found %d' % len(api))
     ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD), (POUR_ANCHOR, POUR_ADD),
-                       (VIA_ANCHOR, VIA_ADD), (LINE_ANCHOR, LINE_ADD)], a.revert) and ok
+                       (VIA_ANCHOR, VIA_ADD), (LINE_ANCHOR, LINE_ADD), (COMPACT_ANCHOR, COMPACT_ADD)], a.revert) and ok
     sys.exit(0 if ok else 1)
 
 
