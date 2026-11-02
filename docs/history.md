@@ -1163,3 +1163,15 @@ I've patched EasyEDA so I can read the DRC detail myself, and the patch needs on
 I recorded this in `kb/easyeda_spark_notes.md`.
 <!-- ------ -->
 ---
+The DRC detail patch worked, so I now see every error's primitive ids and positions. That showed me which tracks and vias were wrong. `main_board` still has 13 clearance and 44 connection errors, and I need one more restart to finish it.
+
+- **What the detail showed:** the cancelled pangolin pass had left 12 GND tracks and 5 GND vias overlapping other nets' tracks (0 mil apart). I deleted those 17 items, which cleared 28 of the 41 clearance errors.
+- **What that cost:** GND is reopened, with 26 connection errors, many of them dangling router stubs. The 18 signal connection errors on the 9 nets are unchanged (`I2C_SDA` is routed now).
+- **The remaining 13 clearance errors:** the existing top and bottom GND pour fills are out of date. A router pass added `I2C_SDA` tracks and vias after the pours were filled, so the pours need rebuilding.
+- **Why I couldn't rebuild:** `easyeda_pcb_rebuild_copper` fails with a read-back mismatch and then locks itself. I added `PCB_PrimitivePour.rebuildCopperById` to `api.js`, which calls the app's rebuild directly, so no one needs to click Copper Manager. I also raised the API autoroute time limit from 15 to 60 minutes in `pcb.js`, because the pangolin GND pass needed more than 13 minutes to reach 60%. Both patches are in [tools/patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py), and both files pass a Node syntax check.
+
+**Your next step** is item 1 in `docs/TODO-arcticoder.md`: restart EasyEDA Pro and click MCP Bridge > Connect. After that I'll rebuild both pours, run the GND pass to completion, re-check DRC, and then deal with the signal nets.
+
+The notes and handoff are updated.
+<!-- ------ -->
+---

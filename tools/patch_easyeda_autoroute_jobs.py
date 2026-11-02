@@ -7,6 +7,8 @@ bridge times out. This script adds them:
   - pro-pcb/*/js/pcb.js: rpc services next to "autoRouting" (job record + progress taken from updateProgress)
   - pro-pcb/*/js/pcb.js: also a `router` option ("pangolin" | "jrouter") that overrides the engine otherwise derived from `optimization`
   - pro-pcb/*/js/pcb.js: the 15-minute API timeout timer of an earlier job no longer kills a later job
+  - pro-pcb/*/js/pcb.js: the API autoroute timeout is 60 minutes instead of 15
+  - pro-api/*/api.js:    PCB_PrimitivePour.rebuildCopperById(id | ids) (rebuild copper without the MCP tool's persisted guard)
   - pro-ui/*/js/ui.js:   Vg wrappers and the PCB_Document registry entries
   - pro-api/*/api.js:    passes `router` through getAutoRoutingUserConfig; adds PCB_Drc.checkJson (the full DRC result
                          as a JSON string, because the bridge's normalizer replaces anything deeper than 5 levels with [MaxDepth])
@@ -64,6 +66,12 @@ DRC_ADD = (DRC_ANCHOR + 'async checkJson(t=!0,i=!1,n=!0){let r=await this.check(
            'return JSON.stringify(r,function(k,v){while(st.length&&st[st.length-1]!==this)st.pop();'
            'if(typeof v=="object"&&v!==null){if(st.includes(v))return"[Circular]";st.push(v)}'
            'else if(typeof v=="function")return"[Function]";return v})}')
+POUR_ANCHOR = 'async getAll(t,i,n){let r={};return typeof t<"u"&&(r.net=t),typeof i<"u"&&(r.layer=i),typeof n<"u"&&(r.primitiveLock=n),(await T.extensionApiMessageBus2.rpcCall("extensionApi.PCB_PrimitivePour.getAll",r))'
+POUR_ADD = ('async rebuildCopperById(t){let o=[];for(let i of(Array.isArray(t)?t:[t]))'
+            'o.push(!!await T.extensionApiMessageBus2.rpcCall("extensionApi.PCB_PrimitivePour.rebuildCopperRegion",{ids:[i],isLast:!1}));return o}'
+            + POUR_ANCHOR)
+PCB_LIMIT_ANCHOR = 'let u=900*1e3;return new Promise((d,p)=>{'
+PCB_LIMIT_ADD = 'let u=36e5;return new Promise((d,p)=>{'
 API_ANCHOR = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[]}'
 API_ADD = 'ignoreNets:(t==null?void 0:t.ignoreNets)||[],ignoreLayers:[],router:t==null?void 0:t.router}'
 
@@ -104,12 +112,12 @@ def main():
     if len(pcb) != 1 or len(ui) != 1:
         sys.exit('expected one pcb.js and one ui.js, found %d / %d' % (len(pcb), len(ui)))
     ok = patch(pcb[0], [(PCB_ANCHOR, PCB_ANCHOR + PCB_ADD), (PCB_PROGRESS_ANCHOR, PCB_PROGRESS_ADD),
-                       (PCB_ROUTER_ANCHOR, PCB_ROUTER_ADD), (PCB_TIMER_ANCHOR, PCB_TIMER_ADD)], a.revert)
+                       (PCB_ROUTER_ANCHOR, PCB_ROUTER_ADD), (PCB_TIMER_ANCHOR, PCB_TIMER_ADD), (PCB_LIMIT_ANCHOR, PCB_LIMIT_ADD)], a.revert)
     ok = patch(ui[0], [(UI_ANCHOR, UI_ADD + UI_ANCHOR), (UI_REG_ANCHOR, UI_REG_ADD)], a.revert) and ok
     api = sorted(glob.glob(a.app + '/assets/pro-api/*/api.js'))
     if len(api) != 1:
         sys.exit('expected one api.js, found %d' % len(api))
-    ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD)], a.revert) and ok
+    ok = patch(api[0], [(API_ANCHOR, API_ADD), (DRC_ANCHOR, DRC_ADD), (POUR_ANCHOR, POUR_ADD)], a.revert) and ok
     sys.exit(0 if ok else 1)
 
 
