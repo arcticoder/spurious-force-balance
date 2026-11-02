@@ -1298,3 +1298,19 @@ After your restart, the new bulk-create methods worked. I placed 68 GND stitchin
 The decision, the router's limits and the `checkCompact` details are in [easyeda_spark_notes.md](docs/kb/easyeda_spark_notes.md). [TODO-agent.md](docs/TODO-agent.md) and [session_handoff.md](docs/kb/session_handoff.md) are updated.
 <!-- ------ -->
 ---
+The EasyEDA and Spark route is dropped, and KiCad is the design source again. I made no edits to the KiCad/SKiDL design, Gerbers or panel files, so they are as they were. I did not rerun any checks after the doc edits.
+
+**What I did:**
+- **Router:** I stopped the background router.
+- **TODO files:** [TODO-agent.md](docs/TODO-agent.md) now says no EasyEDA work is open. I removed the EasyEDA restart item from [TODO-arcticoder.md](docs/TODO-arcticoder.md) and renumbered the rest. [TODO-completed.md](docs/TODO-completed.md) has a dated entry listing what was built and left behind.
+- **Notes:** The EasyEDA kb notes and the Spark draft carry a "shelved" banner. [session_handoff.md](docs/kb/session_handoff.md) is rewritten for KiCad. It carries over the layout lessons: leave room around the RP2040 and plan on roughly 117 × 97 mm unless the spare headers shrink.
+- **README and GitHub About:** I removed the EasyEDA status row from the README. I set the repo description back to the KiCad wording and removed the `easyeda` and `oshwlab` topics.
+- **Memory:** I updated my own notes so I don't offer EasyEDA or Spark again.
+
+**Still on your side:**
+- [spurious-force-balance.eprj2](hardware/easyeda/spurious-force-balance.eprj2) shows as modified in git and is no longer needed. Commit it or drop it.
+- Your EasyEDA install is still patched. `python3 tools/patch_easyeda_autoroute_jobs.py --revert` restores the stock files if you want that.
+
+**Next in KiCad:** Nothing is startable without you or the board. The main-board layout waits on the prototype noise measurement and the go/no-go. I can start the layout now if you'd rather not wait for that.
+<!-- ------ -->
+---

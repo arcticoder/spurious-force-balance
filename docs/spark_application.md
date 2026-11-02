@@ -1,3 +1,5 @@
+> SHELVED 2026-11-01: the EasyEDA Spark route was dropped; this draft is kept for reference only.
+
 # EasyEDA Spark 2026: registration answers
 
 **Draft, do not submit yet.** Registration waits until the design has actually been redone in EasyEDA Pro (a KiCad or SKiDL design does not qualify, so the answers must describe the EasyEDA design as it exists).

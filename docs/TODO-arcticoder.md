@@ -8,16 +8,15 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Restart EasyEDA Pro** when I ask at the end of this chat (the project will be saved; a new compact DRC call loads only at a restart), reconnect EasyEDA Pro Advanced > MCP Bridge > Connect, and tell me when it is connected.
-2. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
-3. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
-4. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
-5. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
+1. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
+2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
+3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
+4. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
    Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
-6. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
+5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
    using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
    It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
-7. **JLCMC fasteners:** check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
+6. **JLCMC fasteners:** check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
 
 ## Next orders — JLC mechanical boards (two orders)
 

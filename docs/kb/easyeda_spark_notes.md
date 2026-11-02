@@ -1,3 +1,5 @@
+> SHELVED 2026-11-01: the EasyEDA/Spark route was dropped and KiCad is the design source again. Read this only if EasyEDA work is ever resumed (state of the main board: 117.3 x 96.8 mm, 0 clearance errors, 62 open connections around U4, project saved in `hardware/easyeda/`).
+
 # EasyEDA MCP bridge and the Spark competition (2026-10-29)
 
 ## easyeda-mcp-pro

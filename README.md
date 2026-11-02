@@ -19,7 +19,6 @@ measurement, at a parts cost to be filled in from the final bill of materials.
 | G3 force-noise prediction | 0.108 nN (1σ, 1000 s, in air): a conditional go |
 | WP1–WP3: requirements, 48 JLC-stocked parts, analog block simulations | done |
 | WP4 schematic | done as checked netlists (main board + four head boards, 50 JLC parts); sheet rendering and WP5 layout wait |
-| EasyEDA Pro rebuild | the four mechanical boards and both sensor-head boards are drawn natively and DRC clean; the main board (164 parts) is placed and being routed; the project is `hardware/easyeda/spurious-force-balance.eprj2` |
 | A5: prototype noise measurement | next; it decides layout and the board order |
 
 The prediction is dominated by air currents (4.8 nN/√Hz), so the verdict flips at about 4 mm/s of air-speed

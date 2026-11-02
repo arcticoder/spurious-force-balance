@@ -1,3 +1,5 @@
+> SHELVED 2026-11-01 with the EasyEDA route (see `easyeda_spark_notes.md`); the milestone routine no longer applies.
+
 # EasyEDA offline validation layer (2026-11-01)
 
 Purpose: a second, tool-independent check of the EasyEDA project, runnable by any LLM or CI job without MCP access to EasyEDA. The user's rule: run it at every milestone, i.e. before telling them to commit `hardware/easyeda/spurious-force-balance.eprj2`, and report the result in `TODO-arcticoder.md`.

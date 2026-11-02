@@ -112,19 +112,24 @@ def components(net_objs):
 
 DIRS = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0), (1, 1, 1.414), (1, -1, 1.414), (-1, 1, 1.414), (-1, -1, 1.414)]
 
+MAXEXP = int(os.environ.get('RT_MAXEXP', 1500000))
+
 def astar(srcs, tgts, blk, vblk, tcent):
     """srcs/tgts: sets of (L,i,j); blk[L][j,i] blocked for track centres; vblk same for via centres"""
     tx, ty = tcent
     def hcost(i, j):
         dx, dy = abs(i - tx), abs(j - ty)
         return (dx + dy) + (1.414 - 2) * min(dx, dy)
-    pq = []; g = {}; came = {}
+    pq = []; g = {}; came = {}; nexp = 0
     for s in srcs:
         g[s] = 0.0; heapq.heappush(pq, (hcost(s[1], s[2]), 0.0, s))
     while pq:
         f, c, s = heapq.heappop(pq)
         if c > g.get(s, 1e18):
             continue
+        nexp += 1
+        if nexp > MAXEXP:
+            return None
         if s in tgts:
             path = [s]
             while path[-1] in came:
@@ -220,8 +225,11 @@ def route(objs, nets):
                     plan['vias'].append([net, round(x, 2), round(y, 2), VH, VD])
                     objs.append(Obj(net, Point(x, y).buffer(VD / 2), (1, 2), 'via'))
             # tie the route ends to pad centres so the copper certainly overlaps
+            json.dump(plan, open(OUT, 'w'))
             print('routed', net, 'components', len(comps), '->', len(comps) - 1, flush=True)
     return plan
+
+OUT = sys.argv[4] if len(sys.argv) > 4 else 'plan.json'
 
 if __name__ == '__main__':
     objs = load(sys.argv[1], sys.argv[2], sys.argv[3])
