@@ -1267,3 +1267,22 @@ I won't use the autorouter on GND again.
 - The patch change is in [patch_easyeda_autoroute_jobs.py](tools/patch_easyeda_autoroute_jobs.py); it is applied and syntax-checked but not yet loaded.
 <!-- ------ -->
 ---
+The remaining "item 0" is the older stale-import note and is unrelated to this change.
+
+`main_board` is not finished: 63 connection errors remain and 0 clearance errors. The project is saved.
+
+After your restart, the new bulk-create methods worked. I placed 68 GND stitching vias in one call, rebuilt both pours and re-ran DRC. That brought connection errors down from 114 to 63. I then deleted one via that sat too close to the USB-C slot, which cleared the only clearance error. I did not re-run DRC after that delete or after the final save, so the 0 clearance figure is expected rather than confirmed.
+
+**What's left, all in the RP2040 (U4) escape area and the spare-header run to the bottom edge:**
+- **GND (39 errors):** about 22 pads had no clear spot for an overlapping via, and about 10 of my vias landed in pour fragments instead of the main pour.
+- **Signals (24 errors):** nine nets are still open: XIN, MON_5V, DUT_EN, DVDD_1V1, LED1_MOD, LED2_MOD, I2C_SDA, I2C_SCL, SPARE_A/G/H.
+
+**Next:** hand-route those nets and the remaining GND pads with `PCB_PrimitiveLine.createMany` and `PCB_PrimitiveVia.createMany`, rebuild the pours and get DRC to 0. Then the milestone validator run, the `.eprj2` commit request, your 3D connector check and the OSHWLab text.
+
+**Costs and risks:**
+- The board is now 117.3 × 96.8 mm, up from 106.7 × 87.6 mm. I don't know how that changes the JLC price, so I'll ask you for a quote once the layout is final.
+- One `checkJson` DRC call came back inline and cost about 25k tokens of context. The kb notes now say to call it only when the board is nearly clean.
+
+[session_handoff.md](docs/kb/session_handoff.md), the last bullets of [easyeda_spark_notes.md](docs/kb/easyeda_spark_notes.md) and [TODO-agent.md](docs/TODO-agent.md) are updated, and item 0 is removed from [TODO-arcticoder.md](docs/TODO-arcticoder.md).
+<!-- ------ -->
+---
