@@ -1,0 +1,1087 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-04T21:10:38-0700",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.9",
+    "schematic_parity": [],
+    "source": "small_panel.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 4.0
+                    },
+                    "uuid": "079d5854-787d-4049-8c24-b2dde08d8f8a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 4.0
+                    },
+                    "uuid": "6f08dd0b-202c-472b-a041-ff652bdccda5"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 4.0
+                    },
+                    "uuid": "c0d845f3-3ab0-486a-9c4b-df34c37f8369"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 22.5
+                    },
+                    "uuid": "1e9bba19-c5f0-4a1c-b283-30f6496dc338"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 38.0
+                    },
+                    "uuid": "f9ac8860-b725-4e46-bf10-360d2053f733"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 22.5
+                    },
+                    "uuid": "1e9bba19-c5f0-4a1c-b283-30f6496dc338"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 22.5
+                    },
+                    "uuid": "986926c7-7e44-4b6d-ba50-ca008fc5e58c"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 40.5
+                    },
+                    "uuid": "3ebedee0-83ac-454b-a438-997639715402"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 40.5
+                    },
+                    "uuid": "bda34150-ed10-4cc9-82a9-15b25539662c"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 40.5
+                    },
+                    "uuid": "19542124-a989-416c-a647-5b9eaefccd67"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 49.0
+                    },
+                    "uuid": "176a40d5-8b37-4d1f-b9e7-c808ef3a8d89"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 54.5
+                    },
+                    "uuid": "ac02195a-e944-4d97-a95e-5284e5f5a089"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 49.0
+                    },
+                    "uuid": "176a40d5-8b37-4d1f-b9e7-c808ef3a8d89"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.5,
+                        "y": 54.5
+                    },
+                    "uuid": "02a03af2-5093-4fe9-aafa-73411bb9c759"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 54.5
+                    },
+                    "uuid": "ac02195a-e944-4d97-a95e-5284e5f5a089"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.5,
+                        "y": 59.5
+                    },
+                    "uuid": "2dc48503-c7bd-425e-a9b9-3dbea4b934eb"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.5,
+                        "y": 54.5
+                    },
+                    "uuid": "02a03af2-5093-4fe9-aafa-73411bb9c759"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 20.5,
+                        "y": 59.5
+                    },
+                    "uuid": "b34b2fe4-128b-4e55-9173-7e28cc076045"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.5,
+                        "y": 59.5
+                    },
+                    "uuid": "2dc48503-c7bd-425e-a9b9-3dbea4b934eb"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 20.5,
+                        "y": 54.5
+                    },
+                    "uuid": "95c883fe-ac22-40f9-b4ed-0764af10f618"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 20.5,
+                        "y": 59.5
+                    },
+                    "uuid": "b34b2fe4-128b-4e55-9173-7e28cc076045"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 49.0
+                    },
+                    "uuid": "6a0c54f0-39bf-46b9-9696-84420f257465"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 62.0
+                    },
+                    "uuid": "d17f10f5-e344-4d50-8d37-aead284a5cc4"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 62.0
+                    },
+                    "uuid": "4349f249-8461-45d5-9aa3-3af8e2a959de"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 62.0
+                    },
+                    "uuid": "a1445777-f76b-40e3-8163-a55564d9b760"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 70.5
+                    },
+                    "uuid": "1029b0b6-9e8b-4911-99e2-1060e544515a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 76.0
+                    },
+                    "uuid": "9148881a-38a0-404d-991f-65270fbc1fa5"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 70.5
+                    },
+                    "uuid": "1029b0b6-9e8b-4911-99e2-1060e544515a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 70.5
+                    },
+                    "uuid": "34cc5f31-7c4f-4510-849a-429bdf4a1214"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 78.5
+                    },
+                    "uuid": "d91fcacc-c5be-4fa4-82db-1a0765283171"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 78.5
+                    },
+                    "uuid": "9be36678-7e5f-4912-9fe5-448a72dd94b9"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 78.5
+                    },
+                    "uuid": "fca5d28c-a65d-478d-93f7-01ad332ea97e"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 87.0
+                    },
+                    "uuid": "757f105b-a44b-4948-bdfe-402a501abad3"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (self-intersecting)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 92.5
+                    },
+                    "uuid": "8ae8c5d1-30fb-4931-9dec-1537a155ee78"
+                },
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 87.0
+                    },
+                    "uuid": "757f105b-a44b-4948-bdfe-402a501abad3"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Board has malformed outline (not a closed shape)",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 87.0
+                    },
+                    "uuid": "89e85e1c-2048-4d58-8bd2-e1e967476da7"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 12.0,
+                        "y": 9.0
+                    },
+                    "uuid": "83334e8f-207f-46c7-80a3-2b733632e639"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 24.0,
+                        "y": 9.0
+                    },
+                    "uuid": "32b2d9e1-c4b5-4dfc-9a7b-2f062e4c6b22"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 19.8
+                    },
+                    "uuid": "c6875504-06b0-4457-b558-698e97e17f59"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 20.6
+                    },
+                    "uuid": "bf2c72e8-8a08-4527-9b31-5838d65ad503"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 21.4
+                    },
+                    "uuid": "b20bb8e5-653a-4d36-a876-29b16f593f2b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 30.0,
+                        "y": 22.2
+                    },
+                    "uuid": "20eedb7d-c337-4167-8864-08576b750e74"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 19.8
+                    },
+                    "uuid": "891acf21-903b-4e62-8a18-80b98566b974"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 20.6
+                    },
+                    "uuid": "a6bb5298-b163-4671-84a5-18b205304624"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 21.4
+                    },
+                    "uuid": "b5de5f73-366f-44cf-964e-399ac1e28071"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 6.0,
+                        "y": 22.2
+                    },
+                    "uuid": "ed541090-bcc9-454e-98a8-3822aa919b47"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 12.5,
+                        "y": 47.5
+                    },
+                    "uuid": "ae0561a3-7c01-483d-b96b-14257dfbd835"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 22.5,
+                        "y": 47.5
+                    },
+                    "uuid": "7b73595d-591a-4834-8f78-0e8776a2563a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 23.5,
+                        "y": 57.0
+                    },
+                    "uuid": "0fde1e37-8f68-4976-8739-2ec6e6a1b997"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 46.3
+                    },
+                    "uuid": "14fb25f1-b35d-47a0-a4e8-cc11b3af9df3"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 47.1
+                    },
+                    "uuid": "ebf16711-e9cd-40ce-917b-d13e4073b27a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 47.9
+                    },
+                    "uuid": "725f110b-3265-47e8-8be1-f0f3a0be32e9"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 25.5,
+                        "y": 48.7
+                    },
+                    "uuid": "f5d2055a-c302-4b07-9f3d-0cbd75eea449"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 46.3
+                    },
+                    "uuid": "18bee27f-4a06-4b59-9628-a1180d27ad22"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 47.1
+                    },
+                    "uuid": "fef5c413-6383-4c60-98db-1e5f9652580f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 47.9
+                    },
+                    "uuid": "fbf8cf04-2cb0-4bb9-93b6-3a2bfe21555d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 9.5,
+                        "y": 48.7
+                    },
+                    "uuid": "c1bd393c-709a-457e-b121-8515c3ba6cab"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 13.0,
+                        "y": 69.0
+                    },
+                    "uuid": "61a4b26a-c6d7-45a2-989b-24e69e5a9ec3"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 23.0,
+                        "y": 69.0
+                    },
+                    "uuid": "4b82a86d-fd08-4d2a-9f90-3780e70d64f1"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 67.8
+                    },
+                    "uuid": "7a3eb202-6b60-4e91-84ef-f673dd369a1f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 68.6
+                    },
+                    "uuid": "55f6e40e-9cce-4a49-8676-77ea56a56f52"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 69.4
+                    },
+                    "uuid": "320edbbf-de91-4593-8163-92d469884174"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 70.2
+                    },
+                    "uuid": "35495d84-d748-45f7-94a7-37672cbf6aa2"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 67.8
+                    },
+                    "uuid": "0bc19bff-b248-4139-bf49-6cb6c8b968ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 68.6
+                    },
+                    "uuid": "992b9634-96a2-4998-89d9-d39e6a8c7699"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 69.4
+                    },
+                    "uuid": "530dbf11-73e7-4697-bfa5-cd93b049c38d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 70.2
+                    },
+                    "uuid": "65953ea4-63ed-4b2e-bb0a-21d025e8ee1a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 13.0,
+                        "y": 85.5
+                    },
+                    "uuid": "ba527485-9233-450d-8546-6751d390016d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 23.0,
+                        "y": 85.5
+                    },
+                    "uuid": "e44150b9-5cd3-4116-b2dc-ee916eca3283"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 84.3
+                    },
+                    "uuid": "8d5e80c8-1a97-4e11-9c1f-d3672dfdeaab"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 85.1
+                    },
+                    "uuid": "114bc8c1-91ac-44e9-b4e2-c04369f6ac34"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 85.9
+                    },
+                    "uuid": "c40755cd-79d5-44f1-bfdd-a160464c9792"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 26.0,
+                        "y": 86.7
+                    },
+                    "uuid": "cb929286-5b69-4d0f-b877-1fd94009c96e"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 84.3
+                    },
+                    "uuid": "771c3161-fc59-4d9f-862b-d90e8684e36a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 85.1
+                    },
+                    "uuid": "d6013be8-431e-4d54-a748-6422c03ae57f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 85.9
+                    },
+                    "uuid": "6a943007-c6ce-4b1d-b82b-80dc15f12b92"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'mech'.",
+            "items": [
+                {
+                    "description": "Footprint <no reference designator>",
+                    "pos": {
+                        "x": 10.0,
+                        "y": 86.7
+                    },
+                    "uuid": "e3fb7503-7b83-45b2-b152-e8173d8d2764"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        }
+    ]
+}

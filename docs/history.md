@@ -1336,3 +1336,30 @@ I need two numbers from you:
 I can't see JLC's image. I answered from the design, so there's nothing for you to chase there.
 <!-- ------ -->
 ---
+I couldn't read the coupon dates, the quote UIs or the washer listing from the JLCONE app, so items 4, 5 and 7 stay with you for now. Reading its files on disk turned up no coupon, quote or listing data, so there was nothing to extract.
+
+**What the app's files hold:** login and profile state, plus a few cached scripts, and the coupon list itself is fetched live. There is no debug port, so I can't read the open window. I didn't open the cookies or tokens, and nothing I did touched JLC's API.
+
+**If you want me to try anyway:** quit the app and relaunch it yourself with `jlcone --remote-debugging-port=9222`. Then I could read what the page renders, which is the page's own display, not an API call. I won't restart the app or touch it myself. Your call.
+
+**1. Arm order:** I recorded the finish as HASL with lead. The total is C$3.00 (merchandise C$1.20 plus shipping C$1.80). My earlier worry about ENIG pads is settled, and the corrected remark is in [ORDER.md](hardware/balance/boards/fab/ORDER.md).
+
+**3 and 8. Coupons and the three small designs:** You don't need three orders. Lines 21–23 were repeats of item 2, so I deleted that section. I built one panel of the three small designs so they ship together with one coupon (the 3D-print and other categories are unaffected):
+- **Panel:** [small_panel_gerbers.zip](hardware/balance/boards/fab/small_panel_gerbers.zip) is 36 × 96.5 mm. It holds `elec_board`, `clamp_ground` and two `clamp_plate`, each on 3 mm mouse-bite tabs. Five panels give 5, 5 and 10 boards, and your balance needs 1, 1 and 2.
+- **DRC:** It shows only library-footprint warnings and open-outline items at the tabs.
+- **Quote caveat:** JLC may charge the engineering fee per different design, which would be 3 here. I can't see their quote, so the goods total on the quote page is the real test. If the panel comes out dearer than three separate boards, the three original zips still work.
+- **Which coupon:**
+  - **New User PCB (C$8.42, ends 2026-11-25):** use it if the quote's goods are C$8.42 or more.
+  - **JLCONE PCB $5:** use it otherwise, since a coupon can't exceed the goods.
+  - **Either way:** one PCB coupon stays unused. Don't click "Get Coupon" until you're about to pay.
+
+The field settings are in [ORDER.md](hardware/balance/boards/fab/ORDER.md) and the TODO item is item 1 in [TODO-arcticoder.md](docs/TODO-arcticoder.md).
+
+**6. Sensor-head order:** No, it isn't the 169-part main board. It's the three small sensor-head boards with about 13 parts. The main board stays unordered, so there's no splurge to decide on. I reworded the item to say so, and it stays optional.
+
+Still on you:
+- Coupon expiry dates (30- and 60-day entries).
+- The CNC and HDI quote-page notes.
+- Whether JLC stocks the M3 washers.
+<!-- ------ -->
+---

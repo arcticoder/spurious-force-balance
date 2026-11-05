@@ -8,20 +8,14 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Reply to JLCPCB about the arm order** (their question on the three copper areas; the reply text is in the chat), and tell me which surface finish the order carries (HASL was planned; the order remark mentions ENIG pads) and the total you paid after the coupon.
-2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
-3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones); JLC counts the validity from the day "Get Coupon" is clicked, so do not click it for a coupon until its order is about to be placed.
-4. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
+1. **Quote and order the three small designs as one panel** (upload `hardware/balance/boards/fab/small_panel_gerbers.zip`; settings in [ORDER.md](../hardware/balance/boards/fab/ORDER.md), "The three small designs as one panel"): read the goods total (engineering plus board, shipping excluded) and tell me. Coupon: if the goods are C$8.42 or more use New User PCB (ends 2026-11-25), otherwise JLCONE PCB $5, since a coupon cannot exceed the goods; the other stays unused. Do not click "Get Coupon" for it before the order is ready.
+2. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones); JLC counts the validity from the day "Get Coupon" is clicked, so do not click it for a coupon until its order is about to be placed.
+3. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
    Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
-5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
+4. **Decide on the early sensor-head order** (the three small sensor-head boards, about 13 parts; not the 169-part main board, which is not ordered; optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
    using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
    It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
-6. **JLCMC fasteners:** check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
-
-## Next orders — JLC mechanical boards (two orders)
-
-Settings are in [ORDER.md](../hardware/balance/boards/fab/ORDER.md): 1.2 mm (the page reverts to 1.6 mm: check it), green, HASL, 5 pieces each, no Combine Shipping, the cheap postal tier. Unassembled boards: no setup or extended-part fees.
-(a) The arm alone: placed 2026-11-04 and in JLC's review (see En route); the quote before the coupon was C$16.27 with HASL. (b) The three small designs: not quoted yet. Together about C$10-25 [estimate for (b)]; the old $70-140 estimate was wrong.
+5. **JLCMC fasteners:** check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
 
 ## Next order — AliExpress: what is left for the balance
 

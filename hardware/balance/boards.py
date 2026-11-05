@@ -182,7 +182,84 @@ def elec_board():
     return b
 
 
-BOARDS = {"arm": arm_board, "clamp_plate": clamp_plate, "clamp_ground": clamp_ground, "elec_board": elec_board}
+# ---- the three small designs as one panel (one upload, one engineering fee, one shipping charge) --------------------
+PANEL_TAB = 3.0     # mm, a tab on the left and right edge of each board, mouse bites across it
+PANEL_RAIL = 4.0    # mm of waste material around the boards
+PANEL_GAP = 2.5     # mm between boards
+PANEL_SET = [("elec_board", elec_board, 1), ("clamp_ground", clamp_ground, 0), ("clamp_plate", clamp_plate, 0), ("clamp_plate", clamp_plate, 0)]  # (name, builder, net offset)
+
+
+def _edge_lines(b):
+    segs = [((it.start.X, it.start.Y), (it.end.X, it.end.Y)) for it in b.graphicItems if isinstance(it, GrLine) and it.layer == "Edge.Cuts"]
+    b.graphicItems = [it for it in b.graphicItems if not (isinstance(it, GrLine) and it.layer == "Edge.Cuts")]
+    return segs
+
+
+def _shift(b, dx, dy, noff):
+    for it in b.graphicItems:
+        for a in ("start", "end", "position"):
+            if hasattr(it, a) and getattr(it, a) is not None:
+                p = getattr(it, a)
+                setattr(it, a, pos(p.X + dx, p.Y + dy))
+    for fp in b.footprints:
+        fp.position = pos(fp.position.X + dx, fp.position.Y + dy)
+        for pad in fp.pads:
+            if pad.net is not None:
+                pad.net = Net(number=pad.net.number + noff, name=pad.net.name)
+    for t in b.traceItems:
+        for a in ("start", "end", "position"):
+            if hasattr(t, a) and getattr(t, a) is not None:
+                p = getattr(t, a)
+                setattr(t, a, pos(p.X + dx, p.Y + dy))
+        if t.net:
+            t.net += noff
+
+
+def panel_small():
+    """elec_board, clamp_ground and two clamp_plates stacked in one column inside a frame; each board hangs on tabs at the middle of its long straight vertical
+    edges, mouse bites across the tabs. Five panels give 5 elec_boards, 5 clamp_grounds and 10 clamp_plates."""
+    p = new_board()
+    for n, name in ((1, "GND"), (2, "GUARD"), (3, "SIG")):
+        add_net(p, n, name)
+    subs = []
+    for name, fn, noff in PANEL_SET:
+        b = fn()
+        segs = _edge_lines(b)
+        xs = [x for sg in segs for x, _ in sg]; ys = [y for sg in segs for _, y in sg]
+        subs.append((name, b, segs, noff, min(xs), min(ys), max(xs), max(ys)))
+    maxw = max(s[6] - s[4] for s in subs)
+    pw = maxw + 2 * (PANEL_RAIL + 2.0)
+    cursor = PANEL_RAIL
+    for name, b, segs, noff, x0, y0, x1, y1 in subs:
+        dx, dy = pw / 2 - (x0 + x1) / 2, cursor - y0
+        _shift(b, dx, dy, noff)
+        p.graphicItems += b.graphicItems
+        p.footprints += b.footprints
+        p.traceItems += b.traceItems
+        # outline: a tab (gap in the outline, mouse bites across it) at the middle of every straight vertical edge of 10 mm or more
+        for (ax, ay), (bx, by) in segs:
+            ax, bx, ay, by = ax + dx, bx + dx, ay + dy, by + dy
+            lo, hi = min(ay, by), max(ay, by)
+            if abs(ax - bx) < 1e-9 and hi - lo >= 10.0:
+                tabc = (lo + hi) / 2
+                edge_polygon_line(p, ax, lo, ax, tabc - PANEL_TAB / 2)
+                edge_polygon_line(p, ax, tabc + PANEL_TAB / 2, ax, hi)
+                for k in range(4):
+                    hole(p, ax, tabc - 1.2 + 0.8 * k, 0.5)
+            else:
+                edge_polygon_line(p, ax, ay, bx, by)
+        cursor += (y1 - y0) + PANEL_GAP
+    ph = cursor - PANEL_GAP + PANEL_RAIL
+    edge_polygon(p, [(0, 0), (pw, 0), (pw, ph), (0, ph)])
+    silk(p, "5x: elec_board, clamp_ground, 2x clamp_plate", pw / 2, ph - 1.5, "F.SilkS", 0.8)
+    return p
+
+
+def edge_polygon_line(b, x0, y0, x1, y1):
+    b.graphicItems.append(GrLine(start=pos(x0, y0), end=pos(x1, y1), layer="Edge.Cuts", width=EDGE_W, tstamp=uid()))
+
+
+BOARDS = {"arm": arm_board, "clamp_plate": clamp_plate, "clamp_ground": clamp_ground, "elec_board": elec_board, "small_panel": panel_small}
 
 
 def board_outline_mm(name):
@@ -212,10 +289,10 @@ def weight_estimate_g(name, qty=5):
     return vol * B.FR4_G_MM3 * qty
 
 
-def run_fab():
+def run_fab(only=None):
     os.makedirs(FAB, exist_ok=True)
     report = []
-    for name in BOARDS:
+    for name in (only or BOARDS):
         path = os.path.join(OUT, f"{name}.kicad_pcb")
         rpt = os.path.join(FAB, f"{name}_drc.json")
         subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all", "--output", rpt, path], check=False, capture_output=True)
@@ -239,7 +316,8 @@ def main():
         x0, y0, x1, y1 = board_outline_mm(name)
         print(f"{name:13s} {x1 - x0:6.1f} x {y1 - y0:5.1f} mm, ~{weight_estimate_g(name):5.1f} g for 5 -> {p}")
     if "--fab" in sys.argv:
-        for name, rpt, z in run_fab():
+        only = [a for a in sys.argv[1:] if a in BOARDS] or None  # e.g. `boards.py --fab small_panel` leaves the other boards' files alone
+        for name, rpt, z in run_fab(only):
             print("fab:", name, "->", os.path.relpath(z, HERE))
 
 
