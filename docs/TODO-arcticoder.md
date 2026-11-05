@@ -8,9 +8,9 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Pay for the arm order** (FR4 1.2 mm, green, HASL, 5 pieces: C$7.86 after the coupon; check that the thickness still reads 1.2 mm at payment: it reverts to 1.6 mm and the shipping then jumps to C$12.05). Its JLCONE $8 PCB coupon ends 2026-11-26.
+1. **Reply to JLCPCB about the arm order** (their question on the three copper areas; the reply text is in the chat), and tell me which surface finish the order carries (HASL was planned; the order remark mentions ENIG pads) and the total you paid after the coupon.
 2. **Quote and order the three small designs separately** (`clamp_ground`, `elec_board`, `clamp_plate` zips; 1.2 mm, HASL; a second coupon, e.g. New User PCB, ends 11-25): do not add them to the arm's order or use Combine Shipping (the arm's parcel is 294 g of the 300 g line). Tell me the three lines' prices.
-3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones), and the claim date if shown.
+3. **Coupon dates:** in the JLC account, note the expiry date of each coupon whose list entry says only "valid for 30 days" or "60 days" (the dollar-off-$40/$50 3D-printing, material, FDM and nylon ones); JLC counts the validity from the day "Get Coupon" is clicked, so do not click it for a coupon until its order is about to be placed.
 4. **Optional now (the aluminium arm is shelved): JLCCNC sheet-metal quote page** (I can only see the upload box; the options appear after a file is uploaded): make `lab/docs/jlc/cnc_sheet_metal_quote_ui.md` the way you did the other two. Use any STEP/DXF (I will export the arm for it later:
    Part J3). Also useful: the HDI option on the PCB quote (thicknesses, layer counts, price for 5 pieces of the arm) as `lab/docs/jlc/hdi_quote_ui.md`.
 5. **Decide on the early sensor-head order** (optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
@@ -21,7 +21,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 ## Next orders — JLC mechanical boards (two orders)
 
 Settings are in [ORDER.md](../hardware/balance/boards/fab/ORDER.md): 1.2 mm (the page reverts to 1.6 mm: check it), green, HASL, 5 pieces each, no Combine Shipping, the cheap postal tier. Unassembled boards: no setup or extended-part fees.
-(a) The arm alone: quoted C$7.86 after the coupon, shipping C$2.10. (b) The three small designs: not quoted yet. Together about C$10-25 [estimate for (b)]; the old $70-140 estimate was wrong.
+(a) The arm alone: placed 2026-11-04 and in JLC's review (see En route); the quote before the coupon was C$16.27 with HASL. (b) The three small designs: not quoted yet. Together about C$10-25 [estimate for (b)]; the old $70-140 estimate was wrong.
 
 ## Next order — AliExpress: what is left for the balance
 
@@ -42,6 +42,8 @@ Hold these until the JLC boards are on their way, then one checkout, with whatev
        Steps: [assembly.md](assembly.md).
 
 ## En route
+
+The JLCPCB arm order (5 FR4 boards, 1.2 mm) placed 2026-11-04 with the JLCONE $8 PCB coupon, in JLC's review; answer any "Confirm Production File" or parts-placement email within 48 h. When it ships, add the parcel to the plan in `docs/fabrication.md`.
 
 The AliExpress order placed 2026-10-24: the 0.05 mm 304 stainless sheet, the 3 mm × 10 m foam tape (0.3 mm thick), the 20 × 20 × 0.3 mm copper pads (5), the 10 mm × 1 m copper foil tape and the
 10 × 100 mm brass rod. Check the pads are non-magnetic on arrival (a disc magnet should not pull them).

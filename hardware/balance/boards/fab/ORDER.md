@@ -30,7 +30,7 @@ Four designs, 5 pieces each. The Gerber zips are in this folder; each upload fil
 | Mark on PCB | **Remove Mark** | no serial number or order number on the faces |
 | Electrical Test | the default (flying probe); take the free random test if offered | the boards have almost no nets |
 | Gold Fingers, Castellated Holes, Edge Plating, Blind Slots, UL Marking, Humidity Indicator Card | No | |
-| PCB Remark | "Arm: the flag finger has copper on both faces under the mask and the large ENIG pads are intentional. No components." | |
+| PCB Remark | "Arm: three copper areas are intentional: the flag pad at the end has copper on both faces under the mask; the strip contact pad and the large electrode pad are bottom-layer only, joined by a 0.6 mm bottom trace. No components." | |
 
 ## What the arm costs (user's quote, 2026-10-28, C$, before coupons)
 

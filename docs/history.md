@@ -1314,3 +1314,25 @@ The EasyEDA and Spark route is dropped, and KiCad is the design source again. I 
 **Next in KiCad:** Nothing is startable without you or the board. The main-board layout waits on the prototype noise measurement and the go/no-go. I can start the layout now if you'd rather not wait for that.
 <!-- ------ -->
 ---
+JLC's question is answered below. I confirmed the copper areas against [arm.kicad_pcb](hardware/balance/boards/arm.kicad_pcb), and the three areas match what they describe.
+
+Reply to send to JLCPCB:
+
+> Hi, thank you for checking. Yes, that is correct: the three finger-shaped copper areas are as you describe. The two areas highlighted in blue have copper on the bottom layer only (a 5.6 × 12 mm contact pad and a 20 × 8 mm pad, joined by a 0.6 mm bottom-layer trace). The area highlighted in pink, the 8 × 7 mm pad at the end of the board, has copper on both faces, and it is intended. Please proceed as designed. There are no components to assemble.
+
+I haven't confirmed the finish. The plan was HASL, but my order remark said "ENIG pads", and JLC wrote that the large ENIG pads "will be retained". If your order is HASL, add one line: "The surface finish is as selected on the order (HASL); no special gold finish is required on any pad." If you did choose ENIG, leave it out and tell me.
+
+I need two numbers from you:
+- **Finish:** which finish the order carries.
+- **Paid total:** the amount after the coupon. Your note read "C$11.17 total", and I can't tell whether that is the coupon amount or the order total. The ledger lists that coupon at C$11.22 and the pre-coupon quote was C$16.27 with HASL, so I logged C$11.17 only as what the coupon redeemed for.
+
+**What I changed:**
+- **TODO list:** In [TODO-arcticoder.md](docs/TODO-arcticoder.md), item 1 is now "reply to JLC, plus the finish and the total". The arm order is under En route, and item 3 now says not to click "Get Coupon" early.
+- **Order remark:** The arm's PCB remark in [ORDER.md](hardware/balance/boards/fab/ORDER.md) no longer says ENIG, so the later orders don't repeat that.
+- **Completed log:** The arm order is a dated entry in [TODO-completed.md](docs/TODO-completed.md).
+- **Coupon ledger:** In [coupons.md](../lab/docs/jlc/coupons.md), the JLCONE $8 coupon is marked used on 2026-11-04. The new-user shipping coupon is corrected to C$13.96 off over C$20.94, expiring 2026-11-02, so it is already expired. The 4-layer C$6.98 coupon (expires 2026-12-02) is under "not relevant" because these boards are 2-layer.
+- **Coupon timing:** I added your point that a coupon's clock starts at "Get Coupon" to the ledger and to the JLC knowledge base. Claim a coupon only when its order is about to be placed. The New User PCB coupon (C$8.42) for the three small boards is listed as ending 2026-11-25, so check its date.
+
+I can't see JLC's image. I answered from the design, so there's nothing for you to chase there.
+<!-- ------ -->
+---
