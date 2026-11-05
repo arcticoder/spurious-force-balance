@@ -1383,3 +1383,38 @@ While the app is running with the debug port, I can re-read the page after you c
 The coupon expiry dates, CNC/HDI quote notes and washer listing are still open. I can try them through the app too if you point it at those pages.
 <!-- ------ -->
 ---
+I read the quote and coupon pages through the app, and the result changes the plan: order the three small boards as three separate single-board orders. Nothing was saved to the cart or submitted, and I made no calls to JLC's API.
+
+**Quote for the small-boards panel file** (36 × 96.5 mm, 5 pieces, 1.2 mm, HASL, goods only). I got these numbers by clicking the options on the quote page, with a few seconds between clicks:
+
+| Setup | Price |
+|---|---|
+| Single PCB, 1 design | **C$2.79** special offer |
+| Panel by Customer, 1 design | C$7.94 |
+| Panel by Customer, 2 designs | C$13.59 |
+| Panel by Customer, 3 designs | C$19.25 |
+
+The panel fee is C$5.65 for each design beyond the first. The special offer doesn't depend on thickness or finish.
+
+- **What to do:** Upload `elec_board`, `clamp_ground` and `clamp_plate` one at a time as Single PCB, 1 design, 1.2 mm, HASL, 5 pieces. Read the special-offer line on each upload and order if it holds. I haven't confirmed the offer applies to every upload.
+- **Coupons:** None apply to those orders, because the PCB coupons need goods over C$2.79.
+- **Not recommended:** Ordering the panel file as a single board would also get the C$2.79 price, but that misstates what the file is. I did not suggest it.
+- **Panel kept as fallback:** The panel file stays in the repo, but it costs C$19.25 as a 3-design panel.
+- **Correction:** Earlier I said the page looked reset to ENIG. That was my heuristic misreading a different button, and the page was fine. Quote details are in [small_boards_panel_quote_2026-11-04.md](../lab/docs/jlc/small_boards_panel_quote_2026-11-04.md).
+
+**1. Coupons:**
+- The account page lists all 15 unused coupons with exact amounts and dates, and I rewrote [coupons.md](../lab/docs/jlc/coupons.md) from it. The 30-day and 60-day coupons are unclaimed offers with no date, so nothing is missing, and I dropped that TODO item.
+- The "expires 2026/11/2" shipping coupon you pasted was truncated, so it actually runs to 2026-11-25. My earlier "expired" edit was wrong and is fixed.
+- The two usable PCB coupons are JLCONE PCB $5 (C$6.96, ends 11-26) and New User PCB (C$8.36, ends 11-25).
+
+**2. Other pages:**
+- **HDI:** It costs C$188.11 at 1-step and 4 layers for the panel file, with a 10–11 day build. Not useful here.
+- **Sheet metal:** A real part is quoted manually in 2–4 hours. I didn't upload anything, so the aluminium arm still needs a file from you if you ever want that quote.
+- **JLCMC washers:** The Mechatronic Parts link didn't open inside the app, so I couldn't check them. They stay on your TODO.
+- **Notes:** The HDI and sheet-metal results are in [hdi_quote_ui.md](../lab/docs/jlc/hdi_quote_ui.md) and [cnc_sheet_metal_quote_ui.md](../lab/docs/jlc/cnc_sheet_metal_quote_ui.md).
+
+**3. Font size:** I added `~/.local/bin/jlcone`, which launches the app with `--force-device-scale-factor=1.13`, about 13% larger. It's zoom only, not font as well. It takes effect the next time you launch the app. Add `--remote-debugging-port=9222` when you want me to read it. WSLg's overall small text comes from Windows display scaling, which I can't change from inside WSL.
+
+The TODO list is down to ordering the three boards, the optional sensor-head decision and the washer check.
+<!-- ------ -->
+---

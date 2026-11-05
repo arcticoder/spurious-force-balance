@@ -66,14 +66,10 @@ columns beside the arm (elec_board over clamp_ground, then two clamp_plates), 2 
 against 154 g. One finish applies to the whole panel (HASL for all) and the colour is black. If the quote beats the sum of the four separate ones, ask the agent to build the panel Gerbers (tabs, mouse bites);
 do not upload the arm zip as a panel as it is.
 
-## The three small designs as one panel (built 2026-11-04; one upload, one coupon)
+## The three small designs: order them as three single boards (decided 2026-11-04 from the quote page)
 
-`small_panel_gerbers.zip` (36 x 96.5 mm, from `boards.py`'s `panel_small()`; the boards are drawn in `small_panel.kicad_pcb`) holds `elec_board`, `clamp_ground` and two `clamp_plate` stacked in a frame, each on 3 mm tabs with four 0.5 mm mouse bites. Five panels give 5 elec_boards, 5 clamp_grounds and 10 clamp_plates (the balance needs 1, 1 and 2).
-Fields as in the table above except: Dimensions **36 x 96.5** (the page's banner prints the long side first, "96.5x36mm"; its X field reads 36 and Y 96.5, checked 2026-11-04), Different Design **3** (the two clamp_plates are the same design), Delivery Format **Panel by Customer**, PCB Qty **5**, Thickness **1.2 mm** (check it again after the upload), colour green, HASL, no Combine Shipping.
-PCB Remark: "Customer panel: elec_board, clamp_ground and two clamp_plates on tabs with mouse bites. No components." The 0.5 mm mouse-bite holes and tabs are the same pattern as the heads panel; JLC may ask to confirm them (answer within 48 h).
-At the page's defaults the uploaded panel showed a Special Offer of C$2.79 (calculated C$5.57) and 0.18 kg, with the page resetting to Single PCB, 1.6 mm and ENIG after the upload: set the fields above, then re-read the price.
-Mass by JLC's rule: about 39 g for the five panels plus about 155 g of packing, well under the 300 g line. JLC may charge the engineering fee once per different design (3): read the lines on the quote before paying; if the panel is dearer than separate boards, the three zips above still work as three orders.
-The board DRC has only library-footprint warnings and the open-outline items at the tabs (`small_panel_drc.json`), as for the heads panel.
+Quote read from the JLCONE page for the panel file (`lab/docs/jlc/small_boards_panel_quote_2026-11-04.md`): **Panel by Customer with 3 designs is C$19.25** (Engineering 5.57 + Panel 11.31 + Board 2.37), while a **Single PCB gets the C$2.79 Special Offer**. So upload the three single-board zips one at a time (`elec_board_gerbers.zip`, `clamp_ground_gerbers.zip`, `clamp_plate_gerbers.zip`; settings in the table above, Single PCB, Different Design 1, 1.2 mm, HASL, 5 pieces) and read the Special Offer line on each upload; if each shows about C$2.79, order all three (no coupon applies: the coupons need goods over C$2.79). Check "Combine Shipping" at payment only if it merges the three small orders into one cheap parcel (together about 170 g with packing); the arm order is already placed.
+The panel, `small_panel_gerbers.zip` (36 x 96.5 mm, from `boards.py`'s `panel_small()`, four boards on mouse-bite tabs, DRC clean apart from the open outlines), is the fallback if the Special Offer is refused on the later uploads: as **Panel by Customer** it carries the C$11.31 panel fee for 3 designs. Declaring it a single board to get the offer would misstate the file: do not.
 
 ## Checks done before this file was written
 
