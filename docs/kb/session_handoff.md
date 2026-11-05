@@ -1,18 +1,20 @@
-# Session handoff — written 2026-11-01, end of chat 5 (replace at each handoff; do not append)
+# Session handoff — written 2026-11-04, end of chat 6 (replace at each handoff; do not append)
 
-**Where chat 5 ended:** the user dropped the EasyEDA/Spark route and went back to KiCad. Everything EasyEDA is shelved (banners on `kb/easyeda_spark_notes.md`, `kb/easyeda_validation.md`, `docs/spark_application.md`; completed entry in `TODO-completed.md`). The KiCad/SKiDL design, the mechanical-board Gerbers and the sensor-head panel were never touched and are the order files. Do not offer to resume EasyEDA or Spark registration.
+**Where chat 6 ended:** the EasyEDA/Spark route was dropped on 2026-11-01 (shelved notes and tools, see `TODO-completed.md`); KiCad/SKiDL is the design source again. The rest of the chat was JLC ordering through the JLCONE desktop app. Do not offer EasyEDA, Spark, the MCP bridge or the validator again.
 
 ## State
 
-- KiCad: main board and head boards exist as SKiDL netlists (`hardware/instrument/schematic/out/*.net`), 50 JLC parts; the four mechanical boards and `heads_panel` are KiCad with Gerbers (`hardware/balance/boards/fab/`, `hardware/instrument/heads_panel/out/`).
-- Main-board layout (WP5) is KiCad work that waits on A5 (the prototype noise measurement) and the go/no-go (`TODO-BLOCKED.md`). Lessons from the EasyEDA attempt that carry over: the 164-part main board did not route at 106.7 x 87.6 mm with the part spacing used; leave room around the RP2040 (QFN-56, 0.4 mm pitch) and its decoupling, put the SPARE header nets on a deliberate layer, and expect about 117 x 97 mm unless the spare headers shrink. `tools/floorplan_main_board.py` (env `FP_SCALE`, `FP_MARGIN`) is a placement starting point from EasyEDA data, not KiCad.
-- Shelved tools kept in `tools/`: `patch_easyeda_autoroute_jobs.py` (the user's EasyEDA install is still patched; `--revert` restores the stock files if wanted), `validate_easyeda.py`, `floorplan_main_board.py`, `route_open_nets.py` (generic offline two-layer maze router over pad/track/via dumps, usable with KiCad data by writing a loader).
-- `hardware/easyeda/spurious-force-balance.eprj2` (Git LFS) is modified and unneeded; the user decides whether to commit or drop it.
-- GitHub About: description and topics were returned to the KiCad wording (topics `easyeda`, `oshwlab` removed).
+- **Arm order** placed (2026-11-03 05:42 GMT+8 on JLC's clock), HASL with lead, total C$3.00 after the JLCONE $8 coupon, in JLC's review; JLC asked about the three copper areas (answered from `arm.kicad_pcb`: two bottom-only pads joined by a 0.6 mm trace, one flag pad on both faces).
+- **Three small boards** (`elec_board`, `clamp_ground`, `clamp_plate` zips in `hardware/balance/boards/fab/`) go as three single-board orders (C$2.92, C$2.92, C$3.06; Special Offer holds on every upload; no coupon applies). `TODO-arcticoder.md` items 1-3, one order per day at most. The app's quote page may still hold the `elec_board` setup: it is not saved to the cart or submitted; the user approves and pays. After each order, set up the next one in the app when the user says so (the page resets after each upload).
+- `small_panel_gerbers.zip` (36 x 96.5 mm, four boards on mouse-bite tabs, `boards.py` `panel_small()`) is only the fallback: Panel by Customer with 3 designs costs C$19.25.
+- Coupons: the account's 15 unused coupons are the ledger in `lab/docs/jlc/coupons.md` (JLCONE PCB $5 and New User PCB need goods over C$2.79, so neither applies to Special Offer orders; New User SMT C$13.93 ends 2026-11-25 for the sensor-head panel if ordered; CNC and 3DP new-user coupons end 11-25/26 and 12-25).
+- KiCad main-board layout (WP5) still waits on A5 and the go/no-go (`TODO-BLOCKED.md`); layout lessons from the EasyEDA attempt: room around the RP2040 (QFN-56, 0.4 mm pitch) and its decoupling, about 117 x 97 mm. Shelved tools in `tools/`: `patch_easyeda_autoroute_jobs.py` (the user's EasyEDA install is still patched; `--revert`), `validate_easyeda.py`, `floorplan_main_board.py`, `route_open_nets.py`.
+- The user removed `easyeda-mcp-pro` and `/opt/apps/easyeda-pro/resources/app` from the workspace. `hardware/easyeda/spurious-force-balance.eprj2` (LFS) is modified and unneeded; the user decides.
+- JLCONE app: `~/.local/bin/jlcone` wraps it at 13% scale, but the user's shell cached `/usr/bin/jlcone`, so it did not apply (`TODO-arcticoder.md` item 6, after the first order).
 
 ## Next agent tasks
 
-Nothing startable without the user or the board (`TODO-agent.md`). Watch for: the arm decision and panel Gerbers (J4), the early sensor-head order's upload checks, A5's results into the model, then WP5 in KiCad.
+Nothing startable that needs no user: set up the next order's page in the JLCONE app when asked (recipe in `lab/docs/kb/jlc_account_and_quotes.md`); the JLCMC M3 washer check could not be done in the app (the link opens outside it); the optional early sensor-head order and its JLC quote (`TODO-arcticoder.md` item 4); WP5 and A5 as in `TODO-BLOCKED.md`.
 
 ## Open question from the user, still unanswered in the repo
 
@@ -20,12 +22,12 @@ Why the arm is 208 mm: the noise budget barely depends on arm length (0.108 / 0.
 
 ## Supply chain
 
-An AliExpress order of 2026-10-30 is en route: 20 M3 thin (DIN439) 304 stainless nuts and digital calipers (`lab/docs/orders.md`). Nothing else is en route; the JLC arm and small-board orders and the AliExpress balance list wait on the user (`TODO-arcticoder.md`, coupons end 2026-11-25/26).
+An AliExpress order of 2026-10-30 is en route: 20 M3 thin (DIN439) 304 stainless nuts and digital calipers (`lab/docs/orders.md`). The JLC arm order is in review; three small-board orders are the user's next tasks; the AliExpress balance list waits on the user (`TODO-arcticoder.md`; keep the cart fed so something is always in transit).
 
 ## Standing rules (see `kb/project_workflow_notes.md`)
 
-Never state a JLC price that is not in the user's words or captures; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit in this repo; `TODO-arcticoder.md` holds only separately numbered tasks for the user, and any task given in chat is also written there.
+Never state a JLC price that is not in the user's words, captures or a page read through the app; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit in this repo; `TODO-arcticoder.md` holds only separately numbered tasks for the user, and any task given in chat is also written there.
 
 ## Read first
 
-Both `docs/kb/README.md` files, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`; then `lab/docs/kb/jlc_account_and_quotes.md` if a JLC question comes up.
+Both `docs/kb/README.md` files, `lab/docs/kb/jlc_account_and_quotes.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`.

@@ -8,11 +8,15 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Order the three small boards as three single-board orders** (`elec_board`, `clamp_ground`, `clamp_plate` zips in `hardware/balance/boards/fab/`; Single PCB, 1 design, 1.2 mm, HASL, 5 pieces; the panel option costs C$19.25 for the three, see [ORDER.md](../hardware/balance/boards/fab/ORDER.md)): upload one, read the Special Offer line (about C$2.79 expected), and order if it holds for each; tell me if a later upload shows a different price. Pick the cheap postal tier at payment (the default UPS line is C$37.41).
-2. **Decide on the early sensor-head order** (the three small sensor-head boards, about 13 parts; not the 169-part main board, which is not ordered; optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
+1. **Review and place the `elec_board` order** (first of three, one order at a time): the JLCONE app's quote page is set up and not saved or submitted: `elec_board_gerbers.zip`, 24 x 34 mm, Single PCB, 1 design, 5 pieces, FR-4, 1.2 mm, green, HASL (with lead), Confirm Production file No, Remove Mark, calculated **C$2.92** (Special Offer C$2.79 + deburring C$0.14). Check the thickness still reads 1.2 mm, save to cart, pick the cheap postal tier at payment (the default UPS line is C$37.41), and tell me the order total. No coupon applies.
+2. **Place the `clamp_ground` order** (a later day; the page resets after each upload, so say so and I set it up in the app): `clamp_ground_gerbers.zip`, 19 x 17 mm, same settings, calculated **C$2.92**.
+3. **Place the `clamp_plate` order** (a later day): `clamp_plate_gerbers.zip`, 16 x 14 mm, same settings, calculated **C$3.06** (deburring C$0.28); it carries two plates per balance and five boards arrive.
+4. **Decide on the early sensor-head order** (the three small sensor-head boards, about 13 parts; not the 169-part main board, which is not ordered; optional; its New User SMT coupon, C$13.99, ends 2026-11-25): upload `hardware/instrument/heads_panel/out/heads_panel_gerbers.zip` with `bom.csv` and `cpl.csv`
    using [heads_panel/ORDER.md](../hardware/instrument/heads_panel/ORDER.md), read the Standard-assembly total and tell me whether to go on; answer "Confirm Production File" and "Confirm Parts Placement" emails within 48 h.
    It also needs one 4-pin JST-SH cable (both ends, 100-150 mm) in the AliExpress cart. Skip it if the quote is more than you want to spend before the balance is built.
-3. **JLCMC fasteners:** (the app's Mechatronic Parts link did not open inside it, so I could not check) check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
+5. **JLCMC fasteners:** (the app's Mechatronic Parts link did not open inside it, so I could not check) check whether M3 stainless (304/A2) flat washers are listed, at what price and shipping, since two coupons (C$13.99 each) apply to that service (the nuts are bought: see En route).
+
+6. **After the `elec_board` order, make the JLCONE app larger** (the 13% scale did not apply: your shell still resolved `jlcone` to `/usr/bin/jlcone`): run `hash -r` or open a new terminal, check `type jlcone` shows `~/.local/bin/jlcone`, then relaunch with `jlcone --remote-debugging-port=9222`; do not relaunch before the order is placed, because the quote page's upload is lost on a restart.
 
 ## Next order — AliExpress: what is left for the balance
 

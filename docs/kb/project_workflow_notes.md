@@ -42,3 +42,7 @@ list (hands, eyes, purchases only; one-line justifications; "En route" after the
 
 ## TODO-arcticoder.md hygiene (user's rule, 2026-11-01)
 Only separately numbered tasks for the user's hands, eyes or decisions: no notes to self, no status reports, no placeholder "nothing needed" item. Explanations, EasyEDA recipes, the bridge-reconnect reminder (Advanced > MCP Bridge > Connect after sleep), the Spark registration timing (closes 2026-11-30; register only after the design exists) and the next `.eprj2` milestone belong in `kb/` (`session_handoff.md`, `easyeda_spark_notes.md`). A task I give in chat must also be in this file. Each action is its own numbered item.
+
+## JLCONE desktop app access (2026-11-04)
+
+The user launches the JLCONE app with `--remote-debugging-port=9222` when they want a quote or coupon read; the recipe, the gotchas and the permissions are in `lab/docs/kb/jlc_account_and_quotes.md`. Rules: read-only text reads, a few paced mouse clicks, uploads of this repo's own Gerber zips for quotes, never JLC's API, never the cookies, never "Submit"/"Save to cart"/payment (the user approves and pays), one order per task and at most one per day. Leave the page configured and tell the user what to approve.

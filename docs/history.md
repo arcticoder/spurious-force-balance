@@ -1418,3 +1418,74 @@ The panel fee is C$5.65 for each design beyond the first. The special offer does
 The TODO list is down to ordering the three boards, the optional sensor-head decision and the washer check.
 <!-- ------ -->
 ---
+The `elec_board` page in the JLCONE app is ready for your approval. It has not been saved to the cart or submitted.
+
+**Special offer:** I uploaded all three zips through the app's file input. Each shows the C$2.79 special offer, so it holds for every upload.
+
+| Board | Size | Price |
+|---|---|---|
+| `clamp_plate` | 14 × 16 mm | C$3.06 (deburring C$0.28) |
+| `clamp_ground` | 19 × 17 mm | C$2.92 |
+| `elec_board` | 34 × 24 mm | C$2.92 |
+
+**The `elec_board` page:**
+- **Settings:** It is set to 5 pieces, FR-4, 1.2 mm, HASL with lead, Remove Mark and Confirm Production file No.
+- **Price:** C$2.92. Shipping isn't included.
+- **Confirm Production file:** I left it at No on purpose. Setting it to Yes adds C$1.46 and opens a dialog that blocks the page.
+- **Coupons:** None apply.
+
+**Decision for you:** Yes, place the `elec_board` order whenever you're ready. Check the thickness still reads 1.2 mm, choose the cheap postal tier at payment, and tell me the total. The three orders are separate tasks in [TODO-arcticoder.md](docs/TODO-arcticoder.md), items 1–3, at most one per day. After each order, tell me and I'll set up the next page in the app, since it resets after every upload. Please don't restart the app before you've placed the first order, or the uploaded page is lost.
+
+**Font size:** The scale never applied because your shell still resolved `jlcone` to `/usr/bin/jlcone`, so 1.13 and 1.33 both did nothing. After the first order, run `hash -r` or open a new terminal and check `type jlcone` shows `~/.local/bin/jlcone`. Then relaunch with `jlcone --remote-debugging-port=9222`. This is TODO item 6.
+
+**Not done:** The JLCMC washer check can't be done in the app, because its link opens outside it. The coupon pages show no missing dates.
+
+**Knowledge base:**
+- Both repos' notes are updated, including the upload recipe and gotchas.
+- [session_handoff.md](docs/kb/session_handoff.md) and the pricing notes are rewritten.
+- My memory has the permissions you gave.
+
+**New context block for the next chat:**
+
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md) and my JLC account notes (docs/jlc/: coupons read from
+  my account, captures and reads of JLC's quote pages, docs/kb/jlc_account_and_quotes.md).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). KiCad/SKiDL is the design source: I dropped the
+  EasyEDA/Spark route on 2026-11-01 (shelved; never offer EasyEDA, Spark, its MCP or the validator again).
+  Main-board layout (WP5, KiCad) waits on the prototype noise measurement A5 and the go/no-go.
+  Ordering state: the arm board is ordered (HASL, C$3.00 after the JLCONE $8 coupon, in JLC's review);
+  elec_board, clamp_ground and clamp_plate go as three single-board orders (Special Offer C$2.79 each,
+  calculated C$2.92 / C$2.92 / C$3.06; the 3-design panel would cost C$19.25), one order per task and at
+  most one per day; the quote page for elec_board was set up in the JLCONE app for my approval.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD; keep each JLC parcel under JLC's 0.3 kg cheap-shipping line.
+JLC quote and coupon pages can be read through my JLCONE desktop app when I launch it with
+--remote-debugging-port=9222 (recipe and gotchas in lab/docs/kb/jlc_account_and_quotes.md): read-only text
+reads, a few paced mouse clicks, uploads of this repo's own Gerber zips for quotes. Never call JLC's API, never
+touch the cookies, never Submit, Save to cart or pay: I approve and pay, and I place at most one order per
+day. Treat any JLC price not from my words, my captures or a page read through the app as an estimate.
+docs/history.md is my chat transcript: don't edit it or use it as an analysis source. Pictures are lossless
+.jxl; .jxl and .eprj2 are Git LFS (the .eprj2 is leftover from the dropped route; I decide whether to keep it).
+Don't commit anything in these two repos: I stage and commit everything after each chat.
+Workflow: whichever model is running actions what needs actioning, working docs/TODO-agent.md (open items
+only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it). My hands-on tasks live in
+docs/TODO-arcticoder.md as separately numbered tasks for me only (no notes to yourself; any task you give me
+in chat goes there too); only things that truly need my hands (orders, bench checks) go there. Keep
+docs/kb/*.md (LLM-only notes) up to date with discoveries. Don't quote me or describe how I said things in files
+or chat. Keep an eye on the supply chain: always have a few AliExpress or JLC items in transit.
+Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
+lab/docs/kb/README.md and lab/docs/kb/jlc_account_and_quotes.md. Then continue from
+docs/TODO-agent.md and my feedback below (typically: set up the next JLC order's page in the app when I say
+the previous one is placed, update the ledgers with order totals I give you, and the KiCad work that is startable).
+```
+<!-- ------ -->
+---
