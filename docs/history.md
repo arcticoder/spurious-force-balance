@@ -1363,3 +1363,23 @@ Still on you:
 - Whether JLC stocks the M3 washers.
 <!-- ------ -->
 ---
+I read the page, and the dimensions don't actually differ. Your panel is the same 36 × 96.5 mm. JLC's banner prints the long side first ("Detected 2 layer board of 96.5x36mm"), and the page's X field holds 36 and Y holds 96.5, which matches [ORDER.md](hardware/balance/boards/fab/ORDER.md). I added a sentence to that file so the two readings don't confuse anyone again.
+
+**What the page currently shows:** I read the text, the input fields and the selected-option styling. I did not click anything or call JLC's API.
+- **Quote:** Special Offer C$2.79 (calculated price C$5.57) at 0.18 kg.
+- **Shipping:** the default UPS line, C$37.41. Pick the cheap postal tier at payment, like the arm order.
+- **Selections:** it looks reset to Single PCB, Different Design 1, 1.6 mm and ENIG. I inferred the selections from how the option buttons are styled, so check them.
+
+**What to set before ordering:**
+- Delivery Format **Panel by Customer**.
+- Different Design **3**.
+- Thickness **1.2 mm**.
+- Finish **HASL (with lead)**.
+
+Then tell me the Calculated Price. If it stays C$2.79, use the JLCONE PCB $5 coupon, since a coupon can't exceed the goods. If it rises above C$8.42, use New User PCB instead. This is TODO item 1 in [TODO-arcticoder.md](docs/TODO-arcticoder.md).
+
+While the app is running with the debug port, I can re-read the page after you change the fields. Just say so. This only works while you keep the app launched that way, and I won't restart it. The recipe is in [jlc_account_and_quotes.md](../lab/docs/kb/jlc_account_and_quotes.md). I also updated my own memory so I ask you to launch it this way next time, instead of asking you for numbers.
+
+The coupon expiry dates, CNC/HDI quote notes and washer listing are still open. I can try them through the app too if you point it at those pages.
+<!-- ------ -->
+---
