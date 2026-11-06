@@ -71,6 +71,17 @@ do not upload the arm zip as a panel as it is.
 Quote read from the JLCONE page for the panel file (`lab/docs/jlc/small_boards_panel_quote_2026-11-04.md`): **Panel by Customer with 3 designs is C$19.25** (Engineering 5.57 + Panel 11.31 + Board 2.37), while a **Single PCB gets the C$2.79 Special Offer**. So upload the three single-board zips one at a time (`elec_board_gerbers.zip`, `clamp_ground_gerbers.zip`, `clamp_plate_gerbers.zip`; settings in the table above, Single PCB, Different Design 1, 1.2 mm, HASL, 5 pieces) and confirmed on 2026-11-04: each upload shows the C$2.79 Special Offer (calculated C$2.92 for `elec_board` and `clamp_ground`, C$3.06 for `clamp_plate` with the small-board deburring line); no coupon applies (they need goods over C$2.79); leave "Confirm Production file" at No (Yes adds C$1.46). Check "Combine Shipping" at payment only if it merges the three small orders into one cheap parcel (together about 170 g with packing); the arm order is already placed.
 The panel, `small_panel_gerbers.zip` (36 x 96.5 mm, from `boards.py`'s `panel_small()`, four boards on mouse-bite tabs, DRC clean apart from the open outlines), is the fallback if the Special Offer is refused on the later uploads: as **Panel by Customer** it carries the C$11.31 panel fee for 3 designs. Declaring it a single board to get the offer would misstate the file: do not.
 
+## Order status
+
+| Design | Status | Total (user's figures) |
+|---|---|---|
+| arm | placed 2026-11-03 (JLC's clock), in review | account page shows a bare $3.00 (merchandise 1.20 + shipping 1.80) with the JLCONE $8 coupon; see the currency note |
+| elec_board | placed 2026-11-05 (user's report), 5 pieces | merchandise $2.10 USD + shipping $1.50 USD = **$3.60 USD (C$5.10)**, postal tier |
+| clamp_ground | not placed: next, on a later day than elec_board | |
+| clamp_plate | not placed: after clamp_ground | |
+
+Currency note: the order pages show USD, and the user's card charge is in CAD (the elec_board order is $3.60 USD for C$5.10, a rate of about 1.42). The arm's "C$3.00" in earlier entries is the page's bare $3.00 and was probably USD too (about C$4.25 charged); the quote page's C$2.79 Special Offer and C$2.92 calculated price are CAD estimates, and the order's USD merchandise ($2.10 is about C$2.97) was a little above the calculated price.
+
 ## Checks done before this file was written
 
 `kicad-cli pcb drc` (KiCad 9.0.9): no errors; the only warnings are that the generated hole footprints have no library entry. JLC's published limits [confirmed on jlcpcb.com/capabilities 2026-10-24]:

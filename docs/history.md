@@ -1489,3 +1489,32 @@ the previous one is placed, update the ledgers with order totals I give you, and
 ```
 <!-- ------ -->
 ---
+I did all six items, but the co-author removal needs a force-push from you, and the JLCMC washer prices couldn't be read.
+
+**1. Co-author removal.** I rewrote history locally in `lab` (1 commit) and `spurious-force-balance` (6 commits), and no Claude trailers remain on `main`. Every commit hash in both repos changed, so the remote still has the old hashes. You need to run `git push --force-with-lease` in both repos. I made backup bundles first (`lab-backup.bundle` and `spurious-force-balance-backup.bundle`, both in the session scratchpad) and committed nothing.
+
+**2. Bags for today's arrivals.** None of the existing bags fits, and the copper pads and brass rod should stay away from the magnet bag (`MISC`). I made a new bag, `BALANCE MATERIALS`, and logged the five items as received in `lab/docs/orders.md` and `lab/docs/inventory.md`.
+- **Foam tape, copper pads, copper foil tape, brass rod:** all go in `BALANCE MATERIALS`. If the rod doesn't fit, keep it beside the bag.
+- **Stainless sheet:** keep it flat in its own card envelope, outside any bag, since a crease ruins a 0.05 mm strip.
+- **Brass rod length:** it's logged as the listed 100 mm, not yet measured.
+- **Your checks:** TODO item 4 asks for a disc-magnet check on the sheet, pads and rod, and a caliper measurement of the rod.
+
+**3. Save-to-cart spinner.** Since the `elec_board` order went through, I didn't repopulate the form. The app's quote tab is gone, so the next page needs a fresh upload anyway.
+
+**4. `elec_board` order.** It's recorded as $2.10 USD plus $1.50 shipping, $3.60 USD (C$5.10). JLC's order pages show USD while your card is charged in CAD, at about 1.42. The arm order's "C$3.00" was probably USD too, about C$4.25 charged. I noted this in `ORDER.md` and the KB rather than rewriting the old entries, so check it against your card statement.
+
+**5. Font.** Noted as larger and working.
+
+**6. JLCMC washers.** I got into JLCMC inside the app by navigating the account tab to `jlcmc.com` through the debug port.
+- **What I found:** the washer category lists "Flat Washer Level A" with SUS304 among its materials, from about C$0.001 each. Its product page is a PDF catalogue that I couldn't read as text or screenshot, so I have no M3 price.
+- **Combined ordering:** JLCMC's 2026-11-02 notice says its orders can no longer be combined with JLCPCB, JLC3DP or JLCCNC. A washer-only parcel would carry its own shipping.
+- **Decision:** I dropped the JLCMC task and kept the washers on the AliExpress list.
+- **App state:** your account tab was left on that JLCMC page, and my attempt to send it back to the account page didn't take. You can navigate it back by hand.
+
+**TODO changes.**
+- **JLC orders:** `clamp_ground` is now item 1 and `clamp_plate` item 2. Tell me on a later day and I'll set up the page.
+- **AliExpress:** the checkout is open now that JLC boards are on their way. Only the 10-30 nuts and calipers order is still in transit, so please place it soon.
+
+I updated the KB (`session_handoff.md`, `fab_ordering_notes.md`, `jlc_account_and_quotes.md`, `inventory_storage_notes.md`) and the coupon ledger.
+<!-- ------ -->
+---
