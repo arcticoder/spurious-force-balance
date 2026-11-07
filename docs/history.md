@@ -1546,3 +1546,35 @@ The `clamp_ground` page is set up in JLCONE, and I've reworked your TODO list. I
 I also updated `session_handoff.md` and saved a memory note that your list holds only what you can do today, with one order per day. I didn't touch `history.md`.
 <!-- ------ -->
 ---
+Written for: an outside model proposing the remaining slicer settings. The requirements are in [print_requirements.md](print_requirements.md), and you can paste it to that model as it is.
+
+**Findings in `balance.3mf`**
+I transformed each part as placed and checked its orientation. Fix these before slicing:
+- **Tilted parts:** `gantry`, `encl_post_np` and `encl_post_pp` sit about 1.5° off the bed. Use "place on face" to lay them flat.
+- **`fixture_strip_guide`:** it is placed ridge-down, so 3660 mm² of the plate hangs 0.5 mm above the bed. Flip it so the plate's flat face is on the bed.
+- **`base`:** it is 218 mm on a 220 mm bed, so the 5 mm auto brim won't fit. It needs no brim or a skirt.
+- **Prime tower:** it is on for a single-colour print. Turn it off.
+- **Profile mismatch:** the loaded profile is the stock K1 one: 2 walls, 15% grid infill, no supports. `assembly.md` says 3 walls and about 30% infill.
+
+**What the file asks the outside model for**
+- Walls, infill and top/bottom layers for the frame parts.
+- A lighter setting for `vane_holder` and a stronger one for the saw guide.
+- Which parts need supports, and how to keep supports out of the M3 holes, nut pockets and magnet pockets.
+- Hole and pocket compensation, with a test print.
+- Warp control for `base` and the long posts.
+- Wall speed and acceleration for the precision parts.
+- Seam placement on the `head` and gantry bore.
+- Whether the five plates are sensible as grouped.
+
+It asks for the sliced mass of `vane_holder` back, for `params.py`, and for the hole-test result.
+
+**Your results**
+- **`clamp_ground`:** logged as placed, with a grand total of C$5.08.
+- **Materials check:** no magnet pull on the sheet, pads or rod, and the rod measures 10 mm × 100 mm. All of this is in the order log and inventory.
+- **Bag:** I added `MISC TOOLS` to the inventory for the nuts and screws.
+- **TODO:** item 1 is now `clamp_plate`, to be placed on a day after today. Tell me when, and I'll set up the page.
+- **Wording:** your `clamp_ground` note says "Order placed". I recorded it as placed 2026-11-06.
+
+I wrote the Chat 8 entry in `TODO-completed.md` and linked the requirements file from `assembly.md` and the print item in `TODO-arcticoder.md`. I did not commit anything.
+<!-- ------ -->
+---
