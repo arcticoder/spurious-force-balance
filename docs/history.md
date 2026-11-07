@@ -1518,3 +1518,31 @@ I did all six items, but the co-author removal needs a force-push from you, and 
 I updated the KB (`session_handoff.md`, `fab_ordering_notes.md`, `jlc_account_and_quotes.md`, `inventory_storage_notes.md`) and the coupon ledger.
 <!-- ------ -->
 ---
+The `clamp_ground` page is set up in JLCONE, and I've reworked your TODO list. I did not click Save to cart, so that step is yours.
+
+**`clamp_ground` page**
+- I sent the account tab to `cart.jlcpcb.com/quote` and uploaded `clamp_ground_gerbers.zip`.
+- The upload reset the thickness to 1.6 mm, so I set it back to 1.2 mm and chose HASL with lead.
+- By screenshot, the page now reads:
+  - 17 × 19 mm, Single PCB, 5 pieces, 1.2 mm, green.
+  - HASL with lead, Confirm Production File No, Remove Mark.
+  - Edge-rounding Yes.
+- The page's calculated price is **C$2.96**. The TODO had said C$2.92, so I changed it.
+- Please don't reload that tab.
+
+**`TODO-arcticoder.md`**
+- It now has two actions:
+  1. Place `clamp_ground`.
+  2. Check the balance materials.
+- I took `clamp_plate`, the sensor-head order and the AliExpress list off your list and put them under "Staged orders" in `TODO-agent.md`. They go back on your list one at a time, once the previous order is placed.
+- Because AliExpress shipping is slow, that list gets promoted straight after `clamp_plate`.
+- The materials check now says the sheet is a roll and uses your printed calipers until the digital ones arrive. The AliExpress calipers (est. 2026-11-15) are under "En route".
+- "En route" now shows `elec_board` as In Production and the arm order as Paid. It also notes that JLC emails were being flagged as spam and that you resent yours.
+
+**Your questions**
+- **Stainless roll:** yes, put it in `BALANCE MATERIALS` loosely, with nothing pressing on it and no folding. I corrected the inventory, the order log and the storage notes, which had said "flat in a card envelope".
+- **Washers:** they stay on the AliExpress list.
+
+I also updated `session_handoff.md` and saved a memory note that your list holds only what you can do today, with one order per day. I didn't touch `history.md`.
+<!-- ------ -->
+---
