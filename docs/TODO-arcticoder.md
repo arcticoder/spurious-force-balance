@@ -12,7 +12,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## Ready to build now — parts on hand
 
-1. [ ] **Print the balance's frame** (slicer settings: [print_requirements.md](print_requirements.md) for the outside model; the loaded `hardware/balance/cad/balance.3mf` still has to be fixed per its section 3) (`hardware/balance/cad/*.stl`, PLA, 3 walls, about 30% infill, 0.2 mm layers): `base`, `gantry` (lay it on its side), `head`, `sensor_bracket`, `elec_bracket`,
+1. [ ] **Print the balance's frame** (settings are in `hardware/balance/cad/balance.3mf`; reslice in Orca, check the nut and hole fits on the first parts, and give me the `vane_holder` mass; [print_requirements.md](print_requirements.md) section 6) (`hardware/balance/cad/*.stl`, PLA, 3 walls, about 30% infill, 0.2 mm layers): `base`, `gantry` (lay it on its side), `head`, `sensor_bracket`, `elec_bracket`,
        `vane_holder`, the four `encl_post_*`, the four `encl_shelf_*`, and the four jigs `fixture_saw_guide_base`, `fixture_saw_guide_plate`, `fixture_strip_guide`, `fixture_gap_gauge`.
        `damper_holder` is the flat-disc version (the twist test of 2026-10-26 found the discs magnetized through the flat faces). The arm, clamp plates and electrode board come as fab boards, not prints.
        The prototype check (A5) needs the lock-in and the optical readout from `lab` built first (`signal_conditioning/lockin_amplifier`, `signal_conditioning/optical_shadow_readout`).

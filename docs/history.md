@@ -1578,3 +1578,35 @@ It asks for the sliced mass of `vane_holder` back, for `params.py`, and for the 
 I wrote the Chat 8 entry in `TODO-completed.md` and linked the requirements file from `assembly.md` and the print item in `TODO-arcticoder.md`. I did not commit anything.
 <!-- ------ -->
 ---
+I set the remaining slicer parameters directly in `hardware/balance/cad/balance.3mf`. I couldn't run Orca here, so nothing has been resliced. I only checked that the archive and its two settings files still parse.
+
+I kept your changes: no-brim on `base`, 3 walls, 30% infill, and the prime tower off. I added the following for the K1 with Hyper PLA on textured PEI, printing on a cool balcony.
+
+**Global settings**
+- **First layer:**
+  - Bed 65 °C (60 °C after the first layer).
+  - Nozzle 225 °C (220 °C after the first layer).
+  - Speed 30 mm/s, infill 45 mm/s, acceleration 500 mm/s².
+  - Fan off for the first 3 layers.
+- **Supports:** tree (auto), 45°, build plate only. Nothing rests on a part, so no support gets trapped in a pocket. The nut pockets will bridge.
+- **Hole compensation:** +0.1 mm. This is a starting value only, so print a test before the real parts.
+- **Speeds:**
+  - Outer wall 120 mm/s and inner wall 200 mm/s (down from 200 and 300).
+  - Outer-wall acceleration 3000 mm/s² and default 6000 mm/s² (down from 5000 and 10000).
+
+**Per-part overrides**
+- `vane_holder`: 2 walls, 10% infill, to keep it near 0.6 g.
+- Saw-guide base and plate: 4 walls, 40% infill.
+- `fixture_strip_guide`: 0.1 mm layers. The 0.5 mm ridge is 2.5 layers at 0.2 mm, so the part would not come out at 5.5 mm.
+
+**Decision for you**
+- With the lid shut, the K1 should hold the temperature. If the first layer still lifts on `base`, raise the bed to 70 °C before changing anything else.
+
+**Before you print**
+1. Open the file in Orca and reslice.
+2. Run a small hole test.
+3. Give me the sliced `vane_holder` mass in grams for `params.py`.
+
+Your original file is backed up at `/tmp/claude-1000/-home-echo--Code-python-pico/29f38dbc-9739-4248-b311-8203f0d31010/scratchpad/balance.3mf.bak`. Section 6 of [print_requirements.md](print_requirements.md) lists every value and its reason, and the print item in [TODO-arcticoder.md](TODO-arcticoder.md) now points to it. I committed nothing.
+<!-- ------ -->
+---

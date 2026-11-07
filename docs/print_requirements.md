@@ -56,3 +56,24 @@ An analysis of the loaded project (parts transformed as placed) found:
 - The settings as a list or a saved Orca profile, placed with the 3mf.
 - The sliced mass of `vane_holder` in grams, for `params.py`.
 - The result of the hole test print, with the compensation chosen.
+
+## 6. Settings applied to `balance.3mf` (2026-11-06)
+
+The user fixed the orientations and set `base` to no brim, the prime tower off, 3 walls and 30% sparse infill (global). The agent then set the rest in the file (the file as the user left it is backed up in the session scratchpad at /tmp/claude-1000/-home-echo--Code-python-pico/29f38dbc-9739-4248-b311-8203f0d31010/scratchpad/balance.3mf.bak). Printer: Creality K1, 0.4 mm brass nozzle, Hyper PLA, textured PEI; the print is made on a balcony in cool weather.
+
+| Item | Value | Reason |
+|---|---|---|
+| Bed, first layer / rest | 65 / 60 C | cool ambient air; bonding of the 218 mm base and long posts |
+| Nozzle, first layer / rest | 225 / 220 C | the extra 5 C helps the first layer's bond |
+| First-layer speed, infill speed, acceleration | 30, 45 mm/s, 500 mm/s2 | slow first layer for bonding; wide first-layer line stays 0.5 mm |
+| Fan off for first layers | 3 | bonding in cold air |
+| Supports | tree (auto), 45 degrees, build plate only | the gantry, posts and `damper_holder` overhangs; nothing rests on a part, so nothing is left inside a pocket (nut pockets bridge) |
+| Hole compensation | +0.1 mm | starting value only: PLA holes print small; confirm with a test print before the real parts |
+| Outer wall / inner wall speed | 120 / 200 mm/s | accuracy over the stock 200 / 300 |
+| Outer wall / default acceleration | 3000 / 6000 mm/s2 | less ringing, better holes |
+| `vane_holder` | 2 walls, 10% infill | keeps the moving mass near the CAD's 0.6 g |
+| saw guide base and plate | 4 walls, 40% infill | sawing load |
+| `fixture_strip_guide` | 0.1 mm layers | the 0.5 mm ridge under a 5 mm plate is 2.5 layers at 0.2 mm; 0.1 mm layers give 0.2 + 53 x 0.1 = 5.5 mm |
+| Seam, elephant-foot compensation | aligned, 0.15 mm (unchanged) | not changed without a test print |
+
+Not done, because they need a print: the hole compensation check, the bearing-surface check on `head`, and the sliced mass of `vane_holder` for `params.py`. Close the K1's lid for these prints. Open the file in Orca once and reslice before printing; the agent could not run the slicer.
