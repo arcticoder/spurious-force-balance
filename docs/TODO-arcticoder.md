@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Save `clamp_plate` to cart and pay** (set up in the JLCONE app on 2026-11-08, calculated **C$3.10** with the edge-rounding line): `clamp_plate_gerbers.zip`, 16 x 14 mm, Single PCB, 5 pieces, 1.2 mm, HASL with lead, Confirm Production File No, Remove Mark, green. Check the thickness reads 1.2 mm, save to cart, pick the cheap postal tier, and tell me the total. Two plates per balance; five boards arrive.
+1. **Finish `clamp_plate`** (in the JLC cart as Y6 since 2026-11-08; calculated C$3.10 with edge rounding, 5 pieces, 1.2 mm, HASL with lead). Shipping shows an estimate of C$8.14, not the postal figure: at checkout choose **Global Standard Direct Line** (it defaults to UPS), read the total, and tell me before paying. Coupons: 2 valid, not yet applied to the subtotal of C$11.24.
 
 ## Ready to build now — parts on hand
 

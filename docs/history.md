@@ -1667,3 +1667,26 @@ The `clamp_plate` page is set up and waiting for you to save it to cart and pay.
 - I saved a note that partly used spools are kept for use.
 <!-- ------ -->
 ---
+The `clamp_plate` order is in the JLC cart as Y6, but I haven't reached the checkout, so I can't confirm the shipping total yet.
+
+**What I found**
+- The cart shows merchandise C$3.10, shipping estimated at C$8.14, and a subtotal of C$11.24. Weight is 0.14 kg, the same as `clamp_ground`.
+- Weight isn't the cause. The cheap tier's cliff is 0.3 kg.
+- C$8.14 is probably the default UPS estimate, but I couldn't confirm which method the cart is quoting.
+- The shipping dropdown doesn't open in the cart through the debug port, and my synthetic clicks on Secure Checkout didn't navigate. I stopped there rather than keep clicking near payment.
+- The 2 valid coupons aren't applied to the subtotal. The KB says coupons apply at payment.
+
+**What I need from you**
+- At checkout, pick **Global Standard Direct Line** and tell me the total before you pay.
+- Or tell me to keep trying the checkout through the debug port.
+
+**Docs**
+- `TODO-arcticoder.md` item 1 now says to finish the order in the cart, pick the Global Standard Direct Line, and report the total before paying.
+- `ORDER.md` records the cart state.
+
+**Printer**
+- The printer is off, so nothing to do there now. I didn't touch it.
+
+Nothing is paid or committed.
+<!-- ------ -->
+---
