@@ -8,10 +8,10 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Decide on `clamp_plate` (JLC cart Y6, C$3.10 goods, not paid).** The analysis is done. Weight is not the cause: the parcel is 0.14 kg, the same as elec_board and clamp_ground, which shipped on Global Standard Direct Line for about C$2.13 (US$1.50) on 2026-11-05 and 2026-11-06. The same line now reads C$8.14 (about US$5.77). The arm's order page (Y3, 2026-11-03) shows the Global line at US$7.75 for 0.28 kg, so the rise is in JLC's rate, not in the parcel. The likely cause is a rate change or the end of a promotional rate; JLC's pages do not say which, and support can confirm it.
-   Status (2026-11-08): the cart line is gone. The Y6 and later Y7 clamp_plate orders both show Order Cancelled on the account's orders page, so nothing is in production. The New User PCB coupon took $3 off at the payment step but reverted to C$11.24 at the summary. The other coupons cannot reduce the Global line: each covers only its own service's goods, and the shipping coupon needs shipping over C$21.15, which the Global line never reaches. The only coupon route left is a carrier whose charge sits between C$21.15 and C$22.24 for this parcel. Tell me whether to re-add clamp_plate to the cart so the carrier prices can be read, or to pay C$8.14, or to wait for JLC support.
-2. **Printer set-up on the balcony.** Reconvene at 13:30 (the user's availability). Then power the K1 on, and tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
-3. **Adjust the riser vents** when I ask during a print.
+1. **Printer set-up on the balcony, tonight when you have time (no fixed time).** Power the K1 on, then tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
+2. **Adjust the riser vents** when I ask during a print.
+
+Parked: the `clamp_plate` order (Y6 and Y7 cancelled; nothing in production). It waits in [TODO-BLOCKED.md](TODO-BLOCKED.md) for a coupon or a shipping price that makes it worth ordering.
 
 ## Ready to build now — parts on hand
 

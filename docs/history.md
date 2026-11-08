@@ -1786,3 +1786,13 @@ Only JLC support can confirm the cause, so I've added that to the TODO.
 **Current state:** The clamp_plate orders Y6 and Y7 both show "Order Cancelled", and nothing is in production. I've updated `docs/TODO-arcticoder.md` item 1 with that and the coupon result. Please tell me one of: re-add clamp_plate to the cart so I can read the DHL and FedEx prices, pay C$8.14, or wait for JLC support.
 <!-- ------ -->
 ---
+Recorded. clamp_plate is parked, not ordered, and your TODO now has only the printer set-up and the riser vents.
+
+- **`docs/TODO-arcticoder.md`:** the clamp_plate item is gone. The printer set-up is now "tonight, when you have time", with no fixed time.
+- **`docs/TODO-BLOCKED.md`:** clamp_plate is parked with a revisit condition. It returns when a coupon covers the shipping, or when the Direct Line price for a 0.14 kg parcel drops back toward US$1.50. It is not in the cart and nothing is in production.
+- **`docs/TODO-agent.md`:** the staged-orders note now points to the parked item.
+- **Lab KB and memory:** the decision and your preference about shipping premiums on minimum orders are saved.
+
+One question: the AliExpress balance list was staged to promote as soon as clamp_plate was placed. That trigger won't fire now. Do you want it promoted to your list now, or held?
+<!-- ------ -->
+---

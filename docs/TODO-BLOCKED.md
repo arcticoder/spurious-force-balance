@@ -4,6 +4,9 @@
 
 These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 result.
 
+## Parked: `clamp_plate` JLC order (decided 2026-11-08 by the user: not at the current shipping price)
+- [ ] Revisit when a new coupon covers the order's shipping, or when the Global Standard Direct Line for a 0.14 kg parcel falls back toward US$1.50 (C$2.13) on a fresh quote. Then re-add the Gerber set (`clamp_plate_gerbers.zip`, 16 x 14 mm, 1.2 mm, HASL with lead, Single PCB, 5 pieces) to the cart and read the total; the user approves and pays. Shipping was C$8.14 (Y6, 2026-11-08); the Y6 and Y7 orders were cancelled by the user. The user accepts the four spare boards as waste and will not pay a shipping premium for them.
+
 ## Written procedures that need data or hardware to finish
 - [ ] `hardware/instrument/firmware/bringup_analog.py`: scripted `[PASS]`/`[FAIL]` versions of the LED-sink, plate-driver, device-current and motor steps of `docs/bringup.md` section 4 (needs the board; the checks and limits are in that section).
 - [ ] The slow-demodulation analysis script for the measurement campaign (`docs/procedures.md` section C, step 6): demodulate the logged deflection at the modulation frequency and report force per ampere or per watt with uncertainties; write it with the first real data.
