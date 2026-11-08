@@ -8,7 +8,9 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Finish `clamp_plate`** (in the JLC cart as Y6 since 2026-11-08; calculated C$3.10 with edge rounding, 5 pieces, 1.2 mm, HASL with lead). Shipping shows an estimate of C$8.14, not the postal figure: at checkout choose **Global Standard Direct Line** (it defaults to UPS), read the total, and tell me before paying. Coupons: 2 valid, not yet applied to the subtotal of C$11.24.
+1. **Decide on `clamp_plate` (JLC cart Y6, C$3.10 goods, not paid).** Shipping on Global Standard Direct Line now reads C$8.14 (it was about C$2 on earlier orders), and the checkout total read C$11.24 ($7.97 USD) rather than C$11.14. Nothing has been paid. Options: wait for JLC's explanation or a deal, or pay the C$8.14. Tell me which, and I'll set the next step up.
+2. **Printer set-up on the balcony.** Power the K1 on, then tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
+3. **Adjust the riser vents** when I ask during a print.
 
 ## Ready to build now — parts on hand
 

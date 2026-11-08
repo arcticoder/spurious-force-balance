@@ -1724,3 +1724,25 @@ You'll want to select Global Standard Direct Line yourself and confirm the total
 - Your open question about how to group the five plates bears on the layout. Should I keep Orca's arrangement with the base on its own plate, or match the file's five-plate grouping exactly?
 <!-- ------ -->
 ---
+Chat 8 is closed out. The KB files for both repos are updated, and the new context block is in the handoff file.
+
+**1. The "special offer"**
+- The cart still shows the Special offer tag on the clamp_plate line at C$3.10, so the goods price hasn't changed.
+- The change is in shipping, which is a separate line. I can't tell from here why it rose.
+- I haven't checked AliExpress prices. I can look if you want, but I'd treat any AliExpress deal as a separate purchase decision.
+
+**2. The 3MF**
+- No, the 3MF isn't required. Orca can take the STLs and I can set per-part overrides through MCP.
+- I'll keep the 3MF as the reference for the settings in `print_requirements.md`, and I'll rebuild the plates from it when you give the go.
+- Your part is the balcony set-up: power on the K1, tell me when it's ready, and give me the print window. I'll name the spindle to load. Nothing prints or heats without your explicit request.
+
+**3. Chat handoff**
+- The new context block is in `/home/echo_/Code/python/spurious-force-balance/docs/kb/session_handoff.md`, under "Context block for the next chat (paste this)".
+- The handoff replaces the old one and reflects today's state: the clamp_plate cart, the shipping question, the printer plan, and the open Orca rebuild.
+- `lab/docs/kb/jlc_account_and_quotes.md` has a new section on the cart, checkout, shipping history and the coupon decision.
+- `~/Code/sysadmin/wsl/docs/kb/apps/orcaslicer-mcp-fork.md` has notes on the plate behaviour I hit. I kept balance details out of that repo.
+- `TODO-arcticoder.md` now has three hands-on items: the clamp_plate decision, the printer set-up, and vent adjustment during a print. `TODO-agent.md` has the rebuild plan. `TODO-completed.md` has a Chat 8 close entry.
+
+Nothing is committed in either repo, and nothing was submitted or paid.
+<!-- ------ -->
+---
