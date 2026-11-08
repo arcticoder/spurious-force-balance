@@ -8,11 +8,11 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Place the `clamp_plate` order on a day after 2026-11-06**: say so in the next chat and I set up the page in the app (the quote page resets after each save to cart): `clamp_plate_gerbers.zip`, 16 x 14 mm, Single PCB, 5 pieces, 1.2 mm, HASL with lead, Confirm Production File No, Remove Mark; two plates per balance, five boards arrive.
+1. **Save `clamp_plate` to cart and pay** (set up in the JLCONE app on 2026-11-08, calculated **C$3.10** with the edge-rounding line): `clamp_plate_gerbers.zip`, 16 x 14 mm, Single PCB, 5 pieces, 1.2 mm, HASL with lead, Confirm Production File No, Remove Mark, green. Check the thickness reads 1.2 mm, save to cart, pick the cheap postal tier, and tell me the total. Two plates per balance; five boards arrive.
 
 ## Ready to build now — parts on hand
 
-1. [ ] **Print the balance's frame** (settings are in `hardware/balance/cad/balance.3mf`; reslice in Orca, check the nut and hole fits on the first parts, and give me the `vane_holder` mass; [print_requirements.md](print_requirements.md) section 6) (`hardware/balance/cad/*.stl`, PLA, 3 walls, about 30% infill, 0.2 mm layers): `base`, `gantry` (lay it on its side), `head`, `sensor_bracket`, `elec_bracket`,
+1. [ ] **Print the balance's frame** (`hardware/balance/cad/*.stl`; settings are in `hardware/balance/cad/balance.3mf`, which you have set at 3 walls and 30% infill; the values and reasons are in [print_requirements.md](print_requirements.md) section 6). Reslice in Orca first, check the nut and hole fits on the first parts, and give me the `vane_holder` mass. Filament: the Hyper PLA spools in `lab/docs/inventory.md`; you choose the colour. `base`, `gantry`, `head`, `sensor_bracket`, `elec_bracket`,
        `vane_holder`, the four `encl_post_*`, the four `encl_shelf_*`, and the four jigs `fixture_saw_guide_base`, `fixture_saw_guide_plate`, `fixture_strip_guide`, `fixture_gap_gauge`.
        `damper_holder` is the flat-disc version (the twist test of 2026-10-26 found the discs magnetized through the flat faces). The arm, clamp plates and electrode board come as fab boards, not prints.
        The prototype check (A5) needs the lock-in and the optical readout from `lab` built first (`signal_conditioning/lockin_amplifier`, `signal_conditioning/optical_shadow_readout`).

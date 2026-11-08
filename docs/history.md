@@ -1644,3 +1644,26 @@ I deleted `lab/red_filament.jpg` and `lab/grey_filament.jpg` after transcribing 
 Nothing is committed.
 <!-- ------ -->
 ---
+The `clamp_plate` page is set up and waiting for you to save it to cart and pay. I didn't save it or pay.
+
+**`clamp_plate` in JLCONE**
+- Uploaded `clamp_plate_gerbers.zip`. The page reads 16 × 14 mm, Single PCB, 5 pieces, 1.2 mm, green, HASL with lead, Confirm Production File No, Remove Mark, and edge rounding on.
+- Calculated price is C$3.10, with C$0.28 for edge rounding.
+- Next: check the thickness reads 1.2 mm, click Save to cart, pick the cheap postal tier, and tell me the total.
+- `clamp_ground` (order Y5) is In Production, as the order page shows.
+
+**Filament (`lab/docs/inventory.md`)**
+- **Grey:** the plastic spool's empty weight is 200–240 g. That puts the grey spool at about 910–950 g left.
+- **White, opened, 195 g:** kept as usable, not written off. A white print that outlasts it needs a pause at the swap, the next white spool loaded, and a manual extrusion to restore flow. We'll plan that when it comes up.
+
+**Printing**
+- I can now drive Orca and the K1 through MCP. I haven't started anything, since printer heating and print starts still need your explicit go in a message.
+- Before a print, I'd reslice `balance.3mf` in Orca and check that a Hyper PLA profile is selected.
+- Should I do the Orca reslice now, without touching the printer?
+
+**Notes**
+- The TODO item for the balance frame now mentions your filament choice. I also added a "Printing from the MCP servers" item to `TODO-agent.md`, marked not started.
+- `ORDER.md` said LeadFree HASL for `clamp_plate`. I changed it to HASL with lead to match the order.
+- I saved a note that partly used spools are kept for use.
+<!-- ------ -->
+---
