@@ -8,8 +8,9 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Decide on `clamp_plate` (JLC cart Y6, C$3.10 goods, not paid).** Shipping on Global Standard Direct Line now reads C$8.14 (it was about C$2 on earlier orders), and the checkout total read C$11.24 ($7.97 USD) rather than C$11.14. Nothing has been paid. Options: wait for JLC's explanation or a deal, or pay the C$8.14. Tell me which, and I'll set the next step up.
-2. **Printer set-up on the balcony.** Power the K1 on, then tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
+1. **Decide on `clamp_plate` (JLC cart Y6, C$3.10 goods, not paid).** The analysis is done. Weight is not the cause: the parcel is 0.14 kg, the same as elec_board and clamp_ground, which shipped on Global Standard Direct Line for about C$2.13 (US$1.50) on 2026-11-05 and 2026-11-06. The same line now reads C$8.14 (about US$5.77). The arm's order page (Y3, 2026-11-03) shows the Global line at US$7.75 for 0.28 kg, so the rise is in JLC's rate, not in the parcel. The likely cause is a rate change or the end of a promotional rate; JLC's pages do not say which, and support can confirm it.
+   Test to run before paying (you click; nothing is submitted): on the checkout, select Global Standard Direct Line, apply the New User PCB coupon (C$8.46, already claimed, valid to 2026-11-25), and read the grand total. The arm order's discount (-US$15.35) was larger than its goods, so a coupon can take shipping off too. If the total falls to about C$3 or less, pay it. If it does not, remove the coupon and tell me, and the choice is C$8.14 or waiting for JLC support's answer. Tell me which.
+2. **Printer set-up on the balcony.** Reconvene at 13:30 (the user's availability). Then power the K1 on, and tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
 3. **Adjust the riser vents** when I ask during a print.
 
 ## Ready to build now — parts on hand

@@ -75,10 +75,10 @@ The panel, `small_panel_gerbers.zip` (36 x 96.5 mm, from `boards.py`'s `panel_sm
 
 | Design | Status | Total (user's figures) |
 |---|---|---|
-| arm | placed 2026-11-03 (JLC's clock), in review | account page shows a bare $3.00 (merchandise 1.20 + shipping 1.80) with the JLCONE $8 coupon; see the currency note |
+| arm (order Y3) | placed 2026-11-03 (JLC's clock), paid, in review; 0.28 kg, Global Standard Direct Line | order page (2026-11-08, read through the app, USD): merchandise **$10.10**, shipping **$7.75**, discount **-$15.35**, PayPal fee $0.50, order total **$3.00 USD**. The discount exceeded the goods, so it also took shipping off; the coupon(s) are not named on the page. The earlier "merchandise 1.20 + shipping 1.80" figures did not match this page and are withdrawn |
 | elec_board | placed 2026-11-05 (user's report), 5 pieces | merchandise $2.10 USD + shipping $1.50 USD = **$3.60 USD (C$5.10)**, postal tier |
 | clamp_ground | placed 2026-11-06 (user's report; JLC order Y5, In Production on 2026-11-08), 5 pieces, HASL with lead, 1.2 mm, postal tier | grand total **C$5.08** (the quote page's calculated price was C$2.96; the rest is shipping); the order page shows $3.60 USD |
-| clamp_plate | in the JLC cart as Y6 on 2026-11-08 (calculated C$3.10 with deburring C$0.28); shipping estimate C$8.14 in the cart, the UPS default; user to pick Global Standard Direct Line at checkout and pay | |
+| clamp_plate | in the JLC cart as Y6 on 2026-11-08 (calculated C$3.10 with deburring C$0.28); shipping estimate C$8.14 in the cart, the UPS default; Global Standard Direct Line reads C$8.14 at checkout (0.14 kg; was about C$2.13 on the elec_board and clamp_ground orders), not paid; checkout test in `docs/TODO-arcticoder.md` | |
 
 Currency note: the order pages show USD, and the user's card charge is in CAD (the elec_board order is $3.60 USD for C$5.10, a rate of about 1.42). The arm's "C$3.00" in earlier entries is the page's bare $3.00 and was probably USD too (about C$4.25 charged); the quote page's C$2.79 Special Offer and C$2.92 calculated price are CAD estimates, and the order's USD merchandise ($2.10 is about C$2.97) was a little above the calculated price.
 

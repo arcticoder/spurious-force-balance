@@ -1746,3 +1746,23 @@ Chat 8 is closed out. The KB files for both repos are updated, and the new conte
 Nothing is committed in either repo, and nothing was submitted or paid.
 <!-- ------ -->
 ---
+I pulled the Y3 order page and the live checkout. The clamp_plate shipping rise is not a weight or address effect, and a coupon may cut it, but the test needs your click at checkout.
+
+**What the data shows**
+
+- **Y3 arm order (placed 2026-11-03, read through the app, USD):** merchandise $10.10, shipping $7.75 on Global Standard Direct Line at 0.28 kg, discount -$15.35, PayPal fee $0.50, total $3.00. The discount was larger than the goods, so it also took shipping off. The page doesn't name the coupon.
+- **Same Global line, 0.14 kg, same address:** elec_board on 11-05 at US$1.50, clamp_ground on 11-06 at about C$2.12 (derived from your C$5.08 total), clamp_plate at C$8.14 (about US$5.77) on 11-08.
+- Weight and destination don't explain it. The most likely cause is a rate change or the end of a promotional rate on that line. JLC's pages don't say which, so support is the only way to confirm.
+
+**Mitigation to test before paying.** On the checkout, select Global Standard Direct Line, apply the New User PCB coupon (C$8.46, already claimed, valid to 2026-11-25), and read the grand total. If it drops to about C$3 or less, pay that. If not, remove the coupon. My chat-8 decision not to use a coupon assumed coupons only cover goods. The Y3 discount contradicts that, so the decision is open again. Applying and removing a coupon is your click; I didn't touch the checkout.
+
+**Changes I made**
+- `docs/TODO-arcticoder.md`: item 1 now has the analysis and the test. Item 2 says reconvene at 13:30.
+- `hardware/balance/boards/fab/ORDER.md`: the arm row now shows the Y3 breakdown. The earlier "merchandise 1.20 + shipping 1.80" figures are withdrawn. The clamp_plate row has the current shipping line.
+- `lab/docs/kb/jlc_account_and_quotes.md`: added the shipping series, the order-page reading, and the revised coupon decision.
+- `docs/kb/fab_ordering_notes.md` and `lab/docs/jlc/coupons.md`: corrected the arm figures.
+- A memory entry: read order pages and compare like-for-like orders before calling a cost unexplained.
+
+I didn't open or edit `docs/history.md`, didn't commit anything, and didn't click anything in JLC's pages.
+<!-- ------ -->
+---
