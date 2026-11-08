@@ -1610,3 +1610,37 @@ I kept your changes: no-brim on `base`, 3 walls, 30% infill, and the prime tower
 Your original file is backed up at `/tmp/claude-1000/-home-echo--Code-python-pico/29f38dbc-9739-4248-b311-8203f0d31010/scratchpad/balance.3mf.bak`. Section 6 of [print_requirements.md](print_requirements.md) lists every value and its reason, and the print item in [TODO-arcticoder.md](TODO-arcticoder.md) now points to it. I committed nothing.
 <!-- ------ -->
 ---
+The filament stock is in the lab inventory, the two photos are deleted, and I corrected a bed-temperature error I had made in the print settings. I didn't start a print or touch the printer.
+
+**Filament (`lab/docs/inventory.md`, new "Filament" section)**
+
+Remaining weight is gross minus spool tare. I used 155–180 g for an empty cardboard spool. The grey spool isn't cardboard, so its tare is unknown.
+
+| Spool | Status | Estimated remaining |
+|---|---|---|
+| Red | Opened | About 840 g (836–861 g) |
+| Grey | Opened | Unknown until the tare is known. About 1.0 kg if the spool is 151 g, which is what a full 1 kg net implies |
+| White, sealed | Unopened | 1 kg assumed. Gross 1224 g is 44–69 g above what the label plus a cardboard spool predicts |
+| Black, sealed | Unopened | 1 kg assumed. Gross 1228 g is 48–73 g above the same prediction |
+| White, opened | Opened | About 15–40 g, effectively empty |
+| Black, opened | Opened | About 65–90 g |
+
+Could you weigh the empty grey spool, or tell me what kind of spool it is? That settles its remaining weight.
+
+**Correction to the print settings**
+
+Last turn I set the first-layer bed to 65 °C and suggested 70 °C if the first layer still lifted. Your Hyper PLA label caps the bed at 60 °C, so both were wrong. I've set the first-layer bed to 60 °C in `balance.3mf` and in `print_requirements.md`. If the first layer still lifts, try a slower first-layer speed or check the bed and the build plate before raising the temperature.
+
+Also, the 3mf still names the Generic PLA High Speed profile. When you open it in Orca, select a Hyper PLA profile instead. I can't confirm the exact profile name from here.
+
+**WSL workspace**
+
+I read `~/Code/sysadmin/wsl` for context only and wrote nothing there. Its KB covers OrcaSlicer, the K1 and WSL, so the filament stock belongs in lab. I saved a memory note of that scope split.
+
+**Your photos**
+
+I deleted `lab/red_filament.jpg` and `lab/grey_filament.jpg` after transcribing them.
+
+Nothing is committed.
+<!-- ------ -->
+---

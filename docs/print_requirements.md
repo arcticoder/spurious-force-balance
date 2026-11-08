@@ -63,7 +63,7 @@ The user fixed the orientations and set `base` to no brim, the prime tower off, 
 
 | Item | Value | Reason |
 |---|---|---|
-| Bed, first layer / rest | 65 / 60 C | cool ambient air; bonding of the 218 mm base and long posts |
+| Bed, first layer / rest | 60 / 60 C | Hyper PLA's stated bed range is 25-60 C, so 60 is the ceiling; the cool balcony is handled by the first-layer speed and the fan-off layers, not by a hotter bed |
 | Nozzle, first layer / rest | 225 / 220 C | the extra 5 C helps the first layer's bond |
 | First-layer speed, infill speed, acceleration | 30, 45 mm/s, 500 mm/s2 | slow first layer for bonding; wide first-layer line stays 0.5 mm |
 | Fan off for first layers | 3 | bonding in cold air |
