@@ -1799,3 +1799,10 @@ One question: the AliExpress balance list was staged to promote as soon as clamp
 You're right. The shipping decision shouldn't have been on your list, so I've taken it off. `docs/TODO-arcticoder.md` now has only the printer set-up for tonight and the riser vents. The clamp_plate order stays parked in `docs/TODO-BLOCKED.md`, and I've left the AliExpress balance list staged until there's a deal, as you asked. From now on I'll only put a purchase on your list when it's an order you want to place.
 <!-- ------ -->
 ---
+You're right that I can't see the AliExpress app, and I shouldn't have written "when there is a deal, say so" as if I could.
+
+What I can do is fetch public AliExpress search pages from here. I tried one for clear acrylic sheets, and it came back as a readable list of prices in CAD with no login. But that text is a summary written by a model, not the page itself, so it can be wrong. It also doesn't show shipping, the cart, seller ratings, or the price you'd see in your region or logged in. So any price I read is only a candidate for you to check on your own screen before buying.
+
+I've recorded that limit in `lab/docs/kb/ordering_ingestion_notes.md`. The AliExpress balance list stays staged and nothing is on your list for it. If you want, I can pull candidate listings for the balance list and send you the links, and you can check the price and shipping yourself.
+<!-- ------ -->
+---
