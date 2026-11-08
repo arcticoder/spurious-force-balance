@@ -11,8 +11,6 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 1. **Printer set-up on the balcony, tonight when you have time (no fixed time).** Power the K1 on, then tell me when it is ready and the print window in hours. I'll name the spindle to load (red, grey, or a sealed white or black). Check that the nozzle-side filament sensor reads "no filament" with nothing loaded before a real print.
 2. **Adjust the riser vents** when I ask during a print.
 
-Parked: the `clamp_plate` order (Y6 and Y7 cancelled; nothing in production). It waits in [TODO-BLOCKED.md](TODO-BLOCKED.md) for a coupon or a shipping price that makes it worth ordering.
-
 ## Ready to build now — parts on hand
 
 1. [ ] **Print the balance's frame** (`hardware/balance/cad/*.stl`; settings are in `hardware/balance/cad/balance.3mf`, which you have set at 3 walls and 30% infill; the values and reasons are in [print_requirements.md](print_requirements.md) section 6). Reslice in Orca first, check the nut and hole fits on the first parts, and give me the `vane_holder` mass. Filament: the Hyper PLA spools in `lab/docs/inventory.md`; you choose the colour. `base`, `gantry`, `head`, `sensor_bracket`, `elec_bracket`,

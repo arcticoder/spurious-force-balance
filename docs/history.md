@@ -1796,3 +1796,6 @@ Recorded. clamp_plate is parked, not ordered, and your TODO now has only the pri
 One question: the AliExpress balance list was staged to promote as soon as clamp_plate was placed. That trigger won't fire now. Do you want it promoted to your list now, or held?
 <!-- ------ -->
 ---
+You're right. The shipping decision shouldn't have been on your list, so I've taken it off. `docs/TODO-arcticoder.md` now has only the printer set-up for tonight and the riser vents. The clamp_plate order stays parked in `docs/TODO-BLOCKED.md`, and I've left the AliExpress balance list staged until there's a deal, as you asked. From now on I'll only put a purchase on your list when it's an order you want to place.
+<!-- ------ -->
+---
