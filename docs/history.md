@@ -1690,3 +1690,21 @@ The `clamp_plate` order is in the JLC cart as Y6, but I haven't reached the chec
 Nothing is paid or committed.
 <!-- ------ -->
 ---
+Coupons: don't use either one on `clamp_plate`. The slicer work is partly done, and I've stopped because it went wrong.
+
+**Coupons**
+- The cart shows two valid coupons: New User PCB, C$8.46 (expires 2026-11-25), and JLCONE PCB $5, C$7.05 (expires 2026-11-26). Both qualify, since the goods are C$3.10 against a C$2.82 minimum.
+- Either one would cover the whole C$3.10 of goods, so about C$4–5 of its value would be wasted.
+- The plan in `fabrication.md` reserves PCB coupons for the three small designs (row 1b, deadline 11-25), which aren't quoted yet.
+- Shipping isn't covered by these coupons.
+- Recommendation: no coupon on this order. Pay the goods plus the Global Standard Direct Line charge.
+
+**Slicer**
+- I loaded `balance.3mf` into OrcaSlicer over MCP. The load put 15 of the 19 objects off the bed, so the five-plate grouping in the file didn't survive.
+- I rebuilt the plates by moving objects and adding plates. `arrange_plate` then reshuffled everything across plates and collapsed some of them. The Orca session no longer matches the file.
+- Nothing has been sliced or saved. The 3mf on disk is unchanged. The printer was not touched.
+- To finish, I would reload the file and place each object explicitly on its plate, instead of using arrange. That is about 38 small steps, then slice each plate and report the warnings and the `vane_holder` mass.
+
+Should I continue with that rebuild? Once the plates are right, I'll slice them and report.
+<!-- ------ -->
+---
