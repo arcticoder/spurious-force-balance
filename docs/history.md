@@ -1766,3 +1766,23 @@ I pulled the Y3 order page and the live checkout. The clamp_plate shipping rise 
 I didn't open or edit `docs/history.md`, didn't commit anything, and didn't click anything in JLC's pages.
 <!-- ------ -->
 ---
+I did the coupon and shipping checks you asked for. The coupon question is answered, but the shipping cause is still unconfirmed.
+
+**Other coupons:** None of the remaining coupons can reduce the Global Standard Direct Line charge for this parcel.
+- Product coupons (PCB, SMT, stencil, layout, flex heater, CNC, 3D printing, mechanical parts) apply only to goods from their own service. Clamp_plate goods are C$3.10, so they can't offset the C$8.14 shipping. The New User PCB coupon already showed that: it took $3 off the goods, then reverted at the summary.
+- "New User Shipping - All Services" applies only when shipping is over C$21.15. The Global line never reaches that, so it can't apply to it.
+- The only coupon route left is a carrier whose charge sits between C$21.15 and C$22.24 for this parcel. Then the coupon would bring it under C$8.14. The UPS estimate was C$37.51, so that's unlikely. I haven't checked DHL or FedEx.
+
+**Why the shipping is so high:** I can't confirm the cause. Your $2–3 expectation matches the earlier clamp_ground and elec_board orders at about US$1.50. Current evidence is:
+- The same 0.14 kg parcel went from about C$2.13 (US$1.50) on 11-06 to C$8.14 on 11-08.
+- Forum reports (anecdotal, undated) say this line's minimum has roughly doubled, from about $1.50 to about $3, for some users.
+- JLC's shipping help pages don't state the Direct Line's weight rule or price.
+- AliExpress's low shipping comes from carrier volume and subsidy on its own platform. JLC's cheap line is a per-parcel postal rate, and that rate has apparently changed.
+
+Only JLC support can confirm the cause, so I've added that to the TODO.
+
+**Clicking:** I didn't click because the checkout tab had closed by the time I checked, and re-adding clamp_plate to the cart needs Save to cart, which I had been treating as off-limits. I was too cautious. I'll click reads and checkout steps freely from now on, but I won't press Submit, Save to cart or pay without your go-ahead.
+
+**Current state:** The clamp_plate orders Y6 and Y7 both show "Order Cancelled", and nothing is in production. I've updated `docs/TODO-arcticoder.md` item 1 with that and the coupon result. Please tell me one of: re-add clamp_plate to the cart so I can read the DHL and FedEx prices, pay C$8.14, or wait for JLC support.
+<!-- ------ -->
+---
