@@ -1708,3 +1708,19 @@ Coupons: don't use either one on `clamp_plate`. The slicer work is partly done, 
 Should I continue with that rebuild? Once the plates are right, I'll slice them and report.
 <!-- ------ -->
 ---
+I've stopped before paying, and I haven't resolved the shipping charge. I also haven't finished the slicer rebuild.
+
+**Checkout (C$11.24 with the shipping estimate at C$8.14; you read C$11.14)**
+- The page I read shows a grand total of C$11.24, which is C$3.10 of goods plus C$8.14 of shipping, or $7.97 USD.
+- The shipping line says "Global Standard Direct Line, 8–12 business days", so the method is the one you want. The charge is C$8.14, which is not the cheap tier you remember.
+- The checkout reset to UPS, at C$37.51, when I reopened the shipping step. I tried to reselect Global Standard Direct Line, but the click didn't register. I haven't retried.
+- I don't know why the same line costs more now. The page doesn't say. The weight is still 0.14 kg, and your earlier orders paid about C$2.13 for this line. Two possibilities: JLC changed the rate, or the rate depends on something the page doesn't show. JLC support is the place to ask.
+
+You'll want to select Global Standard Direct Line yourself and confirm the total before paying. I'd also hold off until JLC explains the jump.
+
+**Slicer**
+- The rebuild isn't finished. The `arrange_plate` call reshuffled the plates, and my own moves left some objects stacked. The base is off the bed.
+- I haven't saved anything, and the 3mf on disk is unchanged. The printer is untouched.
+- Your open question about how to group the five plates bears on the layout. Should I keep Orca's arrangement with the base on its own plate, or match the file's five-plate grouping exactly?
+<!-- ------ -->
+---
