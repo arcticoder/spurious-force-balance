@@ -1915,3 +1915,17 @@ I've updated the docs and drawn the close-up you asked for. Nothing is printing 
 I also reinstalled Pillow in the lab-hw venv, because the render script wouldn't run without it. The new script is `hardware/balance/render_fasteners.py`.
 <!-- ------ -->
 ---
+Items 1–6 are noted. I put the calipers and the scale into the TODO files. The calipers item now reads "tell me when they arrive". Here are 7 and 8.
+
+**7. Z-belt tooth skipping: no corner needs it.** Skipping teeth on the bottom belt corrects the gantry tilting left to right between the two rear lead screws. The bed mesh from your move to the balcony showed about 1.4 mm of tilt front to back and almost none left to right, so no belt corner is off. A front-to-back tilt means the bed isn't parallel to the gantry, and a belt skip can't fix that. It also doesn't matter for printing, because the K1 re-levels before every print. The printer is off now, so I couldn't re-read the mesh. If you want to look into it later, tell me when it's on and I'll pull the mesh numbers again.
+
+**8. PCBA of the lock-in: not worth it now, in my view.**
+- **No design exists:** the lock-in has no schematic or board layout, only the breadboard. I'd have to draw it in KiCad and pick JLC-stocked parts first. That is days of work, and the New User SMT coupon (C$13.93, goods only, not shipping) expires 2026-11-25.
+- **The coupon is already spoken for:** it is planned for the sensor-head panel.
+- **Shipping:** a parcel would pay about the same shipping that made you drop the `clamp_plate` order.
+- **I can't give a price:** I can't read JLC quotes, so I can't tell you the total or the discount.
+- **The breadboard fault is narrow:** the last fault was `S2`'s pins, knocked loose when the board fell off a shelf. `diagnose_levels.py` and the table in `breadboard.md` are set up to find it, so I'd rather fix that than redo the circuit.
+
+If you'd still like a PCB version, I can draw it in KiCad now and you could decide on the order once I have a parts list. Say so and I'll start.
+<!-- ------ -->
+---

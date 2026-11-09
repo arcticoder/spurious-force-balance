@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Measure the head's two holes with the calipers once they arrive (due 2026-11-15), or tell me again how you measured them.** The CAD has 3.4 mm holes in the head's -y wall (the upper clamp bolts' tips hang in them; no nut) and your ruler reading was about 4.5 x 5.0 mm. If the calipers also read well over 3.5 mm I will check the slice for hole growth; the fit is not critical, so nothing waits on it.
+1. **Tell me when the calipers arrive (due 2026-11-15).** Then I will give you the head-hole measurement steps (the CAD has 3.4 mm holes; the earlier reading was about 4.5 x 5.0 mm with printed calipers). Nothing waits on it.
 2. **Block Wednesday morning (2026-11-11, 4 h) for the gantry.** Monday's 2.5 h goes to the plate-0 parts that fit, Tuesday's 1.5 h to the first half of the base. I will tell you which file is loaded before each run; you start it by telling me to.
 
 ## Ready to build now — parts on hand
