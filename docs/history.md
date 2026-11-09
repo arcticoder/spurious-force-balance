@@ -1894,3 +1894,24 @@ The plate 1 print finished successfully: 1 h 37 min on the black spool, with no 
 I recorded the settings fix, the tilt, the sensor behaviour and the per-part mass method in `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md`, and updated the printing item in `docs/TODO-agent.md`. Nothing is committed.
 <!-- ------ -->
 ---
+I've updated the docs and drawn the close-up you asked for. Nothing is printing or heating, and nothing is committed.
+
+1. **Scale:** don't order one. The only moving printed part is `vane_holder`, and the trim step in `assembly.md` section 7 cancels a mass error from it. I put the sliced estimate of 0.93 g into `params.py`, and `smoke_test.py` still passes. The mg calibration weights on the staged AliExpress list don't need a scale either.
+2. **Screws and nuts:** I drew `docs/img/fasteners.jxl`, a close-up of the head and of `elec_bracket` with the holes labelled. I made it from the CAD, and I didn't look at the final render after nudging one label.
+   - **`elec_bracket`:** the 7 mm holes are the 6.6 mm slack holes in its foot. An M3×14 screw with a washer goes in from above, into a nut captured under the base. The slack lets you slide the bracket to set the electrode gap.
+   - **`head`:** the two holes in its −y wall are 3.4 mm in the CAD, and the upper clamp bolts' tips hang in them. They hold no nuts.
+   - **Adjusting screws:** the zero-adjust screws and their nuts are in the gantry, not the head.
+   - **Mismatch:** your 4.5 × 5.0 mm reading is well above the 3.4 mm design. It's probably the ruler, but check with the calipers when they arrive on 2026-11-15. The fit isn't critical, since the bolt tips only hang there.
+3. **Print windows:** plan for these, and nothing starts until you tell me to.
+   - **Monday, 2.5 h:** the plate 0 parts that fit.
+   - **Tuesday, 1.5 h:** the first half of the base.
+   - **Wednesday, 4 h:** the gantry, which takes 3 h 58 min.
+
+   I'll tell you which file is loaded before each run. Vents stay closed.
+4. **Auto-leveling:** yes, and it already ran. The K1's start macro levels the bed on every print, so there was nothing separate to run, and it printed plate 1 fine.
+5. **Filament sensor:** a clog or melted filament in it would explain why it reads "detected" with nothing loaded. I'm not relying on it.
+6. **Your list:** `TODO-arcticoder.md` now shows what's printed, what's left, and the Wednesday block. Its two open items are the hole measurement with the calipers and the Wednesday block. I made the same changes in `TODO-agent.md` and added a pointer to the picture in `assembly.md`.
+
+I also reinstalled Pillow in the lab-hw venv, because the render script wouldn't run without it. The new script is `hardware/balance/render_fasteners.py`.
+<!-- ------ -->
+---

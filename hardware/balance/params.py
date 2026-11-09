@@ -77,7 +77,7 @@ SEISMIC_ACC = 1e-6  # m/s^2/sqrt(Hz) of floor acceleration at F_REF
 COM_OFFSET = 0.2e-3  # m, centre-of-mass offset from the pivot axis after balancing
 # Printed-part masses read from the slicer (g), by part name. A real print differs from the CAD estimate (infill, walls) by +-15%,
 # which moves the centre of mass by about +-1 mm; entering the slicer's figure replaces the density estimate for that part.
-PRINTED_MASS_G = {}  # only the PLA parts that move (the vane holder) are left; the boards' mass follows from their thickness
+PRINTED_MASS_G = {"vane_holder": 0.93}  # sliced estimate (2026-11-08, 2 walls, 10%); replace with a weighed value if one is taken; the boards' mass follows from their thickness
 AIR_AREA = 2e-3  # m^2, projected area the air can push on (flag, device mount)
 AIR_SPEED_RMS = 1.0e-3  # m/s mean flow inside the draught shield
 AIR_SPEED_FLUCT = 1.0e-3  # m/s fluctuation, at F_REF, per sqrt(Hz) of bandwidth

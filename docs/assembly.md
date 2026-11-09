@@ -40,6 +40,7 @@ magnetized across the diameter, set `MAGNET_MAGNETIZATION = "diametric"` and rer
 1. Bolt `gantry` (4 screws), `sensor_bracket` (2) and `damper_holder` (2) to the base with M3×12 screws from below into the nuts captured in each foot's flange (a washer under each head).
 2. Lay the `head` disc into the gantry's bore (its carrier block goes down through the ledge hole, its lever tab into the pocket on the +x side). Fit an M3×14 screw with a washer
    into each side of the gantry's +x extension, threaded through the nut captured there, and wind both until their tips just touch the tab. Zero is where the two screws hold the tab midway.
+   (Close-up of the head's holes and these screws: `docs/img/fasteners.jxl`; the head's two holes take the upper clamp bolts' tips, not nuts.)
 3. Leave `elec_bracket` off for now.
 
 ## 5. Hang the strip and the arm
