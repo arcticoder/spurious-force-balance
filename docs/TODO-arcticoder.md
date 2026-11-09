@@ -9,7 +9,6 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 ## What I need from you
 
 1. **Tell me when the calipers arrive (due 2026-11-15).** Then I will give you the head-hole measurement steps (the CAD has 3.4 mm holes; the earlier reading was about 4.5 x 5.0 mm with printed calipers). Nothing waits on it.
-2. **Block Wednesday morning (2026-11-11, 4 h) for the gantry.** Monday's 2.5 h goes to the plate-0 parts that fit, Tuesday's 1.5 h to the first half of the base. I will tell you which file is loaded before each run; you start it by telling me to.
 
 ## Ready to build now — parts on hand
 
@@ -18,6 +17,6 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## En route
 
-JLCPCB: `elec_board` (5 boards, placed 2026-11-05, $3.60 USD) is In Production after approval; the arm order (5 FR4 boards, 1.2 mm, JLCONE $8 PCB coupon) still shows Paid, waiting on JLC's review of the production-file email that went to the spam folder and was resent 2026-11-06. Answer any "Confirm Production File" or parts-placement email within 48 h and check the spam folder for JLC mail. When a parcel ships, add it to the plan in `docs/fabrication.md`.
+JLCPCB: `elec_board` (5 boards, placed 2026-11-05, $3.60 USD) is In Production after approval; the arm order (5 FR4 boards, 1.2 mm, JLCONE $8 PCB coupon) still shows Paid; you emailed JLC again on 2026-11-08 (the @duck.com address may be dropping their mail), waiting on JLC's review of the production-file email that went to the spam folder and was resent 2026-11-06. Answer any "Confirm Production File" or parts-placement email within 48 h and check the spam folder for JLC mail. When a parcel ships, add it to the plan in `docs/fabrication.md`.
 
 AliExpress, placed 2026-10-30: 20 M3 thin (DIN439) 304 stainless hex nuts (10 are used; thinner than a standard nut, so they sit loosely in the captured pockets) and digital calipers, estimated delivery 2026-11-15. Check the nuts are non-magnetic on arrival.

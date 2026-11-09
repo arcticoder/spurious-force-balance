@@ -1,7 +1,7 @@
 # Research instrument plan — a fab-assembled force balance
 
 Status: gates G1–G3, requirements (WP1), candidate parts (WP2), the analog block simulations (WP3) and the mechanical redesign to FR4 boards (fabrication.md) done
-2026-10-22 (G1 confirmed 2026-10-23); no schematic, layout or order yet; layout waits on the A5 prototype check. The task list that drives this is
+2026-10-22 (G1 confirmed 2026-10-23); no schematic, layout or order yet; layout proceeds now (the user dropped the breadboard stage on 2026-11-08); A5 runs on the assembled boards. The task list that drives this is
 [TODO-agent.md](TODO-agent.md) Part A; the scope decision is recorded in
 [circuit_lifecycle_and_repo_scope](https://github.com/arcticoder/lab/blob/main/docs/kb/circuit_lifecycle_and_repo_scope.md) in the `lab` repo.
 
@@ -190,11 +190,11 @@ fees to this session): economic assembly roughly $8 setup plus a loading fee per
 $1.50 in late 2025), standard assembly about $25 setup plus a loading fee on every part, a stencil fee of $1.50 to $9, and about
 $0.0017 per solder joint. The four-layer boards, the head boards and the device cards, and shipping to Canada are on top. As an
 order-of-magnitude figure, one assembled order is likely in the low hundreds of dollars, most of it fixed fees: another reason
-for one consolidated order and for proving the design on the breadboard balance first (A5).
+for one consolidated order. (Updated 2026-11-08: the user's direction is fab-assembled electronics with no hand-built stage, so the layout no longer waits on A5; A5 runs on the assembled boards.)
 
 ## Next steps and decisions for the user
 
 See [TODO-agent.md](TODO-agent.md) (work packages WP1–WP11) and the top of
 [TODO-arcticoder.md](TODO-arcticoder.md). Decisions: a budget
 ceiling for the order; whether to print the balance now (it needs the stainless strip and copper from
-the next order) so A5 can measure the real noise before the boards are laid out.
+the next order) so A5 can measure the real noise on the assembled boards (the layout is not waiting for it).
