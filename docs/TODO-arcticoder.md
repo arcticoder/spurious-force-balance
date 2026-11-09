@@ -14,7 +14,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 ## Ready to build now — parts on hand
 
 1. [ ] **Print the rest of the balance's frame** (`hardware/balance/cad/*.stl`; settings in [print_requirements.md](print_requirements.md) section 6). Printed so far: `head`, `elec_bracket`, `fixture_saw_guide_plate`, the four `encl_shelf_*` and `vane_holder` (plate 1, 2026-11-08, all whole). Still to print: `gantry` (Wednesday), the four `encl_post_*`, `sensor_bracket`, `damper_holder`, the other fixtures, and `base`. Where the screws and nuts go on the head and on `elec_bracket`: [img/fasteners.jxl](img/fasteners.jxl). Steps: [assembly.md](assembly.md).
-       The prototype check (A5) needs the lock-in and the optical readout from `lab` built first (`signal_conditioning/lockin_amplifier`, `signal_conditioning/optical_shadow_readout`).
+       The prototype check (A5) runs on the fab-assembled main board and sensor heads, not on breadboards; the order decision comes to you once I have the files and a cost picture.
 
 ## En route
 

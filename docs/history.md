@@ -1929,3 +1929,17 @@ Items 1–6 are noted. I put the calipers and the scale into the TODO files. The
 If you'd still like a PCB version, I can draw it in KiCad now and you could decide on the order once I have a parts list. Say so and I'll start.
 <!-- ------ -->
 ---
+You're right. I missed that the instrument board replaces the breadboards, and my last answer was wrong. I said no design existed and that fixing the breadboard was the better path. The board is already designed (`hardware/instrument`: main-board schematic and netlists, sensor-head panel). Its optical readout and the lock-in in firmware do the job the breadboard circuits were prototyping.
+
+**What I changed in the docs (nothing committed):**
+- **`TODO-agent.md`:** main-board layout in KiCad is now open work, and it no longer waits on the prototype noise check (A5). The order after that is the render review and placement prechecks, then the fab outputs and a cost picture. The order decision stays with you.
+- **`TODO-BLOCKED.md`:** the main-board items are marked as open work. A5 now runs on the assembled board and sensor heads, not on `lockin_amplifier` or `optical_shadow_readout`.
+- **`TODO-arcticoder.md`:** the line saying the breadboards must be built first is gone.
+- **Memory:** I saved a note that the electronics are fab-assembled, so I stop gating work on breadboards.
+- **`plan.md`:** it still says the layout waits on A5, and I haven't reconciled that.
+
+I haven't started the KiCad layout yet. Say go and I'll take it up next.
+
+**Z tilt:** I can't tell you which side is lower, because I can't confirm which way the mesh numbers point. The mesh saved in the printer config runs from about +0.6 to +0.7 mm at one row to about −0.8 mm at the opposite row, a span of roughly 1.4 mm. Klipper stores the front row first, but I'm not sure whether a positive value means the bed is high or low there. I'd also like to confirm the mesh matches the balcony run. With the printer on, I can home it and measure the front-to-back gap directly. That moves the bed and nozzle but heats nothing, and I'd only do it on your word. How many teeth to skip depends on the lead-screw pitch and the gear tooth count, which I haven't verified. Don't open the belt until we have that number and the direction.
+<!-- ------ -->
+---

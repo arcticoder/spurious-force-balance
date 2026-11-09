@@ -2,7 +2,7 @@
 
 > Open items are in `docs/TODO-agent.md`; finished items in `docs/TODO-completed.md`.
 
-These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 result.
+These wait on the user's balance build (see `TODO-arcticoder.md`) or on the assembled board. The main board is no longer waiting on A5 (user's direction of 2026-11-08: fab-assembled electronics, no breadboards); the WP5-WP7 items below are open work, listed in `TODO-agent.md`.
 
 ## Parked: `clamp_plate` JLC order (decided 2026-11-08 by the user: not at the current shipping price)
 - [ ] Revisit when a new coupon covers the order's shipping, or when the Global Standard Direct Line for a 0.14 kg parcel falls back toward US$1.50 (C$2.13) on a fresh quote. Then re-add the Gerber set (`clamp_plate_gerbers.zip`, 16 x 14 mm, 1.2 mm, HASL with lead, Single PCB, 5 pieces) to the cart and read the total; the user approves and pays. Shipping was C$8.14 (Y6, 2026-11-08); the Y6 and Y7 orders were cancelled by the user. The user accepts the four spare boards as waste and will not pay a shipping premium for them.
@@ -12,8 +12,8 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 r
 - [ ] The slow-demodulation analysis script for the measurement campaign (`docs/procedures.md` section C, step 6): demodulate the logged deflection at the modulation frequency and report force per ampere or per watt with uncertainties; write it with the first real data.
 - [ ] Fill the paper skeleton (`docs/paper/main.tex`): every `\todo{}` is a measurement or a figure; the results sections wait on A5 and the campaign.
 
-## A5 — prototype noise measurement (needs the printed balance, the lock-in and the optical readout)
-- [ ] Test the mechanics and the optical readout's displacement sensitivity on the bench: the printed/FR4 balance, the breadboard optical readout and lock-in (`optical_shadow_readout`), the Pico.
+## A5 — prototype noise measurement (needs the printed balance and the assembled main board with the sensor heads)
+- [ ] Test the mechanics and the optical readout's displacement sensitivity on the bench: the printed/FR4 balance, the assembled main board (its optical readout and digital lock-in) and the sensor heads.
       Compare the measured resonance, Q and displacement noise, the optical photocurrent (Rf) and the trim procedure's real numbers with G2/G3; update `params.py`, rerun `tools/force_noise_budget.py`.
       A disagreement over a factor of a few sends the design back to G2/G3, not to the fab.
 
@@ -25,7 +25,7 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the A5 r
 - [ ] Run `bringup_adc.py` and `bringup_sensors.py` on the board and record where the real chips differ from the fakes (the lists of unverified assumptions are in the KB); verify the LIS2DW12 register values against
       ST's data sheet first (the download was blocked).
 
-## After A5, if the verdict stays GO
+## Main board (WP5-WP7), open work: layout now, not after A5
 - [ ] WP5 — Layout: RP2040 per the reference layout, ADC per its data sheet, analog/digital partition (the plate driver and LED sinks are the noisiest blocks), decoupling, USB pair, mounting holes and
       connector positions from G2, silkscreen pin names; DRC clean against JLC's rules.
 - [ ] WP5 panel rule (Part M, 2026-10-27): Standard PCBA needs at least 70 x 70 mm with edge rails drawn in the design and has a stencil per order; the sensor and optical heads go on the main board's panel (panel by
