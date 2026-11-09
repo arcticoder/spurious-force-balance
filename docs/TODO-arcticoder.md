@@ -9,6 +9,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 ## What I need from you
 
 1. **Tell me when the calipers arrive (due 2026-11-15).** Then I will give you the head-hole measurement steps (the CAD has 3.4 mm holes; the earlier reading was about 4.5 x 5.0 mm with printed calipers). Nothing waits on it.
+2. **Plug in and switch on the printer tomorrow (Monday 2026-11-09) before your 2.5 h window and tell me.** Vents stay closed and the black spool stays loaded. I will read the bed mesh to say which end of the bed is low (no heating) and then ask for your explicit go for the print.
 
 ## Ready to build now — parts on hand
 

@@ -1958,3 +1958,26 @@ Freerouting is running on the 164-part main board, with a 10-minute limit. I'll 
   - **Waiting costs time:** `clamp_plate` would wait until then. I haven't confirmed whether JLC lets PCB and assembly services share one parcel, so I'll flag it when we get to that order.
 <!-- ------ -->
 ---
+The kb files in both repos are updated and the next-chat context block is rewritten. Nothing is committed.
+
+**Your points:**
+1. **Routing:** it finished. Details below.
+2. **Printer:** I added it to `TODO-arcticoder.md` as item 2. You plug in and switch on the printer on Monday before your window and tell me. I read the bed mesh to say which end is low, with no heating, and then ask for your go before any print.
+3. **Combining `clamp_plate` with `clamp_ground`:** not possible. `clamp_ground` (Y5) is already placed and in production, and orders can't be merged after placement. It goes into the next JLC order, which could be the electronics order. I recorded that the 0.3 kg limit no longer binds you.
+
+**Main-board layout.** The first routed pass is in, and it's not fabricable yet.
+- **Result:** the board is 110 × 90 mm, 4 layers, 164 parts. Of 415 nets, 9 are still unrouted, and DRC shows 3 clearance errors.
+- **Cleanup still needed:** 6 tracks under 0.15 mm, 8 dangling vias, and the silk and footprint-library warnings.
+- **Not done yet:** ground planes, power track widths, the USB pair, connector orientation, mounting holes and the visual review.
+- **Pipeline:** `hardware/instrument/layout/mainboard.py` does place, route and DRC. I wrote my own Freerouting conversion because KiCad's Python API crashes headless here.
+- **Notes:** the gotchas and results are in `kb/main_board_layout_notes.md`.
+
+**KB and context block:**
+- **spurious-force-balance:** `session_handoff.md` is rewritten for chat 9. It has the new context block, which now says there is no hand-built electronics and the layout is open work, plus the print windows, the parked `clamp_plate` order and the dropped 0.3 kg cap. I also added `main_board_layout_notes.md` and indexed it in the KB README.
+- **lab:** `jlc_account_and_quotes.md` has a new section on parcel weight, combining orders and the coupon expiry dates.
+- **Memory:** I changed the old "keep parcels under 0.29 kg" rule.
+- **Wsl workspace:** the K1 notes there were already updated earlier.
+
+The context block is under "Context block for the next chat" in `docs/kb/session_handoff.md`, ready to paste.
+<!-- ------ -->
+---

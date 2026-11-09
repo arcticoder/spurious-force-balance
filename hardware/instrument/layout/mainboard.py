@@ -80,6 +80,7 @@ def place(W, H):
         fp.libId = "jlc:" + fpname
         fp.tstamp = uid()
         fp.models = []
+        fp.description = ""
         for it in fp.graphicItems:
             if hasattr(it, "text") and getattr(it, "type", "") == "reference":
                 it.text = ref
@@ -201,7 +202,11 @@ def place(W, H):
         b.graphicItems.append(GrLine(start=Position(X=x0, Y=y0), end=Position(X=x1, Y=y1), layer="Edge.Cuts", width=0.1, tstamp=uid()))
     os.makedirs(OUT, exist_ok=True)
     b.to_file(PCB)
-    json.dump({"board": {"design_settings": {"rules": {"min_clearance": CLEAR, "min_track_width": 0.15, "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
+    json.dump({"net_settings": {"classes": [{"name": "Default", "clearance": CLEAR, "track_width": TRACK, "via_diameter": VIA_D, "via_drill": VIA_H,
+                                              "diff_pair_gap": 0.2, "diff_pair_width": 0.2, "diff_pair_via_gap": 0.25, "microvia_diameter": 0.3, "microvia_drill": 0.1,
+                                              "wire_width": 6, "bus_width": 12, "line_style": 0, "pcb_color": "rgba(0, 0, 0, 0.000)", "schematic_color": "rgba(0, 0, 0, 0.000)"}],
+                                "meta": {"version": 3}},
+               "board": {"design_settings": {"rules": {"min_clearance": CLEAR, "min_track_width": 0.15, "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
                                                          "min_copper_edge_clearance": 0.2, "min_hole_to_hole": 0.25, "min_via_annular_width": 0.15}}}},
               open(os.path.join(OUT, "main_board.kicad_pro"), "w"), indent=1)
     print(f"{len(refs)} parts, {len(nets)} nets, board {W} x {H} mm, overlapping pairs after the force pass: {overlaps}; wrote {PCB}")
@@ -355,6 +360,7 @@ def import_ses():
 
 def drc():
     rpt = os.path.join(OUT, "drc.json")
+    
     subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all", "--output", rpt, PCB], capture_output=True)
     d = json.load(open(rpt))
     from collections import Counter

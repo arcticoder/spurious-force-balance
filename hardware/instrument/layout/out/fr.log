@@ -35,3 +35,11 @@
 2026-11-08 22:24:07.198 INFO   [781736\953D70] Auto-routing pass #4 on board '926f646063777886cd6d47ca2f251176' was completed in 44.18 seconds with score 942.17 (18 unrouted and 0 violations), using 347.88 CPU seconds and the job allocated 288.91 GB of memory so far.
 2026-11-08 22:24:42.922 INFO   [781736\953D70] Auto-routing pass #5 on board '6e9f8ad3b6023d4f3922edba67e00953' was completed in 35.28 seconds with score 961.45 (12 unrouted and 0 violations), using 383.50 CPU seconds and the job allocated 316.11 GB of memory so far.
 2026-11-08 22:25:32.809 INFO   [781736\953D70] Auto-routing pass #6 on board '6d5ddda55eb1c7da4200ed1ce4fd9b9e' was completed in 49.42 seconds with score 971.08 (9 unrouted and 0 violations), using 432.75 CPU seconds and the job allocated 358.66 GB of memory so far.
+2026-11-08 22:26:07.471 INFO   [781736\953D70] Auto-routing pass #7 on board '0a72cab97cffdf16cc9d7f58f0580b45' was completed in 34.20 seconds with score 967.87 (10 unrouted and 0 violations), using 467.31 CPU seconds and the job allocated 386.39 GB of memory so far.
+2026-11-08 22:26:43.807 INFO   [781736\953D70] Auto-routing pass #8 on board 'c1bcfdf669083092a3c0f7644a811e47' was completed in 35.89 seconds with score 971.08 (9 unrouted and 0 violations), using 502.83 CPU seconds and the job allocated 416.53 GB of memory so far.
+2026-11-08 22:26:45.073 INFO   [781736\953D70] Auto-routing stage completed: started with 415 unrouted nets, completed in 510.84 seconds, final score: 971.08 (9 unrouted and 0 violations), using 503.82 total CPU seconds, 416.87 GB total allocated, and 1029.2 MB peak heap usage.
+2026-11-08 22:26:45.186 INFO   [781736\953D70] Starting optimization on 3 threads...
+2026-11-08 22:26:45.664 INFO   [781736\953D70] Skipping optimization stage: the board has 9 unrouted connection(s) (optimizer only runs on completely routed boards).
+2026-11-08 22:26:46.073 INFO   [781736\953D70] Optimization was completed in 0.89 seconds with the score of 971.08 (9 unrouted and 0 violations).
+2026-11-08 22:26:46.935 INFO   Saving 'main_board.ses'...
+2026-11-08 22:26:47.009 INFO   Saved 236477 bytes to 'main_board.ses'.

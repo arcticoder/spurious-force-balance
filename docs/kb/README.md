@@ -9,6 +9,7 @@ are in github.com/arcticoder/lab `docs/kb/README.md`.
 | `balance_design_notes.md` | the torsion balance's numbers, design findings, and the checks that guard them; what is superseded |
 | `instrument_electronics_notes.md` | the instrument board: decisions, simulation findings, open points before layout |
 | `fab_ordering_notes.md` | JLC shipping, minimums, tactics (tagged by source), and this repo's fabrication decisions |
+| `main_board_layout_notes.md` | WP5 layout pipeline (`hardware/instrument/layout/mainboard.py`): placement, Freerouting, DRC, first-run result, KiCad 9 gotchas |
 | `pcb_toolchain_notes.md` | KiCad 9, the venv, magpylib, kiutils pitfalls, the JLC parts snapshot, JLC capabilities |
 | `project_workflow_notes.md` | the repos, the Opus-plans/Sonnet-actions routine, the user's standing preferences, tools |
 | `easyeda_spark_notes.md` | SHELVED 2026-11-01 (EasyEDA/Spark route dropped, KiCad restored): the easyeda-mcp-pro Node fix, bridge status, Spark 2026 facts (unconfirmed), the .jxl picture convention, the main_board routing log, the EasyEDA install patches (`tools/patch_easyeda_autoroute_jobs.py`: job-style autorouting, DRC detail, copper rebuild) |

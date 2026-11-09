@@ -1,0 +1,1932 @@
+** Drc report for t.kicad_pcb **
+** Created on 2026-11-08T22:35:22-0700 **
+** Report includes: Errors, Warnings **
+
+** Found 418 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(48.9600 mm, 2.8780 mm): Segment of CN2 on F.Silkscreen
+    @(49.6820 mm, 5.5730 mm): Reference field of C26
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+    @(53.5510 mm, 17.2915 mm): Arc of C44 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+    @(54.3775 mm, 18.4130 mm): Arc of C44 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(53.9860 mm, 19.3680 mm): Circle of C44 on F.Silkscreen
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.1945 mm, 19.5230 mm): Arc of C44 on F.Silkscreen
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+    @(56.0210 mm, 20.6445 mm): Arc of C44 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.1760 mm, 18.5680 mm): Segment of C44 on F.Silkscreen
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+    @(55.0660 mm, 19.6780 mm): Segment of C44 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(63.1500 mm, 35.5240 mm): Segment of C39 on F.Silkscreen
+    @(62.0380 mm, 35.6670 mm): Reference field of C27
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(62.0380 mm, 35.6670 mm): Reference field of C27
+    @(63.3050 mm, 33.4475 mm): Arc of C39 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.0795 mm, 30.4260 mm): Arc of C17 on F.Silkscreen
+    @(59.3350 mm, 30.9190 mm): Segment of C30 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(58.8710 mm, 30.2710 mm): Circle of C17 on F.Silkscreen
+    @(59.2065 mm, 31.0740 mm): Arc of C30 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(59.3910 mm, 30.5810 mm): Segment of C17 on F.Silkscreen
+    @(59.2065 mm, 31.0740 mm): Arc of C30 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.0795 mm, 30.4260 mm): Arc of C17 on F.Silkscreen
+    @(59.2065 mm, 31.0740 mm): Arc of C30 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(59.9510 mm, 30.5810 mm): Segment of C17 on F.Silkscreen
+    @(59.2065 mm, 31.0740 mm): Arc of C30 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(59.8950 mm, 30.9190 mm): Segment of C30 on F.Silkscreen
+    @(60.0795 mm, 30.4260 mm): Arc of C17 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(61.6295 mm, 39.1120 mm): Arc of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(61.7580 mm, 40.3770 mm): Segment of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.6480 mm, 40.0670 mm): Segment of C27 on F.Silkscreen
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(60.8030 mm, 37.9905 mm): Arc of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(62.4465 mm, 40.2220 mm): Arc of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(63.4280 mm, 39.2670 mm): Segment of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(78.9395 mm, 27.5480 mm): Arc of C23 on F.Silkscreen
+    @(79.3710 mm, 28.8460 mm): Reference field of D3
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+    @(79.2590 mm, 41.3700 mm): Segment of C41 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(79.1305 mm, 41.5250 mm): Arc of C41 on F.Silkscreen
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(79.8190 mm, 41.3700 mm): Segment of C41 on F.Silkscreen
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(79.9475 mm, 42.6350 mm): Arc of C41 on F.Silkscreen
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(80.9290 mm, 41.6800 mm): Segment of C41 on F.Silkscreen
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(80.7740 mm, 43.7565 mm): Arc of C41 on F.Silkscreen
+    @(79.6550 mm, 41.7470 mm): Reference field of C59
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.1834 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+    @(54.8400 mm, 26.3060 mm): Segment of C45 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.1834 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+    @(55.9500 mm, 25.1960 mm): Segment of C45 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.1834 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+    @(54.9685 mm, 26.1510 mm): Arc of C45 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+    @(54.5060 mm, 19.6780 mm): Segment of C44 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.5600 mm, 21.5960 mm): Reference field of C45
+    @(54.5795 mm, 22.4890 mm): Arc of C32 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.1880 mm, 23.4440 mm): Circle of C32 on F.Silkscreen
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+    @(56.3780 mm, 22.6440 mm): Segment of C32 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.3965 mm, 23.5990 mm): Arc of C32 on F.Silkscreen
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+    @(55.2680 mm, 23.7540 mm): Segment of C32 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.1515 mm, 25.0410 mm): Arc of C45 on F.Silkscreen
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.1910 mm, 24.0750 mm): Reference field of C53
+    @(54.7080 mm, 23.7540 mm): Segment of C32 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(53.1700 mm, 25.9960 mm): Segment of C45 on F.Silkscreen
+    @(54.1986 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.1986 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+    @(53.3250 mm, 23.9195 mm): Arc of C45 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.8400 mm, 26.3060 mm): Segment of C45 on F.Silkscreen
+    @(54.1986 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.9685 mm, 26.1510 mm): Arc of C45 on F.Silkscreen
+    @(54.1986 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.1515 mm, 25.0410 mm): Arc of C45 on F.Silkscreen
+    @(54.1986 mm, 27.0600 mm): Arc of C53 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.8030 mm, 49.3910 mm): Reference field of C11
+    @(69.6550 mm, 48.9080 mm): Segment of C57 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(70.3435 mm, 48.7530 mm): Arc of C57 on F.Silkscreen
+    @(69.8030 mm, 49.3910 mm): Reference field of C11
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.8030 mm, 49.3910 mm): Reference field of C11
+    @(70.2150 mm, 48.9080 mm): Segment of C57 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+    @(69.3945 mm, 52.8360 mm): Arc of C11 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.3050 mm, 54.6180 mm): Segment of C13 on F.Silkscreen
+    @(70.2115 mm, 53.9460 mm): Arc of C11 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+    @(70.2115 mm, 53.9460 mm): Arc of C11 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.0225 mm, 51.2670 mm): Arc of C1 on F.Silkscreen
+    @(74.6090 mm, 50.3030 mm): Reference field of C48
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.4130 mm, 53.7910 mm): Segment of C11 on F.Silkscreen
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.0020 mm, 49.4290 mm): Segment of C4 on F.Silkscreen
+    @(58.6390 mm, 49.3030 mm): Reference field of C14
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.1570 mm, 47.3525 mm): Arc of C4 on F.Silkscreen
+    @(58.6390 mm, 49.3030 mm): Reference field of C14
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.7900 mm, 53.6515 mm): Arc of C13 on F.Silkscreen
+    @(67.9245 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.1500 mm, 59.1270 mm): Reference field of C35
+    @(68.2430 mm, 58.4930 mm): Segment of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.4335 mm, 55.8830 mm): Arc of C13 on F.Silkscreen
+    @(67.9245 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.7450 mm, 56.0380 mm): Segment of C13 on F.Silkscreen
+    @(67.9245 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.6350 mm, 55.7280 mm): Segment of C13 on F.Silkscreen
+    @(67.9245 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.2250 mm, 55.7280 mm): Circle of C13 on F.Silkscreen
+    @(67.9245 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.0430 mm, 58.4930 mm): Segment of C5 on F.Silkscreen
+    @(68.1500 mm, 59.1270 mm): Reference field of C35
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.3615 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+    @(69.3050 mm, 56.0380 mm): Segment of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.3615 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+    @(69.4335 mm, 55.8830 mm): Arc of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.3615 mm, 56.7680 mm): Arc of C5 on F.Silkscreen
+    @(68.7450 mm, 56.0380 mm): Segment of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(75.4595 mm, 51.2670 mm): Arc of C1 on F.Silkscreen
+    @(74.6090 mm, 50.3030 mm): Reference field of C48
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.3290 mm, 53.5930 mm): Segment of C48 on F.Silkscreen
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+    @(74.8890 mm, 53.5930 mm): Segment of C48 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.2005 mm, 53.7480 mm): Arc of C48 on F.Silkscreen
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.2005 mm, 53.7480 mm): Arc of C48 on F.Silkscreen
+    @(74.3410 mm, 52.9920 mm): Segment of C1 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+    @(68.5680 mm, 51.7145 mm): Arc of C11 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+    @(68.6165 mm, 54.7730 mm): Arc of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(70.4530 mm, 56.6930 mm): Segment of C5 on F.Silkscreen
+    @(69.4335 mm, 55.8830 mm): Arc of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.5230 mm, 54.1010 mm): Segment of C11 on F.Silkscreen
+    @(68.6165 mm, 54.7730 mm): Arc of C13 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.6430 mm, 53.5930 mm): Reference field of C5
+    @(69.5230 mm, 54.1010 mm): Segment of C11 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.9350 mm, 44.1980 mm): Reference field of C57
+    @(68.5940 mm, 43.7180 mm): Segment of C46 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.0250 mm, 51.3280 mm): Reference field of C13
+    @(68.2350 mm, 50.7790 mm): Segment of C50 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.1250 mm, 51.8890 mm): Segment of C50 on F.Silkscreen
+    @(69.0250 mm, 51.3280 mm): Reference field of C13
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.0250 mm, 51.3280 mm): Reference field of C13
+    @(67.2535 mm, 51.7340 mm): Arc of C50 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.0800 mm, 52.8555 mm): Arc of C50 on F.Silkscreen
+    @(69.0250 mm, 51.3280 mm): Reference field of C13
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(73.7410 mm, 52.7220 mm): Circle of C1 on F.Silkscreen
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(74.3410 mm, 52.9920 mm): Segment of C1 on F.Silkscreen
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.9350 mm, 44.1980 mm): Reference field of C57
+    @(68.7225 mm, 43.5630 mm): Arc of C46 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.7810 mm, 68.9760 mm): Segment of C16 on F.Silkscreen
+    @(56.1030 mm, 68.9630 mm): Reference field of C42
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(54.6260 mm, 71.0525 mm): Arc of C16 on F.Silkscreen
+    @(56.1030 mm, 68.9630 mm): Reference field of C42
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+    @(55.6945 mm, 72.4080 mm): Arc of C42 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+    @(56.5115 mm, 73.5180 mm): Arc of C42 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+    @(56.3830 mm, 72.2530 mm): Segment of C42 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+    @(57.3380 mm, 74.6395 mm): Arc of C42 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+    @(57.4930 mm, 72.5630 mm): Segment of C42 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(55.8230 mm, 72.2530 mm): Segment of C42 on F.Silkscreen
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(50.7185 mm, 40.2050 mm): Arc of C29 on F.Silkscreen
+    @(51.9890 mm, 41.1230 mm): Reference field of C3
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(47.4280 mm, 36.4060 mm): Segment of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(47.5565 mm, 36.2510 mm): Arc of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(48.5380 mm, 35.2960 mm): Segment of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(48.3830 mm, 37.3725 mm): Arc of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(51.9890 mm, 41.1230 mm): Reference field of C3
+    @(51.5355 mm, 41.3150 mm): Arc of C29 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(52.5170 mm, 40.3600 mm): Segment of C29 on F.Silkscreen
+    @(51.9890 mm, 41.1230 mm): Reference field of C3
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(51.4070 mm, 41.4700 mm): Segment of C29 on F.Silkscreen
+    @(51.9890 mm, 41.1230 mm): Reference field of C3
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.7415 mm, 62.5720 mm): Arc of C35 on F.Silkscreen
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.8700 mm, 62.4170 mm): Segment of C35 on F.Silkscreen
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+    @(68.4300 mm, 62.4170 mm): Segment of C35 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.5585 mm, 63.6820 mm): Arc of C35 on F.Silkscreen
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.5585 mm, 63.6820 mm): Arc of C35 on F.Silkscreen
+    @(69.4830 mm, 64.3710 mm): Segment of C25 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(68.5585 mm, 63.6820 mm): Arc of C35 on F.Silkscreen
+    @(69.3545 mm, 64.5260 mm): Arc of C25 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(66.7600 mm, 63.5270 mm): Segment of C35 on F.Silkscreen
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(69.3545 mm, 64.5260 mm): Arc of C25 on F.Silkscreen
+    @(68.4300 mm, 63.8370 mm): Segment of C35 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+    @(62.3180 mm, 40.3770 mm): Segment of C27 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(60.5910 mm, 44.5820 mm): Segment of C22 on F.Silkscreen
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.1810 mm, 44.5820 mm): Circle of C22 on F.Silkscreen
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(60.7460 mm, 42.5055 mm): Arc of C22 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(61.5725 mm, 43.6270 mm): Arc of C22 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(61.7010 mm, 44.8920 mm): Segment of C22 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.7010 mm, 44.8920 mm): Segment of C22 on F.Silkscreen
+    @(61.3425 mm, 45.7150 mm): Arc of C7 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(62.3895 mm, 44.7370 mm): Arc of C22 on F.Silkscreen
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(62.0310 mm, 45.5600 mm): Segment of C7 on F.Silkscreen
+    @(62.3895 mm, 44.7370 mm): Arc of C22 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(62.3895 mm, 44.7370 mm): Arc of C22 on F.Silkscreen
+    @(61.3425 mm, 45.7150 mm): Arc of C7 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(61.4710 mm, 45.5600 mm): Segment of C7 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(62.0310 mm, 45.5600 mm): Segment of C7 on F.Silkscreen
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(61.3425 mm, 45.7150 mm): Arc of C7 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+    @(62.2610 mm, 44.8920 mm): Segment of C22 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(47.7555 mm, 67.8120 mm): Arc of C56 on F.Silkscreen
+    @(49.6190 mm, 68.6130 mm): Reference field of C12
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(47.6270 mm, 67.9670 mm): Segment of C56 on F.Silkscreen
+    @(49.6190 mm, 68.6130 mm): Reference field of C12
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(39.3840 mm, 16.2480 mm): Segment of C58 on F.Silkscreen
+    @(39.5530 mm, 15.8000 mm): Reference field of C20
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(39.5530 mm, 15.8000 mm): Reference field of C20
+    @(39.2555 mm, 16.4030 mm): Arc of C58 on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(39.9440 mm, 16.2480 mm): Segment of C58 on F.Silkscreen
+    @(39.5530 mm, 15.8000 mm): Reference field of C20
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(46.8680 mm, 36.4060 mm): Segment of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(46.3480 mm, 36.0960 mm): Circle of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(46.7395 mm, 35.1410 mm): Arc of C6 on F.Silkscreen
+    @(47.5630 mm, 35.8840 mm): Reference field of C49
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(22.6700 mm, 44.8780 mm): Segment of C40 on F.Silkscreen
+    @(23.1820 mm, 44.7330 mm): Reference field of D2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(23.7800 mm, 45.1880 mm): Segment of C40 on F.Silkscreen
+    @(23.1820 mm, 44.7330 mm): Reference field of D2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(23.6250 mm, 47.2645 mm): Arc of C40 on F.Silkscreen
+    @(23.1820 mm, 44.7330 mm): Reference field of D2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(21.9815 mm, 45.0330 mm): Arc of C40 on F.Silkscreen
+    @(23.1820 mm, 44.7330 mm): Reference field of D2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(28.4106 mm, 41.5630 mm): Arc of C54 on F.Silkscreen
+    @(28.0560 mm, 41.9530 mm): Reference field of D4
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(28.0560 mm, 41.9530 mm): Reference field of D4
+    @(26.9930 mm, 41.4880 mm): Segment of C54 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(73.7410 mm, 52.7220 mm): Circle of C1 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(75.4595 mm, 51.2670 mm): Arc of C1 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(74.0225 mm, 51.2670 mm): Arc of C1 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.1700 mm, 16.1590 mm): Circle of C10 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.2050 mm, 17.4355 mm): Arc of C10 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.3785 mm, 16.3140 mm): Arc of C10 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.7350 mm, 14.0825 mm): Arc of C10 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.5615 mm, 15.2040 mm): Arc of C10 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.0030 mm, 53.7910 mm): Circle of C11 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(71.0380 mm, 55.0675 mm): Arc of C11 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(70.2115 mm, 53.9460 mm): Arc of C11 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.5680 mm, 51.7145 mm): Arc of C11 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.3945 mm, 52.8360 mm): Arc of C11 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(48.8190 mm, 73.0130 mm): Circle of C12 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.8540 mm, 74.2895 mm): Arc of C12 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.0275 mm, 73.1680 mm): Arc of C12 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(48.3840 mm, 70.9365 mm): Arc of C12 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.2105 mm, 72.0580 mm): Arc of C12 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.0250 mm, 51.3280 mm): Reference field of C13
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.2250 mm, 55.7280 mm): Circle of C13 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(70.2600 mm, 57.0045 mm): Arc of C13 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.4335 mm, 55.8830 mm): Arc of C13 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.7900 mm, 53.6515 mm): Arc of C13 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.6165 mm, 54.7730 mm): Arc of C13 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.8390 mm, 53.7030 mm): Circle of C14 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.8740 mm, 54.9795 mm): Arc of C14 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.0475 mm, 53.8580 mm): Arc of C14 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.4040 mm, 51.6265 mm): Arc of C14 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.2305 mm, 52.7480 mm): Arc of C14 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(34.7540 mm, 30.7800 mm): Circle of C15 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(36.7890 mm, 32.0565 mm): Arc of C15 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(35.9625 mm, 30.9350 mm): Arc of C15 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(34.3190 mm, 28.7035 mm): Arc of C15 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(35.1455 mm, 29.8250 mm): Arc of C15 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.5910 mm, 69.7760 mm): Circle of C16 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.6260 mm, 71.0525 mm): Arc of C16 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(53.7995 mm, 69.9310 mm): Arc of C16 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.1560 mm, 67.6995 mm): Arc of C16 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.9825 mm, 68.8210 mm): Arc of C16 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.8710 mm, 30.2710 mm): Circle of C17 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.9060 mm, 31.5475 mm): Arc of C17 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.0795 mm, 30.4260 mm): Arc of C17 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.4360 mm, 28.1945 mm): Arc of C17 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.2625 mm, 29.3160 mm): Arc of C17 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(37.8080 mm, 36.5020 mm): Circle of C18 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(39.8430 mm, 37.7785 mm): Arc of C18 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(39.0165 mm, 36.6570 mm): Arc of C18 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(37.3730 mm, 34.4255 mm): Arc of C18 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.1995 mm, 35.5470 mm): Arc of C18 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.9210 mm, 24.0930 mm): Circle of C19 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.9560 mm, 25.3695 mm): Arc of C19 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.1295 mm, 24.2480 mm): Arc of C19 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.4860 mm, 22.0165 mm): Arc of C19 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.3125 mm, 23.1380 mm): Arc of C19 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(74.1550 mm, 53.1750 mm): Reference field of C2
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(73.3550 mm, 57.5750 mm): Circle of C2 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(75.3900 mm, 58.8515 mm): Arc of C2 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(74.5635 mm, 57.7300 mm): Arc of C2 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(72.9200 mm, 55.4985 mm): Arc of C2 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(73.7465 mm, 56.6200 mm): Arc of C2 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.7530 mm, 20.2000 mm): Circle of C20 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(40.7880 mm, 21.4765 mm): Arc of C20 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(39.9615 mm, 20.3550 mm): Arc of C20 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.3180 mm, 18.1235 mm): Arc of C20 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(39.1445 mm, 19.2450 mm): Arc of C20 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.4790 mm, 35.2340 mm): Circle of C21 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(53.5140 mm, 36.5105 mm): Arc of C21 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.6875 mm, 35.3890 mm): Arc of C21 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.0440 mm, 33.1575 mm): Arc of C21 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.8705 mm, 34.2790 mm): Arc of C21 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.9810 mm, 40.1820 mm): Reference field of C22
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.1810 mm, 44.5820 mm): Circle of C22 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.2160 mm, 45.8585 mm): Arc of C22 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.3895 mm, 44.7370 mm): Arc of C22 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.7460 mm, 42.5055 mm): Arc of C22 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.5725 mm, 43.6270 mm): Arc of C22 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(77.7310 mm, 27.3930 mm): Circle of C23 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(79.7660 mm, 28.6695 mm): Arc of C23 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(78.9395 mm, 27.5480 mm): Arc of C23 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(77.2960 mm, 25.3165 mm): Arc of C23 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(78.1225 mm, 26.4380 mm): Arc of C23 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(56.7930 mm, 72.3490 mm): Reference field of C24
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.9930 mm, 76.7490 mm): Circle of C24 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.0280 mm, 78.0255 mm): Arc of C24 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.2015 mm, 76.9040 mm): Arc of C24 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.5580 mm, 74.6725 mm): Arc of C24 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(56.3845 mm, 75.7940 mm): Arc of C24 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.9630 mm, 65.4810 mm): Circle of C25 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(70.9980 mm, 66.7575 mm): Arc of C25 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(70.1715 mm, 65.6360 mm): Arc of C25 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.5280 mm, 63.4045 mm): Arc of C25 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.3545 mm, 64.5260 mm): Arc of C25 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.6820 mm, 5.5730 mm): Reference field of C26
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(48.8820 mm, 9.9730 mm): Circle of C26 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.9170 mm, 11.2495 mm): Arc of C26 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.0905 mm, 10.1280 mm): Arc of C26 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(48.4470 mm, 7.8965 mm): Arc of C26 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.2735 mm, 9.0180 mm): Arc of C26 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.2380 mm, 40.0670 mm): Circle of C27 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.2730 mm, 41.3435 mm): Arc of C27 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.4465 mm, 40.2220 mm): Arc of C27 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.8030 mm, 37.9905 mm): Arc of C27 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.6295 mm, 39.1120 mm): Arc of C27 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.4710 mm, 45.3930 mm): Circle of C28 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(40.5060 mm, 46.6695 mm): Arc of C28 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(39.6795 mm, 45.5480 mm): Arc of C28 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.0360 mm, 43.3165 mm): Arc of C28 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.8625 mm, 44.4380 mm): Arc of C28 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.3270 mm, 41.1600 mm): Circle of C29 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.3620 mm, 42.4365 mm): Arc of C29 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.5355 mm, 41.3150 mm): Arc of C29 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.8920 mm, 39.0835 mm): Arc of C29 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.7185 mm, 40.2050 mm): Arc of C29 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.9890 mm, 41.1230 mm): Reference field of C3
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.1890 mm, 45.5230 mm): Circle of C3 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(53.2240 mm, 46.7995 mm): Arc of C3 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.3975 mm, 45.6780 mm): Arc of C3 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.7540 mm, 43.4465 mm): Arc of C3 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.5805 mm, 44.5680 mm): Arc of C3 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.8150 mm, 32.0290 mm): Circle of C30 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.8500 mm, 33.3055 mm): Arc of C30 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.0235 mm, 32.1840 mm): Arc of C30 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(58.3800 mm, 29.9525 mm): Arc of C30 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(59.2065 mm, 31.0740 mm): Arc of C30 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.5220 mm, 62.8750 mm): Reference field of C31
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(66.7220 mm, 67.2750 mm): Circle of C31 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.7570 mm, 68.5515 mm): Arc of C31 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.9305 mm, 67.4300 mm): Arc of C31 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(66.2870 mm, 65.1985 mm): Arc of C31 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.1135 mm, 66.3200 mm): Arc of C31 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.9880 mm, 19.0440 mm): Reference field of C32
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.1880 mm, 23.4440 mm): Circle of C32 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(56.2230 mm, 24.7205 mm): Arc of C32 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3965 mm, 23.5990 mm): Arc of C32 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(53.7530 mm, 21.3675 mm): Arc of C32 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.5795 mm, 22.4890 mm): Arc of C32 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(66.6370 mm, 29.8680 mm): Circle of C33 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.6720 mm, 31.1445 mm): Arc of C33 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.8455 mm, 30.0230 mm): Arc of C33 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(66.2020 mm, 27.7915 mm): Arc of C33 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.0285 mm, 28.9130 mm): Arc of C33 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.7620 mm, 23.5990 mm): Circle of C34 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(70.7970 mm, 24.8755 mm): Arc of C34 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.9705 mm, 23.7540 mm): Arc of C34 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.3270 mm, 21.5225 mm): Arc of C34 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.1535 mm, 22.6440 mm): Arc of C34 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.3500 mm, 63.5270 mm): Circle of C35 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(69.3850 mm, 64.8035 mm): Arc of C35 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(68.5585 mm, 63.6820 mm): Arc of C35 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(66.9150 mm, 61.4505 mm): Arc of C35 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(67.7415 mm, 62.5720 mm): Arc of C35 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(42.8330 mm, 35.9440 mm): Circle of C36 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(44.8680 mm, 37.2205 mm): Arc of C36 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(44.0415 mm, 36.0990 mm): Arc of C36 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(42.3980 mm, 33.8675 mm): Arc of C36 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(43.2245 mm, 34.9890 mm): Arc of C36 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.3460 mm, 54.3250 mm): Circle of C37 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(52.3810 mm, 55.6015 mm): Arc of C37 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(51.5545 mm, 54.4800 mm): Arc of C37 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.9110 mm, 52.2485 mm): Arc of C37 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(50.7375 mm, 53.3700 mm): Arc of C37 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(42.6430 mm, 19.7050 mm): Circle of C38 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(44.6780 mm, 20.9815 mm): Arc of C38 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(43.8515 mm, 19.8600 mm): Arc of C38 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(42.2080 mm, 17.6285 mm): Arc of C38 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(43.0345 mm, 18.7500 mm): Arc of C38 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.7400 mm, 35.5240 mm): Circle of C39 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(65.7750 mm, 36.8005 mm): Arc of C39 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(64.9485 mm, 35.6790 mm): Arc of C39 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.3050 mm, 33.4475 mm): Arc of C39 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(64.1315 mm, 34.5690 mm): Arc of C39 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.3920 mm, 45.0290 mm): Reference field of C4
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.5920 mm, 49.4290 mm): Circle of C4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.6270 mm, 50.7055 mm): Arc of C4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(61.8005 mm, 49.5840 mm): Arc of C4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.1570 mm, 47.3525 mm): Arc of C4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(60.9835 mm, 48.4740 mm): Arc of C4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(21.5900 mm, 45.9880 mm): Circle of C40 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(23.6250 mm, 47.2645 mm): Arc of C40 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(22.7985 mm, 46.1430 mm): Arc of C40 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(21.1550 mm, 43.9115 mm): Arc of C40 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(21.9815 mm, 45.0330 mm): Arc of C40 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(78.7390 mm, 42.4800 mm): Circle of C41 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(80.7740 mm, 43.7565 mm): Arc of C41 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(79.9475 mm, 42.6350 mm): Arc of C41 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(78.3040 mm, 40.4035 mm): Arc of C41 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(79.1305 mm, 41.5250 mm): Arc of C41 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3030 mm, 73.3630 mm): Circle of C42 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(57.3380 mm, 74.6395 mm): Arc of C42 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(56.5115 mm, 73.5180 mm): Arc of C42 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.8680 mm, 71.2865 mm): Arc of C42 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.6945 mm, 72.4080 mm): Arc of C42 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.4310 mm, 67.6030 mm): Circle of C43 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(65.4660 mm, 68.8795 mm): Arc of C43 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(64.6395 mm, 67.7580 mm): Arc of C43 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.9960 mm, 65.5265 mm): Arc of C43 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.8225 mm, 66.6480 mm): Arc of C43 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(53.9860 mm, 19.3680 mm): Circle of C44 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(56.0210 mm, 20.6445 mm): Arc of C44 on F.Silkscreen
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(74.7410 mm, 52.0920 mm): Footprint C1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(61.9700 mm, 15.7590 mm): Footprint C10
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(69.8030 mm, 53.3910 mm): Footprint C11
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(49.6190 mm, 72.6130 mm): Footprint C12
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(69.0250 mm, 55.3280 mm): Footprint C13
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(58.6390 mm, 53.3030 mm): Footprint C14
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(35.5540 mm, 30.3800 mm): Footprint C15
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(53.3910 mm, 69.3760 mm): Footprint C16
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(59.6710 mm, 29.8710 mm): Footprint C17
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(38.6080 mm, 36.1020 mm): Footprint C18
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(58.7210 mm, 23.6930 mm): Footprint C19
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(74.1550 mm, 57.1750 mm): Footprint C2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(39.5530 mm, 19.8000 mm): Footprint C20
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(52.2790 mm, 34.8340 mm): Footprint C21
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(61.9810 mm, 44.1820 mm): Footprint C22
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(78.5310 mm, 26.9930 mm): Footprint C23
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(56.7930 mm, 76.3490 mm): Footprint C24
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(69.7630 mm, 65.0810 mm): Footprint C25
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(49.6820 mm, 9.5730 mm): Footprint C26
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(62.0380 mm, 39.6670 mm): Footprint C27
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(39.2710 mm, 44.9930 mm): Footprint C28
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(51.1270 mm, 40.7600 mm): Footprint C29
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(51.9890 mm, 45.1230 mm): Footprint C3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(59.6150 mm, 31.6290 mm): Footprint C30
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(67.5220 mm, 66.8750 mm): Footprint C31
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(54.9880 mm, 23.0440 mm): Footprint C32
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(67.4370 mm, 29.4680 mm): Footprint C33
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(69.5620 mm, 23.1990 mm): Footprint C34
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(68.1500 mm, 63.1270 mm): Footprint C35
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(43.6330 mm, 35.5440 mm): Footprint C36
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(51.1460 mm, 53.9250 mm): Footprint C37
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(43.4430 mm, 19.3050 mm): Footprint C38
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(64.5400 mm, 35.1240 mm): Footprint C39
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(61.3920 mm, 49.0290 mm): Footprint C4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(22.3900 mm, 45.5880 mm): Footprint C40
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(79.5390 mm, 42.0800 mm): Footprint C41
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(56.1030 mm, 72.9630 mm): Footprint C42
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(64.2310 mm, 67.2030 mm): Footprint C43
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(54.7860 mm, 18.9680 mm): Footprint C44
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(54.5600 mm, 25.5960 mm): Footprint C45
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(68.3140 mm, 43.0080 mm): Footprint C46
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(28.3860 mm, 35.0960 mm): Footprint C47
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(74.6090 mm, 54.3030 mm): Footprint C48
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(47.5630 mm, 39.8840 mm): Footprint C49
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(68.6430 mm, 57.5930 mm): Footprint C5
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(66.8450 mm, 51.1790 mm): Footprint C50
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(56.0910 mm, 35.6940 mm): Footprint C51
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(68.0810 mm, 15.4370 mm): Footprint C52
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(55.1910 mm, 28.0750 mm): Footprint C53
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(29.4030 mm, 42.5780 mm): Footprint C54
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(65.0810 mm, 73.3530 mm): Footprint C55
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(47.3470 mm, 67.2570 mm): Footprint C56
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(69.9350 mm, 48.1980 mm): Footprint C57
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(39.6640 mm, 16.9580 mm): Footprint C58
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(79.6550 mm, 45.7470 mm): Footprint C59
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(47.1480 mm, 35.6960 mm): Footprint C6
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(59.8810 mm, 67.4670 mm): Footprint C60
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(61.7510 mm, 46.2700 mm): Footprint C7
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(43.3020 mm, 64.6170 mm): Footprint C8
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(34.7230 mm, 56.9620 mm): Footprint C9
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(10.0000 mm, 4.6780 mm): Footprint CN1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(28.0000 mm, 4.6780 mm): Footprint CN10
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(46.0000 mm, 4.6780 mm): Footprint CN2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(64.0000 mm, 4.6780 mm): Footprint CN3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(4.6780 mm, 22.0000 mm): Footprint CN4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(4.6780 mm, 33.0000 mm): Footprint CN5
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(4.6780 mm, 44.0000 mm): Footprint CN6
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(4.6780 mm, 55.0000 mm): Footprint CN7
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(82.0000 mm, 4.6780 mm): Footprint CN8
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(100.0000 mm, 4.6780 mm): Footprint CN9
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(73.5350 mm, 26.6750 mm): Footprint D1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(23.1820 mm, 48.7330 mm): Footprint D2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(79.3710 mm, 32.8460 mm): Footprint D3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(28.0560 mm, 45.9530 mm): Footprint D4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(34.3690 mm, 35.8400 mm): Footprint F1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(105.0000 mm, 18.0000 mm): Footprint H1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(105.0000 mm, 29.0000 mm): Footprint H2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(105.0000 mm, 40.0000 mm): Footprint H3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(105.0000 mm, 51.0000 mm): Footprint H4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'jlc'.
+    Local override; warning
+    @(105.0000 mm, 62.0000 mm): Footprint H5
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(0.0000 mm, 90.0000 mm): Segment on Edge.Cuts
+    @(-1.2600 mm, 22.0000 mm): Reference field of CN4
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(0.0000 mm, 90.0000 mm): Segment on Edge.Cuts
+    @(-1.2600 mm, 33.0000 mm): Reference field of CN5
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(0.0000 mm, 90.0000 mm): Segment on Edge.Cuts
+    @(-1.2600 mm, 44.0000 mm): Reference field of CN6
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(0.0000 mm, 90.0000 mm): Segment on Edge.Cuts
+    @(-1.2600 mm, 55.0000 mm): Reference field of CN7
+
+** Found 132 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.5000 mm, 2.7380 mm): Pad 1 [3V3_A] of CN10 on F.Cu
+    @(27.6860 mm, 35.0960 mm): Pad 1 [3V3_A] of C47 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(38.5710 mm, 44.9930 mm): Pad 1 [3V3_A] of C28 on F.Cu
+    @(50.4270 mm, 40.7600 mm): Pad 1 [3V3_A] of C29 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(38.5710 mm, 44.9930 mm): Pad 1 [3V3_A] of C28 on F.Cu
+    @(27.6860 mm, 35.0960 mm): Pad 1 [3V3_A] of C47 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(42.3020 mm, 64.6170 mm): Pad 1 [3V3_A] of C8 on F.Cu
+    @(38.5710 mm, 44.9930 mm): Pad 1 [3V3_A] of C28 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(50.4270 mm, 40.7600 mm): Pad 1 [3V3_A] of C29 on F.Cu
+    @(61.3380 mm, 39.6670 mm): Pad 1 [3V3_A] of C27 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(61.3380 mm, 39.6670 mm): Pad 1 [3V3_A] of C27 on F.Cu
+    @(58.9150 mm, 31.6290 mm): Pad 1 [3V3_A] of C30 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(67.6140 mm, 43.0080 mm): Pad 1 [3V3_A] of C46 on F.Cu
+    @(61.3380 mm, 39.6670 mm): Pad 1 [3V3_A] of C27 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(80.5000 mm, 2.7380 mm): Pad 1 [3V3_A] of CN8 on F.Cu
+    @(58.9150 mm, 31.6290 mm): Pad 1 [3V3_A] of C30 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(98.5000 mm, 2.7380 mm): Pad 1 [3V3_A] of CN9 on F.Cu
+    @(80.5000 mm, 2.7380 mm): Pad 1 [3V3_A] of CN8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.8540 mm, 30.3800 mm): Pad 1 [3V3_D] of C15 on F.Cu
+    @(42.9330 mm, 35.5440 mm): Pad 1 [3V3_D] of C36 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(42.7430 mm, 19.3050 mm): Pad 1 [3V3_D] of C38 on F.Cu
+    @(34.8540 mm, 30.3800 mm): Pad 1 [3V3_D] of C15 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(44.5000 mm, 2.7380 mm): Pad 1 [3V3_D] of CN2 on F.Cu
+    @(48.9820 mm, 9.5730 mm): Pad 1 [3V3_D] of C26 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(44.5000 mm, 2.7380 mm): Pad 1 [3V3_D] of CN2 on F.Cu
+    @(8.5000 mm, 2.7380 mm): Pad 1 [3V3_D] of CN1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(48.9820 mm, 9.5730 mm): Pad 1 [3V3_D] of C26 on F.Cu
+    @(42.7430 mm, 19.3050 mm): Pad 1 [3V3_D] of C38 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(48.9820 mm, 9.5730 mm): Pad 1 [3V3_D] of C26 on F.Cu
+    @(61.2700 mm, 15.7590 mm): Pad 1 [3V3_D] of C10 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(50.4460 mm, 53.9250 mm): Pad 1 [3V3_D] of C37 on F.Cu
+    @(34.0230 mm, 56.9620 mm): Pad 1 [3V3_D] of C9 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(50.4460 mm, 53.9250 mm): Pad 1 [3V3_D] of C37 on F.Cu
+    @(42.9330 mm, 35.5440 mm): Pad 1 [3V3_D] of C36 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(52.6910 mm, 69.3760 mm): Pad 1 [3V3_D] of C16 on F.Cu
+    @(48.9190 mm, 72.6130 mm): Pad 1 [3V3_D] of C12 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(52.6910 mm, 69.3760 mm): Pad 1 [3V3_D] of C16 on F.Cu
+    @(56.0930 mm, 76.3490 mm): Pad 1 [3V3_D] of C24 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(52.6910 mm, 69.3760 mm): Pad 1 [3V3_D] of C16 on F.Cu
+    @(50.4460 mm, 53.9250 mm): Pad 1 [3V3_D] of C37 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(57.9390 mm, 53.3030 mm): Pad 1 [3V3_D] of C14 on F.Cu
+    @(60.6920 mm, 49.0290 mm): Pad 1 [3V3_D] of C4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(57.9390 mm, 53.3030 mm): Pad 1 [3V3_D] of C14 on F.Cu
+    @(50.4460 mm, 53.9250 mm): Pad 1 [3V3_D] of C37 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(61.2810 mm, 44.1820 mm): Pad 1 [3V3_D] of C22 on F.Cu
+    @(60.6920 mm, 49.0290 mm): Pad 1 [3V3_D] of C4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.5000 mm, 2.7380 mm): Pad 1 [3V3_D] of CN3 on F.Cu
+    @(61.2700 mm, 15.7590 mm): Pad 1 [3V3_D] of C10 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(68.3250 mm, 55.3280 mm): Pad 1 [3V3_D] of C13 on F.Cu
+    @(67.6430 mm, 57.5930 mm): Pad 1 [3V3_D] of C5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.0630 mm, 65.0810 mm): Pad 1 [3V3_D] of C25 on F.Cu
+    @(67.6430 mm, 57.5930 mm): Pad 1 [3V3_D] of C5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.1030 mm, 53.3910 mm): Pad 1 [3V3_D] of C11 on F.Cu
+    @(68.3250 mm, 55.3280 mm): Pad 1 [3V3_D] of C13 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.1030 mm, 53.3910 mm): Pad 1 [3V3_D] of C11 on F.Cu
+    @(60.6920 mm, 49.0290 mm): Pad 1 [3V3_D] of C4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(66.7370 mm, 29.4680 mm): Pad 1 [ADC_VNCP] of C33 on F.Cu
+    @(54.2880 mm, 23.0440 mm): Pad 1 [ADC_VNCP] of C32 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(66.8220 mm, 66.8750 mm): Pad 1 [ADC_VNCP] of C31 on F.Cu
+    @(66.7370 mm, 29.4680 mm): Pad 1 [ADC_VNCP] of C33 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(37.9080 mm, 36.1020 mm): Pad 1 [DVDD_1V1] of C18 on F.Cu
+    @(58.9710 mm, 29.8710 mm): Pad 1 [DVDD_1V1] of C17 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(58.9710 mm, 29.8710 mm): Pad 1 [DVDD_1V1] of C17 on F.Cu
+    @(58.0210 mm, 23.6930 mm): Pad 1 [DVDD_1V1] of C19 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 32.5000 mm): Pad 2 [GND] of CN5 on F.Cu
+    @(6.6180 mm, 31.2000 mm): Pad 3 [GND] of CN5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 23.8000 mm): Pad 4 [GND] of CN4 on F.Cu
+    @(6.6180 mm, 20.2000 mm): Pad 3 [GND] of CN4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 23.8000 mm): Pad 4 [GND] of CN4 on F.Cu
+    @(6.6180 mm, 31.2000 mm): Pad 3 [GND] of CN5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 34.8000 mm): Pad 4 [GND] of CN5 on F.Cu
+    @(6.6180 mm, 31.2000 mm): Pad 3 [GND] of CN5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 34.8000 mm): Pad 4 [GND] of CN5 on F.Cu
+    @(6.6180 mm, 42.2000 mm): Pad 3 [GND] of CN6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 42.2000 mm): Pad 3 [GND] of CN6 on F.Cu
+    @(6.6180 mm, 45.8000 mm): Pad 4 [GND] of CN6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 45.8000 mm): Pad 4 [GND] of CN6 on F.Cu
+    @(6.6180 mm, 53.2000 mm): Pad 3 [GND] of CN7 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.6180 mm, 53.2000 mm): Pad 3 [GND] of CN7 on F.Cu
+    @(6.6180 mm, 56.8000 mm): Pad 4 [GND] of CN7 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(7.2000 mm, 6.6180 mm): Pad 6 [GND] of CN1 on F.Cu
+    @(6.6180 mm, 20.2000 mm): Pad 3 [GND] of CN4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(9.5000 mm, 2.7380 mm): Pad 2 [GND] of CN1 on F.Cu
+    @(7.2000 mm, 6.6180 mm): Pad 6 [GND] of CN1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(12.8000 mm, 6.6180 mm): Pad 5 [GND] of CN1 on F.Cu
+    @(9.5000 mm, 2.7380 mm): Pad 2 [GND] of CN1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.2000 mm, 6.6180 mm): Pad 6 [GND] of CN10 on F.Cu
+    @(27.5000 mm, 2.7380 mm): Pad 2 [GND] of CN10 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.2000 mm, 6.6180 mm): Pad 6 [GND] of CN10 on F.Cu
+    @(12.8000 mm, 6.6180 mm): Pad 5 [GND] of CN1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.5000 mm, 2.7380 mm): Pad 2 [GND] of CN10 on F.Cu
+    @(30.8000 mm, 6.6180 mm): Pad 5 [GND] of CN10 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.0860 mm, 35.0960 mm): Pad 2 [GND] of C47 on F.Cu
+    @(36.2540 mm, 30.3800 mm): Pad 2 [GND] of C15 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.8000 mm, 6.6180 mm): Pad 5 [GND] of CN10 on F.Cu
+    @(43.2000 mm, 6.6180 mm): Pad 6 [GND] of CN2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.9930 mm, 42.5780 mm): Pad 2 [GND] of C54 on F.Cu
+    @(29.0860 mm, 35.0960 mm): Pad 2 [GND] of C47 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.9930 mm, 42.5780 mm): Pad 2 [GND] of C54 on F.Cu
+    @(23.0900 mm, 45.5880 mm): Pad 2 [GND] of C40 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(39.3080 mm, 36.1020 mm): Pad 2 [GND] of C18 on F.Cu
+    @(44.3330 mm, 35.5440 mm): Pad 2 [GND] of C36 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(39.3080 mm, 36.1020 mm): Pad 2 [GND] of C18 on F.Cu
+    @(36.2540 mm, 30.3800 mm): Pad 2 [GND] of C15 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(39.9710 mm, 44.9930 mm): Pad 2 [GND] of C28 on F.Cu
+    @(39.3080 mm, 36.1020 mm): Pad 2 [GND] of C18 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.2530 mm, 19.8000 mm): Pad 2 [GND] of C20 on F.Cu
+    @(40.3640 mm, 16.9580 mm): Pad 2 [GND] of C58 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(43.2000 mm, 6.6180 mm): Pad 6 [GND] of CN2 on F.Cu
+    @(45.5000 mm, 2.7380 mm): Pad 2 [GND] of CN2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(43.2000 mm, 6.6180 mm): Pad 6 [GND] of CN2 on F.Cu
+    @(40.3640 mm, 16.9580 mm): Pad 2 [GND] of C58 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(44.1430 mm, 19.3050 mm): Pad 2 [GND] of C38 on F.Cu
+    @(40.2530 mm, 19.8000 mm): Pad 2 [GND] of C20 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(44.3020 mm, 64.6170 mm): Pad 2 [GND] of C8 on F.Cu
+    @(35.4230 mm, 56.9620 mm): Pad 2 [GND] of C9 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(47.8480 mm, 35.6960 mm): Pad 2 [GND] of C6 on F.Cu
+    @(44.3330 mm, 35.5440 mm): Pad 2 [GND] of C36 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(47.8480 mm, 35.6960 mm): Pad 2 [GND] of C6 on F.Cu
+    @(52.9790 mm, 34.8340 mm): Pad 2 [GND] of C21 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(48.2630 mm, 39.8840 mm): Pad 2 [GND] of C49 on F.Cu
+    @(47.8480 mm, 35.6960 mm): Pad 2 [GND] of C6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(48.8000 mm, 6.6180 mm): Pad 5 [GND] of CN2 on F.Cu
+    @(50.3820 mm, 9.5730 mm): Pad 2 [GND] of C26 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(48.8000 mm, 6.6180 mm): Pad 5 [GND] of CN2 on F.Cu
+    @(45.5000 mm, 2.7380 mm): Pad 2 [GND] of CN2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(50.3190 mm, 72.6130 mm): Pad 2 [GND] of C12 on F.Cu
+    @(44.3020 mm, 64.6170 mm): Pad 2 [GND] of C8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(50.3820 mm, 9.5730 mm): Pad 2 [GND] of C26 on F.Cu
+    @(61.2000 mm, 6.6180 mm): Pad 6 [GND] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(51.8270 mm, 40.7600 mm): Pad 2 [GND] of C29 on F.Cu
+    @(48.2630 mm, 39.8840 mm): Pad 2 [GND] of C49 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(52.6890 mm, 45.1230 mm): Pad 2 [GND] of C3 on F.Cu
+    @(51.8270 mm, 40.7600 mm): Pad 2 [GND] of C29 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(52.9790 mm, 34.8340 mm): Pad 2 [GND] of C21 on F.Cu
+    @(57.0910 mm, 35.6940 mm): Pad 2 [GND] of C51 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(54.0910 mm, 69.3760 mm): Pad 2 [GND] of C16 on F.Cu
+    @(50.3190 mm, 72.6130 mm): Pad 2 [GND] of C12 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(54.0910 mm, 69.3760 mm): Pad 2 [GND] of C16 on F.Cu
+    @(57.4930 mm, 76.3490 mm): Pad 2 [GND] of C24 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(55.6880 mm, 23.0440 mm): Pad 2 [GND] of C32 on F.Cu
+    @(59.4210 mm, 23.6930 mm): Pad 2 [GND] of C19 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(56.7810 mm, 28.0750 mm): Pad 2 [GND] of C53 on F.Cu
+    @(60.3710 mm, 29.8710 mm): Pad 2 [GND] of C17 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(59.3390 mm, 53.3030 mm): Pad 2 [GND] of C14 on F.Cu
+    @(51.8460 mm, 53.9250 mm): Pad 2 [GND] of C37 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(59.4210 mm, 23.6930 mm): Pad 2 [GND] of C19 on F.Cu
+    @(56.7810 mm, 28.0750 mm): Pad 2 [GND] of C53 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(60.3150 mm, 31.6290 mm): Pad 2 [GND] of C30 on F.Cu
+    @(60.3710 mm, 29.8710 mm): Pad 2 [GND] of C17 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(60.3150 mm, 31.6290 mm): Pad 2 [GND] of C30 on F.Cu
+    @(57.0910 mm, 35.6940 mm): Pad 2 [GND] of C51 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(60.5810 mm, 67.4670 mm): Pad 2 [GND] of C60 on F.Cu
+    @(54.0910 mm, 69.3760 mm): Pad 2 [GND] of C16 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(61.2000 mm, 6.6180 mm): Pad 6 [GND] of CN3 on F.Cu
+    @(63.5000 mm, 2.7380 mm): Pad 2 [GND] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.0920 mm, 49.0290 mm): Pad 2 [GND] of C4 on F.Cu
+    @(59.3390 mm, 53.3030 mm): Pad 2 [GND] of C14 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.4510 mm, 46.2700 mm): Pad 2 [GND] of C7 on F.Cu
+    @(62.6810 mm, 44.1820 mm): Pad 2 [GND] of C22 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.4510 mm, 46.2700 mm): Pad 2 [GND] of C7 on F.Cu
+    @(62.0920 mm, 49.0290 mm): Pad 2 [GND] of C4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.6700 mm, 15.7590 mm): Pad 2 [GND] of C10 on F.Cu
+    @(69.0810 mm, 15.4370 mm): Pad 2 [GND] of C52 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.6810 mm, 44.1820 mm): Pad 2 [GND] of C22 on F.Cu
+    @(62.7380 mm, 39.6670 mm): Pad 2 [GND] of C27 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.6810 mm, 44.1820 mm): Pad 2 [GND] of C22 on F.Cu
+    @(69.0140 mm, 43.0080 mm): Pad 2 [GND] of C46 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(62.7380 mm, 39.6670 mm): Pad 2 [GND] of C27 on F.Cu
+    @(65.2400 mm, 35.1240 mm): Pad 2 [GND] of C39 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(63.5000 mm, 2.7380 mm): Pad 2 [GND] of CN3 on F.Cu
+    @(66.8000 mm, 6.6180 mm): Pad 5 [GND] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(65.2400 mm, 35.1240 mm): Pad 2 [GND] of C39 on F.Cu
+    @(60.3150 mm, 31.6290 mm): Pad 2 [GND] of C30 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(66.6710 mm, 73.3530 mm): Pad 2 [GND] of C55 on F.Cu
+    @(68.2220 mm, 66.8750 mm): Pad 2 [GND] of C31 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(66.8000 mm, 6.6180 mm): Pad 5 [GND] of CN3 on F.Cu
+    @(69.0810 mm, 15.4370 mm): Pad 2 [GND] of C52 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(68.1370 mm, 29.4680 mm): Pad 2 [GND] of C33 on F.Cu
+    @(73.5350 mm, 27.8250 mm): Pad 2 [GND] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(68.1370 mm, 29.4680 mm): Pad 2 [GND] of C33 on F.Cu
+    @(65.2400 mm, 35.1240 mm): Pad 2 [GND] of C39 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(68.2220 mm, 66.8750 mm): Pad 2 [GND] of C31 on F.Cu
+    @(70.4630 mm, 65.0810 mm): Pad 2 [GND] of C25 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(68.2220 mm, 66.8750 mm): Pad 2 [GND] of C31 on F.Cu
+    @(60.5810 mm, 67.4670 mm): Pad 2 [GND] of C60 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.0810 mm, 15.4370 mm): Pad 2 [GND] of C52 on F.Cu
+    @(70.2620 mm, 23.1990 mm): Pad 2 [GND] of C34 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.6430 mm, 57.5930 mm): Pad 2 [GND] of C5 on F.Cu
+    @(68.8500 mm, 63.1270 mm): Pad 2 [GND] of C35 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.7250 mm, 55.3280 mm): Pad 2 [GND] of C13 on F.Cu
+    @(70.5030 mm, 53.3910 mm): Pad 2 [GND] of C11 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(69.7250 mm, 55.3280 mm): Pad 2 [GND] of C13 on F.Cu
+    @(69.6430 mm, 57.5930 mm): Pad 2 [GND] of C5 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(70.4630 mm, 65.0810 mm): Pad 2 [GND] of C25 on F.Cu
+    @(68.8500 mm, 63.1270 mm): Pad 2 [GND] of C35 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(70.5030 mm, 53.3910 mm): Pad 2 [GND] of C11 on F.Cu
+    @(75.3090 mm, 54.3030 mm): Pad 2 [GND] of C48 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(70.6350 mm, 48.1980 mm): Pad 2 [GND] of C57 on F.Cu
+    @(70.5030 mm, 53.3910 mm): Pad 2 [GND] of C11 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(70.6350 mm, 48.1980 mm): Pad 2 [GND] of C57 on F.Cu
+    @(69.0140 mm, 43.0080 mm): Pad 2 [GND] of C46 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(73.5350 mm, 27.8250 mm): Pad 2 [GND] of D1 on F.Cu
+    @(70.2620 mm, 23.1990 mm): Pad 2 [GND] of C34 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(74.8550 mm, 57.1750 mm): Pad 2 [GND] of C2 on F.Cu
+    @(75.3090 mm, 54.3030 mm): Pad 2 [GND] of C48 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(75.3090 mm, 54.3030 mm): Pad 2 [GND] of C48 on F.Cu
+    @(75.7410 mm, 52.0920 mm): Pad 2 [GND] of C1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(79.2000 mm, 6.6180 mm): Pad 6 [GND] of CN8 on F.Cu
+    @(81.5000 mm, 2.7380 mm): Pad 2 [GND] of CN8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(79.2000 mm, 6.6180 mm): Pad 6 [GND] of CN8 on F.Cu
+    @(66.8000 mm, 6.6180 mm): Pad 5 [GND] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(79.2310 mm, 26.9930 mm): Pad 2 [GND] of C23 on F.Cu
+    @(73.5350 mm, 27.8250 mm): Pad 2 [GND] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(80.2390 mm, 42.0800 mm): Pad 2 [GND] of C41 on F.Cu
+    @(80.3550 mm, 45.7470 mm): Pad 2 [GND] of C59 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(80.3550 mm, 45.7470 mm): Pad 2 [GND] of C59 on F.Cu
+    @(75.7410 mm, 52.0920 mm): Pad 2 [GND] of C1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(83.5000 mm, 2.7380 mm): Pad 4 [GND] of CN8 on F.Cu
+    @(81.5000 mm, 2.7380 mm): Pad 2 [GND] of CN8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(84.8000 mm, 6.6180 mm): Pad 5 [GND] of CN8 on F.Cu
+    @(83.5000 mm, 2.7380 mm): Pad 4 [GND] of CN8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(97.2000 mm, 6.6180 mm): Pad 6 [GND] of CN9 on F.Cu
+    @(99.5000 mm, 2.7380 mm): Pad 2 [GND] of CN9 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(97.2000 mm, 6.6180 mm): Pad 6 [GND] of CN9 on F.Cu
+    @(84.8000 mm, 6.6180 mm): Pad 5 [GND] of CN8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(102.8000 mm, 6.6180 mm): Pad 5 [GND] of CN9 on F.Cu
+    @(99.5000 mm, 2.7380 mm): Pad 2 [GND] of CN9 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(47.5000 mm, 2.7380 mm): Pad 4 [I2C_SCL] of CN2 on F.Cu
+    @(65.5000 mm, 2.7380 mm): Pad 4 [I2C_SCL] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(46.5000 mm, 2.7380 mm): Pad 3 [I2C_SDA] of CN2 on F.Cu
+    @(64.5000 mm, 2.7380 mm): Pad 3 [I2C_SDA] of CN3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 43.5000 mm): Pad 2 [MOTOR1_D] of CN6 on F.Cu
+    @(81.3310 mm, 32.8460 mm): Pad 2 [MOTOR1_D] of D3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 54.5000 mm): Pad 2 [MOTOR2_D] of CN7 on F.Cu
+    @(30.0160 mm, 45.9530 mm): Pad 2 [MOTOR2_D] of D4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(74.4850 mm, 25.5250 mm): Pad 4 [USB_DM_C] of D1 on F.Cu
+    @(74.4850 mm, 27.8250 mm): Pad 3 [USB_DM_C] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(72.5850 mm, 25.5250 mm): Pad 6 [USB_DP_C] of D1 on F.Cu
+    @(72.5850 mm, 27.8250 mm): Pad 1 [USB_DP_C] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.8130 mm, 42.5780 mm): Pad 1 [V24_RAW] of C54 on F.Cu
+    @(21.2220 mm, 48.7330 mm): Pad 1 [V24_RAW] of D2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(53.6010 mm, 28.0750 mm): Pad 1 [V24_RAW] of C53 on F.Cu
+    @(27.8130 mm, 42.5780 mm): Pad 1 [V24_RAW] of C54 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 22.5000 mm): Pad 1 [V5] of CN4 on F.Cu
+    @(2.7380 mm, 44.5000 mm): Pad 1 [V5] of CN6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 44.5000 mm): Pad 1 [V5] of CN6 on F.Cu
+    @(2.7380 mm, 55.5000 mm): Pad 1 [V5] of CN7 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7380 mm, 44.5000 mm): Pad 1 [V5] of CN6 on F.Cu
+    @(26.0960 mm, 45.9530 mm): Pad 1 [V5] of D4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.0960 mm, 45.9530 mm): Pad 1 [V5] of D4 on F.Cu
+    @(46.4480 mm, 35.6960 mm): Pad 1 [V5] of C6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(51.2890 mm, 45.1230 mm): Pad 1 [V5] of C3 on F.Cu
+    @(46.4480 mm, 35.6960 mm): Pad 1 [V5] of C6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(51.2890 mm, 45.1230 mm): Pad 1 [V5] of C3 on F.Cu
+    @(73.7410 mm, 52.0920 mm): Pad 1 [V5] of C1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(73.4550 mm, 57.1750 mm): Pad 1 [V5] of C2 on F.Cu
+    @(73.7410 mm, 52.0920 mm): Pad 1 [V5] of C1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(77.4110 mm, 32.8460 mm): Pad 1 [V5] of D3 on F.Cu
+    @(73.7410 mm, 52.0920 mm): Pad 1 [V5] of C1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(55.0910 mm, 35.6940 mm): Pad 1 [V5_BOOST] of C51 on F.Cu
+    @(67.0810 mm, 15.4370 mm): Pad 1 [V5_BOOST] of C52 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.9190 mm, 35.8400 mm): Pad 1 [VBUS] of F1 on F.Cu
+    @(73.5350 mm, 25.5250 mm): Pad 5 [VBUS] of D1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** End of Report **
