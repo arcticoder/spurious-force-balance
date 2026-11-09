@@ -1877,3 +1877,20 @@ The print is running, but it's plate 1, not the gantry, and I changed the plan a
 I'll tell you if anything changes, and when the print finishes I'll report the `vane_holder` mass.
 <!-- ------ -->
 ---
+The plate 1 print finished successfully: 1 h 37 min on the black spool, with no temperature alerts. The heaters are off, and the bed (58 °C at the last reading) and nozzle are cooling.
+
+**What was printed:** `head`, `fixture_saw_guide_plate`, `elec_bracket`, the four `encl_shelf_*` parts and `vane_holder`.
+
+**`vane_holder` mass:** the G-code gives about 0.93 g. That is an estimate from the extrusion lengths, and the requirements file expected roughly 0.6 g, so weigh the real part on the milligram scale. The parts sum to about 93% of the slicer's 36 g total; the rest is purge and supports.
+
+**What I need from you** (both are in `docs/TODO-arcticoder.md`):
+1. When the bed is cool, take the parts off and check that they came off whole. Try the nut and hole fits on `head` and `elec_bracket`, and weigh `vane_holder`. Hole compensation was +0.1 mm as a starting value, so the fits matter.
+2. Tell me the next print window in hours. The gantry takes about 4 hours at the required settings. Plate 0 (about 4 hours, though it was sliced at the wrong settings and needs a re-slice) and the base (about 3.5 hours) are also over 2.25 hours. I'll split them to fit the window you give. Keep the vents closed unless I say otherwise.
+
+**Findings for later:**
+- The bed tilt of about 1.4 mm front to back repeats across runs, so it's mechanical and the bed isn't parallel to the gantry. It worked fine in this print because the K1 re-levels at the start of every print, but a tilt that large is worth fixing eventually.
+- The filament sensor reads "detected" both with and without filament loaded, so it can't be used as a filament check.
+
+I recorded the settings fix, the tilt, the sensor behaviour and the per-part mass method in `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md`, and updated the printing item in `docs/TODO-agent.md`. Nothing is committed.
+<!-- ------ -->
+---
