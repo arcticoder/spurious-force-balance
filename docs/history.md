@@ -2155,3 +2155,31 @@ The print finished: `balance_plate0_small.gcode` completed in 74 minutes, with n
 - **Scale:** if you found a finer scale, the vane holder mass is still waiting on it. If you haven't, say so and I'll drop it.
 <!-- ------ -->
 ---
+I went through the last 10 commits (a586e6a to d866c30) and added an audit section to [TODO-agent.md](docs/TODO-agent.md), above "Staged orders". Nothing was fixed or changed anywhere else; every entry is a check to make, and those that end in something for you are marked **[user]** so the agent puts them on your list when it gets there.
+
+The notes fall into four groups:
+
+- **Repository hygiene**
+  - `result.json` at the repo root is an OrcaSlicer export-status file, not project data.
+  - Three scratch files are tracked in `hardware/instrument/layout/out/` (`d0.json`, `t.kicad_pcb`, `t.rpt`).
+  - `drc.json`, the `.ses` file and the logs churn thousands of lines per commit, so there is a question for you about which of `out/` to track.
+  - `route.log` still records the failed first routing run.
+  - Many tracked files contain absolute `/home/echo_/` paths.
+- **`mainboard.py`**
+  - `drc()` ignores a failed `kicad-cli` run, so `dfm` can pass or fail on an old report.
+  - The DFM gate only blocks on a named list of violation types, so anything unlisted passes as advisory (courtyard overlap and silk over pads currently do).
+  - `geometry()` skips arcs and vias, and misses a track that tees into the middle of another.
+  - Neither check has a test.
+  - The notes disagree on net count (111 versus 415).
+  - The router produced tracks narrower than the minimum.
+- **Docs consistency**
+  - TODO-agent still says in one place that the layout waits on A5, and that the printer was unreachable.
+  - `session_handoff.md` still says last night's print is unconfirmed.
+  - Your list says "today" and "tomorrow" for things written on 2026-11-09.
+- **Bench and printer**
+  - The Wi-Fi dropouts and the unconfirmed bed-mesh direction each need a read-only check before any task goes to you.
+  - The filament-loading routine needs a fixed park-before-heat sequence.
+
+One thing to know now: the repo is public on GitHub, and `TODO-arcticoder.md` carries the two live parcel tracking numbers. Whether those belong there is noted as your decision. The Orca API token is not in any of the three repos.
+<!-- ------ -->
+---
