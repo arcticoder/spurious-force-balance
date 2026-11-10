@@ -2,6 +2,8 @@
 
 Dated entries, newest first.
 
+- 2026-11-09 (evening) — First print of the new set: `sensor_bracket`, `damper_holder`, `fixture_gap_gauge`, `fixture_saw_guide_base` on one plate (slice 1 h 14 min, 31.7 g; printed in 74 min). The OrcaSlicer MCP fork had to be reinstalled and its port-lock problem worked around; the K1 lost Wi-Fi twice (reconnected from its touchscreen). Findings are in the wsl KB notes.
+
 - 2026-11-09 — Chat 10: JLC order states re-read through the app (arm In Production, elec_board and clamp_ground Shipped with tracking); the shipping-discount line explains the earlier cheap Global-line prices; AliExpress parcel received (thin nuts, calipers without a cell), ledger and inventory updated, AliExpress balance list plus button cells promoted to the user's list; board rules (layer count by need, 45-degree copper, DFM last) added to the layout pipeline as `geometry` and `dfm` commands.
 
 - 2026-11-08 — Chat 8 close: the `clamp_plate` order (Y6) is in the JLC cart at C$3.10 goods, not paid, because the Global Standard Direct Line shipping now reads C$8.14. Coupons not applied (kept for the small-designs order). The Orca project from `balance.3mf` was scrambled by plate-moving calls and is not sliced; the file on disk is unchanged. Chat 9 starts from `docs/kb/session_handoff.md`, which holds the new context block.

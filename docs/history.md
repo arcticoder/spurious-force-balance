@@ -2146,3 +2146,12 @@ I can't do anything from here until it's reachable again. If the print is runnin
 The Wi-Fi has now dropped twice while the printer was busy or hot. It could be the printer's radio, the signal on your balcony, or the router's power saving. If it keeps happening, moving the router closer or giving the printer a stronger signal is the real fix. I'll note it in the printer notes.
 <!-- ------ -->
 ---
+The print finished: `balance_plate0_small.gcode` completed in 74 minutes, with no errors. Moonraker's history logs 2 jobs and 2.85 print hours in total, far from 300, so there's no self-test to do yet. The nozzle was 178 °C and the bed 58 °C at the end, and both are cooling.
+
+- **Printed:** sensor bracket, damper holder, gap gauge (1 mm thick) and saw-guide base.
+- **For you:** let the bed cool, take the parts off, and tell me if any is warped or has a lifted corner. The gap gauge and saw-guide base are the ones to look at. This is task 2 on your list now.
+- **Still to print:** the strip guide (about 33 min), the four posts, the gantry (Wednesday) and the base. For Tuesday's 1.5 h, I'd pick the strip guide plus one or two posts.
+- **Records:** I updated TODO-agent, TODO-arcticoder and TODO-completed. The notes on the Orca reinstall and the Wi-Fi drops went in earlier.
+- **Scale:** if you found a finer scale, the vane holder mass is still waiting on it. If you haven't, say so and I'll drop it.
+<!-- ------ -->
+---
