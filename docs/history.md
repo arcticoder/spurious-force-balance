@@ -2135,3 +2135,14 @@ The earlier slicer trouble came from the OrcaSlicer MCP build being gone, leavin
 I did not write the print-hours and mesh results into `TODO-agent.md`, only into the handoff and the printer notes. I'll update the TODO files once the print finishes and you tell me how it went.
 <!-- ------ -->
 ---
+The K1 has dropped off the network again, about 90 seconds after the print started. It's the same failure as before: no ping and no ports. I can't tell whether the print is still running, because the printer only reports through that connection.
+
+Please look at the printer now:
+1. **Is it still printing?** Check the touchscreen and the first layer. The print runs on the printer itself, so a lost connection shouldn't stop it.
+2. **Does the screen show a Wi-Fi icon or an IP?** Tell me which.
+
+I can't do anything from here until it's reachable again. If the print is running normally, leave it. When the connection returns I'll pick the monitoring back up.
+
+The Wi-Fi has now dropped twice while the printer was busy or hot. It could be the printer's radio, the signal on your balcony, or the router's power saving. If it keeps happening, moving the router closer or giving the printer a stronger signal is the real fix. I'll note it in the printer notes.
+<!-- ------ -->
+---
