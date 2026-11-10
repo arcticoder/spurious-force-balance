@@ -3,6 +3,8 @@ mainboard.py — WP5: the instrument main board in KiCad format, from the SKiDL 
 
     ~/.venvs/lab-hw/bin/python hardware/instrument/layout/mainboard.py place [W H]   # footprints, nets, force-directed placement -> out/main_board.kicad_pcb
     ~/.venvs/lab-hw/bin/python hardware/instrument/layout/mainboard.py route         # Specctra DSN -> Freerouting -> SES -> tracks/vias in the board
+    ~/.venvs/lab-hw/bin/python hardware/instrument/layout/mainboard.py geometry [-v]   # 45-degree grid / acute-joint check
+    ~/.venvs/lab-hw/bin/python hardware/instrument/layout/mainboard.py dfm           # DRC + geometry gate, run last before the fab outputs
     ~/.venvs/lab-hw/bin/python hardware/instrument/layout/mainboard.py drc           # kicad-cli pcb drc (min clearance 0.15 mm, JLC 4-layer capability)
 
 Netlist: ../schematic/out/main_board.net. Footprints: ../lib/jlc.pretty. Four copper layers (F, In1, In2, B). Deterministic.
@@ -367,6 +369,68 @@ def drc():
     print("violations:", dict(Counter(v["type"] for v in d["violations"])), "| unconnected:", len(d.get("unconnected_items", [])))
 
 
+def geometry(verbose=False):
+    """Trace-shape rule (user, 2026-11-09): no acute angles (acid traps, signal integrity); bends are 45 degrees or rounded.
+    Reports (a) segments whose direction is not a multiple of 45 degrees, (b) joints of same-net segments at the same endpoint whose
+    interior angle is under 90 degrees (a sharp turn or an acute branch). Zero-length pieces are ignored."""
+    b = Board.from_file(PCB)
+    segs = [t for t in b.traceItems if isinstance(t, Segment)]
+    off45, acute = [], []
+    ends = defaultdict(list)
+    for s in segs:
+        dx, dy = s.end.X - s.start.X, s.end.Y - s.start.Y
+        L = math.hypot(dx, dy)
+        if L < 1e-6:
+            continue
+        ang = math.degrees(math.atan2(dy, dx)) % 45
+        dev = min(ang, 45 - ang)
+        if dev > 0.5:
+            off45.append((s.net, s.layer, round(s.start.X, 3), round(s.start.Y, 3), round(L, 3), round(dev, 1)))
+        for p, q in ((s.start, s.end), (s.end, s.start)):
+            ends[(s.layer, s.net, round(p.X, 3), round(p.Y, 3))].append(math.degrees(math.atan2(q.Y - p.Y, q.X - p.X)))
+    for k, dirs in ends.items():
+        for i in range(len(dirs)):
+            for j in range(i + 1, len(dirs)):
+                d = abs(dirs[i] - dirs[j]) % 360
+                d = min(d, 360 - d)
+                if d < 89.5:
+                    acute.append((k, round(d, 1)))
+    print(f"segments {len(segs)} | off the 45-degree grid {len(off45)} | acute joints (<90 deg) {len(acute)}")
+    if verbose:
+        for x in off45[:40]: print("off45", x)
+        for x in acute[:40]: print("acute", x)
+    return off45, acute
+
+
+# DFM gate (user, 2026-11-09: run a DFM check at the end to catch manufacturing errors). Blocking = would make JLC reject or the board misbehave;
+# advisory = tidy before WP7 but not a fab stop (silk comes from the library footprints; lib_footprint_issues because there is no library table).
+DFM_BLOCKING = {"clearance", "shorting_items", "track_width", "annular_width", "hole_clearance", "hole_to_hole", "copper_edge_clearance", "via_dangling",
+                "track_dangling", "padstack", "invalid_outline", "unconnected_items", "items_not_allowed", "drill_out_of_range", "micro_via_drill_out_of_range",
+                "solder_mask_bridge", "starved_thermal", "zones_intersect", "isolated_copper"}
+
+
+def dfm():
+    """End-of-layout manufacturing check: kicad-cli DRC against the .kicad_pro rules + the trace-shape rule (45-degree grid, no acute joints).
+    Exit status 1 when anything blocking remains. Also confirm in JLC's own DFM/placement preview at order time (WP7)."""
+    from collections import Counter
+    drc()
+    d = json.load(open(os.path.join(OUT, "drc.json")))
+    kinds = Counter(v["type"] for v in d["violations"])
+    blocking = {k: n for k, n in kinds.items() if k in DFM_BLOCKING}
+    unconn = len(d.get("unconnected_items", []))
+    if unconn:
+        blocking["unconnected_items"] = unconn
+    off45, acute = geometry()
+    if off45:
+        blocking["off_45_degree_segments"] = len(off45)
+    if acute:
+        blocking["acute_joints"] = len(acute)
+    advisory = {k: n for k, n in kinds.items() if k not in DFM_BLOCKING}
+    print("DFM blocking:", blocking or "none")
+    print("DFM advisory:", advisory or "none")
+    sys.exit(1 if blocking else 0)
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "place"
     if cmd == "place":
@@ -375,3 +439,7 @@ if __name__ == "__main__":
         route()
     elif cmd == "drc":
         drc()
+    elif cmd == "dfm":
+        dfm()
+    elif cmd == "geometry":
+        geometry(verbose="-v" in sys.argv)

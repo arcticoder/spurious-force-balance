@@ -2,6 +2,8 @@
 
 Dated entries, newest first.
 
+- 2026-11-09 — Chat 10: JLC order states re-read through the app (arm In Production, elec_board and clamp_ground Shipped with tracking); the shipping-discount line explains the earlier cheap Global-line prices; AliExpress parcel received (thin nuts, calipers without a cell), ledger and inventory updated, AliExpress balance list plus button cells promoted to the user's list; board rules (layer count by need, 45-degree copper, DFM last) added to the layout pipeline as `geometry` and `dfm` commands.
+
 - 2026-11-08 — Chat 8 close: the `clamp_plate` order (Y6) is in the JLC cart at C$3.10 goods, not paid, because the Global Standard Direct Line shipping now reads C$8.14. Coupons not applied (kept for the small-designs order). The Orca project from `balance.3mf` was scrambled by plate-moving calls and is not sliced; the file on disk is unchanged. Chat 9 starts from `docs/kb/session_handoff.md`, which holds the new context block.
 - 2026-11-06 — Chat 8: `clamp_ground` JLC order placed, grand total C$5.08 (page price C$2.96). Balance materials checked by the user: no magnet pull on the sheet, pads or rod; rod 10 mm x 100 mm (printed calipers); the stainless sheet is a roll and sits loosely in `BALANCE MATERIALS`; nuts and screws are in `MISC TOOLS`. Slicer requirements for an outside model written (`docs/print_requirements.md`).
 

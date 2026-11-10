@@ -8,8 +8,9 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Tell me when the calipers arrive (due 2026-11-15).** Then I will give you the head-hole measurement steps (the CAD has 3.4 mm holes; the earlier reading was about 4.5 x 5.0 mm with printed calipers). Nothing waits on it.
-2. **Plug in and switch on the printer tomorrow (Monday 2026-11-09) before your 2.5 h window and tell me.** Vents stay closed and the black spool stays loaded. I will read the bed mesh to say which end of the bed is low (no heating) and then ask for your explicit go for the print.
+1. **Place the AliExpress balance order today** (the 2026-10-30 parcel was the last one in transit, so nothing is coming from China). Add to one cart: SR44 or LR44 button cells, 1.55 V, 11.6 x 5.4 mm, a pack of 5-10 (the calipers arrived without one; the head-hole check waits on it); 50 M3 flat 304 washers, 3.2 x 7 mm (the screws in the base nuts need them); 7 clear acrylic sheets, 2 mm, 150 x 250 mm (enclosure panels); 2 JST-SH 2-pin cables with flying leads, 100-150 mm (sensor leads); a calibration weight set, 1 mg-500 mg, accuracy class stated in the listing (torque calibration); and the hand tools the inventory lacks: junior hacksaw, flat needle file, craft knife, steel ruler (the strip and ballast cuts). Send me the listing links and prices before you pay so I can log the order; one order per day, so this is the only order today.
+2. **Plug in and switch on the printer for today's 2.5 h window (Monday 2026-11-09) and tell me.** Vents stay closed and the black spool stays loaded. I will read its print hours and the bed mesh (no heating) and then ask for your explicit go for the print.
+3. **Check the new thin M3 nuts with a disc magnet** and tell me if any is pulled (stainless 304 should not be).
 
 ## Ready to build now — parts on hand
 
@@ -18,6 +19,11 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## En route
 
-JLCPCB: `elec_board` (5 boards, placed 2026-11-05, $3.60 USD) is In Production after approval; the arm order (5 FR4 boards, 1.2 mm, JLCONE $8 PCB coupon) still shows Paid; you emailed JLC again on 2026-11-08 (the @duck.com address may be dropping their mail), waiting on JLC's review of the production-file email that went to the spam folder and was resent 2026-11-06. Answer any "Confirm Production File" or parts-placement email within 48 h and check the spam folder for JLC mail. When a parcel ships, add it to the plan in `docs/fabrication.md`.
+JLCPCB (read in the JLCONE app 2026-11-09; details in `lab/docs/kb/jlc_account_and_quotes.md`):
+- `arm` (5 FR4 boards, placed 2026-11-03): In Production since 2026-11-08, factory finish estimate 2026-11-12. Nothing more to do; the review emails are no longer needed.
+- `elec_board` (placed 2026-11-05): Shipped 2026-11-09, packaged and waiting for the carrier's pickup, tracking YT2631300701884014.
+- `clamp_ground` (placed 2026-11-06): Shipped 2026-11-08, left the Hong Kong sort facility 2026-11-09, tracking YT2631200708882856. The Global Standard Direct Line is labelled 8-12 days.
+- `clamp_plate`: parked (see `TODO-BLOCKED.md`).
+Answer any JLC email within 48 h and check the spam folder. When a parcel lands, tell me and I add it to the plan in `docs/fabrication.md`.
 
-AliExpress, placed 2026-10-30: 20 M3 thin (DIN439) 304 stainless hex nuts (10 are used; thinner than a standard nut, so they sit loosely in the captured pockets) and digital calipers, estimated delivery 2026-11-15. Check the nuts are non-magnetic on arrival.
+AliExpress: nothing in transit until task 1 is placed.

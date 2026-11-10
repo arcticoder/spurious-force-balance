@@ -1981,3 +1981,29 @@ The kb files in both repos are updated and the next-chat context block is rewrit
 The context block is under "Context block for the next chat" in `docs/kb/session_handoff.md`, ready to paste.
 <!-- ------ -->
 ---
+Item 1 was already confirmed; items 2.1–5.2 are done, except that the printer is off so item 3 is still waiting. I didn't commit anything.
+
+**JLC orders (read in JLCONE)**
+- **Arm:** it's In Production, started 2026-11-08, with JLC's factory finish estimate at 2026-11-12. The details page still printed the old "Paid" header, so go by the status steps.
+- **elec_board:** Shipped 2026-11-09, waiting for the carrier pickup. Tracking is YT2631300701884014.
+- **clamp_ground:** Shipped 2026-11-08. It left the Hong Kong sort facility on 2026-11-09. Tracking is YT2631200708882856.
+- **clamp_plate:** Y6 and Y7 are still cancelled, so it stays parked.
+- **Shipping price:** the order pages explain the C$8.14. The list rate for 0.14 kg on the Global Standard Direct Line is US$5.77. The cheap US$1.50 you paid earlier was that rate minus a US$4.27 discount line on the order. The page doesn't say which coupon gave that discount. I added a note to look for such a discount before judging shipping on the next order.
+
+**Printer**
+- It isn't reachable, so it's off. I'll read its print hours the next time I connect. At 300 h I'll put a self-test task on your list. I've recorded that rule in TODO-agent.md.
+
+**Board design**
+- **Layers:** the main board stays 4-layer, and the inner ground and power planes are still to draw. The simple boards (arm, electrodes, clamps, elec_board) stay 2-layer.
+- **45° only:** I added `mainboard.py geometry`, which flags off-45° segments and joints sharper than 90°. The first routed pass has 0 off-grid segments and 7 sharp joints, which I'll clean up in the re-route.
+- **DFM gate:** I added `mainboard.py dfm`, which runs DRC and the shape check and exits 1 while anything blocking remains. It currently fails on 6 track-width, 3 clearance, 2 annular, 2 padstack, 8 dangling-via, 9 unrouted and 7 acute-joint items. I'll run it last, then check in JLC's own preview at order time.
+- **Next:** closing the 9 unrouted nets and drawing the planes is my next item, and I haven't started it.
+
+**AliExpress**
+- The thin nuts and calipers are logged in the lab ledger and inventory. The calipers need an SR44/LR44 cell, so the head-hole check waits on it. Nothing else is in transit from AliExpress.
+- At the top of your list is one AliExpress order to place today: the button cells plus the staged list (washers, acrylic, JST-SH cables, calibration weights, hand tools). Please send me the links and prices before you pay so I can log it.
+- Your list also has the printer plug-in for today's 2.5 h window and a magnet check on the new thin nuts.
+
+I updated the KB, the handoff, TODO-BLOCKED and TODO-completed to match.
+<!-- ------ -->
+---
