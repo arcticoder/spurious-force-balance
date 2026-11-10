@@ -1985,8 +1985,8 @@ Item 1 was already confirmed; items 2.1–5.2 are done, except that the printer 
 
 **JLC orders (read in JLCONE)**
 - **Arm:** it's In Production, started 2026-11-08, with JLC's factory finish estimate at 2026-11-12. The details page still printed the old "Paid" header, so go by the status steps.
-- **elec_board:** Shipped 2026-11-09, waiting for the carrier pickup. Tracking is YT2631300701884014.
-- **clamp_ground:** Shipped 2026-11-08. It left the Hong Kong sort facility on 2026-11-09. Tracking is YT2631200708882856.
+- **elec_board:** Shipped 2026-11-09, waiting for the carrier pickup. Tracking is YT26******4.
+- **clamp_ground:** Shipped 2026-11-08. It left the Hong Kong sort facility on 2026-11-09. Tracking is YT2631******6.
 - **clamp_plate:** Y6 and Y7 are still cancelled, so it stays parked.
 - **Shipping price:** the order pages explain the C$8.14. The list rate for 0.14 kg on the Global Standard Direct Line is US$5.77. The cheap US$1.50 you paid earlier was that rate minus a US$4.27 discount line on the order. The page doesn't say which coupon gave that discount. I added a note to look for such a discount before judging shipping on the next order.
 
@@ -2005,5 +2005,133 @@ Item 1 was already confirmed; items 2.1–5.2 are done, except that the printer 
 - Your list also has the printer plug-in for today's 2.5 h window and a magnet check on the new thin nuts.
 
 I updated the KB, the handoff, TODO-BLOCKED and TODO-completed to match.
+<!-- ------ -->
+---
+Nozzle is heating to 225 °C (94 °C after 20 s, bed off). Before I record this, here is what the calibration work found.
+
+**Calibration (no heating)**
+- **Print hours:** Moonraker's history shows 1.61 h of printing in total, from one job. That is nowhere near 300 h, so there's no self-test to do yet. I can't read the touchscreen's own counter, so it may differ.
+- **Bed mesh:** I homed and re-probed. The span is 1.4 mm from the first row (+1.14 mm) to the last row (−0.28 mm), the same front-to-back tilt as before, with almost none left to right. The tilt repeats, so it's mechanical.
+- **Which end is low:** Klipper stores the front row first. By its usual sign convention, the front would be the high end and the back the low end. I haven't confirmed that convention on this printer, so treat it as probable only. START_PRINT re-levels every print anyway.
+
+**Filament for tonight: black Hyper PLA.**
+- Everything printed so far is black, and the black spool is the one you've been loading.
+- Tonight's part set isn't sliced yet. The four 150 mm posts are most of plate 0, so I'll cut it to fit 2.5 h. I'll weigh that set after you load.
+- The opened black spool has only about 65–90 g left. If tonight's set is under about 60 g, use that one so it gets finished off. If it's over, the unopened black spool is the safe pick. I'll tell you which before anything starts.
+- Load the filament while the nozzle is hot. Nothing prints until you ask.
+
+I'll note the print-hours reading and mesh in the KB when we wrap up.
+<!-- ------ -->
+---
+Load the opened black spool now. Don't wait for me.
+
+I'll pick tonight's parts to stay under about 60 g, which fits the 65–90 g left on it. That means dropping posts from plate 0 until the slice fits the 2.5 h window. If the slice somehow won't fit under 60 g, I'll tell you before anything starts. The nozzle is hot at 225 °C, so you can load it whenever you're ready.
+
+I'm slicing the reduced set now and will report the mass and print time. Nothing will print until you ask.
+<!-- ------ -->
+---
+The slicer isn't running, so I can't slice yet. OrcaSlicer isn't answering on its remote-API port (127.0.0.1:13130), which usually means the app is closed.
+
+**What I need from you:**
+1. Open OrcaSlicer and make sure Preferences > Remote API is on. Tell me when it's up and I'll slice right away.
+2. Load the lighter black spool now. The nozzle is already hot at 225 °C, so this doesn't depend on the slice.
+
+**Nothing prints** until you ask. The nozzle will stay hot, so tell me if you want it set back to off while we wait.
+
+**Plan once Orca is open:** I'll move the four 150 mm posts off plate 0 and turn the prime tower off. The remaining small parts are the strip guide, sensor bracket, damper holder, gap gauge and saw-guide base. I'll slice them and report the filament mass and time against your 2.5 h window and the roughly 65–90 g on that spool.
+<!-- ------ -->
+---
+The nozzle is parked at the rear-left corner, X10 Y210, clear of the plate. The plate is lowered to Z120, about 120 mm of clearance, so you have room to scrape.
+
+The nozzle is still at 225 °C, so keep your hands away from it. Don't touch the glob with bare skin either; it's only a few degrees below nozzle temperature. Let me know when the plate is clean.
+
+After that I'll purge a little filament in the corner to check it flows, and I'll keep the head out of the middle from now on. OrcaSlicer still needs to be opened before I can slice.
+<!-- ------ -->
+---
+I can't start the print yet, because OrcaSlicer still isn't answering on 127.0.0.1:13130. Nothing is sliced, and there's no G-code to send.
+
+Please open OrcaSlicer and check that Preferences > Remote API is on. Once I can reach it, I'll do these in one go:
+1. Turn the prime tower off and move the four 150 mm posts to a spare plate.
+2. Slice the small parts on plate 0 (strip guide, sensor bracket, damper holder, gap gauge, saw-guide base).
+3. Check the G-code header for 225/60 °C and the mass against the roughly 65–90 g on the spool, and the time against your 2.5 h window.
+4. Send it to the K1 and print.
+
+I'll treat your message as the go-ahead for this print. If the slice is over the spool's filament or the time window, I'll stop and tell you instead of starting. Meanwhile the nozzle stays at 225 °C, so say if you'd rather I turn it off while you open Orca.
+<!-- ------ -->
+---
+The app is running now, but its remote API is still switched off. Port 13130 is closed, and the switch only exists in the GUI.
+
+In OrcaSlicer, go to **Preferences → Remote API → Enable Remote API**. If it's already ticked, untick and re-tick it, or restart the app after ticking. Tell me when that's done and I'll continue with the slice and print as planned.
+<!-- ------ -->
+---
+I've reinstalled the MCP build of OrcaSlicer (2.4.2-mcp.14) for your user. The stock 2.5.0 you launched was the wrong one, and it's still running.
+
+Please do this:
+1. Close the OrcaSlicer window that's open now.
+2. Run `flatpak run com.orcaslicer.OrcaSlicer` again. It now starts the MCP build.
+3. In that window, go to Preferences → Remote API and make sure **Enable Remote API** is ticked. Restart the app if you just ticked it.
+4. Tell me when it's up.
+
+The old project is gone because the app restarted. I'll reload the balance 3MF, apply the print settings, and then slice. The print only starts after the checks I listed earlier.
+<!-- ------ -->
+---
+The API is connected, because the token matches and it reaches OrcaSlicer, but the app isn't answering. A dialog is probably open in its window, such as a first-run, update or "load last project" prompt.
+
+Please check the OrcaSlicer window, close or accept any dialog, and leave the main plate view showing. Tell me when that's done and I'll continue.
+<!-- ------ -->
+---
+The API port is open and listening, but OrcaSlicer's window isn't responding to it. A hidden dialog or a busy UI would cause this, and a 3MF with several plates takes a while to load.
+
+Please check two things:
+1. **A dialog hidden behind the main window or on another desktop.** Orca's "open as project / import geometry" prompt is one that often hides.
+2. **Whether the window responds** when you click a plate or a menu. If it's frozen, wait a minute and tell me.
+
+If it still doesn't answer after that, I'll stop using the GUI and slice with the command-line slicer instead. That means arranging the small parts myself and applying the settings from `print_requirements.md` by hand.
+<!-- ------ -->
+---
+I found the cause in OrcaSlicer's log. The remote API started fine at 19:46:59, then it was stopped and restarted at 19:47:15, probably when you changed the LAN setting. The restart failed with "Address already in use". A leftover WebKit helper process is still holding port 13130, and nothing is answering on it.
+
+The settings are now saved: API on, LAN on, and the same token. So a clean restart should work without touching them again.
+
+1. Quit OrcaSlicer completely (File → Quit, not just closing the project).
+2. Tell me, and I'll check that the port is free. If the helper process is still holding it, I'll stop it.
+3. Run `flatpak run com.orcaslicer.OrcaSlicer` again and don't open Preferences → Remote API this time.
+4. Open `balance.3mf` if you like, but I'll load it myself through the API either way.
+<!-- ------ -->
+---
+I couldn't start the print, because the K1 has dropped off the network. It was answering a few minutes ago, but now it doesn't answer pings or any port (7125, 8081, 80). I don't know whether the upload reached it, so I can't say whether anything has started.
+
+Please look at the printer:
+1. **Is the touchscreen on, and what does it show?** Check whether it says printing, idle, or an error, and whether it has Wi-Fi.
+2. **Is the nozzle still hot, and is it moving?** I set it to 225 °C a while ago and can't see or change it now. If the screen is frozen or dark while the nozzle is hot, turn the printer off at the switch.
+3. **If it's dead or frozen,** power-cycle it and tell me when the screen is back. The notes record it hanging and needing a power cycle twice before.
+
+The sliced file is ready, so once the printer answers again I'll resend it and start the print. If it already started from the upload, I'll check before sending anything.
+<!-- ------ -->
+---
+The new G-code is ready and checks out: 225/220 °C, bed 60 °C, prime tower off, four objects, 1 h 14 min, 31.7 g. The printer is still unreachable from my side, so nothing is sent yet.
+
+My machine is on WSL's separate network (172.22.x), and the printer is on your LAN (192.168.1.x). It was reachable earlier, so something changed, most likely the printer's Wi-Fi going to sleep or WSL's route to the LAN dropping.
+
+Can you try each of these?
+1. **From Windows:** open `http://192.168.1.70:8081` in a browser. If Mainsail loads there, the printer is fine and the problem is WSL's route to your LAN.
+2. **If it also fails in Windows:** reboot the printer. Or reconnect its Wi-Fi from the touchscreen's network tab.
+
+Tell me which it is. Once I can reach it, I'll resend the file and start the print. The nozzle is probably still near 225 °C, so keep clear of it.
+<!-- ------ -->
+---
+The print is running. The file is `balance_plate0_small.gcode`, and it's on the opened black spool.
+
+- **Parts:** sensor bracket, damper holder, gap gauge and saw-guide base. I dropped the strip guide and the four 150 mm posts, so it fits your 1 h 50 min.
+- **Time and filament:** 1 h 14 min plus the printer's pre-print levelling. It needs 31.7 g, against the roughly 65–90 g left on that spool.
+- **Settings:** 225 °C first layer, 220 °C after, bed 60 °C, prime tower off.
+
+The bed is still heating, so the first layer hasn't started. I'm not monitoring unless you ask. If you want that, say so and I'll watch it. Keep the vents closed and the lid shut, as with the earlier prints.
+
+Still to print: the strip guide (about 33 min at 0.1 mm layers), the four posts, the gantry and the base.
+
+The earlier slicer trouble came from the OrcaSlicer MCP build being gone, leaving only stock 2.5.0, and then a stuck port after the API setting was toggled. I reinstalled the right build, and the notes cover both.
+
+I did not write the print-hours and mesh results into `TODO-agent.md`, only into the handoff and the printer notes. I'll update the TODO files once the print finishes and you tell me how it went.
 <!-- ------ -->
 ---
