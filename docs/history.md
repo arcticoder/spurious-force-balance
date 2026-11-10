@@ -2183,3 +2183,49 @@ The notes fall into four groups:
 One thing to know now: the repo is public on GitHub, and `TODO-arcticoder.md` carries the two live parcel tracking numbers. Whether those belong there is noted as your decision. The Orca API token is not in any of the three repos.
 <!-- ------ -->
 ---
+**1. Did I load the order history page?** Yes. The transcript shows I drove the JLCONE account tab through the debug port: I opened the order list, then the arm's details page, and read the arm's status steps ("Reviewed, In Production"). The details header still printed the old "Paid" label. I didn't tell you that the tab is left on whichever page I last opened, so it wasn't on the page you expected. That was my omission. I've added a standing rule to read pages only as the transcript shows, and to leave the tab on the order list.
+
+**2. Tracking numbers.** I removed them from my files and won't write any more in chat or in files. I left `history.md` alone.
+
+**3. clamp_plate.** I corrected the notes: you cancelled it because the shipping price wouldn't come down, and you're exploring combining parcels. Researching JLC's combine and discount options (read-only) is now a task for me. I'll also keep watching for deals.
+
+**5. Print hours on 11/09.** Yes. I read Moonraker's total twice: 1.61 h before the print and 2.85 h after it.
+
+**6. Starting without being told.** Noted. I start startable items myself and don't wait for you to say so.
+
+**7. Print hours.** Moonraker undercounts, so I now treat your touchscreen figure (131 h on 08-06, plus what you've printed since) as the real total. I added a task for you to read the touchscreen counter next time the printer is on.
+
+**8. Your cart:**
+- **Cells, JST cable, hacksaw blades:** all fine as listed.
+- **Washers:** my wording was misleading. 3.2 mm is the hole, not the thickness, so M3×7×0.5 is exactly right.
+- **Acrylic:** drop it from this order. The windows idea is sound, but the enclosure is the main air-current control, and a 248×150 mm wall doesn't fit your 220 mm bed in one piece. I put an enclosure rework on my list.
+- **Weights:**
+  - Buy the 1 g weight and the 0.1 g scale; together they take the cart past C$10 without the acrylic.
+  - Sand-filled cylinders can't be checked below 0.1 g.
+  - For milligram weights, cut known lengths of fine copper wire. Weigh several metres to get the mass per metre; 0.25 mm wire is about 0.45 g/m, so 10 cm is about 45 mg and the uncertainty is about 2–4 %. Or hang the 1 g weight at a few mm radius. I'll write this into the procedures.
+- **Saw:** I'll check the Printables model's licence and file access; if it needs a login, you'll get a download task. Otherwise I'll design the handle.
+- **Left out of the cart:** the needle file, craft knife and steel ruler go in the next order.
+- **Checkout:** I can't see the cart, so I can't confirm the C$10. Send me the washer line and the total, and you can pay once the acrylic is out.
+
+**9. Session prep.** I wrote `~/Code/sysadmin/wsl/docs/print-session-runbook.md`. Most of the lost time came from three things. The bed-level run and mesh I did before the print were redundant, because START_PRINT levels every time. The nozzle was parked over the plate. The Orca build was wrong, then its port got stuck. I also copied the Orca bundle to `~/tools/orcaslicer-mcp/`.
+
+**9.1 Pre-sliced G-code** (in `~/.orcaslicer-mcp/gcode/`, headers checked at 225/220 °C, bed 60):
+
+| File | Parts | Time | Filament |
+|---|---|---|---|
+| `balance_p0_post_nn.gcode` | 1 post | 1 h 13 min | 37 g |
+| `balance_p4_strip_guide.gcode` | strip guide | 35 min | 14 g |
+| `balance_p1_posts_np_pn_pp.gcode` | 3 posts | 3 h 34 min | 110 g |
+| `balance_p3_gantry.gcode` | gantry | 3 h 16 min | 70 g |
+| `balance_p2_base.gcode` | base | 4 h 41 min | 177 g |
+
+- **Tuesday's 1.5 h:** the strip guide fits comfortably; one post fits with almost no margin.
+- **Wednesday's 4 h:** fits the three posts or the gantry, not the base.
+- **Estimate discrepancy:** the gantry and base now slice shorter and longer than my older notes (3 h 58 min and 3 h 25 min), so look at both in the preview before printing.
+- **Spool:** the opened spool probably can't hold a 37 g post, so that one may need a swap.
+
+**10. Handoff.** I updated the kb files in both repos, TODO-agent, TODO-arcticoder and the wsl notes. The new context block is under "Context block for the next chat" in `docs/kb/session_handoff.md`, ready to paste.
+
+Not done: I haven't started WP5 or any of the audit checks, and nothing was committed.
+<!-- ------ -->
+---

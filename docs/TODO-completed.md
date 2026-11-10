@@ -56,3 +56,4 @@ Dated entries, newest first.
   with a terminal on the fixed plate; `docs/assembly.md`. Smoke tests: 2 run, 0 failed; the force-noise verdict is unchanged (0.108 nN).
 - 2026-10-23 — Split out of `lab` into this repo, with the experiment's history kept (G1–G3, WP1–WP3,
   the balance CAD and model, the instrument parts and simulations).
+- 2026-11-10 — Chat 11: audit of the previous 10 commits written into `TODO-agent.md` (notes only); remaining balance plates sliced ahead and saved as G-code with headers checked (post, strip guide, three posts, gantry, base); print-session runbook written in the wsl repo and the Orca fork bundle copied to `~/tools/orcaslicer-mcp/`; user's cart reviewed (acrylic out pending an enclosure rework, calibration route without a mg weight set, washer thickness clarified); tracking numbers removed from my files; clamp_plate wording corrected (cancelled by the user over shipping; parcel-combining research open).

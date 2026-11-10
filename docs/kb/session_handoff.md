@@ -1,27 +1,24 @@
-# Session handoff — written 2026-11-09, chat 10 (replace at each handoff; do not append)
+# Session handoff — written 2026-11-10, chat 11 (replace at each handoff; do not append)
 
-**Chat 10 (2026-11-09):** JLC states re-read in the app (arm In Production, finish estimate 11-12; elec_board and clamp_ground Shipped, tracking in `TODO-arcticoder.md`); the Global line's cheap earlier shipping was a -US$4.27 discount on a US$5.77 list rate (`lab/docs/kb/jlc_account_and_quotes.md`, last section); the 2026-10-30 AliExpress parcel (thin nuts, calipers without a cell) arrived, so the AliExpress balance list plus SR44/LR44 cells was promoted to the user's list; `mainboard.py geometry` and `dfm` added for the user's board rules (layer count by need, 45-degree copper, DFM at the end). Printer unreachable (off): on the next connection read total print hours and set the 300 h self-test task (see `TODO-agent.md`). Print hours read 2026-11-09: 1.61 h (Moonraker totals), so no self-test yet. Evening 2026-11-09: the K1 started `balance_plate0_small.gcode` (sensor_bracket, damper_holder, fixture_gap_gauge, fixture_saw_guide_base; 1 h 14 min, 31.7 g, opened black spool with about 65-90 g left, 225/220 C, bed 60) at the user's explicit go-ahead; not yet confirmed finished. Still to print: fixture_strip_guide (0.1 mm layers, about 33 min), the four 150 mm posts, gantry, base, and plate 1's leftovers none. The OrcaSlicer MCP fork had to be reinstalled (see `~/Code/sysadmin/wsl/docs/kb/apps/orcaslicer-mcp-fork.md`).
-
-**Where chat 9 ended:** plate 1 of the balance's printed frame is printed (whole); the K1 is off until Monday. The user's direction changed the electronics plan: fab-assembled boards only, so the main-board layout started (first routed pass done, not fabricable yet). `clamp_plate` stays parked.
+**Chat 11 (2026-11-10):** the 2026-11-09 evening print (`balance_plate0_small`: sensor_bracket, damper_holder, fixture_gap_gauge, fixture_saw_guide_base; 74 min, 31.7 g, black spool) finished; the user inspects the parts. All remaining plates were then sliced ahead and saved as G-code (see Printing). A print-session runbook was written (`~/Code/sysadmin/wsl/docs/print-session-runbook.md`). The audit of the last 10 commits is in `TODO-agent.md` (notes only, nothing actioned). User corrections: never put tracking numbers in chat or files; I did read the JLC order pages through the app's debug port (transcript confirms the navigations and the arm's In Production steps), but the tab was left on a different page and I did not say so; Moonraker's print-hour total undercounts (the touchscreen read 131 h on 2026-08-06), so the 300 h self-test is judged from the touchscreen.
 
 ## State
 
-- **JLC orders:** arm placed 2026-11-03 (In Production since 2026-11-08); elec_board placed 2026-11-05 (Shipped 2026-11-09); clamp_ground placed 2026-11-06, order Y5 (Shipped 2026-11-08); clamp_plate parked in `TODO-BLOCKED.md` (shipping on the Global Standard Direct Line was C$8.14 for 0.14 kg against about C$2.13 earlier; the user declined it, Y6/Y7 cancelled). It cannot join Y5; it goes into the next JLC order, and the user will exceed 0.3 kg if that lowers per-item shipping (the 0.3 kg line is of little value if every parcel pays about C$8). Coupons: `lab/docs/jlc/coupons.md` (the New User SMT coupon, C$13.93, ends 2026-11-25; the PCB coupons end 2026-11-25/26).
-- **Main board (WP5):** `kb/main_board_layout_notes.md` (pipeline `hardware/instrument/layout/mainboard.py`; 164 parts on 110 x 90 mm, 4 layers; first Freerouting run left 9 of 415 nets unrouted, 3 clearance errors). Next: close the 9, inner-layer ground planes, silk cleanup, connector rotations, mounting holes, DRC clean, WP6 review, then WP7 fab outputs and a cost picture for the user's budget decision. `docs/plan.md` was reconciled with the no-breadboards direction; A5 now runs on the assembled boards.
-- **Printing:** plate 1 printed 2026-11-08 (head, saw guide plate, elec_bracket, four shelves, vane_holder; 1 h 37 min, black Hyper PLA, 225/60 C). Orca project has four plates (0 nine parts about 4 h and needs a re-slice at the section 6 settings; 2 gantry 3 h 58 min; 3 base 3 h 25 min), unsaved (the build cannot save projects). The user's windows: Mon 2026-11-09 2.5 h, Tue 11-10 1.5 h, Wed 11-11 4 h (gantry). All need the printer plugged in and on, filament loaded, vents closed; I split plates to fit each window, re-slice, check the G-code header, send, and monitor only on the user's explicit request. The K1 re-levels every print (START_PRINT); the bed mesh shows about 1.4 mm front-to-back tilt (not left-right), which belt tooth-skipping on the user's description of the 3-lead-screw layout could change, but the direction (which end is low) is unread; read `bed_mesh` or measure with the printer on before anything is opened. Connection notes and findings: `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md`.
-- **Parts:** the user fitted two M3x14 screws into the base nuts; washers (AliExpress list) not yet arrived; thin nuts and calipers arrived 2026-11-09, the calipers need an SR44/LR44 cell (in the promoted order) before the head-hole check ( CAD 3.4 mm, the user's printed-calipers reading was 4.5 x 5.0 mm). `docs/img/fasteners.jxl` shows where the head's and `elec_bracket`'s screws go. `params.py` carries the sliced `vane_holder` mass (0.93 g); no finer scale (the user may find one; follow up once after the next print session).
-- **Supply chain:** the AliExpress order of 2026-10-30 arrived 2026-11-09; nothing is in transit from AliExpress until the user places the promoted order (cells, washers, acrylic, cables, weights, hand tools). Keep something always in transit.
+- **JLC orders:** arm placed 2026-11-03 (In Production since 2026-11-08, factory estimate 2026-11-12); elec_board placed 2026-11-05 (Shipped 2026-11-09); clamp_ground placed 2026-11-06, order Y5 (Shipped 2026-11-08); tracking numbers only in the JLC app. clamp_plate (Y6/Y7) was cancelled by the user because shipping would not come down (C$8.14 on the Global Standard Direct Line for 0.14 kg; list rate US$5.77; the earlier cheap rate was a -US$4.27 discount line). The user is exploring combining parcels to cut shipping for it and other items: research item in `TODO-agent.md`; keep watching for deals. Coupons: `lab/docs/jlc/coupons.md` (New User SMT C$13.93 and PCB coupons end 2026-11-25/26).
+- **AliExpress:** nothing in transit. The user built a cart on 2026-11-10 (LR44 5-pack, JST-SH 2-pin cable 5-pack, hacksaw blades 10 pcs, M3 x 7 x 0.5 washers, plus my suggested 1 g weight and 0.1 g scale); acrylic was taken out pending the enclosure rework; file/knife/ruler go in the next order. Log it when the user sends the total.
+- **Main board (WP5):** `kb/main_board_layout_notes.md` (pipeline `hardware/instrument/layout/mainboard.py`, commands `place|route|drc|geometry|dfm`; 164 parts, 4 layers; first run 9 of 415 connections unrouted, 3 clearance errors, 7 acute joints). Next: close the 9, draw the In1/In2 planes, silk cleanup, connector rotations, mounting holes, DRC clean, `mainboard.py dfm`, WP6 review, WP7 fab outputs. The audit items on `mainboard.py` (stale DRC data, fail-open DFM list, geometry gaps) are in `TODO-agent.md`.
+- **Printing:** printed: plate 1 (2026-11-08) and the small plate (2026-11-09). Pre-sliced G-code in `~/.orcaslicer-mcp/gcode/` at the section-6 settings: post nn 1 h 13 min 37 g; strip guide 35 min 14 g; three posts 3 h 34 min 110 g; gantry 3 h 16 min 70 g; base 4 h 41 min 177 g (the last two differ from the older 3 h 58 min / 3 h 25 min figures; check them in the preview). Windows: Tue 11-10 1.5 h (strip guide, or one post with no margin), Wed 11-11 4 h (three posts or the gantry). Process: the runbook. Print hours: Moonraker 2.85 h after the last print; touchscreen total unknown, 131 h on 2026-08-06; the user was asked for the current figure. The K1's Wi-Fi dropped twice on 2026-11-09 (not understood). Bed-mesh direction unconfirmed.
+- **Parts:** thin nuts (magnet check pending) and calipers (need an LR44 cell) arrived 2026-11-09; the head-hole check waits on the cell. No finer scale (asked once; the user may find one). Calibration route without a mg weight set is a task in `TODO-agent.md` (cut copper-wire lengths of known mass per metre, or a 1 g weight at a short radius).
 
 ## Next agent tasks
 
-1. Continue WP5 (see above); it is open work, start it without being asked.
-2. Printing as above, when the user reports the printer on.
-3. Read the bed mesh and report which end is low once the printer is on (no heating; the user approves moving it).
-4. Put `clamp_plate` into the next JLC order when one is staged; promote the AliExpress list only on a deal.
+1. Start the next startable item in `TODO-agent.md` without being asked: WP5 layout, then the audit checks, the calibration route, the enclosure/acrylic rework, the shipping research.
+2. Printing sessions: follow the runbook; heater and print only on the user's explicit request in that message.
+3. Log the AliExpress order when the user reports it; keep a parcel always in transit; stage the next order (one per day).
 
 ## Standing rules (see `kb/project_workflow_notes.md`)
 
-Never state a JLC price that is not in the user's words, captures or a page read through the app; do not edit or mine `docs/history.md`; do not quote the user or describe how they said things; never commit in these repos; `TODO-arcticoder.md` holds only separately numbered tasks for the user's hands; TODO-agent.md is mine, I start startable items myself; no hand-built electronics (fab-assembled boards only).
+Never state a JLC price that is not in the user's words, captures or a page read through the app; never put tracking numbers in chat or files; say only what the transcript shows I did; do not edit or mine `docs/history.md` unless asked to read named lines; do not quote the user or describe how they said things; never commit in these repos; `TODO-arcticoder.md` holds only separately numbered tasks for the user's hands; TODO-agent.md is mine, I start startable items myself; no hand-built electronics (fab-assembled boards only).
 
 ## Context block for the next chat (paste this)
 
@@ -40,14 +37,16 @@ Never state a JLC price that is not in the user's words, captures or a page read
       No more hand-built electronics: the instrument is fab-assembled boards, so the main-board layout (WP5,
       KiCad, pipeline in hardware/instrument/layout/) is open work and does not wait on the prototype
       noise measurement A5, which will run on the assembled boards.
-      Ordering state (2026-11-08): the arm is placed (HASL, in JLC's review); elec_board and clamp_ground are
-      placed (In Production); clamp_plate is parked (shipping was C$8.14 on Global Standard Direct Line,
-      previously about C$2) and goes into the next JLC order. The quote page for the next order is set up
-      only when I say the previous one is placed.
+      Ordering state (2026-11-10): the arm is In Production (factory estimate 2026-11-12); elec_board and
+      clamp_ground are shipped; I cancelled clamp_plate because its shipping would not come down, and I am
+      exploring combining parcels to cut shipping for it and other items. My AliExpress cart (cells, JST-SH
+      cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale) is being placed; nothing else is in transit.
+      The quote page for the next JLC order is set up only when I say the previous one is placed.
     - Printing: the K1 is on my balcony; I plug it in, switch it on, load the filament you advise, keep the riser
-      vents closed unless told otherwise and tell you the print window (Mon 2.5 h, Tue 1.5 h, Wed 4 h this week).
-      The agent drives OrcaSlicer and the K1 through MCP (the wsl workspace has the connection notes; it is only
-      for OrcaSlicer, the K1 and WSL). Nothing prints or heats without my explicit request in that message.
+      vents closed unless told otherwise and tell you the print window. The agent drives OrcaSlicer and the K1
+      through MCP and Moonraker (the wsl workspace has the connection notes and the print-session runbook
+      docs/print-session-runbook.md; it is only for OrcaSlicer, the K1 and WSL). Remaining plates are pre-sliced
+      in ~/.orcaslicer-mcp/gcode/. Nothing prints or heats without my explicit request in that message.
     Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
     50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
     JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
@@ -58,20 +57,22 @@ Never state a JLC price that is not in the user's words, captures or a page read
     reads, a few paced mouse clicks, uploads of this repo's own Gerber zips for quotes. Never call JLC's API, never
     touch the cookies, never Submit, Save to cart or pay: I approve and pay, and I place at most one order per
     day. Treat any JLC price not from my words, my captures or a page read through the app as an estimate.
-    docs/history.md is my chat transcript: don't edit it or use it as an analysis source. Pictures are lossless
-    .jxl; .jxl and .eprj2 are Git LFS (the .eprj2 is leftover from the dropped route; I decide whether to keep it).
-    Don't commit anything in these two repos: I stage and commit everything after each chat.
+    Never put parcel tracking numbers in chat or in files. Only say you did something if the transcript shows it.
+    docs/history.md is my chat transcript: don't edit it or use it as an analysis source unless I name lines to
+    read. Pictures are lossless .jxl; .jxl and .eprj2 are Git LFS (the .eprj2 is leftover from the dropped route;
+    I decide whether to keep it). Don't commit anything in these two repos: I stage and commit everything after
+    each chat.
     Workflow: whichever model is running actions what needs actioning. docs/TODO-agent.md is the agent's own
     list (open items only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it): start the next
     startable item without being asked. My hands-on tasks live in docs/TODO-arcticoder.md as separately numbered
     tasks for me only (no notes to yourself; any task you give me in chat goes there too); only things that truly
     need my hands (orders, bench checks, the printer set-up) go there. Keep docs/kb/*.md (LLM-only notes) up to
     date with discoveries. Don't quote me or describe how I said things in files or chat. Keep an eye on the
-    supply chain: always have a few AliExpress or JLC items in transit.
+    supply chain: always have a few AliExpress or JLC items in transit, and watch for deals.
     Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
     lab/docs/kb/README.md and lab/docs/kb/jlc_account_and_quotes.md. Then continue from
     docs/TODO-agent.md and my feedback below.
 
 ## Read first
 
-Both `docs/kb/README.md` files, `lab/docs/kb/jlc_account_and_quotes.md`, `docs/kb/main_board_layout_notes.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`, and `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md` for the printer side.
+Both `docs/kb/README.md` files, `lab/docs/kb/jlc_account_and_quotes.md`, `docs/kb/main_board_layout_notes.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`, `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md` and `~/Code/sysadmin/wsl/docs/print-session-runbook.md` for the printer side.
