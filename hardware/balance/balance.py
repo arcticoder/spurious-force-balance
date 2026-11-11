@@ -317,7 +317,12 @@ def build(ballast_len=10.0, ballast_y=0.0):
                 bb = pnl.val().BoundingBox()
                 grown = box(bb.xmin - slot_clear / 2, bb.xmax + slot_clear / 2, bb.ymin - slot_clear / 2, bb.ymax + slot_clear / 2, bb.zmin - 1, bb.zmax + 1)
                 post = post.cut(grown)
-            add(f"encl_post_{'p' if sx > 0 else 'n'}{'p' if sy > 0 else 'n'}", post, pla, False, True)
+            pname = f"encl_post_{'p' if sx > 0 else 'n'}{'p' if sy > 0 else 'n'}"
+            # the two wall slots cut the post into an L and a separate inner corner bar; one part each so the slicer lays each flat (a grouped pair
+            # leaves the bar floating above the bed and needs supports)
+            pieces = sorted(post.val().Solids(), key=lambda so: -so.Volume())
+            for k, so in enumerate(pieces):
+                add(pname if k == 0 else f"{pname}_bar", cq.Workplane("XY").add(so), pla, False, True)
     seat = P.LID_SEAT * MM
     for sx in (1, -1):
         for k, (y0, y1) in enumerate(((-(hy - 10 + 1), -1.0), (1.0, hy - 10 + 1))):

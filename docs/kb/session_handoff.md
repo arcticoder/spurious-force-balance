@@ -1,4 +1,6 @@
-# Session handoff — chat 12, final 2026-11-11 (replace at each handoff; do not append)
+# Session handoff — chat 13, 2026-11-11 (replace at each handoff; do not append)
+
+**Chat 13 (2026-11-11):** K1 model K1-FA35 recorded; enclosure posts split in CAD into L + separate `_bar` parts (`balance.py`, smoke test passes), so the posts plate must be re-sliced (OrcaSlicer was not reachable; item in `TODO-agent.md`); camera searched, unconfirmed, low priority; the B.1 physics confirmation is now task 1 in `TODO-arcticoder.md` (it was only in chat before).
 
 **2026-11-11 (printing day, finished):** the gantry (201.6 min), post nn (71.3 min) and the strip guide (34.4 min) printed and inspected, all good; the user stopped the session at about 12:50 and the printer is idle (usable later, not on demand now). Details, the fast-start sequence, load sequence, Wi-Fi drop log and monitoring limits: `kb/printing_state.md`. Same day: calibration physics corrected (`procedures.md` B.1, `plan.md`; the user still has to confirm), In1 ground plane and 120 x 90 mm board in `mainboard.py` (`kb/main_board_layout_notes.md`), `TODO-agent.md` cut to 33 lines, absolute paths replaced by `${KIPRJMOD}` in the lib tables and footprints, generated layout outputs untracked (`git rm --cached` staged, not committed).
 

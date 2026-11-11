@@ -2758,3 +2758,14 @@ I changed these parts of your block:
 Please confirm the physics correction at the start of the next session, because the calibration rider waits on it.
 <!-- ------ -->
 ---
+I fixed the grouped-posts problem in the CAD and handled your other three points, but the posts still need re-slicing. OrcaSlicer wasn't reachable (Remote API off or the app closed), so I couldn't do that. The summary is appended to [history.md](docs/history.md). Nothing is committed.
+
+1. **K1-FA35:** this is in [printing_state.md](docs/kb/printing_state.md). The wsl K1 note already had it.
+2. **Camera:** I'm not recommending a purchase yet.
+   - **Why:** a generic USB camera might work on the K1, but I couldn't confirm that on current stock firmware. Search results suggest the K1 family handles one USB camera, and firmware updates have broken the camera stream for other owners. Checking would mean buying a camera of about C$10 and trying it, with no soldering. You lean towards checking the printer by hand, so I made it a low-priority item in [TODO-agent.md](docs/TODO-agent.md). Nothing goes on the cart unless you agree.
+3. **Posts:**
+   - **Cause:** the two wall slots leave each post as two separate pieces: the 20 mm L-shaped post and a 9 × 9 × 150 mm inner corner bar. They were exported as one object, so the bar sat off the bed and got supports.
+   - **Fix:** [balance.py](hardware/balance/balance.py) now exports the bar as its own part, `encl_post_xx_bar`, which adds four new STLs. The smoke test passes.
+   - **Re-slice needed:** the pre-sliced three-posts G-code is from the grouped version. Slice the L-shaped posts and the bars as separate flat objects before the next posts print; I queued that in TODO-agent.md.
+   - **Post nn:** the post nn you printed has no bar yet, so its bar is needed too. I updated [TODO-arcticoder.md](docs/TODO-arcticoder.md), [print_requirements.md](docs/print_requirements.md) and [assembly.md](docs/assembly.md) for the bars.
+4. **Missing approval:** the request to confirm the calibration physics correction (hanging weights can't calibrate a vertical-axis balance, so B.1 now uses added inertia) was only in chat. It's now task 1 on your list, and the rider design waits on it.

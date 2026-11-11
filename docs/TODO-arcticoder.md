@@ -8,11 +8,13 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-Nothing today: the 2026-11-11 printing session is finished. Remaining plates (three posts 3 h 34 min, base 4 h 41 min) wait for a longer window.
+1. [ ] **Confirm the calibration physics correction.** A vertical-axis balance cannot be calibrated with hanging weights (they tilt it, not twist it); [procedures.md](procedures.md) B.1 and [plan.md](plan.md) now use added inertia (masses at +r and -r, period change). The calibration rider cannot be designed until you confirm or reject this.
+
+The 2026-11-11 printing session is finished. Remaining plates (the posts and their bars, base 4 h 41 min) wait for a longer window.
 
 ## Ready to build now — parts on hand
 
-1. [ ] **Print the rest of the balance's frame** (`hardware/balance/cad/*.stl`; settings in [print_requirements.md](print_requirements.md) section 6). Next: `gantry` (Wednesday), then the four `encl_post_*`, `fixture_strip_guide` and `base`. Fastener positions: [img/fasteners.jxl](img/fasteners.jxl); steps: [assembly.md](assembly.md).
+2. [ ] **Print the rest of the balance's frame** (`hardware/balance/cad/*.stl`; settings in [print_requirements.md](print_requirements.md) section 6). Next (the gantry, post nn and strip guide are printed): the three remaining `encl_post_*` and four `encl_post_*_bar` pieces (re-sliced as separate flat objects; the posts file is being redone), and `base`. Fastener positions: [img/fasteners.jxl](img/fasteners.jxl); steps: [assembly.md](assembly.md).
 
 ## En route
 

@@ -33,6 +33,7 @@ Fasteners (from the CAD): M3 clearance holes 3.4 mm, pilot 2.6 mm, screw head re
 
 An analysis of the loaded project (parts transformed as placed) found:
 
+0. Each `encl_post_*` has a separate inner corner bar (`encl_post_*_bar`, 9 x 9 x 150 mm); print them as separate objects, flat, so neither needs supports.
 1. `gantry`, `encl_post_np` and `encl_post_pp` are tilted slightly off the bed (the gantry's footprint is 105.5 x 135.3 mm and 50.5 mm high against the CAD's 102 x 132 x 50). Re-lay them flat with the "place on face" tool.
 2. `fixture_strip_guide` is placed ridge-down: 3660 mm2 of its plate hangs 0.5 mm above the bed. Flip it so the plate's flat face is on the bed and the 0.5 mm ridge faces up.
 3. `base` fills the bed (218 x 218 on 220 x 220): the auto brim does not fit; use no brim or a skirt, and check the K1's usable area.
