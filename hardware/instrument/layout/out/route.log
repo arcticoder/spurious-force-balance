@@ -1,4 +1,0 @@
-wrote /home/echo_/Code/python/spurious-force-balance/hardware/instrument/layout/out/main_board.dsn (30 images, 39 padstacks, 111 nets)
-/home/echo_/tools/freerouting/freerouting-2.5.0-linux-x64/bin/freerouting -de /home/echo_/Code/python/spurious-force-balance/hardware/instrument/layout/out/main_board.dsn -do /home/echo_/Code/python/spurious-force-balance/hardware/instrument/layout/out/main_board.ses -mp 40
-freerouting hit the time limit
-no SES written
