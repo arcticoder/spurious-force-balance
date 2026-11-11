@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Place the AliExpress balance order** from the cart as it stands: LR44 5-pack (C$2.85), 2-pin JST-SH 10 cm cable 5-pack (C$1.04), 6-inch 24T mini hacksaw blades (C$1.92), M3 x 7 x 0.5 mm washers x100 (C$0.73), 1 g M1 weight (C$2.48), 0.5 kg / 0.1 g scale (C$3.79); the listings check out, total C$12.81 before any shipping line. Tell me when it is placed. The scale comes without batteries and its listing does not name them: when you open the parcel, tell me the battery type from the scale's battery cover.
+1. **Place the AliExpress balance order** from the cart: LR44 5-pack (C$2.85), 2-pin JST-SH 10 cm cable 5-pack (C$1.04), 6-inch 24T mini hacksaw blades (C$1.92), M3 x 7 x 0.5 mm washers x100 (C$0.73), 1 g M1 weight (C$2.48), 0.1 g scale (C$3.79) and the 2-pack diamond needle files (C$1.38); the cart then clears the Choice free-shipping threshold. Tell me when it is placed.
 2. **Printing session, morning of Wed 2026-11-11 (4 h, gantry):** follow [`print-session-runbook.md`](../../../sysadmin/wsl/docs/print-session-runbook.md) (in the wsl workspace) from the top. Plug the printer in and switch it on, keep the riser vents closed, and tell me the window; I check the sliced G-code before I submit it and tell you which spool to load.
 
 ## Ready to build now — parts on hand

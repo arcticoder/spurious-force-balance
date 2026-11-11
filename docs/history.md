@@ -2249,3 +2249,15 @@ I've worked through all eleven items. I changed only docs, and nothing was print
 Items 6 and 9 needed no change.
 <!-- ------ -->
 ---
+Yes, order the needle files. At C$1.38 they put your cart over the free-shipping threshold, and you need a file for the brass ballast anyway. The ballast is a 10 mm brass rod, and you file its sawn face flat.
+
+One thing to check when they arrive: the listing text calls them round, but the title says flat, and the 3 × 2 mm cross-section points to flat. If both turn out round, a flat file goes in the next order, because the brass face needs a flat one. Either shape is fine for deburring.
+
+You're right on the batteries. The listing says AAA, and you had told me. I've removed that task and noted that you already have AAA cells.
+
+I changed these files:
+- **`TODO-arcticoder.md`:** task 1 now lists the needle files and says the cart clears the threshold, instead of giving a total.
+- **`TODO-agent.md`:** the order is logged with the file item number and a cart total of C$14.19. The needle file is off the next-order list.
+- **`session_handoff.md`:** it records the same.
+<!-- ------ -->
+---
