@@ -2261,3 +2261,21 @@ I changed these files:
 - **`session_handoff.md`:** it records the same.
 <!-- ------ -->
 ---
+The order is logged, and I've started on my own list. Nothing was committed.
+
+**Your items**
+- **Order placed:** It's logged in `lab/docs/orders.md` with the seven line items and the cart total of C$14.19. I took the C$14.19 from the cart prices you gave me. Your task 1 is removed, and AliExpress now shows as in transit. For the cells, JST-SH cable and hacksaw blades I only have the cart titles, so the log says "listing as in the cart" for those three rather than a URL. Send me those links if you want them recorded.
+- **Reminder:** The Wednesday session is task 1 on your list, with the runbook path. I'll remind you at the start of that chat. I'm not sure which reminder you meant, so tell me if it was a different one.
+
+**Homework done**
+- **Stale-report bug in the layout checker:** `mainboard.py` used to read the previous `drc.json` if `kicad-cli` failed. It now deletes the old report first and stops with exit code 2 if no new one is written.
+- **DFM gate (the manufacturing check):** It used to pass anything not on its blocking list. It now blocks on every KiCad error, plus the fab-relevant warnings. The current board fails with 9 unrouted connections, 3 clearance, 6 track-width, 8 dangling vias, 7 acute joints and other errors, which is the same state as before.
+- **Test for the checker:** `test_mainboard_geometry.py` passes. It confirms a segment that tees into the middle of another one isn't seen. That is a known blind spot and it stays on my list.
+- **Net counts:** The board has 111 nets. The 415 is Freerouting's count of unrouted connections at the start of the run, so "9 of 415" means connections. The notes now say so.
+- **Cleanup:** I deleted three unreferenced scratch files, `d0.json`, `t.kicad_pcb` and `t.rpt`. `.gitignore` now covers `result.json`, `drc.json` and the `.ses`, `.dsn` and `.log` files in the layout `out/` folder.
+
+Git still tracks `result.json`, `drc.json`, `.ses`, `.dsn` and the logs until you run `git rm --cached` on them. That's your commit. The `-mp` flag in the router call prints a deprecation warning but still works, so I left it.
+
+The wsl K1 notes and the SSH hours search wait for tomorrow's power-on. Next on my list are the printed calibration rider and the main-board routing work.
+<!-- ------ -->
+---

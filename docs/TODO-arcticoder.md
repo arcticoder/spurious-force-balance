@@ -8,8 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Place the AliExpress balance order** from the cart: LR44 5-pack (C$2.85), 2-pin JST-SH 10 cm cable 5-pack (C$1.04), 6-inch 24T mini hacksaw blades (C$1.92), M3 x 7 x 0.5 mm washers x100 (C$0.73), 1 g M1 weight (C$2.48), 0.1 g scale (C$3.79) and the 2-pack diamond needle files (C$1.38); the cart then clears the Choice free-shipping threshold. Tell me when it is placed.
-2. **Printing session, morning of Wed 2026-11-11 (4 h, gantry):** follow [`print-session-runbook.md`](../../../sysadmin/wsl/docs/print-session-runbook.md) (in the wsl workspace) from the top. Plug the printer in and switch it on, keep the riser vents closed, and tell me the window; I check the sliced G-code before I submit it and tell you which spool to load.
+1. **Printing session, morning of Wed 2026-11-11 (4 h, gantry):** follow [`print-session-runbook.md`](../../../sysadmin/wsl/docs/print-session-runbook.md) (in the wsl workspace) from the top. Plug the printer in and switch it on, keep the riser vents closed, and tell me the window; I check the sliced G-code before I submit it and tell you which spool to load.
 
 ## Ready to build now — parts on hand
 
@@ -24,4 +23,4 @@ JLCPCB (read in the JLCONE app 2026-11-09; details in `lab/docs/kb/jlc_account_a
 - `clamp_plate`: not ordered; shipping is being worked on (see `TODO-BLOCKED.md`).
 Answer any JLC email within 48 h and check the spam folder. When a parcel lands, tell me and I add it to the plan in `docs/fabrication.md`.
 
-AliExpress: nothing in transit until task 1 is placed.
+AliExpress: the balance order of 2026-11-10 (cells, JST-SH cable, hacksaw blades, washers, scale, 1 g weight, needle files) is placed; expect it in a few weeks. Logged in `lab/docs/orders.md`.

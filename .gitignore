@@ -4,3 +4,12 @@ hardware/balance/boards/fab/*/
 
 # EasyEDA Pro auto-backups (.epro2 exports written beside the project)
 hardware/easyeda/*_backup/
+
+# OrcaSlicer MCP export-status file that lands in the working directory
+/result.json
+
+# Regenerated layout outputs (rebuild with hardware/instrument/layout/mainboard.py); the board and project files stay tracked
+hardware/instrument/layout/out/drc.json
+hardware/instrument/layout/out/*.ses
+hardware/instrument/layout/out/*.dsn
+hardware/instrument/layout/out/*.log

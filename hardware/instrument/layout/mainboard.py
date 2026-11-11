@@ -361,19 +361,25 @@ def import_ses():
 
 
 def drc():
-    rpt = os.path.join(OUT, "drc.json")
-    
-    subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all", "--output", rpt, PCB], capture_output=True)
-    d = json.load(open(rpt))
+    """Run kicad-cli DRC and print the violation counts. Fails loudly (exit 2) if kicad-cli fails or does not write a fresh report, so a
+    stale drc.json can never be read as the result of this run."""
     from collections import Counter
+    rpt = os.path.join(OUT, "drc.json")
+    if os.path.exists(rpt):
+        os.remove(rpt)
+    r = subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all", "--output", rpt, PCB], capture_output=True, text=True)
+    if not os.path.exists(rpt):
+        print("kicad-cli drc failed (exit %s): %s" % (r.returncode, (r.stderr or r.stdout).strip()[:500]))
+        sys.exit(2)
+    d = json.load(open(rpt))
     print("violations:", dict(Counter(v["type"] for v in d["violations"])), "| unconnected:", len(d.get("unconnected_items", [])))
 
 
-def geometry(verbose=False):
+def geometry(verbose=False, pcb=None):
     """Trace-shape rule (user, 2026-11-09): no acute angles (acid traps, signal integrity); bends are 45 degrees or rounded.
     Reports (a) segments whose direction is not a multiple of 45 degrees, (b) joints of same-net segments at the same endpoint whose
     interior angle is under 90 degrees (a sharp turn or an acute branch). Zero-length pieces are ignored."""
-    b = Board.from_file(PCB)
+    b = Board.from_file(pcb or PCB)
     segs = [t for t in b.traceItems if isinstance(t, Segment)]
     off45, acute = [], []
     ends = defaultdict(list)
@@ -404,6 +410,8 @@ def geometry(verbose=False):
 
 # DFM gate (user, 2026-11-09: run a DFM check at the end to catch manufacturing errors). Blocking = would make JLC reject or the board misbehave;
 # advisory = tidy before WP7 but not a fab stop (silk comes from the library footprints; lib_footprint_issues because there is no library table).
+# Fails closed: any violation of severity "error" blocks, whether or not its type is named below; the named set also blocks warnings of those types
+# (e.g. via_dangling, padstack are warnings in KiCad 9.0.9 but are fab-relevant).
 DFM_BLOCKING = {"clearance", "shorting_items", "track_width", "annular_width", "hole_clearance", "hole_to_hole", "copper_edge_clearance", "via_dangling",
                 "track_dangling", "padstack", "invalid_outline", "unconnected_items", "items_not_allowed", "drill_out_of_range", "micro_via_drill_out_of_range",
                 "solder_mask_bridge", "starved_thermal", "zones_intersect", "isolated_copper"}
@@ -416,7 +424,9 @@ def dfm():
     drc()
     d = json.load(open(os.path.join(OUT, "drc.json")))
     kinds = Counter(v["type"] for v in d["violations"])
+    errors = Counter(v["type"] for v in d["violations"] if v.get("severity") == "error")
     blocking = {k: n for k, n in kinds.items() if k in DFM_BLOCKING}
+    blocking.update(errors)
     unconn = len(d.get("unconnected_items", []))
     if unconn:
         blocking["unconnected_items"] = unconn
@@ -425,7 +435,7 @@ def dfm():
         blocking["off_45_degree_segments"] = len(off45)
     if acute:
         blocking["acute_joints"] = len(acute)
-    advisory = {k: n for k, n in kinds.items() if k not in DFM_BLOCKING}
+    advisory = {k: n for k, n in kinds.items() if k not in blocking}
     print("DFM blocking:", blocking or "none")
     print("DFM advisory:", advisory or "none")
     sys.exit(1 if blocking else 0)
