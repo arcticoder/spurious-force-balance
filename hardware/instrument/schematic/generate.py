@@ -35,8 +35,8 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     # project-local library tables so that KiCad finds the jlc symbols and footprints
     lib = os.path.join(HERE, "..", "lib")
-    open(os.path.join(OUT, "sym-lib-table"), "w").write(f'(sym_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "{os.path.abspath(lib)}/jlc.kicad_sym")(options "")(descr ""))\n)\n')
-    open(os.path.join(OUT, "fp-lib-table"), "w").write(f'(fp_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "{os.path.abspath(lib)}/jlc.pretty")(options "")(descr ""))\n)\n')
+    open(os.path.join(OUT, "sym-lib-table"), "w").write(f'(sym_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "${{KIPRJMOD}}/../../lib/jlc.kicad_sym")(options "")(descr ""))\n)\n')
+    open(os.path.join(OUT, "fp-lib-table"), "w").write(f'(fp_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "${{KIPRJMOD}}/../../lib/jlc.pretty")(options "")(descr ""))\n)\n')
     for name, build, sch in BOARDS:
         # a project file next to each board lets kicad-cli use the project-local library tables
         open(os.path.join(OUT, f"{name}.kicad_pro"), "w").write("{}\n")

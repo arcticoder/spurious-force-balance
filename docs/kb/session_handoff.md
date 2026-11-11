@@ -7,10 +7,10 @@
 ## State
 
 - **JLC orders:** arm placed 2026-11-03 (In Production since 2026-11-08, factory estimate 2026-11-12); elec_board placed 2026-11-05 (Shipped 2026-11-09); clamp_ground placed 2026-11-06, order Y5 (Shipped 2026-11-08); tracking numbers only in the JLC app. clamp_plate (Y6/Y7) was cancelled by the user because shipping would not come down (C$8.14 on the Global Standard Direct Line for 0.14 kg; list rate US$5.77; the earlier cheap rate was a -US$4.27 discount line). The user is exploring combining parcels to cut shipping for it and other items: research item in `TODO-agent.md`; keep watching for deals. Coupons: `lab/docs/jlc/coupons.md` (New User SMT C$13.93 and PCB coupons end 2026-11-25/26).
-- **AliExpress:** nothing in transit. The user built a cart on 2026-11-10 (LR44 5-pack, JST-SH 2-pin cable 5-pack, hacksaw blades 10 pcs, M3 x 7 x 0.5 washers, plus my suggested 1 g weight and 0.1 g scale); acrylic was taken out pending the enclosure rework; file/knife/ruler go in the next order. Log it when the user sends the total.
+- **AliExpress:** the user placed the 2026-11-10 order (7 items, cart C$14.19: LR44 cells, JST-SH cable, hacksaw blades, M3 x 7 x 0.5 washers, 0.1 g scale, 1 g weight, needle files); logged with links in `lab/docs/orders.md`; expect it in a few weeks. On arrival: inventory with bags, check the file shape, head-hole steps once the calipers have a cell. Next order (one per day) is staged in `TODO-agent.md`.
 - **Main board (WP5):** `kb/main_board_layout_notes.md` (pipeline `hardware/instrument/layout/mainboard.py`, commands `place|route|drc|geometry|dfm`; 164 parts, 4 layers; first run 9 of 415 connections unrouted (111 nets; 415 is Freerouting's connection count), 3 clearance errors, 7 acute joints). Next: close the 9, draw the In1/In2 planes, silk cleanup, connector rotations, mounting holes, DRC clean, `mainboard.py dfm`, WP6 review, WP7 fab outputs. The audit items on `mainboard.py` (stale DRC data, fail-open DFM list, geometry gaps) are in `TODO-agent.md`.
-- **Printing:** printed: plate 1 (2026-11-08) and the small plate (2026-11-09). Pre-sliced G-code in `~/.orcaslicer-mcp/gcode/` at the section-6 settings: post nn 1 h 13 min 37 g; strip guide 35 min 14 g; three posts 3 h 34 min 110 g; gantry 3 h 16 min 70 g; base 4 h 41 min 177 g (the last two differ from the older 3 h 58 min / 3 h 25 min figures; check them in the preview). Windows: Tue 11-10 1.5 h (strip guide, or one post with no margin), Wed 11-11 4 h (three posts or the gantry). Process: the runbook. Print hours: Moonraker 2.85 h after the last print; touchscreen total unknown, 131 h on 2026-08-06; the user was asked for the current figure. The K1's Wi-Fi dropped twice on 2026-11-09 (not understood). Bed-mesh direction unconfirmed.
-- **Parts:** thin nuts (magnet check pending) and calipers (need an LR44 cell) arrived 2026-11-09; the head-hole check waits on the cell. No finer scale (asked once; the user may find one). Calibration route without a mg weight set is a task in `TODO-agent.md` (cut copper-wire lengths of known mass per metre, or a 1 g weight at a short radius).
+- **Printing:** printed: plate 1 (2026-11-08) and the small plate (2026-11-09). Pre-sliced G-code in `~/.orcaslicer-mcp/gcode/` at the section-6 settings: post nn 1 h 13 min 37 g; strip guide 35 min 14 g; three posts 3 h 34 min 110 g; gantry 3 h 16 min 70 g; base 4 h 41 min 177 g (the last two differ from the older 3 h 58 min / 3 h 25 min figures; check them in the preview). Window: Wed 11-11 morning, 4 h (the gantry; Tuesday's window was dropped). Process: the runbook. Print hours: Moonraker 2.85 h after the last print; touchscreen total unknown, 131 h on 2026-08-06; the user was asked for the current figure. The K1's Wi-Fi dropped twice on 2026-11-09 (not understood). Bed-mesh direction unconfirmed.
+- **Parts:** thin nuts (non-magnetic) and calipers (need an LR44 cell, in the AliExpress order) arrived 2026-11-09; the head-hole check waits on the cell. Calibration route: PLA filament by measured mass per length plus the 1 g weight at small radii (`procedures.md` B.1); the printed rider is open in `TODO-agent.md`.
 
 ## Next agent tasks
 
@@ -20,7 +20,7 @@
 
 ## Standing rules (see `kb/project_workflow_notes.md`)
 
-Never state a JLC price that is not in the user's words, captures or a page read through the app; never put tracking numbers in chat or files; say only what the transcript shows I did; do not edit or mine `docs/history.md` unless asked to read named lines; do not quote the user or describe how they said things; never commit in these repos; `TODO-arcticoder.md` holds only separately numbered tasks for the user's hands; TODO-agent.md is mine, I start startable items myself; no hand-built electronics (fab-assembled boards only).
+Never state a JLC price that is not in the user's words, captures or a page read through the app; never put tracking numbers in chat or files; say only what the transcript shows I did; do not edit or mine `docs/history.md` unless asked to read named lines; do not quote the user or describe how they said things; never commit in these repos (the user commits; staging a `git rm --cached` they asked for is fine); `TODO-arcticoder.md` holds only separately numbered tasks for the user's hands; TODO-agent.md is mine, I start startable items myself; no hand-built electronics (fab-assembled boards only).
 
 ## Context block for the next chat (paste this)
 
@@ -41,8 +41,8 @@ Never state a JLC price that is not in the user's words, captures or a page read
       noise measurement A5, which will run on the assembled boards.
       Ordering state (2026-11-10): the arm is In Production (factory estimate 2026-11-12); elec_board and
       clamp_ground are shipped; I cancelled clamp_plate because its shipping would not come down, and I am
-      exploring combining parcels to cut shipping for it and other items. My AliExpress cart (cells, JST-SH
-      cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale) is being placed; nothing else is in transit.
+      exploring combining parcels to cut shipping for it and other items. My AliExpress order of 2026-11-10 (cells, JST-SH
+      cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale, needle files) is placed and in transit.
       The quote page for the next JLC order is set up only when I say the previous one is placed.
     - Printing: the K1 is on my balcony; I plug it in, switch it on, load the filament you advise, keep the riser
       vents closed unless told otherwise and tell you the print window. The agent drives OrcaSlicer and the K1

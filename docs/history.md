@@ -2279,3 +2279,56 @@ Git still tracks `result.json`, `drc.json`, `.ses`, `.dsn` and the logs until yo
 The wsl K1 notes and the SSH hours search wait for tomorrow's power-on. Next on my list are the printed calibration rider and the main-board routing work.
 <!-- ------ -->
 ---
+Here's what I did, and what I changed after reading the pasted notes.
+
+**Your five points**
+1. I put the three links in `lab/docs/orders.md`: cells 1005005805225475, JST-SH cable 1005004138501132, hacksaw blades 1005001586493266.
+2. Understood. "history:2254" meant line 2254 of history.md, and I used the line numbers to find what each note referred to.
+3. I won't repeat your jokes. TODO-agent.md is now 90 lines, which is no real reduction, so I took the open items below instead.
+4. I ran `git rm --cached` on `result.json` and the layout `out/` files (drc.json, .dsn, .ses, fr.log, route.log). The files are staged for deletion from the index and still on disk. I committed nothing.
+5. I did not stop at one increment. Everything below is from this session.
+
+**Audit items done**
+- **Absolute paths:** the library tables, 33 footprint files and the heads-panel board now use `${KIPRJMOD}/../../lib/...`. `generate.py` writes the relative form. I haven't opened any of these in KiCad on another machine. The `.net` files still carry absolute `(lib ...)` lines, so that stays open.
+- **Library table for the layout board:** `mainboard.py` now writes `layout/out/fp-lib-table`.
+  - `lib_footprint_issues` fell from 164 to 1. That one is Q3's footprint, `TO-252-2_...-CW`, reported as not found even though the file is in the library.
+  - 64 `lib_footprint_mismatch` warnings appeared. I think `place()` emptying each footprint's description and 3D-model list causes them, but I haven't tested that.
+- **Geometry check:** `geometry()` now catches a track end that tees into the middle of another track at an acute angle. I extended the test and it passes.
+  - The first routed board has no such tees.
+  - The 7 acute joints are all 45° branches off a straight trunk. None is a hairpin.
+  - The largest deviation from the 45° grid is 0.106° across 3340 segments.
+- **JLC 4-layer limits:** I read JLC's capabilities page and put the numbers in `kb/pcb_toolchain_notes.md`.
+  - The 6 track-width errors come from our own 0.15 mm floor. JLC's minimum is 0.09 mm.
+  - Our hole-to-hole rule is 0.25 mm. JLC needs 0.45 mm between pad holes.
+- **Docs:**
+  - I recorded the layout milestone hashes (`4c877d7`, `88e0b3e`).
+  - I reworded the "waits on A5" text in TODO-agent.md and updated `plan.md`.
+  - I rewrote the stale parts of `session_handoff.md`.
+  - TODO-completed.md has dated entries for all of this.
+
+**Still open, in order:** the print-hours and "Direct control" paragraph rewrite, the `dfm()` gate decisions, the 3D-body question, the mismatch test, and the track-width and pad-hole rule changes. Those rule changes affect the gate, so I've written the options into TODO-agent.md rather than changing them.
+<!-- ------ -->
+---
+`TODO-agent.md` is now 33 lines, down from 91. The old version is saved at `/tmp/claude-1000/-home-echo--Code-python-pico/e2ba1efa-1325-47f8-8048-96d6df1c624f/scratchpad/TODO-agent.before.md`.
+
+**How the lines went away**
+- **Closed after checking, with a dated entry in `TODO-completed.md`:**
+  - Freerouting 2.5.0 still accepts `-mp`.
+  - `assembly.md` assumes no washer thickness.
+  - The a586e6a wording change only touched TODO files.
+  - Both kb README files list the notes they should.
+  - The `clamp_plate` line has one revisit condition.
+  - The `TODO-arcticoder.md` dates are current.
+- **Moved to kb notes instead of the list:**
+  - The layout direction and board-design rules went to `kb/main_board_layout_notes.md`.
+  - The standing rules went to `kb/project_workflow_notes.md`.
+  - The print hours rule, the "Direct control" paragraph, the pre-sliced G-code list, the session routine and the staged orders went to a new `kb/printing_state.md`, which I added to `kb/README.md`.
+- **Still open, one line each:**
+  - Layout: WP5, JLC rule decisions, library hits, DFM gate decisions, geometry policy, first-pass defect checklist and the `.net` paths.
+  - Printer and bench: the K1 hours search, Wi-Fi dropouts, bed mesh, load sequence and print sessions.
+  - Orders: shipping research and deals.
+  - Design work: calibration rider, enclosure rework and hacksaw frame.
+
+Those open items need decisions from you or the next print or router run, so I left them open. Nothing is committed. The only staged change is the `git rm --cached` from earlier.
+<!-- ------ -->
+---

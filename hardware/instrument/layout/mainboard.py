@@ -211,6 +211,8 @@ def place(W, H):
                "board": {"design_settings": {"rules": {"min_clearance": CLEAR, "min_track_width": 0.15, "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
                                                          "min_copper_edge_clearance": 0.2, "min_hole_to_hole": 0.25, "min_via_annular_width": 0.15}}}},
               open(os.path.join(OUT, "main_board.kicad_pro"), "w"), indent=1)
+    # project-local footprint library table so kicad-cli DRC can resolve the "jlc" library (otherwise every footprint is a lib_footprint_issues warning)
+    open(os.path.join(OUT, "fp-lib-table"), "w").write('(fp_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "${KIPRJMOD}/../../lib/jlc.pretty")(options "")(descr ""))\n)\n')
     print(f"{len(refs)} parts, {len(nets)} nets, board {W} x {H} mm, overlapping pairs after the force pass: {overlaps}; wrote {PCB}")
 
 
@@ -401,6 +403,30 @@ def geometry(verbose=False, pcb=None):
                 d = min(d, 360 - d)
                 if d < 89.5:
                     acute.append((k, round(d, 1)))
+    # (c) a segment end that lands in the interior of another same-net, same-layer segment (a tee the endpoint match above cannot see):
+    # the branch makes an acute angle with one half of the host when its direction is under 90 degrees from either host direction.
+    for s in segs:
+        for p, q in ((s.start, s.end), (s.end, s.start)):
+            bx, by = q.X - p.X, q.Y - p.Y
+            bl = math.hypot(bx, by)
+            if bl < 1e-6:
+                continue
+            for h in segs:
+                if h is s or h.layer != s.layer or h.net != s.net:
+                    continue
+                hx, hy = h.end.X - h.start.X, h.end.Y - h.start.Y
+                hl = math.hypot(hx, hy)
+                if hl < 1e-6:
+                    continue
+                t = ((p.X - h.start.X) * hx + (p.Y - h.start.Y) * hy) / (hl * hl)
+                dist = abs((p.X - h.start.X) * hy - (p.Y - h.start.Y) * hx) / hl
+                if dist > 0.002 or not (0.001 < t * hl and t * hl < hl - 0.001):
+                    continue                      # not on the host, or at one of its ends (the endpoint match covers that)
+                cosang = (bx * hx + by * hy) / (bl * hl)
+                d = math.degrees(math.acos(max(-1.0, min(1.0, cosang))))
+                d = min(d, 180 - d)
+                if d < 89.5:
+                    acute.append(((s.layer, s.net, round(p.X, 3), round(p.Y, 3), "tee"), round(d, 1)))
     print(f"segments {len(segs)} | off the 45-degree grid {len(off45)} | acute joints (<90 deg) {len(acute)}")
     if verbose:
         for x in off45[:40]: print("off45", x)

@@ -32,7 +32,7 @@ http://www.aosmd.com/res/packaging_information/TO252.pdf")
 	(fp_line (start -1.23 -3.30) (end 4.87 -3.30) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 4.87 -3.30) (end 4.87 3.30) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 4.87 3.30) (end -1.23 3.30) (layer F.CrtYd) (width 0.05))
-	(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/TO-252-2L-3P_L6.6-W6.1-H2.3-LS10.1-P4.6.wrl"
+	(model "${KIPRJMOD}/../../lib/jlc.3dshapes/TO-252-2L-3P_L6.6-W6.1-H2.3-LS10.1-P4.6.wrl"
 		(offset (xyz 0.000 0.000 0.000))
 		(scale (xyz 1 1 1))
 		(rotate (xyz 0 0 90))

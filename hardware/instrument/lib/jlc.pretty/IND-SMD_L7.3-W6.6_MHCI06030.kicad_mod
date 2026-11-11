@@ -23,7 +23,7 @@
 	(fp_line (start -3.35 -3.30) (end 3.35 -3.30) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 3.35 -3.30) (end 3.35 3.30) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 3.35 3.30) (end -3.35 3.30) (layer F.CrtYd) (width 0.05))
-	(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/IND-SMD_L7.1-W6.6-H2.8.wrl"
+	(model "${KIPRJMOD}/../../lib/jlc.3dshapes/IND-SMD_L7.1-W6.6-H2.8.wrl"
 		(offset (xyz 0.000 0.000 0.000))
 		(scale (xyz 1 1 1))
 		(rotate (xyz 0 0 0))

@@ -24,7 +24,8 @@ def run(segs):
 clean = run([((0, 0), (10, 0)), ((10, 0), (15, 5))])                     # 0 deg then 45 deg: a 135-degree interior angle
 off45 = run([((0, 0), (10, 3))])                                          # about 16.7 deg
 acute = run([((0, 0), (10, 0)), ((10, 0), (0, 0.0001 + 10))])             # hairpin back along the first segment
-tee = run([((0, 0), (10, 0)), ((5, 0), (10, 5))])                         # tees into the middle of a segment: known blind spot
-ok = (clean == ([], []) and len(off45[0]) == 1 and len(acute[1]) >= 1)
-print("clean", clean, "| off45", len(off45[0]), "| acute", len(acute[1]), "| tee joints found", len(tee[1]), "(0 = known blind spot)")
+tee = run([((0, 0), (10, 0)), ((5, 0), (10, 5))])                         # 45-degree tee into the middle of a segment: acute against one half
+tee90 = run([((0, 0), (10, 0)), ((5, 0), (5, 5))])                        # perpendicular tee: fine
+ok = (clean == ([], []) and len(off45[0]) == 1 and len(acute[1]) >= 1 and len(tee[1]) == 1 and tee90[1] == [])
+print("clean", clean, "| off45", len(off45[0]), "| acute", len(acute[1]), "| tee joints found", len(tee[1]), "(expect 1)", "| perpendicular tee", len(tee90[1]), "(expect 0)")
 sys.exit(0 if ok else 1)

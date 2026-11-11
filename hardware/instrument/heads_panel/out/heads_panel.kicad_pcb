@@ -374,7 +374,7 @@
 			(uuid "f80a5cb1-cad4-4cd1-8270-d3c5b1bd4c74")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -844,7 +844,7 @@
 			(uuid "d7bc5bba-1b4c-4470-8ac5-e6a2221b3b58")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1103,7 +1103,7 @@
 			(uuid "d4105c35-5e87-487e-82e3-548a5606fd9c")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1362,7 +1362,7 @@
 			(uuid "8ba1cf75-9702-4b72-b1dc-8e78391d7541")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0805_L2.0-W1.3-H1.3.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0805_L2.0-W1.3-H1.3.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1801,7 +1801,7 @@
 			(uuid "d2061cae-62bb-4154-b4c6-f0c1f7c7e47d")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0805_L2.0-W1.3-H1.3.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0805_L2.0-W1.3-H1.3.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2060,7 +2060,7 @@
 			(uuid "15d852a7-8af3-4f93-9d8c-19391e032603")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2379,7 +2379,7 @@
 			(uuid "0a4dafae-bd2a-418d-aaa2-eff9f810f269")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2813,7 +2813,7 @@
 			(uuid "53ac3862-e4b4-4252-896e-67e2ae29e9ac")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3307,7 +3307,7 @@
 			(uuid "6b46880e-b2bc-445f-9306-7d0e6ed24233")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3566,7 +3566,7 @@
 			(uuid "6884eac7-7281-47dd-b976-2d76c6b92885")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3880,7 +3880,7 @@
 			(uuid "71e4864d-418f-47e9-a60f-c4e9a3115a41")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4319,7 +4319,7 @@
 			(uuid "8de810f1-3182-424a-bf02-a4cf2eb74ce1")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4573,7 +4573,7 @@
 			(uuid "1340ef6a-90cb-4921-801a-2f34025710f7")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/CONN-SMD_SR1.00-WS-4P.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4832,7 +4832,7 @@
 			(uuid "0f2fdfa8-fe60-45c1-92ee-30df921fc748")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5271,7 +5271,7 @@
 			(uuid "da97e368-d64d-44bf-a3b9-89e591d4e682")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5741,7 +5741,7 @@
 			(uuid "d1e04dc7-7fa8-4b45-bc46-142dc2de12b6")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6091,7 +6091,7 @@
 			(uuid "e981c679-0bae-4c6a-9c5a-154f97e734b5")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/WSON-6_L2.0-W2.0-H0.8-P0.65.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6797,7 +6797,7 @@
 			(uuid "b9dacb6c-6a6b-4eef-9865-7c82bb755ee1")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/LGA-16_L3.0-W3.0-H0.9-P0.50.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/LGA-16_L3.0-W3.0-H0.9-P0.50.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7056,7 +7056,7 @@
 			(uuid "5574a6f3-b94f-4274-bba2-badae7a36ae1")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/C0603_L1.6-W0.8-H0.8.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7582,7 +7582,7 @@
 			(uuid "e4c4e97f-cf18-45f9-9224-ee4f5e470974")
 		)
 		(embedded_fonts no)
-		(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/LGA-16_L3.0-W3.0-H0.9-P0.50.wrl"
+		(model "${KIPRJMOD}/../../lib/jlc.3dshapes/LGA-16_L3.0-W3.0-H0.9-P0.50.wrl"
 			(offset
 				(xyz 0 0 0)
 			)

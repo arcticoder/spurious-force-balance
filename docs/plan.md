@@ -188,7 +188,7 @@ shunt where the design needs 1 Ω. Not yet simulated: the ADC's input network, t
 JLC's help pages and a third-party summary describe them (read through a search tool; the pages themselves returned no
 fees to this session): economic assembly roughly $8 setup plus a loading fee per extended part (reported as $3, possibly cut to
 $1.50 in late 2025), standard assembly about $25 setup plus a loading fee on every part, a stencil fee of $1.50 to $9, and about
-$0.0017 per solder joint. The four-layer boards, the head boards and the device cards, and shipping to Canada are on top. As an
+$0.0017 per solder joint. The main board is four layers (layer count follows need: 2 layers for the simple boards, 4-6 with inner planes where noise needs them, user rule 2026-11-09), the head boards and the device cards, and shipping to Canada are on top. As an
 order-of-magnitude figure, one assembled order is likely in the low hundreds of dollars, most of it fixed fees: another reason
 for one consolidated order. (Updated 2026-11-08: the user's direction is fab-assembled electronics with no hand-built stage, so the layout no longer waits on A5; A5 runs on the assembled boards.)
 

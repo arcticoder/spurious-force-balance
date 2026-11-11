@@ -15,3 +15,4 @@ are in github.com/arcticoder/lab `docs/kb/README.md`.
 | `easyeda_spark_notes.md` | SHELVED 2026-11-01 (EasyEDA/Spark route dropped, KiCad restored): the easyeda-mcp-pro Node fix, bridge status, Spark 2026 facts (unconfirmed), the .jxl picture convention, the main_board routing log, the EasyEDA install patches (`tools/patch_easyeda_autoroute_jobs.py`: job-style autorouting, DRC detail, copper rebuild) |
 | `easyeda_validation.md` | SHELVED 2026-11-01: the offline validator `tools/validate_easyeda.py`, what it checks, how ERC/DRC and the `.epro2` export are obtained, the milestone routine |
 | `part_a_planning_archive.md` | the instrument project's original planning text (constraints, gates, environment, architecture, toolchain) and the notes of finished Parts D, F, G, H |
+| `printing_state.md` | K1 print hours rule, pre-sliced G-code, session routine, and the staged order notes |

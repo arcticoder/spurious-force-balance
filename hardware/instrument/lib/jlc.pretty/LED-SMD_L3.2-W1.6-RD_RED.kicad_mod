@@ -27,7 +27,7 @@
 	(fp_line (start -1.55 0.76) (end -1.55 -0.84) (layer F.CrtYd) (width 0.05))
 	(fp_line (start -1.55 -0.84) (end 1.65 -0.84) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 1.65 -0.84) (end 1.65 0.76) (layer F.CrtYd) (width 0.05))
-	(model "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/lib/jlc.3dshapes/LED-SMD_L3.2-W1.6-RD_RED.wrl"
+	(model "${KIPRJMOD}/../../lib/jlc.3dshapes/LED-SMD_L3.2-W1.6-RD_RED.wrl"
 		(offset (xyz 0.000 0.000 0.000))
 		(scale (xyz 1 1 1))
 		(rotate (xyz 0 0 180))

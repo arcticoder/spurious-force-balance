@@ -46,3 +46,8 @@ Only separately numbered tasks for the user's hands, eyes or decisions: no notes
 ## JLCONE desktop app access (2026-11-04)
 
 The user launches the JLCONE app with `--remote-debugging-port=9222` when they want a quote or coupon read; the recipe, the gotchas and the permissions are in `lab/docs/kb/jlc_account_and_quotes.md`. Rules: read-only text reads, a few paced mouse clicks, uploads of this repo's own Gerber zips for quotes, never JLC's API, never the cookies, never "Submit"/"Save to cart"/payment (the user approves and pays), one order per task and at most one per day. Leave the page configured and tell the user what to approve.
+
+## Standing rules added 2026-11-10
+
+- **No tracking numbers** in chat or in any file (the user redacts them in `history.md` themselves; do not touch those). Say "tracking number in the JLC app".
+- **Never state that I read a page unless the transcript shows the call; when asked, check the transcript and answer from it.** Order-page reads drive the JLCONE account tab through the debug port; the user does not need the tab left on the order list (they only need to know which page it was last on if they look at it), so just say what I read.
