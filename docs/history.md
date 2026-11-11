@@ -2664,3 +2664,97 @@ That's the bed-cooling watcher I started after post nn finished. It fired on a d
 Nothing is pending on my side.
 <!-- ------ -->
 ---
+The kb files are current, and the updated context block is below. It's also saved in `docs/kb/session_handoff.md`, which has been refreshed. Nothing is committed. The only staged change is the `git rm --cached` from earlier.
+
+**Updated this session**
+- **`spurious-force-balance/docs/kb/printing_state.md` (new):**
+  - The full 2026-11-11 session log.
+  - The load sequence and the fast-start sequence (a single `G28` plus `PRINT_PREPARED`, which skips the repeated homing and levelling).
+  - The Wi-Fi drop timeline, the monitoring limits, and what's left to print.
+- **`kb/main_board_layout_notes.md`:** the In1 ground plane approach, the failed DSN power plane (don't retry it), the 120 × 90 mm results, route time, and the direction and rules moved out of the TODO file.
+- **`kb/pcb_toolchain_notes.md`:** JLC's 4-layer limits.
+- **`kb/session_handoff.md`:** refreshed header and next tasks, and the context block below.
+- **`kb/project_workflow_notes.md`:** the standing rules.
+- **`kb/README.md`:** indexes `printing_state.md`.
+- **wsl:** the K1 note (no camera, `G28` before any move, the extrusion drops a strand on the plate corner, the Wi-Fi pattern) and runbook step 7a.
+- **lab:** `inventory.md` (black spool) and `orders.md` (the three AliExpress links).
+- **Memory:** `feedback_printer_observation_limits.md`.
+
+**Updated context block**
+
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md), my filament stock (docs/inventory.md, "Filament"),
+  and my JLC account notes (docs/jlc/: coupons read from my account, captures and reads of JLC's quote
+  pages, docs/kb/jlc_account_and_quotes.md).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). KiCad/SKiDL is the design source: I dropped the
+  EasyEDA/Spark route on 2026-11-01 (shelved; never offer EasyEDA, Spark, its MCP or the validator again).
+  No more hand-built electronics: the instrument is fab-assembled boards, so the main-board layout (WP5,
+  KiCad, pipeline in hardware/instrument/layout/) is open work and does not wait on the prototype
+  noise measurement A5, which will run on the assembled boards. State (2026-11-11): the main board is
+  re-placed at 120 x 90 mm with an In1 ground plane (other nets kept off In1 via use_layer; a DSN power
+  plane failed), 3 connections unrouted, about 17 Y-branch joints, no In2 power plane yet; board size
+  against JLC's price tier is my decision. The torque-by-weights calibration was wrong for a vertical-axis
+  balance: procedures.md B.1 and plan.md now use added inertia (masses at +r and -r, period change); I still
+  have to confirm that correction before the calibration rider is designed.
+  Ordering state (2026-11-11; JLC statuses last read 2026-11-10): the arm is In Production (factory estimate
+  2026-11-12); elec_board and clamp_ground are shipped; I cancelled clamp_plate because its shipping would not
+  come down, and I am exploring combining parcels to cut shipping for it and other items. My AliExpress order
+  of 2026-11-10 (cells, JST-SH cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale, needle files, C$14.19)
+  is placed and in transit, logged with links in lab/docs/orders.md; nothing else is in transit.
+  The quote page for the next JLC order is set up only when I say the previous one is placed.
+- Printing: the K1 is on my balcony with the door shut and I work in the office: there is no camera and I
+  cannot hear it, so give me clock-time visual checks (what to see, when), never audible ones. I plug it in,
+  switch it on, load the filament you advise (you run the heating, parking and extrusion) and tell you the
+  window; vents stay closed. The agent drives OrcaSlicer and the K1 through MCP and Moonraker (wsl workspace:
+  connection notes, docs/print-session-runbook.md and the K1 note; it is only for OrcaSlicer, the K1 and WSL).
+  Printed so far: plate 1, the small plate, the gantry, post nn and the strip guide (2026-11-11 session in
+  kb/printing_state.md). Left: the three posts (one file, 3 h 34 min) and the base (4 h 41 min), pre-sliced in
+  ~/.orcaslicer-mcp/gcode/ and needing a longer window. Nothing prints or heats without my explicit request in
+  that message; I said you may use the printer again later, just not when I say stop.
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD. I will exceed JLC's 0.3 kg cheap-shipping line if that
+lowers the per-item shipping; I will not pay a shipping premium for a tiny order.
+JLC quote and coupon pages can be read through my JLCONE desktop app when I launch it with
+--remote-debugging-port=9222 (recipe and gotchas in lab/docs/kb/jlc_account_and_quotes.md): read-only text
+reads, a few paced mouse clicks, uploads of this repo's own Gerber zips for quotes. Never call JLC's API, never
+touch the cookies, never Submit, Save to cart or pay: I approve and pay, and I place at most one order per
+day. Treat any JLC price not from my words, my captures or a page read through the app as an estimate.
+Never put parcel tracking numbers in chat or in files. Only say you did something if the transcript shows it.
+docs/history.md is my chat transcript: don't edit it or use it as an analysis source unless I name lines to
+read. Pictures are lossless .jxl; .jxl and .eprj2 are Git LFS (the .eprj2 is leftover from the dropped route;
+I decide whether to keep it). Don't commit anything in these two repos: I stage and commit everything after
+each chat.
+Workflow: whichever model is running actions what needs actioning. docs/TODO-agent.md is the agent's own
+list (open items only; TODO-BLOCKED.md, TODO-backlog.md and TODO-completed.md sit beside it): start the next
+startable item without being asked. My hands-on tasks live in docs/TODO-arcticoder.md as separately numbered
+tasks for me only (no notes to yourself; any task you give me in chat goes there too); only things that truly
+need my hands (orders, bench checks, the printer set-up) go there. Keep docs/kb/*.md (LLM-only notes) up to
+date with discoveries. Don't quote me or describe how I said things in files or chat. Keep an eye on the
+supply chain: always have a few AliExpress or JLC items in transit, and watch for deals.
+Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
+lab/docs/kb/README.md and lab/docs/kb/jlc_account_and_quotes.md. Then continue from
+docs/TODO-agent.md and my feedback below.
+
+## Read first
+
+Both `docs/kb/README.md` files, `lab/docs/kb/jlc_account_and_quotes.md`, `docs/kb/main_board_layout_notes.md`, `docs/kb/printing_state.md`, this repo's `docs/TODO-arcticoder.md` and `docs/TODO-agent.md`, `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md` and `~/Code/sysadmin/wsl/docs/print-session-runbook.md` for the printer side.
+```
+
+I changed these parts of your block:
+- The layout and calibration state: the 120 × 90 mm board, the In1 plane, the B.1 correction still awaiting your confirmation.
+- The AliExpress order, now placed and in transit.
+- The printing paragraph: no camera and no hearing, you aren't loading filament, and what has been printed and what is left.
+- `printing_state.md` added to the read-first list.
+
+Please confirm the physics correction at the start of the next session, because the calibration rider waits on it.
+<!-- ------ -->
+---

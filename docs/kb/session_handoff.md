@@ -1,6 +1,6 @@
-# Session handoff — chat 12, updated 2026-11-11 mid-print (replace at each handoff; do not append)
+# Session handoff — chat 12, final 2026-11-11 (replace at each handoff; do not append)
 
-**2026-11-11 (printing day):** gantry printing since about 7:22 (finish about 10:40); then post nn, then the strip guide, each started only on the user's go; last print off the plate at 13:45. Details, load sequence, Wi-Fi drop log and monitoring limits: `kb/printing_state.md`. Same day: the calibration physics was corrected (`procedures.md` B.1 and `plan.md`: weights give inertia, not torque, on a vertical-axis balance; the user is asked to confirm), In1 ground plane and 120 x 90 mm board in `mainboard.py` (`kb/main_board_layout_notes.md`), `TODO-agent.md` cut to 33 lines.
+**2026-11-11 (printing day, finished):** the gantry (201.6 min), post nn (71.3 min) and the strip guide (34.4 min) printed and inspected, all good; the user stopped the session at about 12:50 and the printer is idle (usable later, not on demand now). Details, the fast-start sequence, load sequence, Wi-Fi drop log and monitoring limits: `kb/printing_state.md`. Same day: calibration physics corrected (`procedures.md` B.1, `plan.md`; the user still has to confirm), In1 ground plane and 120 x 90 mm board in `mainboard.py` (`kb/main_board_layout_notes.md`), `TODO-agent.md` cut to 33 lines, absolute paths replaced by `${KIPRJMOD}` in the lib tables and footprints, generated layout outputs untracked (`git rm --cached` staged, not committed).
 
 **Chat 12 (2026-11-10, later):** user feedback applied: printed parts inspected (fine), thin nuts non-magnetic, printer off tonight, gantry print planned for the morning of 2026-11-11 (4 h). AliExpress cart confirmed (total C$12.81: LR44 5-pack, JST-SH cable, hacksaw blades kept, M3x7x0.5 washers C$0.73, 1 g weight C$2.48, 0.1 g scale C$3.79; the scale takes AAA cells the user has; diamond needle files C$1.38 added to clear the free-shipping threshold, cart C$14.19). Calibration route changed to PLA filament (about 30 mg/cm, measured on the scale) plus the 1 g weight at small radii; no fine copper wire (`procedures.md` B.1). Next: printed calibration rider (CadQuery), K1 total-hours search over SSH at the next power-on, then WP5 layout. Order/batch numbers in files are masked (W2026**********65 style). The user does not need the JLC tab left on the order list. The runbook is named in `TODO-arcticoder.md` for every print session.
 
@@ -16,7 +16,7 @@
 
 ## Next agent tasks
 
-1. Start the next startable item in `TODO-agent.md` without being asked: WP5 layout, then the audit checks, the calibration route, the enclosure/acrylic rework, the shipping research.
+1. Start the next startable item in `TODO-agent.md` without being asked: WP5 layout (3 unrouted, In2 power plane, rules vs JLC), the library-mismatch diff, the calibration rider once the user confirms the B.1 correction, the enclosure/acrylic rework, the shipping research.
 2. Printing sessions: follow the runbook; heater and print only on the user's explicit request in that message.
 3. Log the AliExpress order when the user reports it; keep a parcel always in transit; stage the next order (one per day).
 
@@ -40,17 +40,27 @@ Never state a JLC price that is not in the user's words, captures or a page read
       EasyEDA/Spark route on 2026-11-01 (shelved; never offer EasyEDA, Spark, its MCP or the validator again).
       No more hand-built electronics: the instrument is fab-assembled boards, so the main-board layout (WP5,
       KiCad, pipeline in hardware/instrument/layout/) is open work and does not wait on the prototype
-      noise measurement A5, which will run on the assembled boards.
-      Ordering state (2026-11-10): the arm is In Production (factory estimate 2026-11-12); elec_board and
-      clamp_ground are shipped; I cancelled clamp_plate because its shipping would not come down, and I am
-      exploring combining parcels to cut shipping for it and other items. My AliExpress order of 2026-11-10 (cells, JST-SH
-      cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale, needle files) is placed and in transit.
+      noise measurement A5, which will run on the assembled boards. State (2026-11-11): the main board is
+      re-placed at 120 x 90 mm with an In1 ground plane (other nets kept off In1 via use_layer; a DSN power
+      plane failed), 3 connections unrouted, about 17 Y-branch joints, no In2 power plane yet; board size
+      against JLC's price tier is my decision. The torque-by-weights calibration was wrong for a vertical-axis
+      balance: procedures.md B.1 and plan.md now use added inertia (masses at +r and -r, period change); I still
+      have to confirm that correction before the calibration rider is designed.
+      Ordering state (2026-11-11; JLC statuses last read 2026-11-10): the arm is In Production (factory estimate
+      2026-11-12); elec_board and clamp_ground are shipped; I cancelled clamp_plate because its shipping would not
+      come down, and I am exploring combining parcels to cut shipping for it and other items. My AliExpress order
+      of 2026-11-10 (cells, JST-SH cable, hacksaw blades, washers, a 1 g weight, a 0.1 g scale, needle files, C$14.19)
+      is placed and in transit, logged with links in lab/docs/orders.md; nothing else is in transit.
       The quote page for the next JLC order is set up only when I say the previous one is placed.
-    - Printing: the K1 is on my balcony; I plug it in, switch it on, load the filament you advise, keep the riser
-      vents closed unless told otherwise and tell you the print window. The agent drives OrcaSlicer and the K1
-      through MCP and Moonraker (the wsl workspace has the connection notes and the print-session runbook
-      docs/print-session-runbook.md; it is only for OrcaSlicer, the K1 and WSL). Remaining plates are pre-sliced
-      in ~/.orcaslicer-mcp/gcode/. Nothing prints or heats without my explicit request in that message.
+    - Printing: the K1 is on my balcony with the door shut and I work in the office: there is no camera and I
+      cannot hear it, so give me clock-time visual checks (what to see, when), never audible ones. I plug it in,
+      switch it on, load the filament you advise (you run the heating, parking and extrusion) and tell you the
+      window; vents stay closed. The agent drives OrcaSlicer and the K1 through MCP and Moonraker (wsl workspace:
+      connection notes, docs/print-session-runbook.md and the K1 note; it is only for OrcaSlicer, the K1 and WSL).
+      Printed so far: plate 1, the small plate, the gantry, post nn and the strip guide (2026-11-11 session in
+      kb/printing_state.md). Left: the three posts (one file, 3 h 34 min) and the base (4 h 41 min), pre-sliced in
+      ~/.orcaslicer-mcp/gcode/ and needing a longer window. Nothing prints or heats without my explicit request in
+      that message; I said you may use the printer again later, just not when I say stop.
     Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
     50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
     JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
