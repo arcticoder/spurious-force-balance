@@ -29,9 +29,14 @@ when it exists). Nothing touches the table; leave the room.
 ## B. Calibration: force per volt on the plates, and the displacement scale
 
 The electrostatic force F = c V^2 (c about 7.1e-10 N/V^2 from the geometry, known to a few percent) is transferred to an absolute scale by weights.
-1. **Weights.** With the arm trimmed and the plate leads in place, hang a calibrated weight (1 mg to 50 mg, 10 uN to 490 uN) on a wire rider or a loop of thin wire at a measured radius (the distance from the strip's axis; measure it with the
-   flag's graduations or a ruler to 0.2 mm). Record the deflection. Remove, repeat three times each weight; use at least five weights. Fit deflection against force: the compliance (rad per N m), with the uncertainty from the fit and from the weights'
-   tolerance (the weight class stated in the listing) and the radius.
+1. **Weights.** With the arm trimmed and the plate leads in place, hang a known mass on a printed rider at a measured radius (the distance from the strip's axis; measure it with the
+   flag's graduations or a ruler to 0.2 mm). The torque is m g r, so a small torque comes from a larger, easier mass at a smaller radius. Two mass sources, no fine wire needed:
+   (a) **PLA filament pieces.** 1.75 mm PLA has a mass per length of about 30 mg per cm (density 1.24 g/cm^3; the spool's own value differs a little). Measure it: lay 3 to 5 m of filament on the 0.1 g scale (9 to 15 g, so the 0.1 g
+   resolution is 1 % or less), first checking the scale reads 1.0 g on the 1 g calibration weight. Divide by the length for mg per cm. Then cut pieces with the craft knife against the steel ruler: 1 cm is about 30 mg, 1.7 cm about 50 mg. Do not cut pieces
+   shorter than 1 cm (a 0.5 mm cut error is already 5 %); use a smaller radius for smaller torques instead.
+   (b) **The 1 g weight** (M1 class) on the rider notches at 1 to 30 mm radius: 1 g at 1 mm is the torque of 10 mg at 100 mm, and so on.
+   Record the deflection. Remove, repeat three times each torque; use at least five torques. Fit deflection against torque: the compliance (rad per N m), with the uncertainty from the fit, the mass (about 1 to 2 % for the filament route, from the scale
+   reading and the cut length; the stated class tolerance for the 1 g weight) and the radius.
 2. **Plates.** Drive the plate at 5 V steps from 0 to 18.8 V (DAC up to 3.3 V) and record the deflection at each (settle 60 s each, three times, both polarities: V^2 does not care about sign; a difference means a charge or an offset). Fit deflection = a V^2 + b. The ratio gives c in N/V^2 with its
    uncertainty. Check the quadratic shape (the residuals of a V^2 fit should be under 2%).
 3. **Repeat** the calibration at the start and the end of every campaign day and whenever the temperature has moved by more than 2 C; the strip's stiffness changes with temperature. Log the temperature.

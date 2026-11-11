@@ -2229,3 +2229,23 @@ One thing to know now: the repo is public on GitHub, and `TODO-arcticoder.md` ca
 Not done: I haven't started WP5 or any of the audit checks, and nothing was committed.
 <!-- ------ -->
 ---
+I've worked through all eleven items. I changed only docs, and nothing was printed, heated, or committed. I did not check the listings on AliExpress itself. I checked them against the text you pasted.
+
+**Answers**
+- **Item 1:** Understood. I dropped the rule about leaving the tab on the order list.
+- **Item 2, cart:** The washers are right. M3 x 7 x 0.5 mm has a 3.2 mm hole, 7 mm outer diameter and 0.5 mm thickness, which is what the design wants. The 1 g weight and the 0.1 g scale are fine. The cart totals **C$12.81** before any shipping line (2.85 + 1.04 + 1.92 + 0.73 + 2.48 + 3.79). The scale ships **without batteries** and the listing doesn't say which type. Tell me the type from its battery cover when the parcel arrives, and we can add cells to the next order if needed.
+- **Item 3, printing:** The printer stays off tonight. The gantry (3 h 16 min, 70 g) is planned for tomorrow morning. I'll check the G-code header, mass and preview before I submit it, and I'll tell you which spool to load.
+- **Item 4, magnets:** The nuts aren't magnetic, so that task is gone.
+- **Item 5, print hours:** Moonraker only counts jobs since it was installed, and the screen's counter lives in Creality's own firmware. The printer is off, so I can't read it now. At tomorrow's power-on I'll look for the figure over SSH. If I find it, your touchscreen task goes away for good.
+- **Item 7, runbook:** `print-session-runbook.md` is now named in your task list for the 2026-11-11 session, with the path.
+- **Item 8, calibration:** Yes, this was on my list. PLA works. 1.75 mm PLA is about **30 mg per cm**, and you measure your spool's actual value by weighing 3–5 m on the 0.1 g scale (about 1–2 % uncertainty). A 1 cm piece is about 30 mg and a 1.7 cm piece about 50 mg. Anything under about 10 mg is better made by hanging the 1 g weight at a smaller radius than by cutting a tiny piece. The steps are in `procedures.md` section B step 1 and in `plan.md`. I added a task for me to design a printed rider with notches at 1–30 mm radius.
+- **Item 10, hacksaw blades:** Buy them. They're C$1.92 for ten. A printed saw frame is on my list, and the fallback is a blade wrapped in tape.
+- **Item 11, redaction:** Done in `lab/docs/kb/jlc_account_and_quotes.md`. The three W numbers are masked like your example, and the three Y order numbers became `Y3-******08A`, `Y4-******08A` and `Y5-******08A`. I searched both repos, excluding `history.md`, and found no other order identifiers.
+
+**Other changes**
+- `TODO-arcticoder.md` is rewritten with two tasks: place the order, and the Wednesday print.
+- `TODO-agent.md`, `TODO-completed.md` and `docs/kb/session_handoff.md` are updated.
+
+Items 6 and 9 needed no change.
+<!-- ------ -->
+---

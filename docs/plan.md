@@ -154,7 +154,7 @@ The terms G3 ranks decide what the first build includes:
 
 Absolute scale and its uncertainty: the electrostatic plates give force from F = ε₀ A V² / (2 d²), but
 the area and gap are only known to a few percent, so the scale comes from weights. Procedure: hang
-calibrated weights of 1 mg to 50 mg on a known arm radius to produce 10 µN to 500 µN, read the plate
+known masses (the 1 g calibration weight, and PLA filament pieces of about 30 mg per cm, mass per length measured on the 0.1 g scale) on a known arm radius to produce 10 µN to 500 µN, read the plate
 voltage that gives the same deflection, and fit F = c V²; the fit constant c then holds down to the
 nanonewton range, with the lever-arm uncertainty and weight tolerance in the budget. The optical
 readout's displacement scale is calibrated by moving the flag a known distance with a micrometer stage
