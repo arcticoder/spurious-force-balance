@@ -153,10 +153,10 @@ The terms G3 ranks decide what the first build includes:
    balance is leveled and trimmed to a centre-of-mass offset of 0.2 mm or better.
 
 Absolute scale and its uncertainty: the electrostatic plates give force from F = ε₀ A V² / (2 d²), but
-the area and gap are only known to a few percent, so the scale comes from weights. Procedure: hang
-known masses (the 1 g calibration weight, and PLA filament pieces of about 30 mg per cm, mass per length measured on the 0.1 g scale) on a known arm radius to produce 10 µN to 500 µN, read the plate
-voltage that gives the same deflection, and fit F = c V²; the fit constant c then holds down to the
-nanonewton range, with the lever-arm uncertainty and weight tolerance in the budget. The optical
+the area and gap are only known to a few percent, so the scale comes from the arm's measured torsion constant. A weight cannot supply a torque
+about the vertical strip axis (it only tilts the arm), so the weights are used as added inertia (correction 2026-11-10, `procedures.md` B.1): equal masses (the 1 g weight, PLA
+filament pieces of about 30 mg per cm, mass per length measured on the 0.1 g scale) at +r and -r on the arm change the oscillation period, giving kappa = 4 pi^2 (2 m r^2) / (T2^2 - T1^2). The plate
+deflection then converts to force by theta kappa / r_plate; the fit F = c V^2 gives c, which holds down to the nanonewton range, with the radius, mass and period uncertainties in the budget. The optical
 readout's displacement scale is calibrated by moving the flag a known distance with a micrometer stage
 or a printed step gauge. The calibration uncertainty and its drift over a campaign (repeat calibrations
 at set intervals, temperature dependence of the strip's stiffness) get an explicit budget in the final

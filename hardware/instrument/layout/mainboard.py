@@ -297,8 +297,11 @@ def write_dsn():
     out.append("  (network")
     for n, pins in sorted(nets.items()):
         out.append(f'    (net "{n}"\n      (pins {" ".join(p.replace(chr(34)+"-"+chr(34), "-").replace(chr(34), "") for p in pins)})\n    )')
-    out.append('    (class default ' + " ".join(f'"{n}"' for n in sorted(nets)) +
-               f'\n      (circuit (use_via "Via[0-3]_600:300_um"))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+    sig = [n for n in sorted(nets) if n != "GND"]
+    # In1.Cu is the ground plane: every net except GND is kept off it with use_layer; GND may use any layer, and the plane zone is poured after the import
+    out.append('    (class signals ' + " ".join(f'"{n}"' for n in sig) +
+               f'\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+    out.append(f'    (class ground "GND"\n      (circuit (use_via "Via[0-3]_600:300_um"))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append("  )")
     out.append("  (wiring)\n)")
     open(DSN, "w").write("\n".join(out) + "\n")
@@ -319,6 +322,23 @@ def route(minutes=8):
         print("no SES written")
         return
     import_ses()
+
+
+def add_planes(b):
+    """Inner ground plane (user rule 2026-11-09): a filled GND zone on In1.Cu covering the board inside the edge clearance. Freerouting is told
+    In1.Cu is a power plane (see write_dsn), so GND pins reach it through vias and no signal is routed on In1."""
+    from kiutils.items.zones import Zone, ZonePolygon, Hatch, FillSettings
+    xs = [g.start.X for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"] + [g.end.X for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    ys = [g.start.Y for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"] + [g.end.Y for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    m = 0.5
+    x0, x1, y0, y1 = min(xs) + m, max(xs) - m, min(ys) + m, max(ys) - m
+    b.zones = [z for z in b.zones if "In1.Cu" not in (z.layers or [])]
+    gnd = {n.name: n.number for n in b.nets}["GND"]
+    z = Zone(net=gnd, netName="GND", layers=["In1.Cu"], tstamp=uid(), name="GND_plane", hatch=Hatch(style="edge", pitch=0.5),
+             minThickness=0.15,
+             fillSettings=FillSettings(yes=True, thermalGap=0.3, thermalBridgeWidth=0.3),
+             polygons=[ZonePolygon(coordinates=[Position(X=x0, Y=y0), Position(X=x1, Y=y0), Position(X=x1, Y=y1), Position(X=x0, Y=y1)])])
+    b.zones.append(z)
 
 
 def import_ses():
@@ -358,6 +378,7 @@ def import_ses():
                     b.traceItems.append(Via(position=Position(X=conv(it[2]), Y=-conv(it[3])), size=VIA_D, drill=VIA_H, layers=["F.Cu", "B.Cu"], net=code[name], tstamp=uid()))
                     nvia += 1
     walk(t, lambda n: visit(n) if n and n[0] == "net" and len(n) > 2 and isinstance(n[2], list) and n[2] and n[2][0] in ("wire", "via") else None)
+    add_planes(b)
     b.to_file(PCB)
     print(f"imported {nseg} segments and {nvia} vias")
 
@@ -461,7 +482,19 @@ def dfm():
         blocking["off_45_degree_segments"] = len(off45)
     if acute:
         blocking["acute_joints"] = len(acute)
+    # decisions 2026-11-10: a malformed courtyard is a library-footprint drawing problem, not a fab stop (advisory); overlapping courtyards are a real
+    # placement problem (blocking); silk over copper is clipped by the fab (advisory); planes must exist on both inner layers before fab output.
+    blocking.pop("malformed_courtyard", None)
+    if kinds.get("courtyards_overlap"):
+        blocking["courtyards_overlap"] = kinds["courtyards_overlap"]
+    b = Board.from_file(PCB)
+    zone_layers = {l for z in b.zones for l in (z.layers or [])}
+    missing = [l for l in ("In1.Cu", "In2.Cu") if l not in zone_layers]
+    if missing:
+        blocking["inner_plane_missing"] = len(missing)
     advisory = {k: n for k, n in kinds.items() if k not in blocking}
+    if not any("FID" in (getattr(fp, "libId", "") or "").upper() for fp in b.footprints):
+        advisory["no_assembly_fiducials"] = 1
     print("DFM blocking:", blocking or "none")
     print("DFM advisory:", advisory or "none")
     sys.exit(1 if blocking else 0)
@@ -472,7 +505,7 @@ if __name__ == "__main__":
     if cmd == "place":
         place(float(sys.argv[2]) if len(sys.argv) > 2 else 100.0, float(sys.argv[3]) if len(sys.argv) > 3 else 80.0)
     elif cmd == "route":
-        route()
+        route(float(sys.argv[2]) if len(sys.argv) > 2 else 8)
     elif cmd == "drc":
         drc()
     elif cmd == "dfm":

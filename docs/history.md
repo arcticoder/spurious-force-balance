@@ -2332,3 +2332,22 @@ Here's what I did, and what I changed after reading the pasted notes.
 Those open items need decisions from you or the next print or router run, so I left them open. Nothing is committed. The only staged change is the `git rm --cached` from earlier.
 <!-- ------ -->
 ---
+`TODO-agent.md` is still 33 lines. I also did the next layout work and found a flaw in the weight-calibration step that needs your confirmation. Nothing is committed.
+
+- **Calibration flaw (please confirm):** the strip axis is vertical, so a hanging weight only tilts the arm. It gives no twist, and the "torque m g r" step in `procedures.md` B.1 can't work.
+  - I rewrote B.1 and the matching paragraph in `plan.md` to use added inertia instead.
+  - You put equal masses at +r and −r on the arm, measure the oscillation period with and without them, and get κ = 4π²(2mr²)/(T₂²−T₁²). That doesn't need the arm's inertia.
+  - The period comes out near 4.8 s. A 1 g pair at 100 mm shifts it about 4%, and at 30 mm only about 0.4%, so the rider notches need to reach 100 mm.
+  - The rider item in `TODO-agent.md` now starts with this check, so I haven't designed the rider yet.
+- **Ground plane:** `mainboard.py` now pours a GND plane on In1 and keeps every other net off that layer.
+  - Defining In1 to Freerouting as a power plane failed: no vias were written for the ground pads and 148 stayed unconnected. The kb note says not to retry it.
+  - Restricting the other nets to the remaining layers worked: In1 now holds only GND.
+  - A 100 × 80 mm board with the plane left 156 connections unrouted. At 120 × 90 mm, unconnected connections drop from 9 to 3. The other DRC counts moved too: 3 clearance, 8 track-width, 2 dangling vias and 2 dangling tracks.
+  - A full route now takes 15–25 minutes, so `route` takes a minutes argument (I used 30). The 8-minute default writes no routing result.
+  - 120 × 90 mm is your call against JLC's price tier. No power plane on In2 yet.
+- **DFM gate:** malformed courtyards are now advisory, overlapping courtyards and a missing In1 or In2 zone block, and missing assembly fiducials are advisory.
+- **Library warnings:** keeping the footprints' 3D models doesn't clear the 64 library mismatches. Keeping their descriptions makes the board unloadable. I restored the earlier board from a backup before the plane work.
+
+`TODO-completed.md` and `kb/main_board_layout_notes.md` have the details.
+<!-- ------ -->
+---
