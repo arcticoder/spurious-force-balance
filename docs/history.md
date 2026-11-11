@@ -2351,3 +2351,316 @@ Those open items need decisions from you or the next print or router run, so I l
 `TODO-completed.md` and `kb/main_board_layout_notes.md` have the details.
 <!-- ------ -->
 ---
+Section A is done, and the printer isn't reachable yet. I haven't started any heating or printing.
+
+- **G-code:** `balance_p3_gantry.gcode` has the right header: 220/225 °C nozzle, 60 °C bed, 3 walls, 30% infill, supports on, no prime tower. It is 70.4 g and 3 h 16 min. With about 12 min for heating and levelling that is about 3 h 28 min. A 10% margin brings it to about 3 h 49 min, which fits your 4 h window.
+- **Spool:** load the **unopened spool**. The opened black one has about 65–90 g left, which is too close for 70 g.
+- **Orca:** the fork (2.4.2, user install) is installed. Nothing listens on port 13130 because Orca isn't running. I don't need it, since I upload the G-code to Moonraker directly with curl.
+- **Printer:** `curl` to `http://192.168.1.70:7125` returns nothing, so the K1 is off or off the network. Plug it in and switch it on. If it still doesn't answer after a minute or two, open `http://192.168.1.70:8081` on Windows. If that loads, the problem is the route from WSL. If it doesn't, reconnect Wi-Fi from the touchscreen's network tab.
+
+Once it answers, I'll read its state (no homing, no mesh) and write down the print-hours reading. I'll also look for the touchscreen total over SSH, read-only. Heating and the print start only when you explicitly ask for them in a message. Tell me when the unopened spool is loaded, or if you'd rather I walk you through loading it. I'll raise the bed and park the head at the rear-left before any heating.
+<!-- ------ -->
+---
+Yes. I meant the full spool you opened recently, not the nearly empty one. The inventory still lists it as unopened, so I'll update that line.
+<!-- ------ -->
+---
+Load the black spool you opened recently, the one that's still full. The nearly empty black spool (about 65–90 g left) is too light for the 70 g gantry, so leave it out.
+
+I updated `lab/docs/inventory.md` to show the full black spool as opened with about 1 kg left. If you've already printed from it, tell me the gross weight and I'll correct the entry.
+
+Plug the printer in and switch it on when you're ready, and I'll probe it again.
+<!-- ------ -->
+---
+The printer is online and idle, and print hours are unchanged at 2.85 h. It isn't homed, so I'll home it cold first, then raise the bed and park the head at the rear-left before any heat.
+<!-- ------ -->
+---
+The nozzle is at 226 °C, so you can load the black spool now (the full one).
+
+- The head is parked at the rear-left with the bed lowered, so nothing can drip onto the plate.
+- I'll hold the nozzle at 225 °C while you load. It will hold for as long as the printer stays awake. Tell me when the filament is in and extruding cleanly.
+- When the filament is loaded, I'll turn the heater off or leave it for the print, whichever you say. I'll start the print only on your explicit go, and I'll check the G-code header and preview once more first.
+<!-- ------ -->
+---
+Understood, I'll do the extrusion myself. The window is about 7 hours, so after the gantry there's room for a second job. I'll check the filament sensor, then push filament through.
+<!-- ------ -->
+---
+I pushed 80 mm of filament through the nozzle at 225 °C (two 40 mm pushes at 150 and 200 mm/min). The sensor sees filament and the extruder took it without an error.
+
+- **Check the flow:** look at the nozzle. You should see a steady, even strand with no clicking from the extruder, and the colour should be clean black with no earlier filament in it. If it looks good, tell me and I'll stop there. If it clicked or came out ragged, I'll push more.
+- **Strand on the plate:** the strand fell about 120 mm onto the rear-left corner of the plate. Please lift it off before the print.
+
+**Window plan.** 7:07 to about 14:00 is roughly 6 h 50 min, or 7 h 20 min if you can have it until 14:30.
+- **Gantry first:** 3 h 16 min plus about 12 min of heating and levelling is about 3 h 28 min. It starts about 7:20 and ends about 10:50.
+- **Second job after it:** the three posts take 3 h 34 min plus 12 min, ending about 14:40. That is too tight for a 14:00 limit, so it only works if you can have the printer until 14:30 or later.
+- **Alternative:** post nn and the strip guide take 1 h 13 min and 35 min plus 12 min each, ending about 13:10. They fit with margin, and their mass is 51 g, so the full spool covers them. Tell me which second job you want when the gantry finishes.
+
+I'll check the gantry preview and header once more, and I need your explicit go to start the print. The nozzle is holding at 225 °C and the bed is cold. `START_PRINT` heats the bed to 60 °C and levels, so tell me when the plate is clear and say go.
+<!-- ------ -->
+---
+Got it, thanks. Nothing else is needed from the thermometer or the vents before the print. The riser vents are closed, as the runbook asks. Take your time with the thermometer and ignore the extra minutes. I only care about the printer, and it already sets the bed and chamber conditions itself.
+
+Before the start I'll recheck `balance_p3_gantry.gcode` against the runbook. The header is already verified: 220/225 °C, 60 °C bed, 3 walls, 30% infill, supports on, no prime tower. I'll also confirm the printer is idle and the nozzle is at 225 °C.
+
+The only things the print needs from you are a clear plate and your go. When you say go, I'll upload and start the gantry, then watch it every 15 s and report if anything changes. The first layer is the part to look at: the plate is 13 °C ambient and the part is large, so check that the corners stay down. If a corner lifts, tell me and I'll pause the print.
+<!-- ------ -->
+---
+The gantry print has started, and `print_stats` reads `printing`. The printer is now heating the bed and levelling. I'll arm a monitor that reports state changes.
+<!-- ------ -->
+---
+The gantry print is running: `balance_p3_gantry.gcode`, about 3 h 16 min, 70.4 g, started a few minutes after 7:15.
+
+The monitor reports any change of state (`paused`, `error`, `complete`) or a lost connection. It expires every 30 minutes, so I'll re-arm it.
+
+**What I need from you**
+- Watch the first layer, once the printer starts laying down the first lines. Check that all four corners of the gantry stay flat on the plate. If one lifts, tell me and I'll pause.
+- You can leave the printer after the first layer looks good.
+
+I'll update the TODO files and notes after the print, and read the print-hours totals again. The first print should finish around 10:45, and then we can choose the second job.
+<!-- ------ -->
+---
+That's the expected start: state `printing`, bed still warming (25 °C) and nozzle at 215 °C, which is the printer's own heating and levelling sequence. Nothing needs your attention yet. I'll report on the first layer or any state change.
+<!-- ------ -->
+---
+Here is what I can and can't see, with the times for what I need from you.
+
+**What I watch from the data:**
+- Bed and nozzle temperature drifting off target, a filament runout from the sensor, a Klipper error, a pause, and a lost connection.
+- Overall progress and elapsed time against the 3 h 16 min estimate.
+
+**What the data can't show:** a part lifting off the plate, stringing or blobs, and a partial jam where the extruder keeps turning but little filament comes out. Those need eyes or ears.
+
+**When I need you to go outside** (open the door, check, close it). Each check takes about a minute, and the first two are the ones that matter:
+1. **About 7:50, once the first layers are down.** Look at the gantry from above.
+   - All four corners and edges are flat on the plate, with no gap you could slide a fingernail under.
+   - The first-layer lines are continuous and joined, with no bare patches.
+   - Listen for a repeating click or tick from the extruder. That means a jam, so tell me and I'll pause.
+   - If you see a corner lifting or hear clicking, tell me and I'll pause. Don't touch anything hot.
+2. **About 9:15, a quick look.** Check the part hasn't shifted or come loose and that there's no loose or tangled filament. This is the check for the gantry's first overhang and the supports.
+3. **About 10:45, when I tell you it's finished.** You inspect the parts once the bed is cool.
+
+If I see anything wrong in the data, such as an error, a pause, a temperature fault or a lost connection, I'll tell you straight away. For a lost connection I'll ask you to look at the printer, because a hot nozzle with no connection needs eyes.
+<!-- ------ -->
+---
+The printer dropped off the network at about 7:19, around three minutes into the print. It doesn't answer pings or Moonraker, so I'm blind until it reconnects. This is the same Wi-Fi dropout as on 2026-11-09. The print itself continues on the printer without Wi-Fi.
+
+**I need you to go to the balcony** now rather than at 7:50, and the first-layer check becomes part of this trip. It's about five minutes:
+1. **Look at the print.** The gantry's corners should be flat on the plate, the first-layer lines continuous, and the nozzle moving. If it has stopped, the plate is empty or a corner has lifted, don't touch anything hot. Tell me and I'll deal with it once it's back online.
+2. **Listen** for a repeating click from the extruder.
+3. **Reconnect Wi-Fi** on the touchscreen's network tab. That worked twice before. Don't stop or pause the print from the screen.
+
+When you're back, tell me what you saw. I've armed a watcher that tells me the moment the printer answers again, and I'll re-check progress, temperatures and the filament sensor then. If the printer doesn't come back after you reconnect, tell me and I'll check the route from WSL.
+<!-- ------ -->
+---
+The printer reconnected by itself at about 7:21, so the drop lasted about two minutes. You don't need to go to the balcony yet, and you can ignore the reconnect request.
+
+- **State:** the print is in the printer's own pre-print phase. The bed is at 59.4 of 60 °C, and the nozzle is at the 135 °C it holds while levelling. The filament sensor sees filament and there's no error.
+- **First layer:** the first layer hasn't started yet, so the drop didn't happen during printing. I'll keep the earlier check plan. Go out at about **7:50** to check that the corners are flat and the lines continuous, and listen for extruder clicking.
+
+If it drops again during the print, I'll tell you. A short drop with the print continuing is not an emergency. Only a drop that doesn't come back, or one with an error or a pause, would need you out there.
+<!-- ------ -->
+---
+The printer dropped off the network again at about 7:24, the second time in 5 minutes. It doesn't answer for 20 seconds at a stretch, so I can't see the print.
+
+**Please go to the balcony now.** This is the first-layer check I'd planned for 7:50, brought forward because I'm blind.
+1. **Look at the print.** The gantry's corners should be flat on the plate and the first-layer lines continuous. The nozzle should be moving. If the printer has stopped, the plate is empty or a corner has lifted, tell me. Don't touch anything hot.
+2. **Listen** for a repeating click from the extruder, which means a jam.
+3. **Wi-Fi.** Look at the touchscreen's signal indicator and tell me what it shows (bars or "connected"). You don't need to reconnect it unless it says disconnected. If it does, reconnect from the network tab.
+
+It may be the Wi-Fi coverage at the balcony during the print. I've armed a watcher that tells me the moment the printer answers again, and I'll re-check its state then. If the drops keep happening, I'll note it for the Wi-Fi investigation in `TODO-agent.md` and check the K1 logs after the print.
+<!-- ------ -->
+---
+The printer reconnected at about 7:27, so that drop lasted about three minutes. The print is running normally.
+
+- **State:** `printing`, 5.2 min of print time, 0.4% done, Z at 0.22 mm, so the first layer is being laid down right now.
+- **Temperatures:** bed 60.2 of 60 °C and nozzle 226 of 225 °C, both on target.
+
+The Wi-Fi is dropping about every 5 minutes. Both drops have lasted 2–3 minutes, with the printer completely off the network. That makes the print unmonitored for a lot of the time, so the checks you do by eye matter more.
+
+- **If you haven't gone out yet,** go in the next few minutes, while the first layer is fresh. Check that the corners are flat, the lines continuous and the extruder isn't clicking. This is the check that decides whether the print survives.
+- **If you're already out there,** tell me what you see, and what the touchscreen's Wi-Fi indicator shows.
+
+I'll keep watching and tell you about each state change.
+<!-- ------ -->
+---
+Thanks, that's good news. The printer is still answering after your Wi-Fi reset, at 6.4 min with the bed at 59.9 °C and the nozzle at 226 °C, both on target.
+
+The first-layer check passes: filament is going down, no globs, and it's sticking. You can go back to the office. I'll tell you if anything changes.
+
+**Next check for you, about 9:15.** Go out for about a minute and look at the gantry from above. Check that it's still flat on the plate and not shifted or loose, and that there's no tangled filament or stringing. Listen for extruder clicking. I'll remind you then.
+
+Meanwhile I'm collecting data on the Wi-Fi drops (system info, signal level and the Moonraker log) for the dropout item in `TODO-agent.md`. I'll record when each one happens, so the pattern is clear: drops at 7:19 and 7:24, about 2–3 min each.
+<!-- ------ -->
+---
+The printer dropped off the network again at about 7:43, the third drop in 25 minutes. The drops last 2–3 minutes. I can't see the print while it's off the network, but the first layer was fine and the last answer before the drop showed a normal print. The printer carries on without Wi-Fi.
+
+You don't need to go out for this. Your first-layer check was good, and a short drop with the print continuing isn't an emergency. I'm logging every drop and reconnect with the time in a file, and I'll use it for the Wi-Fi investigation in `TODO-agent.md` after the print.
+
+I'll only ask you to go out for one of these:
+- The printer stays off the network for more than 10 minutes. I'll count from this drop.
+- An error or a pause appears when it comes back.
+- The 9:15 look, which stays on the plan.
+<!-- ------ -->
+---
+The monitor is re-armed. This time it reports a state change, an error, or the printer staying offline for more than 10 minutes. Short Wi-Fi drops no longer trigger a message, because I'm logging them separately.
+
+The 9:15 visual check stays on the plan.
+<!-- ------ -->
+---
+That event is just the monitor's first reading: the printer is back online, `printing`, bed 60 °C and nozzle 220 °C. The nozzle's 220 °C is the normal setting for the layers after the first, so the drop ended and the print is on track. Nothing needs you right now.
+<!-- ------ -->
+---
+The print is on track: 54.7 min in at 29.7%, which matches the 3 h 16 min estimate. The bed is at 60 °C, the nozzle at 221 °C, and the filament sensor sees filament.
+
+The Wi-Fi drops clustered between 7:19 and 7:50. After 7:44 there were seven short flaps within about 6 minutes, and I've seen none since 7:50. That is 27 minutes of stable connection. I've saved the timestamps for the dropout investigation.
+
+Nothing needs you right now. The visual check at about 9:15 stays as planned. At that time I'll tell you what to look for, then we'll choose the second job once the gantry finishes at about 10:45.
+<!-- ------ -->
+---
+That's the monitor's first reading after re-arming: `printing`, bed 60 °C, nozzle 220 °C, as expected. Nothing for you to do. I'll remind you about the 9:15 visual check when it's time.
+<!-- ------ -->
+---
+It's 8:47 and the print is going well: 84.8 min in, 54.7% by G-code position, bed 60 °C, nozzle 220 °C. The percentage runs ahead of the clock because it counts G-code lines, and the slow supports and detailed layers come later, so I'll keep going by elapsed time. The 3 h 16 min estimate puts the finish at about 10:45.
+
+There have been no Wi-Fi drops since 7:50, so the connection has been stable for about an hour. The monitor is re-armed.
+
+**About 9:15 (in roughly 28 minutes), go out for a minute:**
+- Look at the gantry from above: it should be flat on the plate, not shifted or loose, with no tangled filament or stringing.
+- Listen for repeated clicking from the extruder.
+- Tell me what you see. If anything looks wrong, say so before touching anything.
+<!-- ------ -->
+---
+It's 9:17, time for the visual check. The print is on track: 114.9 min in, 69.2% by G-code position, bed 60 °C and nozzle 220 °C. The Wi-Fi dropped once since 8:47, for 13 seconds at 8:52, and has been stable otherwise.
+
+**Please go out to the balcony for about a minute:**
+1. Look at the gantry from above. It should be flat on the plate, not shifted or loose, and should have no tangled filament or stringing.
+2. Listen for repeated clicking from the extruder.
+3. Tell me what you see. If anything looks wrong, say so before touching anything.
+
+About 1 h 20 min of printing remains, so it should finish around 10:45.
+<!-- ------ -->
+---
+Ready. The last two jobs fit before 13:45 with margin, and both G-code files already have the right headers: 220/225 °C nozzle, 60 °C bed, 3 walls, 30% infill, supports on, no prime tower.
+
+| Job | Print time | + 12 min start-up | Filament | Ends (estimate) |
+|---|---|---|---|---|
+| Gantry (running) | 3 h 16 min | | 70.4 g | about 10:40 |
+| Post nn, `balance_p0_post_nn` | 1 h 13 min | 1 h 25 min | 37.2 g | about 12:15 |
+| Strip guide, `balance_p4_strip_guide` | 36 min | 48 min | 14.0 g | about 13:15 |
+
+Those times assume you clear the plate by about 10:50 and again by about 12:25. That leaves roughly 30 min of margin before your 13:45 pull. The three posts (3 h 34 min) and the base (4 h 41 min) don't fit the afternoon, so they stay for another session. Both jobs use PLA from the same full black spool, which has about 930 g left after the gantry.
+
+**What I need from you at each handover:**
+1. When the gantry finishes (I'll tell you), let the bed cool until the part comes off easily, then remove it and wipe the plate. Don't touch the nozzle.
+2. Tell me when the plate is clear and say go. I send the next file only on your go.
+3. The same again for the strip guide at about 12:25.
+
+I still need your report from the 9:15 check: the gantry flat on the plate, no shift or tangled filament, and no clicking from the extruder.
+<!-- ------ -->
+---
+Good, thanks. The gantry is flat and the filament behaved normally. Your message was cut off after "weird filament behav", so tell me if it said anything beyond that, such as clicking you heard.
+
+The print is at 133.5 min and 73.2%, with the bed at 59 °C and the nozzle at 219 °C, so the 10:40 finish estimate holds. The monitor is still running. You don't need to go out again until I tell you it's finished.
+<!-- ------ -->
+---
+No, nothing pre-sliced fits. Also, the current print isn't done yet: it's 12:34 and the strip guide is at 26.4 of about 36 min, so it finishes around 12:45, not in 10 minutes.
+
+- **Time left:** if you pull it at about 12:50 and I start the next job at about 12:55 with the short start-up, there are about 50 min until 13:45.
+- **What's left to print:**
+  - **The three posts (`np`, `pn`, `pp`):** 73 min each on their own, which would end about 14:10. That's too long.
+  - **The base:** 4 h 41 min, far too long.
+  - **Everything else:** already printed.
+- **New small parts:** the calibration rider (a pair, small) and the hacksaw frame could fit in under an hour. They aren't designed or sliced yet, and the rider design depends on you confirming the physics correction in `procedures.md` B.1. I could design and slice one in about 30 min, but I'd want your explicit go on the design first.
+
+The simplest choice is to stop after the strip guide and keep the posts and base for another session. Do you want me to design the small parts for this afternoon, or stop here?
+<!-- ------ -->
+---
+Understood: the filament looked normal and you can't hear the extruder from the office. That's fine. Clicking only matters when it also shows up as thin or missing layers, and you'd see that on the part. So drop the listening check from now on. It does mean a partial jam wouldn't be caught until you look at the finished part.
+
+What I can still watch from the data is the filament sensor, a Klipper error or pause, temperatures, and the print stalling.
+
+Because of that, look closely at the gantry when you pull it. Check for gaps or thin layers in the walls and for rough or stringy patches. Tell me if you see any, since that would decide whether the posts are safe to print on this extruder. I'll tell you when it finishes, about 10:40.
+<!-- ------ -->
+---
+The knowledge base is updated. The gantry is still printing, at 135.5 min.
+
+- **`spurious-force-balance/docs/kb/printing_state.md`:**
+  - The 2026-11-11 schedule: gantry, then post nn, then the strip guide, with the 13:45 pull time.
+  - Which black spool is loaded.
+  - The load sequence that worked.
+  - The Wi-Fi drop timeline.
+  - What I can and can't observe.
+  - The monitor design.
+  - A note that G-code progress is by file position, not time.
+- **`kb/session_handoff.md`:** the top block now has today's state.
+- **`TODO-agent.md`:** the Wi-Fi dropout item now points to the log and notes that the print always survived.
+- **`wsl/docs/kb/apps/k1-moonraker.md`:**
+  - There is no camera.
+  - `G28` has to come before any move.
+  - The extrusion lands a strand on the plate corner.
+  - The Wi-Fi pattern.
+- **`wsl/docs/print-session-runbook.md`:**
+  - New step 7a: with no camera and the user away, give clock-time visual checks with exactly what to look for, and never audible ones.
+  - Keep the monitor armed.
+  - Expect Wi-Fi flaps in the first half hour.
+- **`lab/docs/inventory.md`:** the black spool correction from earlier.
+- **Memory:** a new note, `feedback_printer_observation_limits.md`, plus its index line. It records that the printer is on a closed balcony, there is no camera, and the user can't hear the extruder.
+
+The runbook file changed on disk between my read and my edit. I only inserted a block before section D and did not revert anything. Nothing is committed.
+<!-- ------ -->
+---
+It's 10:17 and the gantry is at 175.1 min of 196, 86.2% by G-code position, with the bed at 60 °C and the nozzle at 220 °C. There have been no Wi-Fi drops since 08:52, and the monitor is re-armed.
+
+About 21 minutes remain, so it should finish around 10:40. I'll tell you the moment it completes, and then you can let the bed cool, pull the gantry and wipe the plate. I'll prepare the post nn upload so it's ready on your go.
+<!-- ------ -->
+---
+While the bed cools, here is what to do when I tell you it's at 40 °C:
+
+1. Take the gantry off the plate. Press or flex the plate if it sticks.
+2. Look it over: gaps or thin layers in the walls, rough or stringy patches, warped corners. Tell me what you find, because it decides whether the posts are safe to print.
+3. Wipe the plate and remove any stray strands, especially at the rear-left corner.
+4. Tell me when the plate is clear and say go, and I'll upload `balance_p0_post_nn` (37.2 g, about 1 h 25 min with start-up).
+
+I'll write the gantry's result into the notes and the TODO files after you've inspected it.
+<!-- ------ -->
+---
+That monitor event is routine: `printing`, bed 50 °C, nozzle 80 °C, which is the print's start-up heating. Nothing needs you yet.
+
+I've updated task 1 on your list for the afternoon: the look at about 10:58, then the plate clear and your go for the strip guide at about 12:25.
+<!-- ------ -->
+---
+Good. The data agrees with that: 11.1 min in, bed 59 °C, nozzle 219 °C, no errors. That was the only check this print needs.
+
+Post nn should finish around 12:10. I'll tell you when it does, and then it's the same handover for the strip guide: let the bed cool to about 40 °C, pull the part, wipe the plate and say go. Nothing is needed from you until then.
+<!-- ------ -->
+---
+That matches. The WSL clock the printer schedule is based on read 11:02 when I checked, so every time I've given you (the 10:58 check, 12:10 finish, 13:45 pull) is on the correct clock. The only thing that was off was your computer's display.
+
+Nothing changes in the plan. Post nn finishes around 12:10, and the strip guide, about 48 min with start-up, runs after it and ends well before 13:45.
+<!-- ------ -->
+---
+The strip guide started at 12:07:46 and `print_stats` reads `printing`. It's 14 g and 36 min, so it should finish around 12:45, about an hour before your 13:45 pull.
+
+- **What I skipped:** the second precise home, the nozzle wipe and the bed levelling. The printer was unhomed after the idle timeout, so I did one plain home and kept the existing 5-point bed mesh, which was still active. That saved roughly 8–10 min.
+- **The risk:** the first layer may sit slightly off in height without the precise Z home and the nozzle wipe. At about 12:20, look at the strip guide from above.
+  - The first-layer lines should be continuous and flat on the plate, with no gaps or blobs.
+  - Tell me if the first layer looks too squished or too loose, and I'll pause it.
+- **After it finishes:** it will be the last print of the day. I'll tell you when it's done, and I'll update the notes then.
+<!-- ------ -->
+---
+The notes are updated. They now cover the post nn and strip guide results, the fast-start sequence (a single `G28` plus `PRINT_PREPARED`, which skips the repeated homing and levelling), and which plates remain: the three posts and the base.
+
+I also changed task 1 on your list to "pull the strip guide once the bed is about 40 °C, and wipe the plate". The printing session is over.
+
+If you want the small parts designed for later, say which: the calibration rider (it waits on your confirmation of the physics correction) or the hacksaw frame.
+<!-- ------ -->
+---
+Understood: the printer is available for later work, just not right now. I'll leave it idle and only touch it again when you ask.
+
+When you next want a session, tell me your window and I'll check the slices and which spool to load, as before. The remaining plates are the three posts (3 h 34 min) and the base (4 h 41 min), so they need a longer window than today's.
+<!-- ------ -->
+---
+That's the bed-cooling watcher I started after post nn finished. It fired on a delay and is now irrelevant, since you've already pulled the strip guide. It was a read-only temperature check and sent nothing to the printer.
+
+Nothing is pending on my side.
+<!-- ------ -->
+---

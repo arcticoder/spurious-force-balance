@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. **Printing session, morning of Wed 2026-11-11 (4 h, gantry):** follow [`print-session-runbook.md`](../../../sysadmin/wsl/docs/print-session-runbook.md) (in the wsl workspace) from the top. Plug the printer in and switch it on, keep the riser vents closed, and tell me the window; I check the sliced G-code before I submit it and tell you which spool to load.
+Nothing today: the 2026-11-11 printing session is finished. Remaining plates (three posts 3 h 34 min, base 4 h 41 min) wait for a longer window.
 
 ## Ready to build now — parts on hand
 
