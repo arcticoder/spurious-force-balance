@@ -37,12 +37,11 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the asse
 - [ ] Run `bringup_adc.py` and `bringup_sensors.py` on the board and record where the real chips differ from the fakes (the lists of unverified assumptions are in the KB); verify the LIS2DW12 register values against
       ST's data sheet first (the download was blocked).
 
-## Main board WP5 finish (state 2026-11-11 evening; waits on the running In2-plane route)
-- [ ] The route with the In2 3V3_D plane (`mainboard.py route 58`, started about 20:40 on 2026-11-11, log `layout/out/route_in2_b.log`; a 35-minute try wrote no SES) decides the rest. When it ends: if an SES was written, `import_ses` already ran `sync`, mounting holes, silk policy and both planes; run `mainboard.py drc`, `geometry`, `dfm`, record the numbers in `kb/main_board_layout_notes.md`. If no SES again: the board file is the fallback-routed state of 2026-11-10 (In1 GND plane only, In2 carries signals; a copy is in the scratchpad only), the In2 plane is dropped for this board size (say so in the notes and relax `inner_plane_missing` in `dfm` to In1 only, with the reason), and the closing steps below run on that state.
-- [ ] Closing steps on whichever state results: 3 unrouted connections, 3 clearance errors, the USB-C VBUS via touching the GND pad A1B12 (a real short: re-route or move the via), 3 courtyard overlaps around L4 (C49, R18, C3: nudge those parts and re-route locally), 2 dangling vias and 2 dangling tracks, 7 silk-over-copper, 3 silk-to-edge. The tools are in `mainboard.py` (`sync`, `holes`, `silk`, `fixacute`, `rules`, `drc`, `geometry`, `dfm`).
-- [ ] Acute joints: 17 Y-branches with 45 degrees between legs; `fix_acute` rewrites the 4 whose shorter leg is 0.72 mm or more, the other 13 have shorter legs. Waits on the user's choice (`TODO-arcticoder.md`, task 5).
-- [ ] Connector rotations: the library does not say which way each JST-SH or header faces; check them in JLC's placement preview with the WP7 precheck below (a user step), then fix in `place()`.
-- [ ] `jlc.3dshapes` does not exist, so WP6 renders show no part bodies; decided not to generate them (JLC's placement preview is the body check; WP6 reviews copper, silk and outline).
+## Main board WP5: closing steps superseded
+- [ ] The closing steps listed on 2026-11-11 (3 unrouted, 3 clearance, the USB-C VBUS via short, L4 courtyards, dangling vias and tracks) belonged to the force-directed placement and are superseded by the change of method in `TODO-agent.md` (`kb/main_board_assessment.md`); re-check each on the new layout.
+- [ ] Acute joints: the 45-degree Y-branch question (`TODO-arcticoder.md`, task 5) stands for the new layout too, but the count will change; ask again with the new numbers if the user has not answered.
+- [ ] Connector rotations: check in JLC's placement preview with the WP7 precheck below (a user step), then fix in the placement code.
+- [ ] `jlc.3dshapes` does not exist, so WP6 renders show no part bodies; decided not to generate them (JLC's placement preview is the body check).
 
 ## Main board (WP5-WP7), open work: layout now, not after A5
 - [ ] WP5 rules (user, 2026-11-09): layer count by need (2 simple, 4-6 with dedicated ground and power planes when noise needs them; this board is 4 with planes still to draw: In1 ground, In2 power, signals on F/B); 45-degree or rounded copper only, no acute angles (`mainboard.py geometry`: 0 off-grid segments, 7 acute joints in the first pass); end with `mainboard.py dfm` (DRC + shape gate) and JLC's own DFM/placement preview.

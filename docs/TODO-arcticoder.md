@@ -21,6 +21,8 @@ The 2026-11-11 session is finished. Left to print after this window: posts pn an
 
 5. [ ] **Decide on the 45-degree Y-branch joints on the main board.** Thirteen of the seventeen have a leg shorter than 0.7 mm and cannot be rewritten without new copper conflicts. Accept them as the one exception to the no-acute-angle rule (the empty wedge is 45 degrees and under 0.7 mm deep; JLC's etching handles that, and their DFM preview shows it), or require re-routes that may leave connections unrouted? My recommendation is to accept them.
 
+6. [ ] **Decide the main board's scope.** It is 164 parts across about ten blocks (MCU, 24-bit ADC, 24 V boost, plate driver, 0.3 A sink, LED sinks, motor drivers, sensors, USB). Keep one board (one assembly order) or split the boost, plate driver, device sink and motor drivers onto a second drive board (smaller, quieter measurement board; a second order and a cable). My recommendation is one board, laid out with the new block-by-block method first; split only if that still congests. Reasons in `docs/kb/main_board_assessment.md`.
+
 ## En route
 
 JLCPCB (read in the JLCONE app 2026-11-09; details in `lab/docs/kb/jlc_account_and_quotes.md`):

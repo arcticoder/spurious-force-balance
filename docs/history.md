@@ -2835,3 +2835,32 @@ Two more decisions need you.
 I didn't append to history.md this turn.
 <!-- ------ -->
 ---
+The board is slow mainly because of how I've been building it, and on top of that it's a big first board. I've written up the reasons and a plan; nothing was actioned. The In2-plane route from last turn is still running in the background. Whatever it produces, I won't keep patching that layout.
+
+**Why it's complicated**
+It is 164 parts in about ten blocks: RP2040, a 24-bit ADC, a 24 V boost, the plate driver, a 0.3 A power sink, LED sinks, motor drivers, sensors and USB, on 4 layers. A typical first board has 30–60 parts and one or two of those concerns. This one mixes a precision ADC with a switching boost, a power FET and USB.
+
+**Why it's slow (biggest cause first)**
+1. **Generic placement.** The script places parts with a generic force-based pass. It knows which pins connect, but not the data-sheet layouts or the analog/digital split. The unrouted connections, the USB-C short, the L4 courtyard overlaps and the 17 Y-branch joints all trace back to that placement. Everything since has been patching downstream.
+2. **Every connection goes through the autorouter in one run.** A run takes 9–60 minutes, and one that hits its time limit produces nothing at all. Tonight's 35-minute run was a total loss.
+3. **Two solid inner planes on 4 layers.** That leaves only two layers for about 100 signal nets. The usual 4-layer setup has one solid ground plane and uses the other inner layer for power pours plus slow signals.
+4. **Rebuilding KiCad's own features in Python.** KiCad's Python layout library crashes when run without the GUI, so planes, mounting holes, silkscreen, library sync and acute-joint repair each became new code with new bugs. I never looked into why it crashes.
+5. **Rules arrived one at a time.** Planes, DRC limits, mounting holes and the silkscreen policy were added after routing had started, so each one forced another full run. There was no layout spec up front.
+6. **Shared sessions.** Printing and ordering work runs in the same chats as the layout.
+
+**Plan** (now in [TODO-agent.md](docs/TODO-agent.md), reasoning in [main_board_assessment.md](docs/kb/main_board_assessment.md))
+- **A.** Spend about an hour finding why KiCad's Python library crashes without the GUI. If it can be made to work, KiCad's own export, zone filling and DRC replace most of the custom code.
+- **B.** Write a layout spec before any more routing: layer stack, rules, track widths per net type, keep-outs, mounting holes, connector edges and a floorplan.
+- **C.** Place by block instead: each block follows its data-sheet layout. The ADC and LED sinks go in a quiet quadrant over solid ground, and the boost, power sink and motor drivers go on the opposite edge.
+- **D.** Lay the critical connections in code and lock them: the USB pair, both crystals, the boost loop and the power trunks. Then autoroute the rest in short 5–10 minute runs, so a failure is cheap.
+- **E.** Use the second inner layer for 3.3 V pours with room for slow signals, not a solid plane.
+
+The old closing-step list in TODO-BLOCKED.md is marked superseded; each item gets re-checked on the new layout.
+
+**Decision for you**
+- **Scope (task 6):** keep one board, or move the boost, plate driver, power sink and motor drivers onto a second drive board. I recommend keeping one board, laying it out with steps A–E first, and splitting only if it's still congested.
+- **Y-branch joints (task 5):** still open, but the count will change on the new layout.
+
+TODO-agent.md now has 11 lines again: those are the plan's tasks for the next session.
+<!-- ------ -->
+---
