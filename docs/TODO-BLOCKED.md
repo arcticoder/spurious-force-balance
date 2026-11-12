@@ -37,20 +37,7 @@ These wait on the user's balance build (see `TODO-arcticoder.md`) or on the asse
 - [ ] Run `bringup_adc.py` and `bringup_sensors.py` on the board and record where the real chips differ from the fakes (the lists of unverified assumptions are in the KB); verify the LIS2DW12 register values against
       ST's data sheet first (the download was blocked).
 
-## Main board WP5: closing steps superseded
-- [ ] The closing steps listed on 2026-11-11 (3 unrouted, 3 clearance, the USB-C VBUS via short, L4 courtyards, dangling vias and tracks) belonged to the force-directed placement and are superseded by the change of method in `TODO-agent.md` (`kb/main_board_assessment.md`); re-check each on the new layout.
-- [ ] Acute joints: the user accepted 45-degree Y-branches (2026-11-12); `dfm` now reports them as advisory. On the 2026-11-10 board 4 two-segment 45-degree V turns remain blocking; re-check on the new layout.
-- [ ] Connector rotations: check in JLC's placement preview with the WP7 precheck below (a user step), then fix in the placement code.
-- [ ] `jlc.3dshapes` does not exist, so WP6 renders show no part bodies; decided not to generate them (JLC's placement preview is the body check).
+## Main board: layout done 2026-11-12, waits on the user's JLC steps
+- [ ] WP6/WP7 precheck in JLC's placement preview (user, when the main-board order is started): connector directions, LED polarity, crystal pin 1, ESD and SOT-23 rotations; fix any in `place()` or `fab()` and regenerate (`mainboard.py fab`). Files: `hardware/instrument/fab/` (`ORDER.md`). The order itself follows the one-order-per-day rule; the quote page is set up only when the user says the previous order is placed.
+- [ ] Board size against JLC's price tier (120 x 90 mm; the right-middle area is empty, so a 105 x 80 mm board is possible if the quote warrants a re-run of placement): the user's decision after the quote.
 
-## Main board (WP5-WP7), open work: layout now, not after A5
-- [ ] WP5 rules (user, 2026-11-09): layer count by need (2 simple, 4-6 with dedicated ground and power planes when noise needs them; this board is 4 with planes still to draw: In1 ground, In2 power, signals on F/B); 45-degree or rounded copper only, no acute angles (`mainboard.py geometry`: 0 off-grid segments, 7 acute joints in the first pass); end with `mainboard.py dfm` (DRC + shape gate) and JLC's own DFM/placement preview.
-- [ ] WP5 — Layout: RP2040 per the reference layout, ADC per its data sheet, analog/digital partition (the plate driver and LED sinks are the noisiest blocks), decoupling, USB pair, mounting holes and
-      connector positions from G2, silkscreen pin names; DRC clean against JLC's rules.
-- [ ] WP5 panel rule (Part M, 2026-10-27): Standard PCBA needs at least 70 x 70 mm with edge rails drawn in the design and has a stencil per order; the sensor and optical heads go on the main board's panel (panel by
-      customer, V-cut or mouse bites, rails), not as separate small boards; recompute the electronics parcel mass by JLC's rule (`tools/jlc_parcel_mass.py`: panel rectangle x thickness; the PCBA packaging options add weight).
-      H5 stands: the main board is probably over 70 x 70 mm anyway, so Standard costs the setup and stencil, not a layout constraint.
-- [ ] WP6 — Visual review from `kicad-cli pcb render` images and a written checklist.
-- [ ] WP7 precheck — in JLC's placement preview confirm the parts the schematic could not verify from a data sheet: KT-0603R LED polarity (footprint marks conflict), the ADC crystal C21900468's pad numbering (a stand-in symbol is used), USBLC6-2SC6 pin 1 position, the SM02B/SM04B mounting tabs (pins 3-4 and 5-6 are wired to GND), the TS-1187A pad pairs; and the VBPW34S/IR26-21C rotation (anode/cathode sides per the Vishay and Everlight drawings).
-- [ ] WP7 — Fabrication outputs in `hardware/instrument/fab/`: Gerbers + drill, BOM and CPL in JLC's format (rotations checked against JLC's placement preview), an order-settings README (Standard PCBA,
-      layers, thickness, finish, quantity minimums checked at the time); run `parts.py --live` first.

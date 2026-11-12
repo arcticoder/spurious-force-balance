@@ -7,7 +7,7 @@ Board: 120 x 90 mm, 4 layers, 1.6 mm (confirm at order), 164 parts, 111 nets. Th
 |---|---|
 | F.Cu | signals and parts |
 | In1.Cu | solid GND plane, nothing else (the router may place GND tracks here; the plane zone is poured after routing) |
-| In2.Cu | signals plus a 3V3_D pour that flows around other nets' tracks (poured after routing) |
+| In2.Cu | signals and the 3V3 rails as 0.2 mm tracks; NO pour (decided 2026-11-12: three pour variants failed; see `docs/kb/main_board_layout_notes.md`) |
 | B.Cu | signals |
 
 ## Rules (decided; see `kb/pcb_toolchain_notes.md`)
@@ -15,7 +15,7 @@ Track 0.2 mm default, clearance 0.15 mm, vias 0.6/0.3 mm (annular 0.15 mm, JLC's
 
 ## Net classes
 - Power trunks 0.4 mm: V5, VBUS, VBUS_F, V24, V24_RAW, V5_BOOST, BOOST_SW.
-- Rails 0.25 mm: 3V3_A, 3V3_AR, 3V3_D, DVDD_1V1 (3V3_D also poured on In2).
+- Rails 0.2 mm: 3V3_A, 3V3_AR, 3V3_D, DVDD_1V1 (0.25 mm left the RP2040's 0.4 mm-pitch pads unrouted).
 - Signals 0.2 mm; USB_DP/USB_DM (and _C) routed together, short, no stubs; both crystals (XIN/XOSC_OUT and ADC_XTAL1/2) short and inside their blocks.
 - GND: any layer; every GND pad gets a via to In1 near it.
 
@@ -39,3 +39,9 @@ Nothing from the boost, motor or device-sink blocks routed across the ADC block;
 
 ## Checks that must pass before fab outputs
 `mainboard.py dfm` (DRC, geometry, netlist parity, mounting holes), WP6 render review, WP7 placement-preview precheck (connector directions, LED and crystal pin 1, ESD pin 1) by the user.
+
+## Geometry decisions in `mainboard.py geometry` (2026-11-12)
+Off-grid segments under 5 um sideways are the router's 1 um grid. A joint inside a same-net pad is not reported (the pad's copper fills the wedge); neither is a joint with a leg under 0.09 mm. Y-branches with 45 degrees between legs are advisory (user). Two-segment V turns and hairpins block.
+
+## Result (2026-11-12)
+`mainboard.py dfm`: no blocking item; 415 of 415 connections routed; floorplan `docs/img/main_board_floorplan.jxl`, render `docs/img/main_board_render_top.jxl`; fab files in `../fab/`.

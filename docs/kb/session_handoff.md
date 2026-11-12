@@ -1,5 +1,7 @@
 # Session handoff — chat 13, 2026-11-11 (replace at each handoff; do not append)
 
+**Chat 13, end (2026-11-12 ~00:15):** main board layout finished to the DFM gate and fab files generated (`hardware/instrument/fab/`); TODO-agent.md is empty; what waits is in `TODO-BLOCKED.md` (printer-on checks, JLC app research, enclosure and Dremel decisions by the user, the main board's JLC preview precheck and price-tier decision). Read `kb/main_board_layout_notes.md` (last section) before touching the layout.
+
 **Chat 13, 2026-11-12 early:** one board (method A-E) and 45-degree Y-branches accepted by the user; printed-enclosure proposal and preview made, waiting on the user's yes/no (task 3); Dremel stand waits on the nose-thread measurement (task 4); OrcaSlicer crashed on deleting a two-instance object and was relaunched (project lost; see `kb/printing_state.md`).
 
 **Chat 13, last turn (2026-11-11, 21:30):** assessment of the slow main board written to `kb/main_board_assessment.md` (no action taken); plan A-E in `TODO-agent.md`, the scope decision is user task 6; the closing-step list in `TODO-BLOCKED.md` is superseded.

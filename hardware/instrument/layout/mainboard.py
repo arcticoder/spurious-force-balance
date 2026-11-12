@@ -34,7 +34,7 @@ DSN, SES = os.path.join(OUT, "main_board.dsn"), os.path.join(OUT, "main_board.se
 FR = os.path.expanduser("~/tools/freerouting/freerouting-2.5.0-linux-x64/bin/freerouting")
 POWER = re.compile(r"^(GND|V5|3V3_D|3V3_A|3V3_AR|VBUS|VBUS_F|V24|V24_RAW|V5_BOOST|DVDD_1V1)$")
 LAYERS = ["F.Cu", "In1.Cu", "In2.Cu", "B.Cu"]
-PLANE2_NET = "3V3_D"  # the In2.Cu power plane (the board's main digital rail); other rails are routed as wide tracks on F/B
+PLANE2_NET = None  # was "3V3_D" (an In2.Cu pour): dropped 2026-11-12, see kb/main_board_layout_notes.md; the In2.Cu power plane (the board's main digital rail); other rails are routed as wide tracks on F/B
 CLEAR, TRACK, VIA_D, VIA_H = 0.15, 0.2, 0.6, 0.3
 # decisions 2026-11-11 against JLC's 4-layer table (kb/pcb_toolchain_notes.md): the DRC track floor is 0.10 mm (JLC's limit is 0.09; the router's class width stays
 # 0.2 mm, so anything under 0.15 is a neck-down at a fine-pitch pad and is reported by `geometry`-style review, not blocked); annular ring stays at JLC's
@@ -42,6 +42,7 @@ CLEAR, TRACK, VIA_D, VIA_H = 0.15, 0.2, 0.6, 0.3
 # apply it to vias, where JLC allows 0.2 mm
 MIN_TRACK = 0.10
 PAD_HOLE_GAP = 0.45
+FANOUT_EXTRA = {"U3": 3.0, "U9": 2.4, "U8": 1.6}  # mm added to the body size in placement (both axes)
 
 
 def uid():
@@ -152,6 +153,13 @@ def place(W, H):
         for pad in fp.pads:
             xs += [pad.position.X - pad.size.X / 2, pad.position.X + pad.size.X / 2]
             ys += [pad.position.Y - pad.size.Y / 2, pad.position.Y + pad.size.Y / 2]
+        # the body is the larger of the pad box and the courtyard box (inductors and connectors have courtyards well beyond their pads)
+        cy = [(it.start.X, it.start.Y, it.end.X, it.end.Y) for it in fp.graphicItems if getattr(it, "layer", "") == "F.CrtYd" and hasattr(it, "start")]
+        if cy:
+            cxs = [v for a in cy for v in (a[0], a[2])]
+            cys = [v for a in cy for v in (a[1], a[3])]
+            xs += [min(cxs), max(cxs)]
+            ys += [min(cys), max(cys)]
         size[ref] = (max(xs) - min(xs), max(ys) - min(ys))
         fps[ref] = fp
     conn = {r: comps[r][1] for r in refs if comps[r][1].startswith(("CONN-", "USB-C", "HDR-"))}
@@ -208,6 +216,11 @@ def place(W, H):
     S = np.array([size[r] for r in refs], float)
     rotated = np.array([rot[r] in (90, 270) for r in refs])
     S = np.where(rotated[:, None], S[:, ::-1], S) + 0.8
+    # fan-out room: the fine-pitch ICs get extra keep-out so their neighbours leave a channel for tracks to leave every pad (the first block run left six
+    # connections on U3's pads unrouted because the decoupling parts boxed the package in)
+    for r_, extra in FANOUT_EXTRA.items():
+        if r_ in idx:
+            S[idx[r_]] += extra
     fx = np.array([r in fixed for r in refs])
     E = np.array([(idx[a], idx[b], w) for (a, b), w in edges.items()])
     ea, eb, ew = E[:, 0].astype(int), E[:, 1].astype(int), E[:, 2]
@@ -302,7 +315,7 @@ def sexp(tok):
     return cur
 
 
-def write_dsn():
+def write_dsn(keep_wiring=False):
     b = Board.from_file(PCB)
     u = 1000.0  # um per mm; DSN y points up, KiCad y down
     ids = {}
@@ -338,6 +351,8 @@ def write_dsn():
                     if pts:
                         px0, px1, py0, py1 = min(x for x, _ in pts) - sw / 2, max(x for x, _ in pts) + sw / 2, min(y for _, y in pts) - sw / 2, max(y for _, y in pts) + sw / 2
                         w, h, cx_off, cy_off = px1 - px0, py1 - py0, (px0 + px1) / 2, (py0 + py1) / 2
+                if pad.type == "np_thru_hole":
+                    w = h = max(w, h) + 2 * (0.25 - CLEAR)   # KiCad's hole-clearance rule is 0.25 mm: give the router a keep-out that big around the hole
                 tht = pad.type in ("thru_hole", "np_thru_hole")
                 key = (round(w, 3), round(h, 3), tht, pad.shape)
                 if key not in padstacks:
@@ -383,18 +398,30 @@ def write_dsn():
     via = '(use_via "Via[0-3]_600:300_um")'
     # variant tried 2026-11-12: signals on F/B only, so In2 stays a power layer (the 3V3 rails and GND use it); with signals allowed on In2 the pour is cut into
     # islands that the vias cannot reach (47 unconnected, 40 of them 3V3_D)
-    for cls, members, width, layers in (("signals", sig, TRACK, "F.Cu B.Cu"), ("trunks", trunks, 0.4, "F.Cu B.Cu"), ("rails", rails, 0.25, "F.Cu In2.Cu B.Cu")):
+    sl = "F.Cu In2.Cu B.Cu" if PLANE2_NET is None else "F.Cu B.Cu"
+    for cls, members, width, layers in (("signals", sig, TRACK, sl), ("trunks", trunks, 0.4, sl), ("rails", rails, TRACK, "F.Cu In2.Cu B.Cu")):
         out.append(f'    (class {cls} ' + " ".join(f'"{n}"' for n in members) +
                    f'\n      (circuit {via} (use_layer {layers}))\n      (rule (width {width*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append(f'    (class ground "GND"\n      (circuit {via})\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append("  )")
-    out.append("  (wiring)\n)")
+    if keep_wiring:
+        # existing tracks and vias go in as routed (not protected) wires so Freerouting continues from them and only completes what is missing
+        names = {n.number: n.name for n in b.nets}
+        out.append("  (wiring")
+        for t in b.traceItems:
+            if isinstance(t, Segment) and t.net in names and names[t.net]:
+                out.append(f'    (wire (path {t.layer} {t.width*u:.0f} {t.start.X*u:.0f} {-t.start.Y*u:.0f} {t.end.X*u:.0f} {-t.end.Y*u:.0f}) (net "{names[t.net]}") (type route))')
+            elif isinstance(t, Via) and t.net in names and names[t.net]:
+                out.append(f'    (via "Via[0-3]_600:300_um" {t.position.X*u:.0f} {-t.position.Y*u:.0f} (net "{names[t.net]}") (type route))')
+        out.append("  )\n)")
+    else:
+        out.append("  (wiring)\n)")
     open(DSN, "w").write("\n".join(out) + "\n")
     print("wrote", DSN, f"({len(images)} images, {len(padstacks)} padstacks, {len(nets)} nets)")
 
 
-def route(minutes=8):
-    write_dsn()
+def route(minutes=8, keep_wiring=False):
+    write_dsn(keep_wiring)
     if os.path.exists(SES):
         os.remove(SES)
     cmd = [FR, "-de", DSN, "-do", SES, "-mp", "40"]
@@ -616,6 +643,67 @@ def stitch_pour(b, net=None, reach=1.2):
     return added
 
 
+FAB = os.path.join(HERE, "..", "fab")
+
+
+def fab():
+    """WP7 outputs in ../fab/: Gerbers + drill (zip), BOM and CPL in JLC's column format, and a netlist-parity/DFM stamp. Rotations in the CPL are KiCad's; JLC's
+    placement preview must confirm the polarised and rotated parts (connectors, LEDs, crystals, USB-C, ESD, diodes): that is the user's pre-order step."""
+    import csv
+    import shutil
+    import zipfile
+    os.makedirs(FAB, exist_ok=True)
+    g = os.path.join(FAB, "gerbers")
+    shutil.rmtree(g, ignore_errors=True)
+    os.makedirs(g)
+    # kicad-cli plots the stored zone fills, and kiutils writes none: fill the planes with pcbnew (it works under the system Python 3.14, not in the venv; see
+    # kb/pcb_toolchain_notes.md) into a copy, and plot that copy
+    os.makedirs(os.path.join(OUT, "filled"), exist_ok=True)
+    filled = os.path.join(OUT, "filled", "main_board.kicad_pcb")
+    subprocess.run(["/usr/bin/python3", "-c", f"import pcbnew; b = pcbnew.LoadBoard({PCB!r}); pcbnew.ZONE_FILLER(b).Fill(b.Zones()); pcbnew.SaveBoard({filled!r}, b)"],
+                   check=True, capture_output=True)
+    pcb_src = filled
+    subprocess.run(["kicad-cli", "pcb", "export", "gerbers", "--output", g + "/", "--layers", "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Mask,B.Mask,F.SilkS,B.SilkS,F.Paste,Edge.Cuts", pcb_src], check=True, capture_output=True)
+    subprocess.run(["kicad-cli", "pcb", "export", "drill", "--output", g + "/", "--format", "excellon", "--drill-origin", "absolute", "--excellon-separate-th", pcb_src], check=True, capture_output=True)
+    with zipfile.ZipFile(os.path.join(FAB, "main_board_gerbers.zip"), "w", zipfile.ZIP_DEFLATED) as z:
+        for f in sorted(os.listdir(g)):
+            z.write(os.path.join(g, f), f)
+    # BOM: LCSC numbers come from the netlist's fields
+    t = open(NET).read()
+    lcsc, value, foot = {}, {}, {}
+    for m_ in re.finditer(r'\(comp\s+\(ref "([^"]+)"\)\s+\(value "([^"]*)"\)\s+\(description "[^"]*"\)\s+\(footprint "([^"]*)"\)\s+\(fields(.*?)\)\s*\(libsource', t, re.S):
+        ref, val, fp, fields = m_.groups()
+        mm = re.search(r'\(name "LCSC"\)\s+"([^"]*)"', fields)
+        if fp and mm:
+            lcsc[ref], value[ref], foot[ref] = mm.group(1), val, fp.split(":")[-1]
+    rows = defaultdict(list)
+    for r in sorted(lcsc, key=lambda r: (re.match(r"[A-Z]+", r).group(0), int(re.sub(r"\D", "", r) or 0))):
+        if lcsc[r] not in ("", "C0"):
+            rows[(lcsc[r], value[r], foot[r])].append(r)
+    with open(os.path.join(FAB, "bom.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["Comment", "Designator", "Footprint", "LCSC Part #"])
+        for (l_, v_, f_), des in sorted(rows.items(), key=lambda kv: kv[1][0]):
+            w.writerow([v_, ",".join(des), f_, l_])
+    missing = sorted(r for r in lcsc if lcsc[r] in ("", "C0") and not r.startswith(("#", "MH")))
+    pos = os.path.join(FAB, "pos.csv")
+    subprocess.run(["kicad-cli", "pcb", "export", "pos", "--output", pos, "--format", "csv", "--units", "mm", "--side", "front", "--exclude-fp-th" if False else "--smd-only", PCB], check=True, capture_output=True)
+    n_cpl = 0
+    with open(pos) as fi, open(os.path.join(FAB, "cpl.csv"), "w", newline="") as fo:
+        rd = csv.DictReader(fi)
+        w = csv.writer(fo)
+        w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
+        for row in rd:
+            if row["Ref"].startswith("MH"):
+                continue
+            w.writerow([row["Ref"], row["PosX"], row["PosY"], "Top", row["Rot"]])
+            n_cpl += 1
+    os.remove(pos)
+    parts = sum(len(d) for d in rows.values())
+    print(f"fab: {parts} BOM parts in {len(rows)} lines, {n_cpl} CPL rows, gerbers in {FAB}; parts without an LCSC number: {missing}")
+    return missing
+
+
 def write_rules():
     """Custom DRC rules next to the board (KiCad reads main_board.kicad_dru): pad-to-pad hole spacing per JLC's 0.45 mm."""
     open(os.path.join(OUT, "main_board.kicad_dru"), "w").write(
@@ -687,7 +775,6 @@ def import_ses():
     sync_library_fields(b)
     add_mounting_holes(b)
     clean_silk(b)
-    stitch_pour(b)
     add_planes(b)
     b.to_file(PCB)
     print(f"imported {nseg} segments and {nvia} vias")
@@ -719,6 +806,7 @@ def geometry(verbose=False, pcb=None):
     segs = [t for t in b.traceItems if isinstance(t, Segment)]
     off45, acute = [], []
     ends = defaultdict(list)
+    ends_len = defaultdict(list)
     for s in segs:
         dx, dy = s.end.X - s.start.X, s.end.Y - s.start.Y
         L = math.hypot(dx, dy)
@@ -726,10 +814,11 @@ def geometry(verbose=False, pcb=None):
             continue
         ang = math.degrees(math.atan2(dy, dx)) % 45
         dev = min(ang, 45 - ang)
-        if dev > 0.5:
+        if dev > 0.5 and L * math.sin(math.radians(dev)) > 0.005:   # under 5 um sideways is the router's 1 um grid, not a bend
             off45.append((s.net, s.layer, round(s.start.X, 3), round(s.start.Y, 3), round(L, 3), round(dev, 1)))
         for p, q in ((s.start, s.end), (s.end, s.start)):
             ends[(s.layer, s.net, round(p.X, 3), round(p.Y, 3))].append(math.degrees(math.atan2(q.Y - p.Y, q.X - p.X)))
+            ends_len[(s.layer, s.net, round(p.X, 3), round(p.Y, 3))].append(L)
     for k, dirs in ends.items():
         for i in range(len(dirs)):
             for j in range(i + 1, len(dirs)):
@@ -764,6 +853,21 @@ def geometry(verbose=False, pcb=None):
     n_arcs = sum(1 for t in b.traceItems if type(t).__name__ == "Arc")
     if n_arcs:
         print(f"{n_arcs} arc tracks (rounded bends, not judged)")
+    # decision 2026-11-12: a joint whose point lies inside a same-net pad is not an acid trap (the pad's copper fills the wedge), so it is not reported
+    pads_by_net = defaultdict(list)
+    for fp_ in b.footprints:
+        a_ = math.radians(fp_.position.angle or 0)
+        c_, s_ = math.cos(a_), math.sin(a_)
+        for pad_ in fp_.pads:
+            if pad_.net and pad_.net.number:
+                px_ = fp_.position.X + pad_.position.X * c_ + pad_.position.Y * s_
+                py_ = fp_.position.Y - pad_.position.X * s_ + pad_.position.Y * c_
+                pads_by_net[pad_.net.number].append((px_, py_, max(pad_.size.X, pad_.size.Y) / 2))
+    def in_pad(net, x, y):
+        return any(math.hypot(x - qx, y - qy) <= qr for qx, qy, qr in pads_by_net.get(net, []))
+    # a leg under 0.09 mm (JLC's minimum feature) is router noise, not a wedge the etch can resolve
+    acute = [a for a in acute if not in_pad(a[0][1], a[0][2], a[0][3]) and min(ends_len.get(a[0], [1.0])) >= 0.09]
+    off45 = [o for o in off45 if not in_pad(o[0], o[2], o[3])]
     print(f"segments {len(segs)} | off the 45-degree grid {len(off45)} | acute joints (<90 deg) {len(acute)}")
     if verbose:
         for x in off45[:40]: print("off45", x)
@@ -854,7 +958,7 @@ def dfm():
         blocking["courtyards_overlap"] = kinds["courtyards_overlap"]
     b = Board.from_file(PCB)
     zone_layers = {l for z in b.zones for l in (z.layers or [])}
-    missing = [l for l in ("In1.Cu", "In2.Cu") if l not in zone_layers]
+    missing = [l for l in (("In1.Cu", "In2.Cu") if PLANE2_NET else ("In1.Cu",)) if l not in zone_layers]
     if missing:
         blocking["inner_plane_missing"] = len(missing)
     parity = netlist_parity(b)
@@ -882,6 +986,8 @@ if __name__ == "__main__":
         place(float(sys.argv[2]) if len(sys.argv) > 2 else 100.0, float(sys.argv[3]) if len(sys.argv) > 3 else 80.0)
     elif cmd == "route":
         route(float(sys.argv[2]) if len(sys.argv) > 2 else 8)
+    elif cmd == "route2":   # continue from the tracks already on the board
+        route(float(sys.argv[2]) if len(sys.argv) > 2 else 8, keep_wiring=True)
     elif cmd == "fixacute":
         bb = Board.from_file(PCB)
         fix_acute(bb)
@@ -895,6 +1001,8 @@ if __name__ == "__main__":
         bb = Board.from_file(PCB)
         clean_silk(bb)
         bb.to_file(PCB)
+    elif cmd == "fab":
+        fab()
     elif cmd == "holes":
         bb = Board.from_file(PCB)
         add_mounting_holes(bb)

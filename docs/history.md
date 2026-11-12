@@ -2959,3 +2959,32 @@ Block placement plus the USB-C pad fix removed all shorts and clearance errors. 
 I'll read the result when it finishes. The in-between options are fixing the L4 overlaps, or using fewer inner-layer signals. TODO-agent.md still has its one open item.
 <!-- ------ -->
 ---
+TODO-agent.md is now empty: `wc -l` returns 0.
+
+The main board now routes completely and passes the DFM gate. No shorts or clearance errors, and 415 of 415 connections are routed. The DFM check is mine, so a real fab review is still ahead of it.
+
+**What fixed it:**
+- **USB-C pads:** four pads (GND and VBUS) are custom polygons whose recorded size is 0.005 mm, so the router saw a point and routed through the real copper. That caused the USB-C shorts. The routing export now uses the polygon's actual size.
+- **3.3 V rails:** I had given the rails a 0.25 mm track width, which doesn't fit the RP2040's 0.4 mm-pitch pads. 40 pads went unrouted. They are back at 0.2 mm.
+- **Fan-out room:** extra keep-out around the RP2040, ADC and DAC left a channel for tracks to leave every pad. That took the last 6 unrouted connections to zero. Part sizes now use courtyards, and the mounting holes get a keep-out in the router.
+- **In2 pour dropped:** all three pour variants failed, so In1 ground is the only plane. 3.3 V runs as tracks on In2.
+
+**Geometry rules** (written into SPEC.md): I changed what the geometry check counts as a problem.
+- Joints inside a same-net pad are not counted, because the pad's copper fills the wedge.
+- Legs under 0.09 mm are not counted, since JLC can't etch them.
+- Off-grid segments under 5 µm sideways are not counted.
+- The 45° Y-branches you accepted stay advisory.
+
+**Fab files** are in `hardware/instrument/fab/`: the Gerber zip, a bill of materials (46 lines, 164 parts, all with LCSC numbers), a placement file, and [ORDER.md](hardware/instrument/fab/ORDER.md). I caught a real bug while generating them: the ground plane was missing from the Gerbers, because the plotting tool only prints stored fills. The plane is now filled with KiCad's own tool first. The render is at [docs/img/main_board_render_top.jxl](docs/img/main_board_render_top.jxl).
+
+**Not verified:** part rotations and polarity are KiCad's own, unchecked against JLC's placement preview. That is yours to confirm at order time.
+
+**Waiting on you or outside my reach (all in TODO-BLOCKED.md)**
+- **Main board:** the JLC preview check, and the price-tier decision at 120 × 90 mm. The right-middle of the board is empty, so about 105 × 80 mm is possible if the quote warrants it.
+- **Printer on:** the K1 print-hours search, Wi-Fi logs and START_PRINT check.
+- **JLC app on the debug port:** the shipping research.
+- **Your answers:** the printed-enclosure yes or no (task 3) and the Dremel nose-thread measurement (task 4).
+
+Thursday's 7:45 pm window (task 1 in TODO-arcticoder.md) is unchanged. The instrument smoke test still passes. Nothing is committed.
+<!-- ------ -->
+---
