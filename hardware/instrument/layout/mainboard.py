@@ -381,9 +381,11 @@ def write_dsn():
     rails = [n for n in sorted(nets) if n in ("3V3_A", "3V3_AR", "3V3_D", "DVDD_1V1")]
     sig = [n for n in sorted(nets) if n != "GND" and n not in trunks and n not in rails]
     via = '(use_via "Via[0-3]_600:300_um")'
-    for cls, members, width in (("signals", sig, TRACK), ("trunks", trunks, 0.4), ("rails", rails, 0.25)):
+    # variant tried 2026-11-12: signals on F/B only, so In2 stays a power layer (the 3V3 rails and GND use it); with signals allowed on In2 the pour is cut into
+    # islands that the vias cannot reach (47 unconnected, 40 of them 3V3_D)
+    for cls, members, width, layers in (("signals", sig, TRACK, "F.Cu B.Cu"), ("trunks", trunks, 0.4, "F.Cu B.Cu"), ("rails", rails, 0.25, "F.Cu In2.Cu B.Cu")):
         out.append(f'    (class {cls} ' + " ".join(f'"{n}"' for n in members) +
-                   f'\n      (circuit {via} (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {width*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+                   f'\n      (circuit {via} (use_layer {layers}))\n      (rule (width {width*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append(f'    (class ground "GND"\n      (circuit {via})\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append("  )")
     out.append("  (wiring)\n)")
@@ -554,6 +556,66 @@ def fix_acute(b, stub=0.3, verbose=True):
     return done
 
 
+def stitch_pour(b, net=None, reach=1.2):
+    """Connect every pad of the In2 pour's net to the pour: Freerouting treats the rail as routed once its tracks connect, but the pour on In2 is only reached
+    through vias, so each F.Cu pad of the net without a via of that net within `reach` mm (measured along its own tracks is not checked) gets a via beside it
+    on a 0.2 mm stub. The spot is the first of 16 directions x 5 distances that keeps 0.15 mm clearance from every other net's pads, tracks and vias."""
+    net = net or PLANE2_NET
+    code = {n.name: n.number for n in b.nets}.get(net)
+    if code is None:
+        return 0
+    segs = [t for t in b.traceItems if isinstance(t, Segment)]
+    vias = [t for t in b.traceItems if isinstance(t, Via)]
+    mine = [(v.position.X, v.position.Y) for v in vias if v.net == code]
+    pads = []
+    for fp in b.footprints:
+        a = math.radians(fp.position.angle or 0)
+        c, s_ = math.cos(a), math.sin(a)
+        for pad in fp.pads:
+            px = fp.position.X + pad.position.X * c + pad.position.Y * s_
+            py = fp.position.Y - pad.position.X * s_ + pad.position.Y * c
+            pads.append((px, py, max(pad.size.X, pad.size.Y) / 2, pad.net.number if pad.net else 0, pad.type, pad.layers))
+    def ok(x, y, r=None, wid=None):
+        r = r or VIA_D / 2 + CLEAR
+        for t in segs:
+            if t.net != code and _seg_dist(x, y, t.start.X, t.start.Y, t.end.X, t.end.Y) < r + t.width / 2:
+                return False
+        for v in vias:
+            if v.net != code and math.hypot(x - v.position.X, y - v.position.Y) < r + v.size / 2:
+                return False
+        for qx, qy, qr, qn, qt, ql in pads:
+            if qn != code and math.hypot(x - qx, y - qy) < r + qr:
+                return False
+        ex = [g for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+        return min(g.start.X for g in ex) + 0.6 < x < max(g.end.X for g in ex) - 0.6 and min(g.start.Y for g in ex) + 0.6 < y < max(g.end.Y for g in ex) - 0.6
+    added = skipped = 0
+    for px, py, pr, pn, pt, pl in pads:
+        if pn != code or pt != "smd":
+            continue
+        if any(math.hypot(px - vx, py - vy) < reach for vx, vy in mine):
+            continue
+        done = False
+        for dist in (pr + 0.5, pr + 0.7, pr + 0.9, pr + 1.2, pr + 1.6):
+            for k in range(8):                                    # 45-degree grid only
+                ang = 2 * math.pi * k / 8
+                x, y = px + dist * math.cos(ang), py + dist * math.sin(ang)
+                # the stub itself (0.25 mm wide, F.Cu) must also clear other nets' copper all along its length
+                along = all(ok(px + (x - px) * f / 10, py + (y - py) * f / 10, r=0.125 + CLEAR) for f in range(1, 11))
+                if along and ok(x, y):
+                    b.traceItems.append(Via(position=Position(X=round(x, 3), Y=round(y, 3)), size=VIA_D, drill=VIA_H, layers=["F.Cu", "B.Cu"], net=code, tstamp=uid()))
+                    b.traceItems.append(Segment(start=Position(X=px, Y=py), end=Position(X=round(x, 3), Y=round(y, 3)), width=0.25, layer="F.Cu", net=code, tstamp=uid()))
+                    mine.append((x, y))
+                    added += 1
+                    done = True
+                    break
+            if done:
+                break
+        if not done:
+            skipped += 1
+    print(f"stitch_pour {net}: {added} vias added, {skipped} pads with no free spot")
+    return added
+
+
 def write_rules():
     """Custom DRC rules next to the board (KiCad reads main_board.kicad_dru): pad-to-pad hole spacing per JLC's 0.45 mm."""
     open(os.path.join(OUT, "main_board.kicad_dru"), "w").write(
@@ -625,6 +687,7 @@ def import_ses():
     sync_library_fields(b)
     add_mounting_holes(b)
     clean_silk(b)
+    stitch_pour(b)
     add_planes(b)
     b.to_file(PCB)
     print(f"imported {nseg} segments and {nvia} vias")
@@ -822,6 +885,11 @@ if __name__ == "__main__":
     elif cmd == "fixacute":
         bb = Board.from_file(PCB)
         fix_acute(bb)
+        bb.to_file(PCB)
+    elif cmd == "stitch":
+        bb = Board.from_file(PCB)
+        stitch_pour(bb)
+        add_planes(bb)
         bb.to_file(PCB)
     elif cmd == "silk":
         bb = Board.from_file(PCB)

@@ -2948,3 +2948,14 @@ The second block-layout route crashed on my own bug, so it left the board unrout
 **Now running:** a 14-minute route, then the DFM check, in the background. I'll read the numbers when it finishes and fix what shows up: the L4 courtyard overlaps and any leftover unconnected pads, then the render review.
 <!-- ------ -->
 ---
+Block placement plus the USB-C pad fix removed all shorts and clearance errors. The 3.3 V pour on In2 now fails, and I've launched one more variant while that settles.
+
+**Second block-layout route:** 0 shorts and 0 clearance errors (down from 5 and 8). That fix worked. What's left is 47 unconnected pads, 40 of them on the 3.3 V digital rail, plus 6 dangling vias and the 2 L4 courtyard overlaps.
+
+**The pour problem:** allowing signals on In2 cuts the 3.3 V pour into islands that the vias can't reach. I tried to bridge this with via stitching and it made things worse: 36 dangling vias and 12 shorts. I reverted that board. The version that stayed under the DRC limits is the one with 15 stitched vias, which still leaves 47 unconnected.
+
+**Now running:** signals on the top and bottom layers only, with In2 reserved for the 3.3 V rails and ground. This is what failed to finish in 35 minutes on the old placement. The new placement may make it fast. The run has a 25-minute limit and is followed by the DFM check.
+
+I'll read the result when it finishes. The in-between options are fixing the L4 overlaps, or using fewer inner-layer signals. TODO-agent.md still has its one open item.
+<!-- ------ -->
+---
