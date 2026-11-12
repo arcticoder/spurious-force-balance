@@ -113,7 +113,7 @@
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
-        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (lib "${KIPRJMOD}/../../lib/jlc.kicad_sym")
         (part "CC0603KRX7R9BB104"))
       (sheetpath
         (names "/")
@@ -141,7 +141,7 @@
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
-        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (lib "${KIPRJMOD}/../../lib/jlc.kicad_sym")
         (part "SM04B-SRSS-TB"))
       (sheetpath
         (names "/")
@@ -169,7 +169,7 @@
         (field
           (name "SKiDL Line") "main_board.py:52"))
       (libsource
-        (lib "/home/echo_/Code/python/spurious-force-balance/hardware/instrument/schematic/../lib/jlc.kicad_sym")
+        (lib "${KIPRJMOD}/../../lib/jlc.kicad_sym")
         (part "TMP117AIDRVR"))
       (sheetpath
         (names "/")

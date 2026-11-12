@@ -49,10 +49,12 @@ errs = collections.Counter(v["type"] for v in drc.get("violations", []) if v["se
 check("DRC: no unconnected nets", not drc.get("unconnected_items"), "%d unconnected" % len(drc.get("unconnected_items", [])))
 check("DRC: the only errors are the intentional open board outlines at the tabs (no clearance, short or hole errors)", set(errs) <= {"invalid_outline"}, str(dict(errs)))
 
-import pcbnew  # noqa: E402
+# pcbnew.LoadBoard segfaults headless on KiCad 9.0.9 (kb/main_board_layout_notes.md), so the outline's bounding box comes from kiutils
+from kiutils.board import Board  # noqa: E402
 
-bb = pcbnew.LoadBoard(os.path.join(OUT, "heads_panel.kicad_pcb")).GetBoardEdgesBoundingBox()
-w, h = pcbnew.ToMM(bb.GetWidth()), pcbnew.ToMM(bb.GetHeight())
+_edge = [g for g in Board.from_file(os.path.join(OUT, "heads_panel.kicad_pcb")).graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+_pts = [(p_.X, p_.Y) for g in _edge for p_ in (g.start, g.end)] + [(g.mid.X, g.mid.Y) for g in _edge if hasattr(g, "mid")]
+w, h = max(x for x, _ in _pts) - min(x for x, _ in _pts), max(y for _, y in _pts) - min(y for _, y in _pts)
 check("the panel is at least 70 x 70 mm (Standard PCBA minimum) and inside the cheap-parcel mass budget (5 panels at 1.6 mm under 100 g)", w >= 70 and h >= 70 and w * h * 1.6 * 1.85e-3 * 5 < 100, "%.0f x %.0f mm, %.0f g" % (w, h, w * h * 1.6 * 1.85e-3 * 5))
 
 cpl = list(csv.DictReader(open(os.path.join(OUT, "cpl.csv"))))

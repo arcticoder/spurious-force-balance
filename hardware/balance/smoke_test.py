@@ -151,6 +151,13 @@ else:
     check("functional — the strip guide's slot is exactly the strip width from the shim's fence", abs((fx_slot - 2.0) - P.STRIP_WIDTH * 1e3) < 1e-6, f"{fx_slot - 2.0:.2f} mm against {P.STRIP_WIDTH*1e3:.2f} mm")
     gg = fx["fixture_gap_gauge"].val().BoundingBox()
     check("functional — the gap gauge is exactly the electrode gap thick", abs(gg.ylen - P.PLATE_GAP * 1e3) < 1e-6, f"{gg.ylen:.2f} mm against {P.PLATE_GAP*1e3:.2f} mm")
+    rd = fx["fixture_cal_rider"].val()
+    rb = rd.BoundingBox()
+    rider_g = rd.Volume() * 1e-3 * 1.24 * 0.5  # cm3 x PLA density x about 50 % effective fill (walls plus infill)
+    check("functional — the calibration rider's slot takes the 1.2 mm arm board with at least 0.1 mm of slack and clamps (crush ribs) within 0.1 mm of it", P.BOARD_T * 1e3 + 0.1 <= FX.CAL_SLOT <= P.BOARD_T * 1e3 + 0.35, f"slot {FX.CAL_SLOT:.2f} mm for a {P.BOARD_T*1e3:.2f} mm board")
+    check("functional — the rider is light (under 4 g, two of them ride on the arm and add inertia in both period runs) and its seat takes the 1 g weight", rider_g < 4.0 and FX.CAL_WEIGHT_D <= 12.0, f"about {rider_g:.1f} g each; seat {FX.CAL_WEIGHT_D:.0f} mm")
+    r_max = B.L - 8.0 - rb.xlen / 2
+    check("functional — the riders reach 100 mm radius only at the arm's tip, so the calibration uses radii up to the largest that fits clear of the strip clamps and the arm end", r_max >= 80.0, f"largest centre radius {r_max:.0f} mm on a {B.L:.0f} mm half-arm")
     over = [n for n, s_ in fx.items() if max(s_.val().BoundingBox().xlen, s_.val().BoundingBox().ylen) > P.PRINT_VOLUME[0] * 1e3]
     check("functional — the printed jigs fit the printer", not over, f"{len(fx)} jigs")
     wi_half = P.ENCL_INNER[0] * 1e3 / 2

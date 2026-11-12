@@ -2797,3 +2797,41 @@ I've re-sliced the posts, parsed the photo, converted it, and answered the cost 
 I also saved a memory note to stop appending to history.md.
 <!-- ------ -->
 ---
+`wc -l` on TODO-agent.md now returns 0, but main-board WP5 isn't finished. A 58-minute route to try an In2 power plane is running in the background (started about 21:00, log in `layout/out/route_in2_b.log`). I moved the WP5 items to TODO-BLOCKED.md under that run. They resume when it ends. An earlier 35-minute try wrote no result.
+
+If this run also fails, the board stays on the 2026-11-10 routing (ground plane only). I would then drop the In2 plane for this board and say so in the notes. A copy of that board is in the scratchpad.
+
+I also caused and fixed a bug: my silk title text broke the route writer, so the first 58-minute launch died at once. It's fixed and relaunched. Nothing is committed.
+
+**Still on the main board, in TODO-BLOCKED.md**
+- 3 unrouted connections.
+- 3 clearance errors.
+- A real short: the USB-C VBUS via touches a GND pad.
+- 3 courtyard overlaps around L4.
+- 2 dangling vias and 2 dangling tracks.
+- The connector-direction check in JLC's placement preview, which is a step for you.
+
+**Your items (item 2)**
+- **Thursday window:** 7:45 pm, 75 minutes, is task 1 in TODO-arcticoder.md with the runbook named. The file is `balance_p1a_post_np_bars_np_pn.gcode`: post np, its bar and the pn bar, no supports, 54 minutes and 43 g, about 60 minutes with start-up.
+- **Dremel (item 3):** yes, show me the Dremel model and the cutoff wheel diameter and thickness (task 4). A wheel up to about 1.2 mm thick fits the saw guide's 1.4 mm slot.
+- **Bar photo (item 4):** I read the three long bars as post nn's L and its bar, and the photo shows the bar was printed. Tell me if I misread it.
+- **Grok's answer (item 5):** it matches what I had; I recorded the confirmation.
+- **Second weight (item 6):** staged for the next AliExpress order.
+
+Two more decisions need you.
+- **Enclosure walls (task 3):** keep the six acrylic sheets (about C$49), or print wall frames with small windows. I recommend the acrylic; printed walls are an estimated 16 hours of printing.
+- **Y-branch joints (task 5):** accept the 13 of 17 45° Y-branch joints that have a leg under 0.7 mm, or re-route them. I recommend accepting; re-routing may leave connections unrouted.
+
+**Fixes and findings this turn**
+- **Printing:** I re-sliced the rest of the frame as per-window files and added the two riders (13 minutes, 3 g). That includes the posts file for later, `balance_p1b_posts_pn_pp_bar_pp.gcode`, which needs about an 85-minute window.
+- **Bed mesh:** the K1's front is the low end by about 1.4 mm, checked against Klipper's source.
+- **Library and rules:**
+  - A multi-line footprint description had stopped `kicad-cli` loading the whole library. That caused the Q3 "not found" and, with the emptied model entries, the mismatch warnings.
+  - The USB-C pegs are now non-plated holes, and the courtyard duplicate lines are fixed.
+  - Rules decided: 0.10 mm minimum track and 0.45 mm pad-hole gap.
+- **Smoke tests:** two failures predated my changes and are fixed, so the instrument smoke test passes. One was a last-sample glitch in the device-current-sink simulation; the other was the panel check segfaulting on `pcbnew.LoadBoard`.
+- **Layout tooling:** `mainboard.py` gained mounting holes, a silk cleanup (silk warnings drop from about 600 to 10), netlist-parity and mounting-hole DFM checks, and a rewriter for acute Y-branches. The rewriter handles 4 of the 17.
+
+I didn't append to history.md this turn.
+<!-- ------ -->
+---

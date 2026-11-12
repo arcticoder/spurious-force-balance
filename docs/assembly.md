@@ -10,7 +10,7 @@ Terms: the arm board stands on edge. Its **+y face** has the strip contact and t
 ## 1. Print
 
 All of these from `hardware/balance/cad/`, PLA, 3 walls, about 30% infill, 0.2 mm layers: `base`, `gantry`, `head`, `sensor_bracket`, `damper_holder`, `elec_bracket`,
-`vane_holder`, the four `encl_post_*` with their `encl_post_*_bar` corner bars, the four `encl_shelf_*`, and the jigs `fixture_saw_guide_base`, `fixture_saw_guide_plate`, `fixture_strip_guide`, `fixture_gap_gauge`.
+`vane_holder`, the four `encl_post_*` with their `encl_post_*_bar` corner bars, the four `encl_shelf_*`, and the jigs `fixture_saw_guide_base`, `fixture_saw_guide_plate`, `fixture_strip_guide`, `fixture_gap_gauge`, and two `fixture_cal_rider` clips for the calibration (procedures.md B.1).
 The slicer settings (and the faults to fix in the loaded `balance.3mf`) are in [print_requirements.md](print_requirements.md).
 Largest part: the gantry, 132 × 102 × 50 mm. Lay the gantry on its side. The only moving printed part is `vane_holder` (about 0.6 g); no other printed part is in the
 strip's clamping loop, so print variations don't shift the balance.

@@ -70,7 +70,7 @@ is 132 × 102 × 50 mm). How each part is made, and why, is in [fabrication.md](
 - *No permanent magnet on the moving arm.* One N42 6 × 3 mm disc has a moment of 0.089 A·m²; against 10 nT/√Hz of ambient field noise (assumed) that alone is about
   7 nN/√Hz of force noise, more than every term except air currents. The earlier idea of calibrating with a coil acting on an N42 disc on the arm is dropped; the discs only
   damp, and they are fixed to the base. Masses on the arm are brass, 304 stainless or plastic.
-- *Electrostatic calibration transferred from masses.* The V² law is checked against known weights at micronewtons (1 mg is 9.8 µN) and then used down to nanonewtons.
+- *Electrostatic calibration transferred from masses.* The torsion constant is measured from the period change when known masses are added at +r and -r (added inertia; a hanging weight gives no torque about the vertical axis), and the plates' V² law is then scaled by it and used down to nanonewtons.
 - *A moving-assembly collision check across the arm's swing* found the counterweight pocket touching the sensor bracket, the vane tip touching the damper holder, the arm's
   edge touching the fixed electrode, and (in the FR4 redesign) a screw's nut at the same height as the vane; each was fixed in the CAD (swing limit ±1.5°, ±0.4° at the 1 mm
   plate gap, ±5° for the torsion head).
@@ -154,7 +154,7 @@ The terms G3 ranks decide what the first build includes:
 
 Absolute scale and its uncertainty: the electrostatic plates give force from F = ε₀ A V² / (2 d²), but
 the area and gap are only known to a few percent, so the scale comes from the arm's measured torsion constant. A weight cannot supply a torque
-about the vertical strip axis (it only tilts the arm), so the weights are used as added inertia (correction 2026-11-10, `procedures.md` B.1): equal masses (the 1 g weight, PLA
+about the vertical strip axis (it only tilts the arm), so the weights are used as added inertia (correction 2026-11-10, confirmed 2026-11-11, `procedures.md` B.1): equal masses (the 1 g weight, PLA
 filament pieces of about 30 mg per cm, mass per length measured on the 0.1 g scale) at +r and -r on the arm change the oscillation period, giving kappa = 4 pi^2 (2 m r^2) / (T2^2 - T1^2). The plate
 deflection then converts to force by theta kappa / r_plate; the fit F = c V^2 gives c, which holds down to the nanonewton range, with the radius, mass and period uncertainties in the budget. The optical
 readout's displacement scale is calibrated by moving the flag a known distance with a micrometer stage

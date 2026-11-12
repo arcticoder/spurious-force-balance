@@ -74,8 +74,10 @@ def dut(kp=274, cgs="1.365n", rload=1.0, r1=1000, cc="1e-8"):
     seg = lambda a, b: [(tt, vv) for tt, vv in zip(t, v) if a <= tt <= b]
     tail = seg(3.5e-3, 3.99e-3)
     final = sum(x for _, x in tail) / len(tail)
-    peak = max(x for _, x in seg(100e-6, 4e-3))
-    settle = [tt for tt, vv in seg(100e-6, 4e-3) if abs(vv - final) > 0.02 * final]
+    # the last point of an ngspice run (t = tstop) can carry a numerical glitch (0.308 A against 0.300 A at 90 mS/V, 10 ohm, 2026-11-11), so the analysis
+    # window stops 10 us before tstop
+    peak = max(x for _, x in seg(100e-6, 3.99e-3))
+    settle = [tt for tt, vv in seg(100e-6, 3.99e-3) if abs(vv - final) > 0.02 * final]
     return {"final_A": final, "overshoot_pct": (peak - final) / final * 100, "settle_us": (max(settle) - 101e-6) * 1e6 if settle else 0.0}
 
 

@@ -31,6 +31,14 @@ BOARDS = (
 )
 
 
+def portable_netlist(path):
+    """SKiDL writes the symbol library's absolute path into every (libsource (lib ...)); replace it with the project-relative form."""
+    import re
+    t = open(path).read()
+    t = re.sub(r'\(lib "[^"]*/schematic/\.\./lib/jlc\.kicad_sym"\)', '(lib "${KIPRJMOD}/../../lib/jlc.kicad_sym")', t)
+    open(path, "w").write(t)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     # project-local library tables so that KiCad finds the jlc symbols and footprints
@@ -46,6 +54,7 @@ def main():
         try:
             ERC()
             generate_netlist(file_=f"{name}.net")
+            portable_netlist(f"{name}.net")
             if sch:
                 try:
                     generate_schematic(filepath=".", top_name=name, retries=6)

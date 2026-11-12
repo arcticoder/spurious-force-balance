@@ -61,11 +61,34 @@ def gap_gauge():
     return {"fixture_gap_gauge": B.box(0, 30, 0, P.PLATE_GAP * MM, 0, 20).union(B.box(10, 20, 0, P.PLATE_GAP * MM, 20, 45))}
 
 
+CAL_WEIGHT_D = 10.0  # mm, the seat for the 1 g calibration weight [assume: check the weight when it arrives; filament pieces are bent into the same seat]
+CAL_SLOT = 1.4  # mm, the saddle's slot for the 1.2 mm arm board (rib crush 0.25 mm on one wall brings the fit to about 1.15 mm)
+
+
+def cal_rider():
+    """The calibration rider (procedures.md B.1, added-inertia method): a saddle that clips over the arm board's top edge with a flat tray on top for the
+    1 g weight or a bent filament piece. Printed in twos (one at +r, one at -r); a centre mark along y shows the radius to measure with calipers. Local frame:
+    the board's top edge is z = 0, the board lies in y = 0 .. BOARD_T, x along the arm. Printed platform-down (slot opening up): no supports."""
+    bt = P.BOARD_T * MM
+    y0 = -(CAL_SLOT - bt) / 2  # slot centred on the board
+    wall = 3.0
+    body = B.box(-7, 7, y0 - wall, y0 + CAL_SLOT + wall, -8, 2.0)
+    body = body.cut(B.box(-8, 8, y0, y0 + CAL_SLOT, -9, 0))  # the slot; its ceiling at z = 0 rests on the board's top edge
+    body = body.union(B.box(-7, 7, y0 + 0.0, y0 + 0.25, -8, 0).translate((0, 0, 0)).intersect(B.box(-5.5, -4, -10, 10, -8, 0)))  # crush ribs on the y0 wall
+    body = body.union(B.box(-7, 7, y0 + 0.0, y0 + 0.25, -8, 0).intersect(B.box(4, 5.5, -10, 10, -8, 0)))
+    ymid = y0 + CAL_SLOT / 2
+    plat = B.box(-8, 8, ymid - CAL_WEIGHT_D / 2 - 1.5, ymid + CAL_WEIGHT_D / 2 + 1.5, 2.0, 4.5)
+    plat = plat.cut(B.cyl_z(0, ymid, 3.0, 5.0, CAL_WEIGHT_D + 0.4))  # the seat, 1.5 mm deep
+    plat = plat.cut(B.box(-0.3, 0.3, ymid - CAL_WEIGHT_D / 2 - 2, ymid + CAL_WEIGHT_D / 2 + 2, 4.0, 5.0))  # centre mark: a 0.6 mm groove across the seat
+    return {"fixture_cal_rider": body.union(plat)}
+
+
 def build_all():
     bl, by = B.balance_solve()
     parts = {}
     parts.update(saw_guide(bl))
     parts.update(gap_gauge())
+    parts.update(cal_rider())
     g, y_far = strip_guide(P.STRIP_WIDTH * MM)
     parts.update(g)
     return parts, bl, y_far

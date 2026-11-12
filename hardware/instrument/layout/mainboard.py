@@ -34,7 +34,14 @@ DSN, SES = os.path.join(OUT, "main_board.dsn"), os.path.join(OUT, "main_board.se
 FR = os.path.expanduser("~/tools/freerouting/freerouting-2.5.0-linux-x64/bin/freerouting")
 POWER = re.compile(r"^(GND|V5|3V3_D|3V3_A|3V3_AR|VBUS|VBUS_F|V24|V24_RAW|V5_BOOST|DVDD_1V1)$")
 LAYERS = ["F.Cu", "In1.Cu", "In2.Cu", "B.Cu"]
+PLANE2_NET = "3V3_D"  # the In2.Cu power plane (the board's main digital rail); other rails are routed as wide tracks on F/B
 CLEAR, TRACK, VIA_D, VIA_H = 0.15, 0.2, 0.6, 0.3
+# decisions 2026-11-11 against JLC's 4-layer table (kb/pcb_toolchain_notes.md): the DRC track floor is 0.10 mm (JLC's limit is 0.09; the router's class width stays
+# 0.2 mm, so anything under 0.15 is a neck-down at a fine-pitch pad and is reported by `geometry`-style review, not blocked); annular ring stays at JLC's
+# absolute minimum 0.15 mm (0.6/0.3 vias); pad-hole to pad-hole spacing 0.45 mm is a custom rule (write_rules) because KiCad's global hole_to_hole would also
+# apply it to vias, where JLC allows 0.2 mm
+MIN_TRACK = 0.10
+PAD_HOLE_GAP = 0.45
 
 
 def uid():
@@ -81,8 +88,8 @@ def place(W, H):
         fp = Footprint.from_file(os.path.join(LIB, fpname + ".kicad_mod"))
         fp.libId = "jlc:" + fpname
         fp.tstamp = uid()
-        fp.models = []
-        fp.description = ""
+        # models and description stay as in the library (kicad-cli reports lib_footprint_mismatch when they differ); the library files have single-line
+        # descriptions (see sanitise in kb/pcb_toolchain_notes.md)
         for it in fp.graphicItems:
             if hasattr(it, "text") and getattr(it, "type", "") == "reference":
                 it.text = ref
@@ -208,9 +215,10 @@ def place(W, H):
                                               "diff_pair_gap": 0.2, "diff_pair_width": 0.2, "diff_pair_via_gap": 0.25, "microvia_diameter": 0.3, "microvia_drill": 0.1,
                                               "wire_width": 6, "bus_width": 12, "line_style": 0, "pcb_color": "rgba(0, 0, 0, 0.000)", "schematic_color": "rgba(0, 0, 0, 0.000)"}],
                                 "meta": {"version": 3}},
-               "board": {"design_settings": {"rules": {"min_clearance": CLEAR, "min_track_width": 0.15, "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
+               "board": {"design_settings": {"rules": {"min_clearance": CLEAR, "min_track_width": MIN_TRACK, "min_via_diameter": 0.5, "min_through_hole_diameter": 0.3,
                                                          "min_copper_edge_clearance": 0.2, "min_hole_to_hole": 0.25, "min_via_annular_width": 0.15}}}},
               open(os.path.join(OUT, "main_board.kicad_pro"), "w"), indent=1)
+    write_rules()
     # project-local footprint library table so kicad-cli DRC can resolve the "jlc" library (otherwise every footprint is a lib_footprint_issues warning)
     open(os.path.join(OUT, "fp-lib-table"), "w").write('(fp_lib_table\n  (version 7)\n  (lib (name "jlc")(type "KiCad")(uri "${KIPRJMOD}/../../lib/jlc.pretty")(options "")(descr ""))\n)\n')
     print(f"{len(refs)} parts, {len(nets)} nets, board {W} x {H} mm, overlapping pairs after the force pass: {overlaps}; wrote {PCB}")
@@ -241,8 +249,9 @@ def write_dsn():
            "  (resolution um 1)", "  (unit um)", "  (structure"]
     for i, l in enumerate(LAYERS):
         out.append(f"    (layer {l} (type signal) (property (index {i})))")
-    xs = [g.start.X for g in b.graphicItems] + [g.end.X for g in b.graphicItems]
-    ys = [g.start.Y for g in b.graphicItems] + [g.end.Y for g in b.graphicItems]
+    edge = [g for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    xs = [g.start.X for g in edge] + [g.end.X for g in edge]
+    ys = [g.start.Y for g in edge] + [g.end.Y for g in edge]
     x0, x1, y0, y1 = min(xs) * u, max(xs) * u, -max(ys) * u, -min(ys) * u
     out.append(f"    (boundary (path pcb 0 {x0:.0f} {y0:.0f} {x1:.0f} {y0:.0f} {x1:.0f} {y1:.0f} {x0:.0f} {y1:.0f} {x0:.0f} {y0:.0f}))")
     out.append('    (via "Via[0-3]_600:300_um")')
@@ -297,11 +306,14 @@ def write_dsn():
     out.append("  (network")
     for n, pins in sorted(nets.items()):
         out.append(f'    (net "{n}"\n      (pins {" ".join(p.replace(chr(34)+"-"+chr(34), "-").replace(chr(34), "") for p in pins)})\n    )')
-    sig = [n for n in sorted(nets) if n != "GND"]
-    # In1.Cu is the ground plane: every net except GND is kept off it with use_layer; GND may use any layer, and the plane zone is poured after the import
+    sig = [n for n in sorted(nets) if n not in ("GND", PLANE2_NET)]
+    # In1.Cu is the ground plane and In2.Cu the PLANE2_NET plane: signals are kept off both with use_layer; GND may use any layer and PLANE2_NET
+    # may use In2.Cu too (vias to the plane); the zones are poured after the import
     out.append('    (class signals ' + " ".join(f'"{n}"' for n in sig) +
-               f'\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+               f'\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append(f'    (class ground "GND"\n      (circuit (use_via "Via[0-3]_600:300_um"))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+    if PLANE2_NET in nets:
+        out.append(f'    (class plane2 "{PLANE2_NET}"\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append("  )")
     out.append("  (wiring)\n)")
     open(DSN, "w").write("\n".join(out) + "\n")
@@ -332,13 +344,170 @@ def add_planes(b):
     ys = [g.start.Y for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"] + [g.end.Y for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
     m = 0.5
     x0, x1, y0, y1 = min(xs) + m, max(xs) - m, min(ys) + m, max(ys) - m
-    b.zones = [z for z in b.zones if "In1.Cu" not in (z.layers or [])]
+    b.zones = [z for z in b.zones if not ({"In1.Cu", "In2.Cu"} & set(z.layers or []))]
     gnd = {n.name: n.number for n in b.nets}["GND"]
     z = Zone(net=gnd, netName="GND", layers=["In1.Cu"], tstamp=uid(), name="GND_plane", hatch=Hatch(style="edge", pitch=0.5),
              minThickness=0.15,
              fillSettings=FillSettings(yes=True, thermalGap=0.3, thermalBridgeWidth=0.3),
              polygons=[ZonePolygon(coordinates=[Position(X=x0, Y=y0), Position(X=x1, Y=y0), Position(X=x1, Y=y1), Position(X=x0, Y=y1)])])
     b.zones.append(z)
+    pw = {n.name: n.number for n in b.nets}.get(PLANE2_NET)
+    if pw:
+        b.zones.append(Zone(net=pw, netName=PLANE2_NET, layers=["In2.Cu"], tstamp=uid(), name=f"{PLANE2_NET}_plane", hatch=Hatch(style="edge", pitch=0.5),
+                            minThickness=0.15, fillSettings=FillSettings(yes=True, thermalGap=0.3, thermalBridgeWidth=0.3),
+                            polygons=[ZonePolygon(coordinates=[Position(X=x0, Y=y0), Position(X=x1, Y=y0), Position(X=x1, Y=y1), Position(X=x0, Y=y1)])]))
+
+
+MH_DRILL = 3.2  # mm, M3 clearance
+MH_KEEPOUT = 3.2 / 2 + 0.6  # mm from the hole centre to any copper (hole radius + 0.6 mm: clearance plus the screw head's washer land)
+
+
+def _seg_dist(px, py, ax, ay, bx, by):
+    dx, dy = bx - ax, by - ay
+    L2 = dx * dx + dy * dy
+    t = 0.0 if L2 == 0 else max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / L2))
+    return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+
+
+def add_mounting_holes(b):
+    """Four M3 non-plated holes near the corners (the board is screwed to a printed bracket). Each starts 4.5 mm in from both edges and is moved inward along
+    the diagonal in 0.5 mm steps until nothing but air is within MH_KEEPOUT (tracks, vias, pad boxes and part pads are checked; the In1/In2 planes are zones and
+    are cut by KiCad's clearance). Idempotent: earlier holes (reference MH*) are removed first."""
+    from kiutils.footprint import Pad, DrillDefinition
+    from kiutils.items.fpitems import FpText
+    from kiutils.items.common import Effects, Font, Position as P2
+    b.footprints = [f for f in b.footprints if not any(getattr(i, "text", "").startswith("MH") for i in f.graphicItems if getattr(i, "type", "") == "reference")]
+    edge = [g for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    x0, x1 = min(g.start.X for g in edge), max(g.end.X for g in edge)
+    y0, y1 = min(g.start.Y for g in edge), max(g.end.Y for g in edge)
+    segs = [t for t in b.traceItems if isinstance(t, Segment)]
+    vias = [t for t in b.traceItems if isinstance(t, Via)]
+    boxes = []
+    for fp in b.footprints:
+        for pad in fp.pads:
+            a = math.radians(fp.position.angle or 0)
+            c, s_ = math.cos(a), math.sin(a)
+            px = fp.position.X + pad.position.X * c + pad.position.Y * s_
+            py = fp.position.Y - pad.position.X * s_ + pad.position.Y * c
+            boxes.append((px, py, max(pad.size.X, pad.size.Y) / 2))
+    def free(x, y):
+        if any(_seg_dist(x, y, t.start.X, t.start.Y, t.end.X, t.end.Y) < MH_KEEPOUT + t.width / 2 for t in segs):
+            return False
+        if any(math.hypot(x - v.position.X, y - v.position.Y) < MH_KEEPOUT + v.size / 2 for v in vias):
+            return False
+        return all(math.hypot(x - bx, y - by) >= MH_KEEPOUT + r for bx, by, r in boxes)
+    placed = []
+    for n, (sx, sy) in enumerate(((1, 1), (-1, 1), (1, -1), (-1, -1)), 1):
+        cx, cy = (x0 + 4.5, y0 + 4.5) if sx > 0 else (x1 - 4.5, y1 - 4.5)
+        if sx > 0 and sy < 0:
+            cx, cy = x0 + 4.5, y1 - 4.5
+        if sx < 0 and sy > 0:
+            cx, cy = x1 - 4.5, y0 + 4.5
+        step = 0
+        while not free(cx, cy) and step < 40:
+            cx += 0.5 if cx < (x0 + x1) / 2 else -0.5
+            cy += 0.5 if cy < (y0 + y1) / 2 else -0.5
+            step += 1
+        if step >= 40:
+            print(f"mounting hole MH{n}: no free spot within 20 mm of the corner")
+            continue
+        fp = Footprint()
+        fp.libId, fp.tstamp, fp.position, fp.layer = "jlc:MountingHole_M3", uid(), P2(X=cx, Y=cy), "F.Cu"
+        fp.graphicItems.append(FpText(type="reference", text=f"MH{n}", position=P2(X=0, Y=-3.0), layer="F.SilkS", effects=Effects(font=Font(height=0.8, width=0.8))))
+        fp.graphicItems.append(FpText(type="value", text="M3 hole", position=P2(X=0, Y=3.0), layer="F.Fab", effects=Effects(font=Font(height=0.8, width=0.8))))
+        fp.pads.append(Pad(number="", type="np_thru_hole", shape="circle", position=P2(X=0, Y=0), size=P2(X=MH_DRILL, Y=MH_DRILL),
+                           drill=DrillDefinition(diameter=MH_DRILL), layers=["*.Cu", "*.Mask"], tstamp=uid()))
+        b.footprints.append(fp)
+        placed.append((n, round(cx, 1), round(cy, 1), step))
+    print("mounting holes:", placed)
+
+
+def clean_silk(b):
+    """Silkscreen policy (2026-11-11): the fab-assembled board is built from the BOM and CPL, so reference and value texts go to the Fab layer (not printed; they
+    still show in KiCad's Fab view) and only the libraries' outline graphics stay on the silk layers (polarity and pin-1 marks). One title text is added in the
+    lower-left corner. Idempotent."""
+    from kiutils.items.fpitems import FpText
+    from kiutils.items.gritems import GrText
+    from kiutils.items.common import Effects, Font, Position as P2
+    for fp in b.footprints:
+        for it in fp.graphicItems:
+            if isinstance(it, FpText) and it.type in ("reference", "value"):
+                it.layer = "B.Fab" if it.layer.startswith("B.") else "F.Fab"
+    for fp in b.footprints:  # the non-polarised two-pad passives need no outline: it only overlaps its neighbours
+        if re.match(r"^(C|R|L|F)\d{4}$", fp.libId.split(":")[1]):
+            fp.graphicItems = [it for it in fp.graphicItems if isinstance(it, FpText) or not getattr(it, "layer", "").endswith("SilkS")]
+    b.graphicItems = [g for g in b.graphicItems if not (isinstance(g, GrText) and getattr(g, "text", "").startswith("SFB main"))]
+    edge = [g for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    x0, y1 = min(g.start.X for g in edge), max(g.end.Y for g in edge)
+    b.graphicItems.append(GrText(text="SFB main r1 2026-11", position=P2(X=x0 + 14, Y=y1 - 2.5), layer="F.SilkS", effects=Effects(font=Font(height=1.0, width=1.0)), tstamp=uid()))
+
+
+def fix_acute(b, stub=0.3, verbose=True):
+    """Remove the 45-degree Y-branch joints `geometry` reports (user rule: no acute angles in copper). At a point P where two same-net segments leave 45 degrees
+    apart, the shorter one (P -> E) is replaced by a three-piece dogleg: a stub of `stub` mm at 90 degrees to the longer one, then 45 degrees back, then
+    parallel to the longer one into E; every bend is 45 degrees (interior 135). The pieces are checked against the 45-degree grid and skipped when the leg is
+    too short (needs the leg to be at least stub x sqrt(2) + 0.3 mm). Returns the number of joints rewritten; run DRC afterwards."""
+    segs = [t for t in b.traceItems if isinstance(t, Segment)]
+    at = defaultdict(list)
+    for sg in segs:
+        for p, q, which in ((sg.start, sg.end, "s"), (sg.end, sg.start, "e")):
+            at[(sg.layer, sg.net, round(p.X, 3), round(p.Y, 3))].append((sg, which, math.degrees(math.atan2(q.Y - p.Y, q.X - p.X)) % 360, math.hypot(q.X - p.X, q.Y - p.Y)))
+    done, skipped = 0, 0
+    for (layer, net, px, py), legs in list(at.items()):
+        for i in range(len(legs)):
+            for j in range(i + 1, len(legs)):
+                (s1, w1, a1, l1), (s2, w2, a2, l2) = legs[i], legs[j]
+                d = abs(a1 - a2) % 360
+                d = min(d, 360 - d)
+                if abs(d - 45) > 0.5 or s1 not in b.traceItems or s2 not in b.traceItems:
+                    continue
+                (keep, ka, kl), (move, mw, ma, ml) = ((s1, a1, l1), (s2, w2, a2, l2)) if l1 >= l2 else ((s2, a2, l2), (s1, w1, a1, l1))
+                if ml < stub * math.sqrt(2) + 0.3:
+                    skipped += 1
+                    continue
+                turn = (ma - ka + 180) % 360 - 180             # +45 (ccw) or -45 in KiCad's y-down frame as read from the file
+                sgn = 1 if turn > 0 else -1
+                ar, br = math.radians(ka), math.radians(ma)
+                nr = math.radians(ka + 90 * sgn)
+                far = move.end if mw == "s" else move.start
+                Q = (px + stub * math.cos(nr), py + stub * math.sin(nr))
+                kk = ml - stub * math.sqrt(2)
+                R = (Q[0] + kk * math.cos(br), Q[1] + kk * math.sin(br))
+                pieces = [((px, py), Q), (Q, R), (R, (far.X, far.Y))]
+                b.traceItems.remove(move)
+                for a_, b_ in pieces:
+                    b.traceItems.append(Segment(start=Position(X=a_[0], Y=a_[1]), end=Position(X=b_[0], Y=b_[1]), width=move.width, layer=layer, net=net, tstamp=uid()))
+                done += 1
+    if verbose:
+        print(f"fix_acute: rewrote {done} joints, skipped {skipped} (leg too short)")
+    return done
+
+
+def write_rules():
+    """Custom DRC rules next to the board (KiCad reads main_board.kicad_dru): pad-to-pad hole spacing per JLC's 0.45 mm."""
+    open(os.path.join(OUT, "main_board.kicad_dru"), "w").write(
+        "(version 1)\n"
+        f"(rule pad_hole_gap\n  (constraint hole_to_hole (min {PAD_HOLE_GAP}mm))\n  (condition \"A.Type == 'Pad' && B.Type == 'Pad'\"))\n")
+
+
+def sync_library_fields(b):
+    """Copy the library's description and 3D-model entries into each placed footprint (an older place() run blanked them, which made kicad-cli report
+    lib_footprint_mismatch for every footprint that has a model)."""
+    cache = {}
+    for fp in b.footprints:
+        name = fp.libId.split(":")[1]
+        if name not in cache:
+            cache[name] = Footprint.from_file(os.path.join(LIB, name + ".kicad_mod"))
+        lib = cache[name]
+        fp.models = lib.models
+        fp.description = lib.description
+        # courtyards and unplated pegs follow the (repaired) library: duplicated courtyard lines made U3's courtyard "self-intersecting", and the USB-C
+        # footprint's two 0.6 mm no-net holes were plated pads with no annulus (annular_width / padstack errors); they are non-plated holes
+        fp.graphicItems = [it for it in fp.graphicItems if not getattr(it, "layer", "").endswith("CrtYd")] + [
+            it for it in lib.graphicItems if getattr(it, "layer", "").endswith("CrtYd")]
+        for pad in fp.pads:
+            if str(pad.number) == "" and pad.type == "thru_hole" and pad.drill and pad.size.X <= (pad.drill.diameter or 0) + 1e-6:
+                pad.type = "np_thru_hole"
 
 
 def import_ses():
@@ -378,6 +547,9 @@ def import_ses():
                     b.traceItems.append(Via(position=Position(X=conv(it[2]), Y=-conv(it[3])), size=VIA_D, drill=VIA_H, layers=["F.Cu", "B.Cu"], net=code[name], tstamp=uid()))
                     nvia += 1
     walk(t, lambda n: visit(n) if n and n[0] == "net" and len(n) > 2 and isinstance(n[2], list) and n[2] and n[2][0] in ("wire", "via") else None)
+    sync_library_fields(b)
+    add_mounting_holes(b)
+    clean_silk(b)
     add_planes(b)
     b.to_file(PCB)
     print(f"imported {nseg} segments and {nvia} vias")
@@ -401,7 +573,10 @@ def drc():
 def geometry(verbose=False, pcb=None):
     """Trace-shape rule (user, 2026-11-09): no acute angles (acid traps, signal integrity); bends are 45 degrees or rounded.
     Reports (a) segments whose direction is not a multiple of 45 degrees, (b) joints of same-net segments at the same endpoint whose
-    interior angle is under 90 degrees (a sharp turn or an acute branch). Zero-length pieces are ignored."""
+    interior angle is under 90 degrees (a sharp turn or an acute branch). Zero-length pieces are ignored.
+    Scope (decided 2026-11-11): joints are judged per layer from segment end points, so a via needs no separate test (the tracks meeting at it are compared on
+    their own layer) and a pad entry is a joint at the pad centre like any other; arcs are rounded bends the rule allows (Freerouting writes none; they are
+    counted and reported, not judged)."""
     b = Board.from_file(pcb or PCB)
     segs = [t for t in b.traceItems if isinstance(t, Segment)]
     off45, acute = [], []
@@ -448,6 +623,9 @@ def geometry(verbose=False, pcb=None):
                 d = min(d, 180 - d)
                 if d < 89.5:
                     acute.append(((s.layer, s.net, round(p.X, 3), round(p.Y, 3), "tee"), round(d, 1)))
+    n_arcs = sum(1 for t in b.traceItems if type(t).__name__ == "Arc")
+    if n_arcs:
+        print(f"{n_arcs} arc tracks (rounded bends, not judged)")
     print(f"segments {len(segs)} | off the 45-degree grid {len(off45)} | acute joints (<90 deg) {len(acute)}")
     if verbose:
         for x in off45[:40]: print("off45", x)
@@ -462,6 +640,41 @@ def geometry(verbose=False, pcb=None):
 DFM_BLOCKING = {"clearance", "shorting_items", "track_width", "annular_width", "hole_clearance", "hole_to_hole", "copper_edge_clearance", "via_dangling",
                 "track_dangling", "padstack", "invalid_outline", "unconnected_items", "items_not_allowed", "drill_out_of_range", "micro_via_drill_out_of_range",
                 "solder_mask_bridge", "starved_thermal", "zones_intersect", "isolated_copper"}
+
+
+def netlist_parity(b):
+    """The flow has no .kicad_sch (the schematic is SKiDL code and the netlist the contract), so schematic parity is checked against the netlist: every
+    component reference, its footprint, and every (ref, pin) -> net assignment must match the placed board. Returns a list of mismatch strings."""
+    comps, nets = parse_netlist(NET)
+    pad_net = {(r, p): n for n, nodes in nets.items() for r, p in nodes}
+    bad = []
+    refs = {}
+    for fp in b.footprints:
+        ref = [it.text for it in fp.graphicItems if getattr(it, "type", "") == "reference"][0]
+        refs[ref] = fp
+    for r in sorted(set(comps) - set(refs)):
+        bad.append(f"{r} is in the netlist but not on the board")
+    for r in sorted(set(refs) - set(comps)):
+        if r.startswith("MH"):
+            continue                                  # mounting holes are mechanical, not in the netlist
+        bad.append(f"{r} is on the board but not in the netlist")
+    for r, fp in refs.items():
+        if r in comps and fp.libId.split(":")[1] != comps[r][1]:
+            bad.append(f"{r}: footprint {fp.libId} against netlist {comps[r][1]}")
+        for pad in fp.pads:
+            want = pad_net.get((r, str(pad.number)))
+            have = pad.net.name if pad.net and pad.net.name else None
+            if want != have and str(pad.number) != "":
+                bad.append(f"{r}.{pad.number}: net {have} against netlist {want}")
+    return bad
+
+
+def board_size_and_holes(b):
+    edge = [g for g in b.graphicItems if getattr(g, "layer", "") == "Edge.Cuts"]
+    xs = [g.start.X for g in edge] + [g.end.X for g in edge]
+    ys = [g.start.Y for g in edge] + [g.end.Y for g in edge]
+    holes = sum(1 for fp in b.footprints for pad in fp.pads if pad.type == "np_thru_hole" and pad.drill and (pad.drill.diameter or 0) >= 2.5)
+    return max(xs) - min(xs), max(ys) - min(ys), holes
 
 
 def dfm():
@@ -492,7 +705,16 @@ def dfm():
     missing = [l for l in ("In1.Cu", "In2.Cu") if l not in zone_layers]
     if missing:
         blocking["inner_plane_missing"] = len(missing)
+    parity = netlist_parity(b)
+    if parity:
+        blocking["netlist_parity"] = len(parity)
+        for line in parity[:10]:
+            print("parity:", line)
+    w_, h_, holes = board_size_and_holes(b)
+    if holes < 2:
+        blocking["mounting_holes_missing"] = 2 - holes   # at least two non-plated holes of 2.5 mm or more (G2 positions)
     advisory = {k: n for k, n in kinds.items() if k not in blocking}
+    advisory["board_size"] = f"{w_:.0f} x {h_:.0f} mm against the cheap 4-layer tier (50 x 50 mm, kb/fab_ordering_notes.md): the price tier is the user's decision"
     if not any("FID" in (getattr(fp, "libId", "") or "").upper() for fp in b.footprints):
         advisory["no_assembly_fiducials"] = 1
     print("DFM blocking:", blocking or "none")
@@ -506,6 +728,24 @@ if __name__ == "__main__":
         place(float(sys.argv[2]) if len(sys.argv) > 2 else 100.0, float(sys.argv[3]) if len(sys.argv) > 3 else 80.0)
     elif cmd == "route":
         route(float(sys.argv[2]) if len(sys.argv) > 2 else 8)
+    elif cmd == "fixacute":
+        bb = Board.from_file(PCB)
+        fix_acute(bb)
+        bb.to_file(PCB)
+    elif cmd == "silk":
+        bb = Board.from_file(PCB)
+        clean_silk(bb)
+        bb.to_file(PCB)
+    elif cmd == "holes":
+        bb = Board.from_file(PCB)
+        add_mounting_holes(bb)
+        bb.to_file(PCB)
+    elif cmd == "rules":
+        write_rules()
+    elif cmd == "sync":
+        bb = Board.from_file(PCB)
+        sync_library_fields(bb)
+        bb.to_file(PCB)
     elif cmd == "drc":
         drc()
     elif cmd == "dfm":

@@ -24,6 +24,7 @@ A torsion balance for micro-newton force measurements: a 0.05 mm stainless strip
 | `vane_holder` (3) | 12 x 12 x 12 | the only moving printed part, about 0.6 g in the CAD: keep walls thin enough that its mass does not grow; its sliced mass goes into `params.py` (`PRINTED_MASS_G`) |
 | `encl_post_*` (4), `encl_shelf_*` (3) | posts 20 x 150 mm, shelves 6 x 114 x 6 | enclosure frame holding 2 mm acrylic sheets; stiff and straight (a bowed post tilts the walls) |
 | `fixture_saw_guide_base/plate` (5) | 31 x 30 x 24, 28 x 30 x 4 | clamp a 10 mm brass rod for hacksaw cuts: the rod groove must grip the rod without slop; kerf slot 1.4 mm; the walls take sawing load |
+| `fixture_cal_rider` (x2, 5) | 16 x 13 x 12.5 | clips on the arm board's top edge (1.4 mm slot, crush ribs) and holds the 1 g weight (10 mm seat); print platform-down, no supports; 1.5 g each; two per balance (+r, -r) |
 | `fixture_strip_guide` (5) | 110 x 36 x 5.5 | a 0.8 mm knife slot exactly 4.00 mm from a ridge: slot width and position accuracy matter more than anything else on this part |
 | `fixture_gap_gauge` (5) | 30 x 45 x 1 | a 1 mm thick feeler gauge: thickness within 0.05 mm |
 
