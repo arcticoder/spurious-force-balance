@@ -694,7 +694,21 @@ def dfm():
     if off45:
         blocking["off_45_degree_segments"] = len(off45)
     if acute:
-        blocking["acute_joints"] = len(acute)
+        # user decision 2026-11-12: 45-degree Y-branches (three or more same-net segments meeting, two of them 45 degrees apart) are accepted
+        # (advisory); a two-segment 45-degree V turn, a hairpin or anything sharper still blocks
+        bb_ = Board.from_file(PCB)
+        deg = defaultdict(int)
+        for t_ in bb_.traceItems:
+            if isinstance(t_, Segment):
+                for p_ in (t_.start, t_.end):
+                    deg[(t_.layer, t_.net, round(p_.X, 3), round(p_.Y, 3))] += 1
+        ok_y = [a for a in acute if len(a[0]) == 4 and abs(a[1] - 45.0) < 0.6 and deg.get(a[0], 0) >= 3]
+        hard = len(acute) - len(ok_y)
+        if hard:
+            blocking["acute_joints"] = hard
+        acute_y45 = len(ok_y)
+    else:
+        acute_y45 = 0
     # decisions 2026-11-10: a malformed courtyard is a library-footprint drawing problem, not a fab stop (advisory); overlapping courtyards are a real
     # placement problem (blocking); silk over copper is clipped by the fab (advisory); planes must exist on both inner layers before fab output.
     blocking.pop("malformed_courtyard", None)
@@ -714,6 +728,8 @@ def dfm():
     if holes < 2:
         blocking["mounting_holes_missing"] = 2 - holes   # at least two non-plated holes of 2.5 mm or more (G2 positions)
     advisory = {k: n for k, n in kinds.items() if k not in blocking}
+    if acute_y45:
+        advisory["y_branch_45_accepted"] = acute_y45
     advisory["board_size"] = f"{w_:.0f} x {h_:.0f} mm against the cheap 4-layer tier (50 x 50 mm, kb/fab_ordering_notes.md): the price tier is the user's decision"
     if not any("FID" in (getattr(fp, "libId", "") or "").upper() for fp in b.footprints):
         advisory["no_assembly_fiducials"] = 1

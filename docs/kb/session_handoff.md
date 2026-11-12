@@ -1,5 +1,7 @@
 # Session handoff — chat 13, 2026-11-11 (replace at each handoff; do not append)
 
+**Chat 13, 2026-11-12 early:** one board (method A-E) and 45-degree Y-branches accepted by the user; printed-enclosure proposal and preview made, waiting on the user's yes/no (task 3); Dremel stand waits on the nose-thread measurement (task 4); OrcaSlicer crashed on deleting a two-instance object and was relaunched (project lost; see `kb/printing_state.md`).
+
 **Chat 13, last turn (2026-11-11, 21:30):** assessment of the slow main board written to `kb/main_board_assessment.md` (no action taken); plan A-E in `TODO-agent.md`, the scope decision is user task 6; the closing-step list in `TODO-BLOCKED.md` is superseded.
 
 **Chat 13 (2026-11-11, evening):** TODO-agent.md emptied (0 lines): done items are in `TODO-completed.md`, waiting ones in `TODO-BLOCKED.md`. Printing: Thursday 2026-11-12 7:45 pm, 75 min window: `balance_p1a_post_np_bars_np_pn.gcode` (54 min); runbook `~/Code/sysadmin/wsl/docs/print-session-runbook.md`; files and times in `kb/printing_state.md`. A background route (`mainboard.py route 58`, `layout/out/route_in2_b.log`, started about 21:00) decides the main board's In2 plane; the finishing steps are the first block of the main-board section in `TODO-BLOCKED.md`. Open user tasks: print window, later windows, enclosure choice, Dremel wheels, Y-branch decision (`TODO-arcticoder.md` 1-5). Calibration physics confirmed; riders designed (`fixture_cal_rider`). `history.md` is no longer appended by me (the user pastes the full summary).

@@ -2864,3 +2864,46 @@ The old closing-step list in TODO-BLOCKED.md is marked superseded; each item get
 TODO-agent.md now has 11 lines again: those are the plan's tasks for the next session.
 <!-- ------ -->
 ---
+All four answered; nothing is committed.
+
+**1. One board:** recorded. Steps A–E of the new layout method are in TODO-agent.md (10 lines). I didn't start them this turn.
+
+**2. Y-branches:** accepted. The DFM check now lists the 13 Y-branches as accepted instead of blocking. Four other spots are plain two-track 45° V turns, not branches, so they still block and will be re-checked on the new layout.
+
+**3. Printed walls**
+- **3.1 Colours:** yes. Each plate is one colour, so different plates can come from different spools: grey walls (about 930 g on that spool), red lid (about 840 g), black joining strips.
+- **3.2 Infill:** lowering it barely helps. I sliced one 124 × 150 plate at 2 mm thick:
+
+  | Settings | Time | Mass |
+  |---|---|---|
+  | 3 perimeters, 30% infill | 63 min | 32 g |
+  | Fully solid | 59 min | 36 g |
+  | 15% infill | 57 min | 28 g |
+
+  A plate that thin is almost all top and bottom skin, and sparse infill forces slow bridging layers. What helps is thickness: at 1.2 mm the same plate takes 39 minutes and 21.5 g, still airtight. My suggestion is 1.2 mm plates with a 2 mm rim where they slide into the post slots.
+- **Whole enclosure:**
+  - **1.2 mm plates:** about 7–8 hours of printing and about 300 g of PLA.
+  - **2 mm plates:** about 11 hours and 440 g.
+
+  These come from the standard K1 preset, so they may run a little shorter in practice. The 1.2 mm figures don't yet include the rim, which isn't modelled yet.
+- **Wall length:** a 250 mm wall doesn't fit the 220 mm bed, so each wall is a 148 mm plate and a 100 mm plate joined by a printed strip.
+- **Lid:** four tiles and two strips.
+- **3.3 Wording:** you're right. The printed pieces are the walls; "window" only means a clear acrylic piece. In this design the one optional window is a stock 100 × 150 × 2 mm sheet in the front wall, for looking in while aligning. You could also skip it and lift the lid instead. A side benefit of opaque walls is that they keep room light off the optical readout.
+- **3.4 Preview:** [img/enclosure_printed_preview.jxl](docs/img/enclosure_printed_preview.jxl) shows grey walls, black strips, the red lid lifted 40 mm, and the clear window. A CAD check found no collisions with the balance; the joining strips had hit the lid shelves at first, and that is fixed.
+
+Task 3 now asks just two things: printed yes or no, and window yes or no.
+
+**4. Dremel**
+- **Ingested:** it's a Dremel 3000 with a reinforced cut-off wheel, a screw mandrel, sanding drums, felt wheels, grinding stones, burrs and drills. I added it to lab's inventory and deleted the photo.
+- **Wheel:** at 1.0 mm it fits the saw guide's existing 1.4 mm slot.
+- **4.1 Stand plan:** a printed mini chop saw:
+  - a ring that screws onto the Dremel's nose;
+  - an arm on an M3 hinge so the wheel comes straight down;
+  - a half guard over the top of the wheel;
+  - a rod clamp based on the saw guide, cut away around the cut. The wheel reaches only about 12 mm below its mandrel, so the 10 mm rod needs an open slot or a cut from two sides.
+- **Thread:** related Dremels use a 3/4 in × 12 TPI nose thread ([Model Engineer note](https://model-engineer.co.uk/?p=14662), [forum](https://archive.model-engineer.co.uk/forums/postings.asp?th=183433)). The sources disagree on imperial versus metric, so task 4 asks you to measure it.
+- **Safety:** cutting brass with an abrasive wheel throws hot grit rather than real sparks. Wear safety glasses and a dust mask, cut outdoors, and clean up wet, because brass dust can contain lead.
+
+**Something I broke:** OrcaSlicer crashed when I deleted a duplicated part to slice the enclosure plates. That lost the unsaved project. I relaunched it, and the Remote API came back without any change from you. All saved G-code files, including tomorrow's, are untouched.
+<!-- ------ -->
+---

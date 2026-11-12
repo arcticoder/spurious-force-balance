@@ -58,3 +58,8 @@ screws, and the foil-tape plates.
 - The arm's first bending mode with its loads is about 36 Hz (`hardware/balance/material_study.py`); FR4 stays (decided 2026-10-28 on the user's quote), thickness 1.2 mm, finish HASL.
 - A labelled picture of the whole apparatus (arm 208 mm, 250 x 250 x 200 mm acrylic box) is `docs/img/apparatus.jxl` (`render_labeled.py`). The user asked why the arm is so long compared with pictures of torsion balances: see the open question in `session_handoff.md`.
 
+
+## Printed enclosure proposal (2026-11-12, `hardware/balance/enclosure_printed.py`, not yet in `balance.py`)
+- The user prefers printing to six acrylic sheets (cost). Same posts and slots; each 250 mm wall = 148 mm plate + printed H strip (2 mm web, 4 mm insertion, cheeks 1.2 mm inside / 2.5 mm outside to keep the 10 mm clearance) + 100 mm plate (a stock 100 x 150 x 2 mm acrylic window on the -y wall if wanted). On the x walls the strip's inner cheek and web stop below the lid shelves (they collided). Lid: four 124 x 150 tiles and two flat strips. No overlaps with the balance (checked). PLA 455 cm3 if every plate is 2 mm solid.
+- Infill does not help a 2 mm plate (see `kb/printing_state.md`); thickness does: 1.2 mm skins with a 2 mm rim on the slot edges is the recommended form (to be added after the user's go-ahead). Opaque walls also keep room light off the optical readout.
+- Colours: one colour per plate; grey walls (about 930 g on the grey spool), red lid (about 840 g), black strips.
