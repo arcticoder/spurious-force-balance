@@ -2,6 +2,8 @@
 
 Dated entries, newest first.
 
+- 2026-11-12 (night) — Main board method change: pcbnew segfault solved (wrong interpreter: pcbnew is built for system Python 3.14, the venv is 3.12; `kb/pcb_toolchain_notes.md`), `layout/SPEC.md` written, force-directed placement replaced by block regions (`BLOCK_REGIONS`, `assign_blocks`; HPWL without GND 6189 -> 4417 mm, 0 overlaps), power net classes (0.4/0.25 mm), In2 allowed for signals with a 3V3_D pour, mounting holes placed before routing, floorplan image `img/main_board_floorplan.jxl`. Pre-routing critical nets in code was not needed: placement keeps the USB pair, crystals and boost loop inside their blocks and the classes set widths.
+
 - 2026-11-12 (early) — The user chose one main board with the block-by-block method and accepted 45-degree Y-branches (`dfm` reports them as advisory; 4 two-segment V turns still block). Printed-enclosure proposal modelled (`enclosure_printed.py`) with a preview image (`img/enclosure_printed_preview.jxl`) and sliced estimates; Dremel 3000 and accessories ingested into `lab/docs/inventory.md` (photo deleted as asked); the Dremel chop stand planned (waits on the nose-thread measurement).
 
 - 2026-11-11 (21:45) — Assessment of the slow main board written (`kb/main_board_assessment.md`), plan in `TODO-agent.md`; the In2 route result recorded (SES written in about 45 min, import crashed on the mounting-hole footprint; board file unchanged).

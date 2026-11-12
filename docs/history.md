@@ -2907,3 +2907,17 @@ Task 3 now asks just two things: printed yes or no, and window yes or no.
 **Something I broke:** OrcaSlicer crashed when I deleted a duplicated part to slice the enclosure plates. That lost the unsaved project. I relaunched it, and the Remote API came back without any change from you. All saved G-code files, including tomorrow's, are untouched.
 <!-- ------ -->
 ---
+TODO-agent.md is down to 5 lines, one item: reading the result of the route that is running now. You were right that I wasn't done; the first four plan items are, so I did them instead of leaving them as a plan.
+
+- **A, the crash:** the cause was the wrong interpreter, not a KiCad bug. KiCad's Python library is built for the system Python 3.14, and the project's virtual environment is 3.12. Under `/usr/bin/python3` the library loads, exports routing files, and fills zones. I recorded the fix in [pcb_toolchain_notes.md](docs/kb/pcb_toolchain_notes.md). I didn't switch the layout script over, because its own routing import and export works and kiutils is only in the venv.
+- **B, the spec:** [layout/SPEC.md](hardware/instrument/layout/SPEC.md) covers the stack-up, rules, net classes, keep-outs, mounting holes and a floorplan table.
+- **C, placement:** I replaced the force-directed placement with block regions: ADC, LED sinks, device sink, plate driver, boost, MCU, sensors, power entry and motor drivers. Each passive goes with the chip it shares the most nets with.
+  - Total wire length without ground dropped from 6189 mm to 4417 mm (29% less).
+  - There are no overlaps and every block fits its region.
+  - The picture is in [img/main_board_floorplan.jxl](docs/img/main_board_floorplan.jxl).
+- **D, pre-routing:** I didn't write code to pre-route and lock the critical nets. Block placement keeps the USB pair, both crystals and the boost loop inside their blocks, and the net classes now set power-trunk and rail widths of 0.4 mm and 0.25 mm. If the routed result shows a problem there, I'll add it.
+- **E, In2 layer:** it now carries signals, with a 3.3 V pour that flows around other nets' tracks. The mounting holes are placed before routing, so the router treats them as obstacles.
+
+A 12-minute route on this layout started at 22:10 and is running in the background. When it finishes, I'll record the unrouted count and the DRC, geometry and DFM numbers, then fix what they show. That includes the USB-C via short and the L4 courtyard overlaps, followed by a render review. The old 2026-11-10 board is not the fallback anymore; the new placement replaced it. Nothing is committed.
+<!-- ------ -->
+---

@@ -73,6 +73,54 @@ def new_board():
     return b
 
 
+
+# ---------- floorplan (kb/main_board_assessment.md, SPEC.md): every part belongs to a block with a rectangular region (fractions of the board) ----------
+BLOCK_ANCHORS = {
+    "power": ["USBC1", "D1", "F1", "L1", "L2", "U1", "U2"],
+    "mcu": ["U3", "U4", "U5", "SW1", "SW2", "LED1", "LED2"],
+    "adc": ["U9", "X1", "U8"],
+    "led": ["U10", "U12", "U13", "Q1", "Q2"],
+    "dut": ["U11", "U14", "Q3"],
+    "plate": ["U16"],
+    "boost": ["U15", "L3", "L4", "D2"],
+    "motor": ["Q4", "Q5", "D3", "D4"],
+    "sensor": ["U6", "U7"],
+}
+BLOCK_REGIONS = {  # x0, y0, x1, y1 as fractions of (W, H); y grows downward, USB-C at the bottom centre, JST-SH heads along the top, headers on the right
+    "power": (0.30, 0.74, 0.70, 0.99),
+    "mcu": (0.13, 0.42, 0.42, 0.72),
+    "adc": (0.30, 0.12, 0.70, 0.40),
+    "led": (0.09, 0.12, 0.29, 0.40),
+    "dut": (0.72, 0.12, 0.93, 0.42),
+    "plate": (0.62, 0.44, 0.93, 0.62),
+    "boost": (0.62, 0.64, 0.93, 0.98),
+    "motor": (0.07, 0.74, 0.29, 0.98),
+    "sensor": (0.44, 0.42, 0.61, 0.62),
+}
+
+
+def assign_blocks(comps, nets):
+    """ref -> block. Anchors are listed above; every other part (resistors, capacitors, LEDs, ...) goes with the anchor it shares the most signal nets with
+    (power nets count a third as much, GND nothing), so a decoupling capacitor follows its IC and a pull-up its driver."""
+    where = {r: b for b, rs in BLOCK_ANCHORS.items() for r in rs if r in comps}
+    nets_of = defaultdict(dict)
+    for n, nodes in nets.items():
+        w = 0.0 if n == "GND" else (0.33 if POWER.match(n) else 1.0)
+        if len(nodes) > 12:
+            w *= 12 / len(nodes)
+        for r, _ in nodes:
+            nets_of[r][n] = w
+    for r in sorted(comps):
+        if r in where or comps[r][1].startswith(("CONN-", "USB-C", "HDR-")):
+            continue
+        score = defaultdict(float)
+        for a, blk in where.items():
+            if a in BLOCK_ANCHORS.get(blk, []):
+                score[blk] += sum(min(w, nets_of[a].get(n, 0)) for n, w in nets_of[r].items())
+        where[r] = max(score, key=score.get) if score and max(score.values()) > 0 else "mcu"
+    return where
+
+
 def place(W, H):
     comps, nets = parse_netlist(NET)
     b = new_board()
@@ -123,9 +171,18 @@ def place(W, H):
     for i, r in enumerate(hdrs):
         pos[r] = (W - 5.0, 18 + i * 11); rot[r] = 90; fixed.add(r)
     rng = np.random.default_rng(1)
+    block = assign_blocks(comps, nets)
+    reg = {r: BLOCK_REGIONS[block[r]] for r in refs if r in block}
     for r in refs:
         if r not in pos:
-            pos[r] = (W / 2 + rng.normal(0, 8), H / 2 + rng.normal(0, 8))
+            x0_, y0_, x1_, y1_ = reg[r]
+            pos[r] = ((x0_ + x1_) / 2 * W + rng.normal(0, 3), (y0_ + y1_) / 2 * H + rng.normal(0, 3))
+    area = defaultdict(float)
+    for r in reg:
+        area[block[r]] += (size[r][0] + 0.8) * (size[r][1] + 0.8)
+    for blk, a_ in sorted(area.items()):
+        x0_, y0_, x1_, y1_ = BLOCK_REGIONS[blk]
+        print(f"  block {blk:7s} {sum(1 for r in reg if block[r]==blk):3d} parts, {a_:6.0f} mm2 of parts in {(x1_-x0_)*(y1_-y0_)*W*H:6.0f} mm2 ({a_/((x1_-x0_)*(y1_-y0_)*W*H)*100:.0f} %)")
     edges = defaultdict(float)
     for name, nodes in nets.items():
         rs = sorted({r for r, _ in nodes})
@@ -168,9 +225,12 @@ def place(W, H):
         G[:, 1] += np.where(py, np.where(dy >= 0, 1, -1) * oy * 0.5, 0).sum(1)
         return G, m
 
+    LO = np.array([[reg[r][0] * W, reg[r][1] * H] if r in reg else [0, 0] for r in refs])
+    HI = np.array([[reg[r][2] * W, reg[r][3] * H] if r in reg else [W, H] for r in refs])
+
     def clip():
-        P[:, 0] = np.clip(P[:, 0], S[:, 0] / 2 + 1.5, W - S[:, 0] / 2 - 1.5)
-        P[:, 1] = np.clip(P[:, 1], S[:, 1] / 2 + 1.5, H - S[:, 1] / 2 - 1.5)
+        P[:, 0] = np.clip(P[:, 0], np.maximum(S[:, 0] / 2 + 1.5, LO[:, 0] + S[:, 0] / 2), np.minimum(W - S[:, 0] / 2 - 1.5, HI[:, 0] - S[:, 0] / 2))
+        P[:, 1] = np.clip(P[:, 1], np.maximum(S[:, 1] / 2 + 1.5, LO[:, 1] + S[:, 1] / 2), np.minimum(H - S[:, 1] / 2 - 1.5, HI[:, 1] - S[:, 1] / 2))
 
     N = 1500
     for it in range(N):
@@ -210,6 +270,7 @@ def place(W, H):
     for (x0, y0, x1, y1) in ((0, 0, W, 0), (W, 0, W, H), (W, H, 0, H), (0, H, 0, 0)):
         b.graphicItems.append(GrLine(start=Position(X=x0, Y=y0), end=Position(X=x1, Y=y1), layer="Edge.Cuts", width=0.1, tstamp=uid()))
     os.makedirs(OUT, exist_ok=True)
+    add_mounting_holes(b)                       # before routing, so the router treats the holes as obstacles
     b.to_file(PCB)
     json.dump({"net_settings": {"classes": [{"name": "Default", "clearance": CLEAR, "track_width": TRACK, "via_diameter": VIA_D, "via_drill": VIA_H,
                                               "diff_pair_gap": 0.2, "diff_pair_width": 0.2, "diff_pair_via_gap": 0.25, "microvia_diameter": 0.3, "microvia_drill": 0.1,
@@ -306,14 +367,16 @@ def write_dsn():
     out.append("  (network")
     for n, pins in sorted(nets.items()):
         out.append(f'    (net "{n}"\n      (pins {" ".join(p.replace(chr(34)+"-"+chr(34), "-").replace(chr(34), "") for p in pins)})\n    )')
-    sig = [n for n in sorted(nets) if n not in ("GND", PLANE2_NET)]
-    # In1.Cu is the ground plane and In2.Cu the PLANE2_NET plane: signals are kept off both with use_layer; GND may use any layer and PLANE2_NET
-    # may use In2.Cu too (vias to the plane); the zones are poured after the import
-    out.append('    (class signals ' + " ".join(f'"{n}"' for n in sig) +
-               f'\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
-    out.append(f'    (class ground "GND"\n      (circuit (use_via "Via[0-3]_600:300_um"))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
-    if PLANE2_NET in nets:
-        out.append(f'    (class plane2 "{PLANE2_NET}"\n      (circuit (use_via "Via[0-3]_600:300_um") (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+    # net classes (SPEC.md): power trunks 0.4 mm, rails 0.25 mm, everything else the 0.2 mm default; In1 is the solid GND plane (only GND may use it), In2 carries
+    # signals and the 3V3_D pour (the pour is added after routing and flows around other nets' tracks); GND may use any layer
+    trunks = [n for n in sorted(nets) if n in ("V5", "VBUS", "VBUS_F", "V24", "V24_RAW", "V5_BOOST", "BOOST_SW")]
+    rails = [n for n in sorted(nets) if n in ("3V3_A", "3V3_AR", "3V3_D", "DVDD_1V1")]
+    sig = [n for n in sorted(nets) if n != "GND" and n not in trunks and n not in rails]
+    via = '(use_via "Via[0-3]_600:300_um")'
+    for cls, members, width in (("signals", sig, TRACK), ("trunks", trunks, 0.4), ("rails", rails, 0.25)):
+        out.append(f'    (class {cls} ' + " ".join(f'"{n}"' for n in members) +
+                   f'\n      (circuit {via} (use_layer F.Cu In2.Cu B.Cu))\n      (rule (width {width*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
+    out.append(f'    (class ground "GND"\n      (circuit {via})\n      (rule (width {TRACK*u:.0f}) (clearance {CLEAR*u:.0f}))\n    )')
     out.append("  )")
     out.append("  (wiring)\n)")
     open(DSN, "w").write("\n".join(out) + "\n")
@@ -496,6 +559,8 @@ def sync_library_fields(b):
     cache = {}
     for fp in b.footprints:
         name = fp.libId.split(":")[1]
+        if not os.path.exists(os.path.join(LIB, name + ".kicad_mod")):
+            continue                                  # generated footprints (mounting holes) have no library file
         if name not in cache:
             cache[name] = Footprint.from_file(os.path.join(LIB, name + ".kicad_mod"))
         lib = cache[name]
