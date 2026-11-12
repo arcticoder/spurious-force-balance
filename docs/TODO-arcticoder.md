@@ -8,13 +8,13 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. [ ] **Confirm the calibration physics correction.** A vertical-axis balance cannot be calibrated with hanging weights (they tilt it, not twist it); [procedures.md](procedures.md) B.1 and [plan.md](plan.md) now use added inertia (masses at +r and -r, period change). The calibration rider cannot be designed until you confirm or reject this.
+1. [ ] **Confirm the calibration physics correction.** A vertical-axis balance cannot be calibrated with hanging weights (they tilt it, not twist it); [procedures.md](procedures.md) B.1 and [plan.md](plan.md) now use added inertia (masses at +r and -r, period change). The calibration rider cannot be designed until you confirm or reject this. No purchase is affected: the 1 g weight, the 0.1 g scale and the PLA filament serve both methods; the pair at +r and -r needs two equal masses, so one 1 g weight plus a filament piece trimmed to the same mass on the scale works, or a second 1 g weight can ride on a later AliExpress order.
 
 The 2026-11-11 printing session is finished. Remaining plates (the posts and their bars, base 4 h 41 min) wait for a longer window.
 
 ## Ready to build now — parts on hand
 
-2. [ ] **Print the rest of the balance's frame** (`hardware/balance/cad/*.stl`; settings in [print_requirements.md](print_requirements.md) section 6). Next (the gantry, post nn and strip guide are printed): the three remaining `encl_post_*` and four `encl_post_*_bar` pieces (re-sliced as separate flat objects; the posts file is being redone), and `base`. Fastener positions: [img/fasteners.jxl](img/fasteners.jxl); steps: [assembly.md](assembly.md).
+2. [ ] **Print the rest of the balance's frame** (`hardware/balance/cad/*.stl`; settings in [print_requirements.md](print_requirements.md) section 6). Next (everything but the posts and the base is printed; the photo of 2026-11-12 shows post nn complete with its bar): `balance_p1_posts_np_pn_pp_bars.gcode` (three posts and three bars, flat, no supports, 2 h 4 min, 104 g), then `base` (4 h 41 min, 177 g). Fastener positions: [img/fasteners.jxl](img/fasteners.jxl); steps: [assembly.md](assembly.md).
 
 ## En route
 

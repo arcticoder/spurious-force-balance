@@ -2769,3 +2769,31 @@ I fixed the grouped-posts problem in the CAD and handled your other three points
    - **Re-slice needed:** the pre-sliced three-posts G-code is from the grouped version. Slice the L-shaped posts and the bars as separate flat objects before the next posts print; I queued that in TODO-agent.md.
    - **Post nn:** the post nn you printed has no bar yet, so its bar is needed too. I updated [TODO-arcticoder.md](docs/TODO-arcticoder.md), [print_requirements.md](docs/print_requirements.md) and [assembly.md](docs/assembly.md) for the bars.
 4. **Missing approval:** the request to confirm the calibration physics correction (hanging weights can't calibrate a vertical-axis balance, so B.1 now uses added inertia) was only in chat. It's now task 1 on your list, and the rider design waits on it.
+<!-- ------ -->
+---
+I've re-sliced the posts, parsed the photo, converted it, and answered the cost question. I'm no longer writing to history.md. The partial summary I added last turn is still at its end; delete it when you paste yours.
+
+**Posts re-slice (item 2):** the Orca project had lost my temperature edits when it was reopened, so I set 225/220 °C and bed 60 again.
+- The new file is `balance_p1_posts_np_pn_pp_bars.gcode`: posts np, pn and pp plus their three bars.
+- Everything is laid flat with no supports, 2 h 4 min and 104 g, down from 3 h 34 min and 110 g.
+- np and pp are mirror images and needed different rotations to lie flat.
+- I deleted the old grouped file.
+- Nothing has been started on the printer.
+
+**"No bar" (item 3):** I meant the bar was missing. From your photo it was printed, so post nn is complete. I replaced the "four bars" count with three in the docs.
+
+**Printed-parts inventory (3.1):** matching the photo against the CAD sizes, all 15 expected objects are present, so nothing needs reprinting.
+- **Parts present:** head, sensor_bracket, damper_holder, elec_bracket, vane_holder, fixture_saw_guide_base, fixture_saw_guide_plate, fixture_gap_gauge, fixture_strip_guide, the four shelf strips, the gantry, and post nn with its bar.
+- **Saw guide plate:** it prints as four small blocks with one hole each, because the rod groove and kerf slot split it. That is what the four blocks in the photo are.
+- **Post nn:** the three long bars at the left are my reading of post nn's L and its bar. Tell me if that's wrong.
+- **Still to print:** posts np, pn and pp, their three bars, and the base.
+
+**Photo (3.2–3.4):** it is now lossless at `docs/img/printed_parts_2026-11-11.jxl`. I deleted the original JPG and its Zone.Identifier file.
+
+**Cost (item 4):** you didn't waste any money, and the correction needs no extra spending. I wasn't asking you to sign off on a loss; the physics confirmation is task 1 on your list. The 1 g weight, the 0.1 g scale and the PLA filament work for both the old and new calibration methods.
+- **Possible extra:** the new method needs two equal masses, at +r and -r. One 1 g weight plus a filament piece trimmed to the same mass on the scale does that. A second 1 g weight is optional, and it would add roughly the C$2.48 the first one cost if you want a matched pair.
+- **Task text:** I added this to task 1 in TODO-arcticoder.md.
+
+I also saved a memory note to stop appending to history.md.
+<!-- ------ -->
+---

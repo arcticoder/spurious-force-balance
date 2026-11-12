@@ -23,7 +23,6 @@ Work that needs no hands, eyes or purchasing decision from the user. Open items 
 - [ ] Hot-nozzle-over-plate (2026-11-09): write a fixed load sequence in the wsl K1 note (park front-left, Z raised, before any heat) and check `START_PRINT` never leaves the nozzle over the plate.
 - [ ] Print sessions: name `print-session-runbook.md` in the user's task each time; check each G-code's header, mass and preview before submitting; the base (4 h 41 min, 177 g) does not fit a 4 h window.
 
-- [ ] Re-slice the posts after the 2026-11-11 CAD fix (L and `_bar` as separate objects, flat, no supports) when OrcaSlicer is open with Remote API on; replace `balance_p1_posts_np_pn_pp.gcode`, check header/mass/preview, update times in `kb/printing_state.md` and `TODO-arcticoder.md`. Post nn as printed lacks its bar.
 - [ ] Camera for the K1 (low priority): find a USB UVC camera under about C$10 on AliExpress and a printed mount; first confirm the K1's USB port and that the firmware exposes a generic camera (see `kb/printing_state.md`). Nothing is bought unless the user agrees; no soldering, no header pins.
 
 ### Shipping and orders
