@@ -2,3 +2,6 @@
 (rule pad_hole_gap
   (constraint hole_to_hole (min 0.45mm))
   (condition "A.Type == 'Pad' && B.Type == 'Pad'"))
+(rule pad_pad_clearance
+  (constraint clearance (min 0.09mm))
+  (condition "A.Type == 'Pad' && B.Type == 'Pad'"))

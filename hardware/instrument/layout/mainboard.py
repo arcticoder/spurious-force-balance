@@ -330,11 +330,19 @@ def write_dsn():
             for pad in fp.pads:
                 a = ((pad.position.angle or 0) - rot) % 360
                 w, h = (pad.size.X, pad.size.Y) if a in (0, 180) else (pad.size.Y, pad.size.X)
+                cx_off = cy_off = 0.0
+                if pad.shape == "custom" and pad.customPadPrimitives:
+                    # a custom pad's size is only an anchor (0.005 mm on the USB-C power pads); the copper is its polygon: use its bounding box, stroke included
+                    pts = [(float(q.X), float(q.Y)) for g in pad.customPadPrimitives for q in getattr(g, "coordinates", [])]
+                    sw = max([float(getattr(g, "width", 0) or 0) for g in pad.customPadPrimitives] + [0.0])
+                    if pts:
+                        px0, px1, py0, py1 = min(x for x, _ in pts) - sw / 2, max(x for x, _ in pts) + sw / 2, min(y for _, y in pts) - sw / 2, max(y for _, y in pts) + sw / 2
+                        w, h, cx_off, cy_off = px1 - px0, py1 - py0, (px0 + px1) / 2, (py0 + py1) / 2
                 tht = pad.type in ("thru_hole", "np_thru_hole")
                 key = (round(w, 3), round(h, 3), tht, pad.shape)
                 if key not in padstacks:
                     padstacks[key] = f"P{len(padstacks)}_{w:.2f}x{h:.2f}{'T' if tht else 'S'}"
-                lx, ly = pad.position.X, pad.position.Y  # at rotation 0 (kiutils keeps the footprint-local position)
+                lx, ly = pad.position.X + cx_off, pad.position.Y + cy_off  # at rotation 0 (kiutils keeps the footprint-local position)
                 # pad positions in the file are local to the footprint; with footprint rotation `rot` they rotate with it
                 pins.append(f"(pin {padstacks[key]} \"{pad.number}\" {lx*u:.0f} {-ly*u:.0f})")
             images[name] = f'    (image "{name}"\n      ' + "\n      ".join(pins) + "\n    )"
@@ -550,7 +558,9 @@ def write_rules():
     """Custom DRC rules next to the board (KiCad reads main_board.kicad_dru): pad-to-pad hole spacing per JLC's 0.45 mm."""
     open(os.path.join(OUT, "main_board.kicad_dru"), "w").write(
         "(version 1)\n"
-        f"(rule pad_hole_gap\n  (constraint hole_to_hole (min {PAD_HOLE_GAP}mm))\n  (condition \"A.Type == 'Pad' && B.Type == 'Pad'\"))\n")
+        f"(rule pad_hole_gap\n  (constraint hole_to_hole (min {PAD_HOLE_GAP}mm))\n  (condition \"A.Type == 'Pad' && B.Type == 'Pad'\"))\n"
+        # the USB-C footprint's own GND/VBUS pads are 0.10 mm apart (JLC's limit is 0.09 mm): pad-to-pad clearance 0.09 mm, track-to-pad stays 0.15 mm
+        "(rule pad_pad_clearance\n  (constraint clearance (min 0.09mm))\n  (condition \"A.Type == 'Pad' && B.Type == 'Pad'\"))\n")
 
 
 def sync_library_fields(b):

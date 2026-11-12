@@ -2921,3 +2921,30 @@ TODO-agent.md is down to 5 lines, one item: reading the result of the route that
 A 12-minute route on this layout started at 22:10 and is running in the background. When it finishes, I'll record the unrouted count and the DRC, geometry and DFM numbers, then fix what they show. That includes the USB-C via short and the L4 courtyard overlaps, followed by a render review. The old 2026-11-10 board is not the fallback anymore; the new placement replaced it. Nothing is committed.
 <!-- ------ -->
 ---
+Fixed a real defect the first block-layout route exposed, and re-running it now.
+
+**What the first run showed:** it finished in about 8 minutes, against 45 before. The board has 2343 segments and 267 vias, down from about 3700 and 372. Four things were still wrong:
+- 5 shorts and 8 clearance errors, all around USB-C.
+- 13 unconnected pads.
+- 2 courtyard overlaps at L4.
+- 2 acute V turns.
+
+**Cause of the USB-C shorts:** the footprint's four GND and VBUS pads are custom polygons. Their nominal size is 0.005 mm, so the router saw a tiny point and ran copper straight through the real pad. The routing export now takes the polygon's bounding box instead. The footprint's own pads are only 0.10 mm apart, so I added a pad-to-pad clearance of 0.09 mm (JLC's limit) while keeping track-to-pad at 0.15 mm.
+
+**Now running:** the placement, a 14-minute route, and the DFM check, in the background. Next steps once it finishes:
+- Fix whatever the DFM check still shows, including the L4 overlaps and the 13 unconnected pads.
+- Do the board render review.
+- Record the numbers in the layout notes.
+
+TODO-agent.md still has its one item, the layout work.
+<!-- ------ -->
+---
+The second block-layout route crashed on my own bug, so it left the board unrouted. I've fixed it and relaunched; TODO-agent.md still has its one item (the layout).
+
+**What went wrong:** the USB-C pad fix I added read some coordinates as text instead of numbers and stopped the routing export. The DFM check then reported all 415 connections unconnected on an unrouted board. That is a run failure, not a result. The first block-layout route is the real baseline: it finished in about 8 minutes, against 45 before.
+
+**Check on the fix:** the four USB-C power pads now export as 0.70 × 1.40 mm rectangles instead of 0.005 mm points, so the router can see the real copper.
+
+**Now running:** a 14-minute route, then the DFM check, in the background. I'll read the numbers when it finishes and fix what shows up: the L4 courtyard overlaps and any leftover unconnected pads, then the render review.
+<!-- ------ -->
+---
