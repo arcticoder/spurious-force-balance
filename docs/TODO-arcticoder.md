@@ -8,7 +8,7 @@ cart is one checkout across both repos. Done items move to [TODO-completed.md](T
 
 ## What I need from you
 
-1. [ ] **Printing window Thursday 2026-11-12, from 8:15 pm, 75 minutes.** Runbook: `~/Code/sysadmin/wsl/docs/print-session-runbook.md` (prep steps done at 6:40 pm). The black 1 kg spool is already loaded (the sensor sees filament; the job needs 43 g): nothing to swap unless you changed it. At 8:15 pm switch the K1 on if it is off, make sure the plate is clear, and tell me; nothing heats until you ask in that message. File `balance_p1a_post_np_bars_np_pn.gcode` (post np with its bar and the pn bar, no supports, 54 min, 43 g, about 60 min with start-up). Look at the first layer at about 8:35 pm and once at about 8:55 pm (clock times follow the actual start); expected finish about 9:20 pm.
+1. [ ] **Printing window Thursday 2026-11-12, from 8:15 pm, 75 minutes.** Runbook: `~/Code/sysadmin/wsl/docs/print-session-runbook.md` (prep steps done at 6:40 pm). The black 1 kg spool is already loaded (the sensor sees filament; the job needs 43 g): nothing to swap unless you changed it. At 8:15 pm switch the K1 on if it is off, make sure the plate is clear, and tell me; nothing heats until you ask in that message. File `balance_p1a_post_np_bars_np_pn.gcode` (post np with its bar and the pn bar, no supports, 54 min, 43 g, about 60 min with start-up). Started 7:42 pm; first layer looked good; expected finish about 8:45 pm. A second file follows (`balance_p6_post_pn_bar_pp_riders_x2.gcode`: post pn, pp bar, two calibration riders, 51 min, 38 g) after you clear the plate and say go.
 
 The 2026-11-11 session is finished. Left to print after this window: posts pn and pp with the pp bar (73 min, 61 g), two calibration riders (13 min, 3 g), the base (4 h 41 min).
 
