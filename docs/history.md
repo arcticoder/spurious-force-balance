@@ -3207,3 +3207,15 @@ The second print finished at about 9:37 pm. Moonraker reports `complete` with no
 I'll slice each file the day before its window. Your list is updated: task 1 is now the inspection, and task 2 is the later windows.
 <!-- ------ -->
 ---
+The repo doesn't say how much we save, and I won't guess at a number.
+
+**What line 2905 is about:** "making our own weight" is the brass ballast, the counterweight on the arm. It's one 15 mm saw cut from the 10 mm × 100 mm brass rod, about 10 g. The 100 mm rod gives room for about six such cuts, so most of it is spare.
+
+**What I can say:**
+- **The comparison on file:** [fabrication.md](docs/fabrication.md) decided against ordering a machined brass part from JLCCNC. Their reasoning was that it would cost more than a junior hacksaw at $5–8 on AliExpress, plus the 5 minutes of sawing. That is a judgment, not a measured saving. I have no JLCCNC price, and I never state JLC prices I haven't seen.
+- **The other side of the sum:** the rod's price isn't in the lines I looked at in [orders.md](../lab/docs/orders.md). The sawing needs only the hacksaw blades from your 2026-11-10 order, which are not priced separately, plus the printed saw guide, which is filament. So the cost is about the rod and the blades. Any CNC alternative would likely add shipping and a minimum order, so the sawn weight wins unless your time counts.
+- **My earlier remark:** the point about lead was general caution. Free-cutting brass often has about 2–3.5% lead, but I can't tell which alloy this AliExpress rod is. Handling and sawing it is a minor exposure. The risk comes from fine dust from abrasive wheels and sanding, which is why I suggested the glasses and mask.
+
+**If you want an actual number:** I can get a real quote for a machined 10 mm × 15 mm brass cylinder through your JLC app. That means uploading a small STEP file and reading the price, with no order placed. Say so and I'll do it. Otherwise, if you tell me what the rod cost, I can work out the comparison.
+<!-- ------ -->
+---
