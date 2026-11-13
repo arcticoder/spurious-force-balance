@@ -3319,3 +3319,23 @@ Two things the next session should know:
 - **Printer password:** it was printed in this chat once by mistake and is still visible above. You may want to change it.
 <!-- ------ -->
 ---
+The four items are handled. Nothing was printed, heated, or sent to the printer, and nothing was committed. `docs/TODO-agent.md` is at 0 lines.
+
+**What changed**
+1. **Parts inspection:** closed. The user's list no longer has it, and the completed log records that the 2026-11-12 prints look good.
+2. **Ballast:** the brass rod stays. The cut is a hacksaw cut in the printed saw guide, and the Dremel route and its chop stand are shelved. The stainless weight is not pursued. Dust masks are dropped from the AliExpress list; safety glasses stay as the user's task 1. The assembly steps now say to wear glasses for the cut and the filing.
+3. **`history.md`:** I did not edit it. A search found two things you should look at:
+   - Line 3122 has the printer's password in plain text.
+   - Lines 1988–1989 have partial parcel tracking numbers.
+
+   Please delete those lines yourself and change the printer password. If `history.md` is tracked and the repo is public, check it before your next commit.
+4. **Saturday block:** recorded. The next print window is now the user's to name. Post pp's L is sliced the day before whichever window they give (in `TODO-BLOCKED.md`).
+
+**Decisions I made**
+- I made the hacksaw cut wait for the safety glasses, not just the blades. Chips from a saw are an eye hazard, and the user owns no glasses. Say if you want the cut to go ahead without them.
+- The arm is in production at JLC, not shipped. The factory estimate of 2026-11-12 has passed, and the last read was 2026-11-10. I tried a read through the app, but the orders page bounced back to the events page. That re-read is in `TODO-BLOCKED.md` for the next session.
+- Hand-filing brass without a mask is a fine-dust exposure. I wrote the task to keep filing short and wipe the filings up with a damp cloth.
+
+**Files:** `docs/TODO-arcticoder.md`, `docs/TODO-BLOCKED.md`, `docs/TODO-backlog.md`, `docs/TODO-completed.md`, `docs/assembly.md`, `docs/kb/session_handoff.md` (replaced), `docs/kb/printing_state.md`, `docs/kb/balance_design_notes.md`.
+<!-- ------ -->
+---

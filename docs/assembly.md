@@ -22,7 +22,7 @@ down with your free hand, and run a sharp craft-knife blade down the slot with i
 from the ridge. Then cut across at 58 mm with the knife and a steel rule. Run a fine file lightly along both long edges (kinked or burred edges add friction in the strip), and
 handle it by the ends: a crease ruins it. Cut two strips; the second is a spare.
 
-**Ballast (brass, 10 mm rod).** Put the rod in the saw guide's groove with its end against the stop, close the plate with four M3×14 screws, and saw down the slot with a
+**Ballast (brass, 10 mm rod).** Wear safety glasses for the whole cut and the filing; brass chips fly. Put the rod in the saw guide's groove with its end against the stop, close the plate with four M3×14 screws, and saw down the slot with a
 junior hacksaw until the piece drops free: its length is the ballast length plus 0.5 mm. File the sawn face flat until the piece is the length `balance.py` printed (15.1 mm
 with the CAD's numbers); it must pass through the arm board's 10.2 mm hole.
 
