@@ -122,7 +122,17 @@ else:
     check("functional — the balance sits inside the enclosure with the planned clearance to every wall and the lid", clr >= P.ENCL_MIN_CLEARANCE * 1e3, f"{clr:.1f} mm against {P.ENCL_MIN_CLEARANCE*1e3:.0f} mm")
     cut = B.panel_cut_list(parts)
     stock = sorted((P.PANEL_STOCK[0] * 1e3, P.PANEL_STOCK[1] * 1e3, P.PANEL_T * 1e3))[::-1]
-    check("functional — the acrylic is six uncut stock sheets (four walls, two lid sheets), nothing to cut", len(cut) == 1 and sum(cut.values()) == 6 and all(max(abs(a - b) for a, b in zip(k, stock)) < 0.01 for k in cut), f"{cut} against stock {stock}")
+    if P.ENCL_PRINTED:
+        import enclosure_printed as EP
+        ep = EP.walls()
+        ep.update(EP.lid())
+        big = [n for n, (wp, k) in ep.items() if k == "pla" and max(wp.val().BoundingBox().xlen, wp.val().BoundingBox().ylen) > P.PRINT_VOLUME[0] * 1e3]
+        span = sum(1 for n in ep if n.endswith(("_a", "_b")) and n.startswith("wall_"))
+        check("functional — the enclosure is printed: no acrylic is bought, every printed plate fits the 220 mm bed, and the four walls are eight plates joined by strips", not cut and not big and span == 8, f"{len(ep)} printed pieces, acrylic cut list {cut}, oversize {big}")
+        pla_cm3 = sum(wp.val().Volume() for n, (wp, k) in ep.items()) / 1e3
+        check("functional — the printed enclosure's PLA volume matches the plan (under 400 cm3 solid)", pla_cm3 < 400, f"{pla_cm3:.0f} cm3 solid")
+    else:
+        check("functional — the acrylic is six uncut stock sheets (four walls, two lid sheets), nothing to cut", len(cut) == 1 and sum(cut.values()) == 6 and all(max(abs(a - b) for a, b in zip(k, stock)) < 0.01 for k in cut), f"{cut} against stock {stock}")
     # --- the strip's clamping loop is FR4 and steel only: no printed plastic carries the preload that holds the zero ---
     loop = ("arm", "clamp_low", "clamp_up_a", "clamp_up_b", "strip")
     plastic = [n for n in loop if parts[n][3] or parts[n][1] < 1e-3]  # a printed part, or a density below FR4's

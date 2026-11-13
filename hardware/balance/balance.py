@@ -486,8 +486,10 @@ def fastener_totals():
 
 
 def panel_cut_list(parts):
-    """Acrylic panels to buy: {(w, h, t): count}, in mm."""
+    """Acrylic panels to buy: {(w, h, t): count}, in mm. Empty when the enclosure is printed (params.ENCL_PRINTED)."""
     out = {}
+    if P.ENCL_PRINTED:
+        return out
     for n, (wp, _, _, printed) in parts.items():
         if n.startswith(("panel_", "encl_lid")):
             bb = wp.val().BoundingBox()

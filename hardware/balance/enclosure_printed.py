@@ -24,7 +24,9 @@ DEPTH = 4.0                        # mm each plate goes into a mullion
 WEB = 2.0                          # mm of mullion between the two slots
 CHEEK_IN, CHEEK_OUT = 1.2, 2.5     # mullion cheeks: thin on the inside to keep the 10 mm clearance to the balance
 A_LEN, B_LEN = 148.0, 100.0        # the two pieces of a 250 mm wall: A + B + WEB = 250
-WIN = ("wall_ny",)                 # walls whose 100 mm piece is the clear acrylic window
+WIN = ()                           # no acrylic window (user, 2026-11-12): every wall piece is printed
+PLATE_T = 1.2                      # mm, wall plate thickness (user, 2026-11-12); the slot-side edges keep a 2.0 mm rim
+RIM_W = 6.0                        # mm, width of that rim along each vertical edge
 
 
 def walls():
@@ -43,8 +45,20 @@ def walls():
         def bx(r, z0=0.0, z1=hi):
             x0, x1, y0, y1 = r
             return B.box(x0, x1, y0, y1, z0, z1)
-        out[name + "_a"] = (bx(run(0, A_LEN)), "pla")
-        out[name + "_b"] = (bx(run(A_LEN + WEB, A_LEN + WEB + B_LEN)), "acrylic" if name in WIN else "pla")
+        mid_ = (c0 + c1) / 2
+
+        def plate(a, b):
+            """a 1.2 mm plate from distance a to b along the run with a 2.0 mm, RIM_W wide rim on both vertical edges (the rim fills the slot)"""
+            u = run(a, b)
+            thin = (u[0], u[1], mid_ - PLATE_T / 2, mid_ + PLATE_T / 2) if axis == "x" else (mid_ - PLATE_T / 2, mid_ + PLATE_T / 2, u[2], u[3])
+            body = bx(thin)
+            for r0, r1 in ((a, a + RIM_W), (b - RIM_W, b)):
+                q = run(r0, r1)
+                rim = (q[0], q[1], mid_ - T / 2, mid_ + T / 2) if axis == "x" else (mid_ - T / 2, mid_ + T / 2, q[2], q[3])
+                body = body.union(bx(rim))
+            return body
+        out[name + "_a"] = (plate(0, A_LEN), "pla")
+        out[name + "_b"] = (plate(A_LEN + WEB, A_LEN + WEB + B_LEN), "acrylic" if name in WIN else "pla")
         # mullion: spans DEPTH into each plate plus the web; cheeks outside the 2.8 mm slot, the inner one thin
         lo, hi_ = (c0, c1)
         mid = (lo + hi_) / 2
@@ -125,7 +139,7 @@ def preview(parts, path):
         ax.view_init(elev, azim)
         ax.set_title(title)
         ax.set_axis_off()
-    fig.suptitle("Printed draught shield (proposal): grey PLA walls, black mullions, red PLA lid (lifted 40 mm), one clear 100 x 150 mm acrylic window", y=0.99)
+    fig.suptitle("Printed draught shield (proposal): grey PLA walls, black mullions, red PLA lid (lifted 40 mm), no acrylic window", y=0.99)
     fig.tight_layout(rect=(0, 0, 1, 0.93))
     png = path[:-4] + ".png"
     fig.savefig(png, dpi=110)

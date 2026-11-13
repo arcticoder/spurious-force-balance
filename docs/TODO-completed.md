@@ -2,6 +2,8 @@
 
 Dated entries, newest first.
 
+- 2026-11-12 (evening) — With the K1 on: print hours (no total counter on the printer; the 50-job history file is a partial record, touchscreen stays the source), Wi-Fi (-62 dBm, no dropout evidence in the logs), START_PRINT (never hot over the plate centre) checked and recorded in the wsl K1 note; first print of the balance frame (p1a) printed, fast-start failure after power-on found and documented, second file p6 sliced.
+
 - 2026-11-12 (late night) — Main board layout finished to the DFM gate: 415/415 connections routed, no blocking item (`mainboard.py dfm`), In1 GND plane only (In2 pour dropped after three failed variants), USB-C custom-pad bug in the DSN found and fixed, 3V3 rails back to 0.2 mm, fan-out keep-outs around the fine-pitch ICs; render reviewed (`img/main_board_render_top.jxl`); WP7 outputs generated in `hardware/instrument/fab/` (Gerbers with the plane filled, BOM 46 lines/164 parts, CPL, `ORDER.md`). Details and the run history: `kb/main_board_layout_notes.md`.
 
 - 2026-11-12 (night) — Main board method change: pcbnew segfault solved (wrong interpreter: pcbnew is built for system Python 3.14, the venv is 3.12; `kb/pcb_toolchain_notes.md`), `layout/SPEC.md` written, force-directed placement replaced by block regions (`BLOCK_REGIONS`, `assign_blocks`; HPWL without GND 6189 -> 4417 mm, 0 overlaps), power net classes (0.4/0.25 mm), In2 allowed for signals with a 3V3_D pour, mounting holes placed before routing, floorplan image `img/main_board_floorplan.jxl`. Pre-routing critical nets in code was not needed: placement keeps the USB pair, crystals and boost loop inside their blocks and the classes set widths.

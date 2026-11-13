@@ -118,6 +118,7 @@ N42_THICKNESS = 3e-3
 # Sized to uncut stock: 2 mm clear acrylic, 150 x 250 mm sheets (a size sold ready-made). Four identical walls in a pinwheel give an
 # inner span of stock length - thickness; two more sheets side by side are the lid.
 PANEL_T = 2e-3  # acrylic thickness bought; the frame's slots are PANEL_T + 2*SEAL_T + 0.2 mm, so a thickness change is one number
+ENCL_PRINTED = True  # decided 2026-11-12: the walls and lid are printed PLA plates (1.2 mm with a 2 mm rim, `enclosure_printed.py`), no acrylic is bought
 PANEL_STOCK = (250e-3, 150e-3)  # m, the sheet as sold (long side, short side)
 SEAL_T = 0.3e-3  # m, double-sided PE foam tape used as a shim on both faces of each wall inside its slot
 ENCL_INNER = (PANEL_STOCK[0] - PANEL_T, PANEL_STOCK[0] - PANEL_T, PANEL_STOCK[1])  # clear volume, m

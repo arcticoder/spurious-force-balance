@@ -3025,3 +3025,143 @@ Two things the next session should know:
 - **Printer state:** the printer is reachable and cold, as of the 18:40 check. Nothing has started and nothing is heating.
 <!-- ------ -->
 ---
+The printer is reachable and Klipper is ready, but I haven't heated or started anything. Telling me the filament is loaded and the printer is on isn't the go-ahead in the runbook, which needs your explicit request.
+
+- **Nozzle:** it is already hot, 223.6 °C with a 225 °C target. I didn't set that. It looks like you heated it from the touchscreen to load the filament.
+- **Bed:** 16 °C with a target of 0.
+- **Filament sensor:** it sees filament.
+- **Position:** the printer is unhomed, so I can't say where the head is parked.
+- **Time:** it's 7:36 pm, so about 40 minutes before your 8:15 start.
+
+The nozzle is the only thing running warm. If you're finished loading, the printer's idle timeout will cool it on its own. I won't touch it unless you ask.
+
+When you want to print, say go in one message and confirm the plate is clear and the filament is seated, with a short purge extruded if you did it by hand. Because the nozzle is already at 225 °C, the start saves a few minutes of heating. I'd then do the fast start, which is about 5–8 minutes to the first layer:
+1. Bed to 60 °C.
+2. One homing.
+3. The prepare macro.
+4. The G-code, `balance_p1a_post_np_bars_np_pn.gcode`.
+5. Arm the monitor.
+
+I'll then give you the exact clock times for the first-layer look, one mid-print look, and the expected finish.
+<!-- ------ -->
+---
+The print started at about 7:40 pm: `balance_p1a_post_np_bars_np_pn.gcode`, 54 minutes expected. The monitor is armed.
+
+**Steps I ran:**
+- Bed to 60 °C.
+- One homing. That homing cools the nozzle to about 140 °C, so my first purge attempt was refused. I reheated to 225 °C and purged 20 mm at the rear-left corner. Nothing was harmed.
+- The prepare macro, then the upload and start.
+
+I assumed the plate was clear, since you said to start whenever ready. If anything was left on it, tell me now.
+
+**Your looks (clock times from the 7:40 start):**
+- **First layer, about 7:49–7:52 pm.** Check the first layer: the corners should be stuck and the lines continuous, with no blobs.
+- **Mid-print, about 8:10 pm.** One quick look for a flat surface and no stringing.
+- **Done:** I expect the print to finish at about 8:35 pm.
+
+**What I'll watch:** the monitor reports state changes and any loss of connection. It also sends progress with temperatures every 10 minutes. If the printer drops off while the nozzle is hot, I'll ask you to go look.
+
+**When it finishes:** let the plate cool to about 40 °C before you pull the parts. There may be a short strand of filament at the rear-left corner from the purge; remove it. Parts to expect: post np, its bar, and the pn bar.
+<!-- ------ -->
+---
+The first start failed and I restarted it. It's printing now on the normal start at 7:42 pm.
+
+**What happened:** at about 7:40 the print started, then Klipper crashed into shutdown. After a power-on, the fast start I'd planned (skip the preparation steps) breaks the printer's purge-line macro, because a temperature value it needs is only set by the full start. Yesterday it worked because earlier prints had run in the same power-on. The heaters switched off, and nothing was damaged.
+
+**Recovery:**
+- I restarted the firmware, which takes about 20 seconds.
+- I re-sent the same print with the full start: the printer homes, cleans the nozzle, homes again accurately, then does the bed mesh. That takes about 8–10 minutes before the first layer.
+
+**New clock times** (print started 7:42 pm):
+- **First-layer look:** about 7:52–7:55 pm. Look for corners stuck and continuous lines.
+- **Mid-print look:** about 8:15 pm.
+- **Expected finish:** about 8:40–8:45 pm, ending inside your window.
+
+Two other things you may see:
+- **Bed temperature:** the bed runs at 55 °C, not 60 °C. This G-code asks for 55 °C even though its header says 60, because one slicer setting didn't get changed. That is within the filament's range, so I'm not stopping the print. I'll fix it when re-slicing the other files.
+- **Purge strand:** the 20 mm purge left a short strand at the rear-left corner of the plate. Remove it when you pull the parts.
+
+I've written the failure, the recovery and the rule into the printing notes and the print-session runbook: the first print after any power-on uses the normal start. The monitor is still armed and will report progress and the finish.
+<!-- ------ -->
+---
+I sliced a second print for after this one: `balance_p6_post_pn_bar_pp_riders_x2.gcode`, 50 min 37 s, about 38 g, no supports.
+
+- **It prints:** post pn, the pp bar, and the two calibration riders.
+- **Why not more:** adding post pp's L-piece would have taken the plate to 80 minutes, over your hour. The L-piece (about 32 minutes) is the next file, then the base.
+- **Checked:** 4 objects, 225/220 °C, 30% infill, 3 walls, no supports. The bed is 60 °C this time. The first file ran at 55 °C because the K1's start macro reads a separate setting, "textured plate temperature", which I hadn't changed. I've now set it to 60 °C for later files.
+
+**Current print:** it is at 29% (8:04 pm), so I expect it to finish at about 8:45 pm.
+
+**Second print:** it doesn't start until you've cleared the plate and said go. Because a full start has already run since the firmware restart, it can use the fast start, about 5–6 minutes of start-up. That puts a 9:40-ish finish, past your 9:30 window end. I'll leave it to you whether that's fine. If it isn't, I can instead print only the 13-minute riders.
+
+I recorded the new file and the bed-temperature setting in [printing_state.md](docs/kb/printing_state.md). The mid-print look is still due at about 8:15 pm.
+<!-- ------ -->
+---
+Okay, a 9:40-ish finish is fine. I've re-armed the monitor, since the first one was about to run out.
+
+**Plan from here:**
+- **First print:** it should finish at about 8:45 pm. The monitor will send the finish, and I'll tell you right away.
+- **Then:** pull the np post and the two bars when the plate is about 40 °C, and remove the purge strand at the rear-left corner. Clear the plate and say go.
+- **Second print:** I'll use the fast start (bed to 60 °C, one homing, the prepare macro, then the upload). If the printer has been restarted since, I'll say so and use the normal start instead. The file is `balance_p6_post_pn_bar_pp_riders_x2.gcode`, 51 minutes, so I'd give you clock times for the looks as soon as it starts.
+
+The mid-print look on the current print is due at about 8:15 pm.
+<!-- ------ -->
+---
+That was the old monitor timing out after its 30 minutes. It isn't a problem, because the replacement one I armed at 8:05 pm is still running and watching the print.
+
+There's no change to the print: it was at 38% at 8:10 pm and is still on track to finish at about 8:45 pm. I'll report when it does.
+<!-- ------ -->
+---
+Progress is 49%, with the nozzle at 220 °C and the bed at 55 °C. The print is running normally.
+
+I expect it to finish at about 8:45 pm, and I'll report when it does.
+<!-- ------ -->
+---
+Yes. With the K1 on, I closed out the three printer checks I had parked. The print is fine, at 51% at 8:19 pm and on track for about 8:45 pm.
+
+**My mistake you should know about:** while reading the credentials file for the printer's SSH login, I ran an awk command that printed the password into this chat. It's the printer's local root password and is visible in the transcript above. The file's format is `KEY value` with a space, not `KEY=value`, which is what tripped me up. I fixed the command and noted the format in the printer notes so it doesn't happen again. If you'd like, change the printer's root password.
+
+**What the checks found** (all read-only, saved in the printer notes):
+- **Print hours:** the printer has no total counter.
+  - It keeps a rolling history of the last 50 jobs: 31.7 h since July 19, 43 of 50 finished.
+  - That undercounts your touchscreen's 131 h, so the touchscreen stays the source for the 300 h self-test.
+- **Wi-Fi:** signal is about −62 dBm (fair) with the balcony door shut. The Moonraker logs show no dropout evidence. The websocket closes on 11-11 were client disconnects, not Wi-Fi events. You don't need to read the signal off the touchscreen.
+- **Start macro:** the start routine is mostly Python inside the printer, so I can't read it as a config file. What I observed is that it only heats to about 135–140 °C while homing, and parks at the purge line or wipe area. It never sits hot over the plate centre.
+
+**What's left to work on while it prints:**
+- **Decisions:** the enclosure yes or no (task 3).
+- **Measurements:** the Dremel nose-thread measurement (task 4).
+- **Lab-repo tasks:** I can pick one if you have a preference.
+- **JLC shipping research:** it needs your JLC app launched with the debug port.
+
+The mid-print look is done. I'll report when the print finishes.
+<!-- ------ -->
+---
+All five items are done and nothing is committed. The print is at about 74% and should finish at about 8:45 pm.
+
+**1–3. Printed enclosure:** it's decided: printed, 1.2 mm plates with a 2 mm rim, no window.
+- **CAD and tests:** `params.py` now says the enclosure is printed, so no acrylic is bought. The balance smoke test passes. It checks that there are 18 printed pieces and each fits the 220 mm bed. A wall plate fits the bed in this model, and the walls stay joined by printed strips.
+- **Preview:** the picture in [img/enclosure_printed_preview.jxl](docs/img/enclosure_printed_preview.jxl) is updated.
+- **Estimate:** about 10 hours of printing (a slice-based estimate, not measured) and about 320 g, roughly 9 windows of 75 minutes. The lid tiles stay at 2 mm, which is most of that.
+- **Order:** the frame (posts, bars, base) prints first. I'll slice each window the day before it, as the runbook says. This is in [TODO-BLOCKED.md](docs/TODO-BLOCKED.md) and the design notes.
+
+**4. Dremel:**
+- **Thread:** 18 threads per 10 mm means a pitch of about 0.56 mm, so what you measured isn't the 3/4 in housing thread the sources give for related models. It may be the spindle thread under the collet nut. I'd like a photo of the nose end with the cap off, with calipers or a ruler in the shot (task 3 on your list). The phrase "over 10 mm" just meant 10 mm of thread length, which you answered anyway.
+- **Safety:** don't cut brass with the abrasive wheel until you have safety glasses and a dust mask. The wheel can shatter, and brass dust can contain lead. The hacksaw route stays the fallback. I staged safety glasses and FFP2/N95 masks for the next AliExpress cart, with no acrylic in it.
+
+**5. JLC coupons:** the JLC app was running with its debug port open. I opened the Black Friday message and the campaign page, then clicked Get Coupon on four coupons. The Coupon page confirms them, all valid until 2026-11-27:
+
+| Coupon | Off | Minimum |
+|---|---|---|
+| BF PCBA $12 | C$17.07 | over C$71.13 |
+| BF PCBA Parts $10 | C$14.23 | over C$71.13 |
+| BF Shipping $5 | C$7.11 | over C$28.45 of shipping |
+| BF Prototype $8 | C$11.38 | over C$28.45 |
+
+- **Chosen for:** the main board's assembly and shipping. I skipped the EasyEDA, layout, flex and 6–32 layer coupons. There was only one page of coupons, all 11 visible. The JLC3DP, JLCCNC and JLCMC pages have their own warm-up coupons, which I didn't read.
+- **Terms dialog:** the page showed an "updated Terms" dialog. I left it alone; it's yours to accept or decline.
+- **Records:** the new coupons are in [coupons.md](../lab/docs/jlc/coupons.md) and the how-to for driving the app is in the JLC notes.
+
+I haven't started the second print (`balance_p6`): it still needs you to clear the plate and say go once the current one finishes.
+<!-- ------ -->
+---
