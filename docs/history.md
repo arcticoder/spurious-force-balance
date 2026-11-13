@@ -2988,3 +2988,23 @@ The main board now routes completely and passes the DFM gate. No shorts or clear
 Thursday's 7:45 pm window (task 1 in TODO-arcticoder.md) is unchanged. The instrument smoke test still passes. Nothing is committed.
 <!-- ------ -->
 ---
+Prep is done and nothing is heating. Have the black 1 kg spool ready. The sensor already sees filament loaded, and it should be the black one from the last session. The job needs 43 g, so no swap, unless you changed spools; if you did, tell me.
+
+**What I checked** (runbook sections A and B, read-only)
+- **Printer connection:** the K1 answers on Moonraker and ping (about 9 ms). It is idle: bed 21 °C, nozzle 22 °C, both targets 0, unhomed, bed-mesh profile `default`.
+- **Prior jobs:** history shows 5 jobs and 7.97 h total, with the last three completed: strip guide, post nn, gantry.
+- **Slicer:** OrcaSlicer 2.4.2, the user-installed build with the Remote API, answers on port 13130. The slicer's own project is not used tonight. I send the saved G-code straight to the printer with curl.
+- **The G-code file:**
+  - `balance_p1a_post_np_bars_np_pn.gcode`: 225/220 °C nozzle, bed 60 °C, 3 walls, 30% infill, no supports, no prime tower.
+  - It contains exactly three objects: post np, the np bar and the pn bar.
+  - It uses 43.29 g and takes 54 min 6 s.
+- **No homing and no mesh:** the print's own start macro levels the bed.
+
+**Plan for the window**
+- **Start:** you switch the K1 on if it is off at 8:15, check the plate is clear, and tell me. Nothing heats until you ask in that message. Heating, one homing and the start take about 6–10 minutes. I'll give exact clock times once it starts.
+- **Print:** 54 minutes, so I expect it finished around 9:20. That fits a 75-minute window from 8:15, with about 10 minutes spare, assuming the window really starts at 8:15.
+- **Your looks:** first layer about 8–10 minutes after the start (corners stuck, lines continuous), and one check mid-print. I'll give the clock times when the print starts.
+
+I updated task 1 in [TODO-arcticoder.md](docs/TODO-arcticoder.md) with the 8:15 start, and put the prep in [printing_state.md](docs/kb/printing_state.md).
+<!-- ------ -->
+---
