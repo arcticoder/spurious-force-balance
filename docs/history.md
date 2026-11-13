@@ -3165,3 +3165,28 @@ All five items are done and nothing is committed. The print is at about 74% and 
 I haven't started the second print (`balance_p6`): it still needs you to clear the plate and say go once the current one finishes.
 <!-- ------ -->
 ---
+The first print finished at about 8:38 pm and Moonraker reports `complete` with no errors. It used 14.5 m of filament, and the printing time was 51.9 minutes. The heaters are off, the nozzle is at 201 °C and cooling, and the bed is at 53 °C.
+
+**For you:**
+1. Wait until the bed is at about 40 °C (roughly 10 minutes). Pull post np, its bar, and the pn bar.
+2. Remove the filament strand at the rear-left corner (the purge).
+3. Wipe the plate if it needs it, then say go.
+
+**Second print (`balance_p6`):** the nozzle needs to cool a bit first anyway. When you say go, I'll use the fast start (bed to 60 °C, one homing, the prepare macro, then upload). That's allowed because a full start ran after the firmware restart. Start-up is about 6 minutes plus the 51-minute print, so I'd expect a finish at about 9:40 pm, as you said was fine.
+<!-- ------ -->
+---
+All five items are handled. The print is at 92% and should finish in a few minutes. Nothing is committed.
+
+1. **Picture size:** the printed-parts picture was 4.4 MB because it was a full 12-megapixel photo kept lossless. I shrank it to 1000 pixels wide, still lossless, which brings it down to 911 kB. The nose-thread photo is stored the same way at 580 kB.
+2. **"Fab review":** it means JLCPCB's own checks of the fab files, mainly their placement preview. My DFM check and the render look were my review. Another model reviewing the layout against the chip datasheets before ordering is optional. I can prepare a review packet if you want one; it's mentioned in task 4.
+3. **Reminder:** I'll remind you of the placement-preview check when you start the main-board order.
+4. **Tasks in your list:** the main-board placement-preview check and the board-size decision are now task 4 in [TODO-arcticoder.md](docs/TODO-arcticoder.md).
+5. **Dremel photo:** I read it and deleted the original. The housing thread is 19 mm across, with 3 turns about 2.1 mm apart. That is the 3/4 in – 12 TPI thread the sources gave, so a printed stand ring can screw onto it. I'll print a 6 mm test ring first. The 8 mm fine thread in the photo is the spindle thread under the collet, not for the stand.
+5.1. **Safety gear:** yes, via AliExpress, now task 3. My search found no AliExpress listings, so I can't name candidates. Pick one pair of safety glasses and one pack of masks, and send me the links.
+   - **Glasses:** clear and marked ANSI Z87.1 or EN 166.
+   - **Masks:** FFP2 or KN95, with a listing that shows a test report (EN 149 or GB 2626). Certification claims on AliExpress are often unverifiable, so choose a seller that shows the certificate.
+   - **Until they arrive:** no abrasive wheel on brass. The hacksaw in the saw guide works without grit, but wear glasses when filing.
+
+I'll report when the second print finishes.
+<!-- ------ -->
+---
