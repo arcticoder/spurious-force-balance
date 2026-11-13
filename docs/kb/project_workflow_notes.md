@@ -51,3 +51,11 @@ The user launches the JLCONE app with `--remote-debugging-port=9222` when they w
 
 - **No tracking numbers** in chat or in any file (the user redacts them in `history.md` themselves; do not touch those). Say "tracking number in the JLC app".
 - **Never state that I read a page unless the transcript shows the call; when asked, check the transcript and answer from it.** Order-page reads drive the JLCONE account tab through the debug port; the user does not need the tab left on the order list (they only need to know which page it was last on if they look at it), so just say what I read.
+
+## Standing rules added 2026-11-11/12 (chat 13)
+- **TODO-agent.md must be at 0 lines at the end of every chat** (`wc -l`): startable items are done in the same chat; items that truly wait (printer power, the user's decision or photo, the JLC app, a running computation) go to `TODO-BLOCKED.md` with the exact condition; user decisions also become numbered tasks in `TODO-arcticoder.md` (a decision that exists only in chat is a miss: the calibration-physics confirmation was one). Staged orders and standing duties live in `TODO-backlog.md`.
+- **Never append to `docs/history.md`**; the user pastes the full chat summary there.
+- **Long computations:** run them in the background (`run_in_background`) and write the plan to the TODO files before waiting; never poll or sleep. Keep a copy of the last good board/state before a new run. Do not mix the user's request for one thing with an extra experiment in the same background chain without a log file per run.
+- **Photos:** the user drops a JPG in the repo root; convert to lossless `.jxl` in `docs/img/` with a descriptive name (via `tools/to_jxl.py` or Pillow with `pillow-jxl-plugin`, applying EXIF orientation), delete the original and its `:Zone.Identifier`, and parse what is in it against the CAD or inventory before relying on it.
+- **Estimates vs facts:** label slicer-based print times, masses and price guesses as estimates in user-facing text; never state JLC prices; say when a check was not run.
+- **Layout work:** read `kb/main_board_assessment.md` first (why it was slow: generic placement, all-at-once autorouting, planes, rebuilding KiCad in Python); change one thing per routing run and note the result in `kb/main_board_layout_notes.md`.

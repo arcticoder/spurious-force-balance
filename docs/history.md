@@ -3008,3 +3008,20 @@ Prep is done and nothing is heating. Have the black 1 kg spool ready. The sensor
 I updated task 1 in [TODO-arcticoder.md](docs/TODO-arcticoder.md) with the 8:15 start, and put the prep in [printing_state.md](docs/kb/printing_state.md).
 <!-- ------ -->
 ---
+The kb is current with this chat. I checked each topic against the files and brought them up to date.
+
+- **Session handoff:** [session_handoff.md](docs/kb/session_handoff.md) is a clean rewrite instead of stacked chat-by-chat notes. It covers tonight's print, the enclosure and Dremel decisions, the calibration rider and second weight, the state of the main board and its fab files, the open JLC and printer-on items, and the standing rules. It also has a refreshed block to paste at the start of the next chat.
+- **Workflow notes:** [project_workflow_notes.md](docs/kb/project_workflow_notes.md) now records this chat's standing rules:
+  - TODO-agent.md ends every chat at 0 lines.
+  - Never append to history.md.
+  - Run long jobs in the background.
+  - How to handle the photos you drop in.
+  - Label estimates as estimates.
+  - Change one thing per routing run.
+- **Already written during the chat:** printing state and file times, the pcbnew interpreter fix, the layout run history, the assessment, the printed-enclosure numbers, the bed-mesh convention, the Orca crash and relaunch, and the Dremel inventory entry. I checked these and didn't change them.
+
+Two things the next session should know:
+- **Scratchpad copies:** the saved fallback boards from the routing runs are only in the scratchpad. The final routed board and its fab files are in the repo; the intermediate attempts are not.
+- **Printer state:** the printer is reachable and cold, as of the 18:40 check. Nothing has started and nothing is heating.
+<!-- ------ -->
+---
