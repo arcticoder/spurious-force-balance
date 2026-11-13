@@ -3219,3 +3219,103 @@ The repo doesn't say how much we save, and I won't guess at a number.
 **If you want an actual number:** I can get a real quote for a machined 10 mm × 15 mm brass cylinder through your JLC app. That means uploading a small STEP file and reading the price, with no order placed. Say so and I'll do it. Otherwise, if you tell me what the rod cost, I can work out the comparison.
 <!-- ------ -->
 ---
+I can't say, because no price for the rod or for a ready-made counterweight is recorded anywhere in the repo. I won't invent a figure.
+
+**What the repo does say:** [fabrication.md](docs/fabrication.md) compared cutting the rod against a machined brass part from JLCCNC. It did not compare against a ready-made counterweight, so that alternative was never costed.
+
+**Why a ready-made weight probably doesn't change the sum much:**
+- **The rod is already bought.** It's a sunk cost, and the 100 mm length gives about six 15 mm pieces. The extra cost of making our own is the blades and the printed saw guide, both of which are already in hand.
+- **It's a small part.** It is a 10 mm × 15 mm brass cylinder of about 10 g. A ready-made weight would have to be a similar cylinder to be worth buying.
+- **Fit may matter more than price.** The arm has a 10.2 mm hole for the rod. A ready-made weight would need to be about 10 mm in diameter and about 10 g, and I can't say whether one is sold in that size. The bench balance step trims by length and copper pads (a ±0.5 mm length error is a 0.6 mm shift in the centre of mass), so a fixed mass within a few percent would also work in principle.
+- **Calibration weights aren't a match.** Calibration-class weights are typically stainless, with fixed diameters that wouldn't fit the hole. They also cost more per gram because of the calibration tolerance.
+
+**If you want the saving worked out:** I can search AliExpress for 10 mm brass or stainless cylindrical weights of roughly 10 g and compare them with the rod's cost. That needs the rod's price from your order page, since it isn't in the repo. Tell me the price, or let me look at the order page through the app, and I'll do the sum.
+<!-- ------ -->
+---
+Every pertinent kb file is current, and the handoff is rewritten with the updated context block, which you can paste straight from `docs/kb/session_handoff.md` or from below. TODO-agent.md is at 0 lines. Nothing is committed.
+
+**Kb updates from this session**
+- **spurious-force-balance:**
+  - The handoff file is a clean rewrite with the context block.
+  - `printing_state.md` has both prints, the fast-start failure and rule, the bed-temperature setting, the Orca gotchas, and what's left to print.
+  - Main-board and tooling notes are done, along with the printed-enclosure plan, the Dremel thread, and the standing rules.
+- **lab:** the Dremel is in the inventory, the new Black Friday coupons are in the ledger, and the JLC notes have the recipe for messages and campaign pages.
+- **wsl:** the K1 note has the SSH route, the missing hour counter and the Wi-Fi findings. The runbook has a new section E on the first print after a power-on.
+
+**New items on your list:** task 5 is the ballast question. I need the 10 g stainless weight's dimensions (diameter and height), or the link. It fits the arm's 10.2 mm hole only at 10 mm or less. Otherwise saw the rod with the hacksaw guide.
+
+**Updated context block** (the pasted block adapted to the current state; the full text is in the handoff file):
+
+```context
+I'm building a small experimental-physics lab across two repos, both open in this workspace.
+- lab (github.com/arcticoder/lab): reusable bench instruments — Raspberry Pi Pico/RP2040 circuits with
+  SPICE netlists, breadboard guides and pass/fail smoke tests — plus the shared parts inventory and
+  order ledger (docs/inventory.md, docs/orders.md), my filament stock and tools (docs/inventory.md,
+  "Filament" and "Tools", including a Dremel 3000), and my JLC account notes (docs/jlc/: coupons read from
+  my account, captures and reads of JLC's quote pages, docs/kb/jlc_account_and_quotes.md).
+- spurious-force-balance (github.com/arcticoder/spurious-force-balance): the first experiment — an open,
+  low-cost torsion balance that quantifies the spurious forces (supply-lead Lorentz forces, heating,
+  convection) that dominate small-thrust measurements. Printable mechanics (CadQuery), FR4 fab boards for
+  the arm and electrodes, a force-noise model, and JLCPCB-assembled RP2040 electronics (KiCad 9, SKiDL,
+  ngspice, MicroPython firmware tested on the host). KiCad/SKiDL is the design source: I dropped the
+  EasyEDA/Spark route on 2026-11-01 (shelved; never offer EasyEDA, Spark, its MCP or the validator again).
+  No more hand-built electronics: the instrument is fab-assembled boards.
+  State (2026-11-13): the main board (WP5) is laid out to the DFM gate: 120 x 90 mm, one board, In1 ground
+  plane only, all 415 connections routed, 45-degree Y-branches accepted; fab files are in
+  hardware/instrument/fab/ (Gerbers, BOM, CPL, ORDER.md). I still have to check rotations and polarity in
+  JLC's own placement preview and decide the board size against the price tier (remind me when I start that
+  order). The calibration uses added inertia (confirmed); the two riders are printed. The enclosure is
+  decided: printed PLA plates (1.2 mm with a 2 mm rim, no window; grey walls, red lid), to print after the
+  frame. The ballast is a 15 mm cut of the 10 mm brass rod unless the 10 g stainless weight I found
+  (C$2.92) has a diameter of 10 mm or less. I own no safety glasses or dust mask, so the Dremel cut-off wheel
+  waits for them (AliExpress; the hacksaw guide is the fallback).
+  Ordering state (2026-11-13; JLC statuses last read 2026-11-10): the arm is In Production (factory estimate
+  2026-11-12), elec_board and clamp_ground are shipped, clamp_plate is cancelled (shipping), and I am exploring
+  combining parcels. My AliExpress order of 2026-11-10 (cells, JST-SH cable, hacksaw blades, washers, a 1 g
+  weight, a 0.1 g scale, needle files) is in transit (lab/docs/orders.md). I claimed four JLC Black Friday
+  warm-up coupons on 2026-11-12 (valid to 2026-11-27; lab/docs/jlc/coupons.md). The quote page for the next
+  JLC order is set up only when I say the previous one is placed.
+- Printing: the K1-FA35 is on my balcony with the door shut and I work in the office: there is no camera and
+  I cannot hear it, so give me clock-time visual checks, never audible ones. I plug it in, switch it on and
+  load the filament you advise; you run heating, homing and starting only when I ask in that message.
+  The agent drives OrcaSlicer and the K1 through MCP and Moonraker (wsl workspace: connection notes,
+  docs/print-session-runbook.md, the K1 note). Printed so far: plate 1, the small plate, the gantry, posts
+  nn/np/pn with their bars, the pp bar, the strip guide and two calibration riders. Left: post pp (about
+  32 min), the base (4 h 41 min), then the enclosure plates (about 10 h in total). The first print after a
+  power-on must use the normal start (see the runbook, section E).
+Constraints: no hand soldering; fab boards use only JLC's machine-placed SMT parts; USB power, under
+50 V DC / 30 V AC; PLA only on my Creality K1; AliExpress for stock parts (no single-item shipping fees),
+JLC PCB/PCBA/3DP/CNC when fabrication beats buying and cutting by hand; design to stock sizes. I'm in
+Canada and JLC prices on my account are in CAD. I will exceed JLC's 0.3 kg cheap-shipping line if that
+lowers the per-item shipping; I will not pay a shipping premium for a tiny order.
+JLC quote, message and coupon pages can be read through my JLCONE desktop app when I launch it with
+--remote-debugging-port=9222 (recipe and gotchas in lab/docs/kb/jlc_account_and_quotes.md): read-only text
+reads, a few paced clicks (I authorised Get Coupon on the campaign page once), uploads of this repo's own
+Gerber zips for quotes. Never call JLC's API, never touch the cookies, never accept terms for me, never
+Submit, Save to cart or pay: I approve and pay, and I place at most one order per day. Treat any JLC price
+not from my words, my captures or a page read through the app as an estimate. Never put parcel tracking
+numbers or secrets in chat or files. Only say you did something if the transcript shows it.
+docs/history.md is my chat transcript: never append to it (I paste the full summary myself), don't edit
+existing text, and don't use it as an analysis source unless I name lines to read. Pictures are lossless
+.jxl (keep them small); .jxl and .eprj2 are Git LFS (the .eprj2 is leftover from the dropped route; I decide
+whether to keep it). Don't commit anything in these repos: I stage and commit everything after each chat.
+Workflow: docs/TODO-agent.md is the agent's own list and must be empty (0 lines) at the end of every chat:
+do startable items, move truly blocked ones to TODO-BLOCKED.md with the exact condition (TODO-backlog.md and
+TODO-completed.md sit beside it). My hands-on tasks live in docs/TODO-arcticoder.md as separately numbered
+tasks for me only; any task or decision you give me in chat goes there too. Keep docs/kb/*.md (LLM-only
+notes) up to date with discoveries. Don't quote me or describe how I said things in files or chat. Keep an
+eye on the supply chain: always have a few AliExpress or JLC items in transit, and watch for deals.
+Start by reading docs/kb/README.md and docs/kb/session_handoff.md in spurious-force-balance, then
+lab/docs/kb/README.md and lab/docs/kb/jlc_account_and_quotes.md. Then continue from
+docs/TODO-arcticoder.md, docs/TODO-BLOCKED.md and my feedback below.
+
+## Read first
+
+Both `docs/kb/README.md` files, `lab/docs/kb/jlc_account_and_quotes.md`, `docs/kb/printing_state.md`, `docs/kb/main_board_layout_notes.md` (last section), `docs/TODO-arcticoder.md`, `docs/TODO-BLOCKED.md`, `~/Code/sysadmin/wsl/docs/kb/apps/k1-moonraker.md` and `~/Code/sysadmin/wsl/docs/print-session-runbook.md` for the printer side.
+```
+
+Two things the next session should know:
+- **Plate not seen yet:** I haven't seen tonight's printed parts; your inspection (task 1) is still open.
+- **Printer password:** it was printed in this chat once by mistake and is still visible above. You may want to change it.
+<!-- ------ -->
+---

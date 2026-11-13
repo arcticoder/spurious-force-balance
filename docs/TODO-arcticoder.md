@@ -21,6 +21,8 @@ The 2026-11-11 session is finished. Left to print after this window: posts pn an
 
 
 
+5. [ ] **Ballast alternative (your call):** send me the dimensions (diameter and height) or link of the C$2.92 10 g stainless weight. The arm's ballast hole is 10.2 mm and the arm is already in production, so the weight fits only if its diameter is 10 mm or less; then it replaces the sawn rod piece (about 10 g at 15 mm) and the cut is not needed. If it is wider, saw the rod with the hacksaw guide (the rod, blades and guide are already owned, so buying the weight adds C$2.92 and saves nothing).
+
 ## En route
 
 JLCPCB (read in the JLCONE app 2026-11-09; details in `lab/docs/kb/jlc_account_and_quotes.md`):
