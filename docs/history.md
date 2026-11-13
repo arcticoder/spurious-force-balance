@@ -3190,3 +3190,20 @@ All five items are handled. The print is at 92% and should finish in a few minut
 I'll report when the second print finishes.
 <!-- ------ -->
 ---
+The second print finished at about 9:37 pm. Moonraker reports `complete` with no errors: 49.3 minutes of printing and 12.7 m of filament. The heaters are off, with the nozzle at 185 °C and the bed at 58 °C, both still cooling.
+
+**Tonight's totals:** you've now printed post nn, post np, post pn, the np, pn and pp bars, and the two calibration riders. Moonraker counts 8 jobs and 9.66 h in total.
+
+**For you:**
+1. Wait until the bed is at about 40 °C, then pull post pn, the pp bar and the two riders.
+2. Look the parts over: no stringing, warping or gaps. Tell me if any look off.
+3. Remove the purge strand at the rear-left corner if it's still on the plate.
+
+**Still to print:**
+- **Post pp's L-piece:** about 32 minutes. It's the last post.
+- **The base:** 4 h 41 min.
+- **Then:** the enclosure plates.
+
+I'll slice each file the day before its window. Your list is updated: task 1 is now the inspection, and task 2 is the later windows.
+<!-- ------ -->
+---

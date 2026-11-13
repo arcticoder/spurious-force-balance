@@ -48,3 +48,4 @@ Runbook: `~/Code/sysadmin/wsl/docs/print-session-runbook.md`; follow it at the s
 - 2026-11-12 20:38 p1a finished (print started about 19:51 after the 8-10 min normal start, ran about 47 min; state complete, no errors). User's mid-print look good.
 - 2026-11-12 p6 started 20:49 on the fast start (worked: a full START_PRINT had run since the restart); first-layer look (user, about 20:55): good.
 - 2026-11-12 p6 mid-print look (user, about 21:15): plate looks good.
+- 2026-11-12 21:37 p6 finished (state complete, no errors; started 20:49 on the fast start). Printed now: posts nn, np, pn, their bars np/pn/nn and the pp bar, two calibration riders (to be inspected by the user). Left to print: post pp (L, about 32 min, about 25 g) and the base (4 h 41 min); then the enclosure (kb/balance_design_notes.md). `balance_p1b` and `balance_p5` are superseded; the pp L needs a new file (slice it the day before its window).
