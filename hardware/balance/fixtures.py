@@ -45,6 +45,33 @@ def saw_guide(ballast_len):
     return {"fixture_saw_guide_base": base, "fixture_saw_guide_plate": plate}
 
 
+BLADE_W = 6.0  # mm, the 2026-11-10 mini hacksaw blades (150 x 6 x 0.4 mm, 24T; hole positions not known: the handle clamps by friction and an end stop)
+BLADE_T = 0.4
+BLADE_GROOVE_W = BLADE_W + 0.3
+BLADE_GROOVE_D = 0.30  # shallower than the blade is thick, so the cover crushes the blade by 0.1 mm on tightening
+HANDLE_CLAMP_L = 62.0  # mm of blade held (the end stop is 5 mm short of the cover's end)
+HANDLE_L, HANDLE_W, HANDLE_H, COVER_T = 130.0, 24.0, 22.0, 6.0
+HANDLE_SCREWS = [(12.0, -8.0), (12.0, 8.0), (48.0, -8.0), (48.0, 8.0)]  # x along the handle, y across; outside the blade groove
+
+
+def hacksaw_handle():
+    """A pad-saw handle for the 150 x 6 x 0.4 mm blades: the blade's end lies in a shallow groove under a 6 mm cover held by four M3 x 14
+    screws (self-tapped pilots in the body; same pattern as the saw guide). The blade's end butts against a stop, so the push stroke loads the stop,
+    not the friction. The blade sticks out of the front (x = 0) by about 95 mm and runs in the saw guide's 1.4 mm kerf slot, which keeps it straight.
+    Print the body as modelled (cover recess up) and the cover flat: no supports. Local frame: x along the blade, z up."""
+    body = B.box(0, HANDLE_L, -HANDLE_W / 2, HANDLE_W / 2, 0, HANDLE_H)
+    z_seat = HANDLE_H - COVER_T
+    body = body.cut(B.box(-1, HANDLE_CLAMP_L, -HANDLE_W / 2 - 1, HANDLE_W / 2 + 1, z_seat, HANDLE_H + 1))  # recess the cover sits in
+    stop_x = HANDLE_CLAMP_L - 5.0
+    body = body.cut(B.box(-1, stop_x, -BLADE_GROOVE_W / 2, BLADE_GROOVE_W / 2, z_seat - BLADE_GROOVE_D, z_seat + 0.01))  # the blade groove, ends at the stop
+    for x, y in HANDLE_SCREWS:
+        body = body.cut(B.cyl_z(x, y, z_seat - 9.5, z_seat + 0.1, B.M3_PILOT))
+    cover = B.box(0, HANDLE_CLAMP_L, -HANDLE_W / 2, HANDLE_W / 2, z_seat, HANDLE_H)
+    for x, y in HANDLE_SCREWS:
+        cover = cover.cut(B.cyl_z(x, y, z_seat - 1, HANDLE_H + 1, B.M3_CLEAR)).cut(B.cyl_z(x, y, HANDLE_H - 3.0, HANDLE_H + 1, B.M3_HEAD + 0.4))
+    return {"fixture_hacksaw_handle_body": body, "fixture_hacksaw_handle_cover": cover}
+
+
 def strip_guide(width_mm):
     """One plate lying on the shim: a ridge underneath for the shim's straight edge, a knife slot width_mm behind it."""
     fence = 2.0  # mm, ridge thickness
@@ -87,6 +114,7 @@ def build_all():
     bl, by = B.balance_solve()
     parts = {}
     parts.update(saw_guide(bl))
+    parts.update(hacksaw_handle())
     parts.update(gap_gauge())
     parts.update(cal_rider())
     g, y_far = strip_guide(P.STRIP_WIDTH * MM)

@@ -158,6 +158,14 @@ else:
     import fixtures as FX
     fx, fx_len, fx_slot = FX.build_all()
     check("functional — the saw guide's groove is wider than the rod and the plate and base clear each other", FX.ROD_D + 0.3 > FX.ROD_D and fx["fixture_saw_guide_base"].intersect(fx["fixture_saw_guide_plate"]).val().Volume() < 1e-3, f"groove {FX.ROD_D + 0.3:.1f} mm for a {FX.ROD_D:.0f} mm rod")
+    hb, hc = fx["fixture_hacksaw_handle_body"], fx["fixture_hacksaw_handle_cover"]
+    screws_clear = all(abs(sy) - 1.7 > FX.BLADE_GROOVE_W / 2 + 1.0 for _, sy in FX.HANDLE_SCREWS)
+    check("functional — the hacksaw handle's groove is wider than the 6 mm blade, shallower than its 0.4 mm thickness (the cover clamps it), and the screws sit outside the groove",
+          FX.BLADE_GROOVE_W > FX.BLADE_W and FX.BLADE_GROOVE_D < FX.BLADE_T and screws_clear, f"groove {FX.BLADE_GROOVE_W:.1f} x {FX.BLADE_GROOVE_D:.2f} mm for a {FX.BLADE_W:.0f} x {FX.BLADE_T:.1f} mm blade")
+    check("functional — the handle's cover and body do not overlap, and the 14 mm M3 screws bite at least 6 mm into the body through the cover",
+          hb.intersect(hc).val().Volume() < 1e-3 and 14.0 - FX.COVER_T >= 6.0, f"{14.0 - FX.COVER_T:.0f} mm of thread in the body")
+    hbb = hb.val().BoundingBox()
+    check("functional — the blade can pass the saw guide: the handle (24 mm wide) stays clear of the guide's 1.4 mm slot walls because only the 0.4 mm blade enters it", FX.BLADE_T + 0.3 < FX.KERF, f"blade {FX.BLADE_T} mm in a {FX.KERF} mm slot; handle {hbb.xlen:.0f} x {hbb.ylen:.0f} x {hbb.zlen:.0f} mm")
     check("functional — the strip guide's slot is exactly the strip width from the shim's fence", abs((fx_slot - 2.0) - P.STRIP_WIDTH * 1e3) < 1e-6, f"{fx_slot - 2.0:.2f} mm against {P.STRIP_WIDTH*1e3:.2f} mm")
     gg = fx["fixture_gap_gauge"].val().BoundingBox()
     check("functional — the gap gauge is exactly the electrode gap thick", abs(gg.ylen - P.PLATE_GAP * 1e3) < 1e-6, f"{gg.ylen:.2f} mm against {P.PLATE_GAP*1e3:.2f} mm")

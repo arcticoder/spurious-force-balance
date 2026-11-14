@@ -3403,3 +3403,23 @@ Two files are sliced for Saturday's 07:30–10:00 window. Nothing was sent to th
 I updated the docs for both files. `docs/TODO-agent.md` is still at 0 lines.
 <!-- ------ -->
 ---
+I designed my own handle and didn't use your Printables link. I never saw the link in this session, and the docs only list the hacksaw frame as not yet designed.
+
+**Why my own design**
+- The blades I ordered are 150 × 6 × 0.4 mm, and I don't know where their holes sit. I can't judge someone else's frame against them.
+- A frame needs a bow that holds the blade in tension, and PLA creeps under that load. So this is a pad-saw handle with no bow.
+
+**How it works**
+- The blade's end lies in a shallow groove under a 6 mm cover, held by four M3 × 14 screws.
+- The groove is 0.3 mm deep against a 0.4 mm blade, so the cover clamps the blade.
+- The blade butts against an end stop, so the push stroke loads the stop and not the clamp.
+- About 95 mm of blade sticks out and runs in the saw guide's 1.4 mm slot, which keeps it straight.
+- The body is 130 × 24 × 22 mm and the cover is 62 × 24 × 6 mm. Both print with no supports.
+
+The smoke test passes. It checks the groove size against the blade, the screw positions, and the screw thread depth into the body. It also checks that the handle fits the guide slot and the printer. I haven't tested it with a real blade.
+
+**Not sliced yet.** The last attribution notice in this session names Haiku, and you asked for slicing only on Sonnet. If this session is Sonnet, tell me and I'll slice it for the Sunday 16:30–18:30 window now. Otherwise switch models and say continue. It's queued in `TODO-BLOCKED.md`.
+
+If you still prefer the Printables frame, send me the link and I'll check its fit to these blades. Test first that the blade holds under hand pressure before you saw brass. The cut still waits on the glasses, the blades and the printed handle. Nothing was committed, and `TODO-agent.md` is at 0 lines.
+<!-- ------ -->
+---
