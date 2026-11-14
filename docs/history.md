@@ -3364,3 +3364,31 @@ I couldn't slice anything tonight. OrcaSlicer's MCP timed out on `get_status` af
 `docs/TODO-agent.md` is at 0 lines. Nothing was committed.
 <!-- ------ -->
 ---
+Post pp's L is sliced and saved as `balance_p7_post_pp_L_20261113.gcode` in `~/.orcaslicer-mcp/gcode/`. Nothing was sent to the printer, and nothing was committed.
+
+**Result**
+- It prints in 47 min 33 s and uses 26.3 g.
+- It lies flat on the bed, with no overhangs and no supports.
+- The G-code start line is `START_PRINT EXTRUDER_TEMP=225 BED_TEMP=60`.
+- The only slicer warning is the bed-temperature one that showed up on the earlier 60 °C prints.
+- It fits the Sunday 2026-11-15 16:30–18:30 window. Plug the printer in and switch it on before then. The first print after a power-on has to use the normal start (runbook section E).
+
+**How I got there**
+- I killed the leftover MCP bridge processes and relaunched OrcaSlicer, which came up on port 13130.
+- A fresh Orca project has stock settings, not the earlier ones. I set 225/220 °C, bed 60, 3 walls, 30 % infill, no prime tower and a 12 mm³/s flow cap. Print speeds are 100–120 mm/s, which is why it takes 47 min, not the old 32-minute estimate.
+- I couldn't open `balance.3mf`, because the MCP blocks projects that carry their own G-code settings. I didn't change that preference.
+
+**Tomorrow morning:** nothing is sliced for it. Your earlier note said Saturday 07:30–10:00 is blocked, so I assumed no print then. If you do want one, tell me which file. Post pp's L fits there too.
+
+The base slice is due 2026-11-20. Its old file was cut at the faster speeds and needs its bed temperature and speeds rechecked, or a re-slice. I saved the Orca settings in `kb/printing_state.md` and noted that slicing is Sonnet-only.
+<!-- ------ -->
+---
+I misread your calendar note. Saturday 2026-11-14, 07:30–10:00 is a reserved print window, not a blocked one, and I've corrected the docs. The pp L slice I made tonight is the right file for it: it prints in about 48 minutes, plus about 10 for the normal start after a power-on.
+
+That leaves about 1 h 30 min of the window free. The Sunday 16:30–18:30 window has nothing assigned yet. Do you want me to slice a second file for either window?
+- **Enclosure strips:** these are the 3D-printed H-shaped strips that join wall plates to posts. The CAD calls the files `mullion`. They print black, so the black spool already loaded works with no swap, and they take about 12 minutes each.
+- **Enclosure wall plate:** about 46 minutes, but it prints grey, so it needs a spool swap.
+
+If you'd rather leave the spare time empty, the pp L file is ready as it is. Nothing was printed, and nothing was committed.
+<!-- ------ -->
+---
