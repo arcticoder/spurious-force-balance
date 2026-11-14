@@ -3339,3 +3339,11 @@ The four items are handled. Nothing was printed, heated, or sent to the printer,
 **Files:** `docs/TODO-arcticoder.md`, `docs/TODO-BLOCKED.md`, `docs/TODO-backlog.md`, `docs/TODO-completed.md`, `docs/assembly.md`, `docs/kb/session_handoff.md` (replaced), `docs/kb/printing_state.md`, `docs/kb/balance_design_notes.md`.
 <!-- ------ -->
 ---
+1. spurious-force-balance/docs/history.md:3328,3331 - No it doesn't. I searched history.md myself for the password and didn't find it. I've also searched all *.md files in all repositories for the password and it didn't appear. It's safe.
+2. history.md:3329,3331 - It's fine, I partially redacted them already, I think that's sufficient. As long as your kb says not to print them unredacted again in the future, that's the important thing.
+3. history.md:3335 - We can wait for glasses but do they still need to be certified? It seems like a lower risk.
+4. history.md:3336 - I assure you it's shipped. You'll see for yourself when you read it again.
+5. history.md:3337,spurious-force-balance/docs/TODO-arcticoder.md - Oh. So I do need a mask?
+6. TODO-arcticoder.md:11 - Do they still need to be ANSI Z87.1 or EN 166 if I'm not going to use the dremel for the cutting?
+<!-- ------ -->
+---
