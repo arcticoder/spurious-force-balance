@@ -3423,3 +3423,13 @@ The smoke test passes. It checks the groove size against the blade, the screw po
 If you still prefer the Printables frame, send me the link and I'll check its fit to these blades. Test first that the blade holds under hand pressure before you saw brass. The cut still waits on the glasses, the blades and the printed handle. Nothing was committed, and `TODO-agent.md` is at 0 lines.
 <!-- ------ -->
 ---
+The handle is sliced and saved as `balance_p9_hacksaw_handle_20261113.gcode`. It's meant for Sunday 2026-11-15, 16:30–18:30, and nothing was sent to the printer.
+
+- **Print:** the body and cover are on one plate, 72 min and 39.5 g.
+- **Slice checks:** both parts lie flat with no overhang or supports. The settings match the earlier slices, and the start line is `START_PRINT EXTRUDER_TEMP=225 BED_TEMP=60`.
+- **Fast start:** if the Saturday prints run first, the fast start works on Sunday as long as the printer stays on.
+- **Strength check:** once it prints, check that the blade holds under hand pressure before you saw brass.
+
+The docs and `TODO-BLOCKED.md` are updated, and `TODO-agent.md` is at 0 lines. Nothing was committed.
+<!-- ------ -->
+---

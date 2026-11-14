@@ -2,7 +2,7 @@
 
 Dated entries, newest first.
 
-- 2026-11-13 (night) — Printed pad-saw handle for the 150 x 6 x 0.4 mm blades designed in `fixtures.py` (my own design; smoke test passes); slicing is queued in `TODO-BLOCKED.md`.
+- 2026-11-13 (night) — Printed pad-saw handle for the 150 x 6 x 0.4 mm blades designed in `fixtures.py` (my own design; smoke test passes); user approved it (Printables link not used); sliced on Sonnet as `balance_p9_hacksaw_handle_20261113.gcode` (72 min, 39.5 g) for the Sunday window.
 
 - 2026-11-13 (evening) — Post pp L sliced on Sonnet after OrcaSlicer was relaunched: `balance_p7_post_pp_L_20261113.gcode`, 47 min 33 s, 26.3 g, flat, no supports, bed 60 (`kb/printing_state.md`). Nothing sent to the printer. Second file for the same window: four wall strips (`balance_p8_wall_strips_x4_20261113.gcode`, 65.6 min, 29.1 g).
 
