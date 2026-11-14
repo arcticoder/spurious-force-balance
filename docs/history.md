@@ -3433,3 +3433,20 @@ The handle is sliced and saved as `balance_p9_hacksaw_handle_20261113.gcode`. It
 The docs and `TODO-BLOCKED.md` are updated, and `TODO-agent.md` is at 0 lines. Nothing was committed.
 <!-- ------ -->
 ---
+The prep is done, and nothing is heated or running.
+
+**Spool:** the opened 1 kg black Hyper PLA, the one that's been loaded since 2026-11-11. By my tally about 790 g is left. It's the colour for the post and the strips. The two files need about 56 g, and the hacksaw handle another 40 g. Don't use the other black spool, which has only 65–90 g left and no visible filament, or the nearly empty white one. If the black spool is still on the printer, there's no filament loading, so nothing needs heating before the print. I can't confirm it's still loaded because the printer is off. Tell me if you swapped it.
+
+**Plan for the window:**
+- **Post pp's L:** the first print after a power-on, so the normal start, about 10 minutes of start-up plus 48 minutes of printing. From a 07:30 start it ends about 08:30.
+- **The four wall strips:** straight after on the fast start, about 68 minutes, ending about 09:40. That's 20 minutes inside the 10:00 end.
+
+**Prep checks:**
+- **G-code headers:** both are verified. They show 225/220 °C, bed 60 in the start line, 3 walls, 30 % infill, no supports, and the right parts.
+- **OrcaSlicer:** it's up and answering on 13130.
+- **Moonraker:** silent at 06:49, as expected with the printer off.
+- **When you switch on:** tell me, and I'll check Moonraker first, as the runbook says.
+
+**Also updated:** I added a note to the runbook that Orca is now 2.5.0 with the API built in, and the docs have the plan and the spool. Nothing was committed, and `TODO-agent.md` is at 0 lines.
+<!-- ------ -->
+---
