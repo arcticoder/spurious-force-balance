@@ -3392,3 +3392,14 @@ That leaves about 1 h 30 min of the window free. The Sunday 16:30–18:30 window
 If you'd rather leave the spare time empty, the pp L file is ready as it is. Nothing was printed, and nothing was committed.
 <!-- ------ -->
 ---
+Two files are sliced for Saturday's 07:30–10:00 window. Nothing was sent to the printer, and nothing was committed.
+
+1. **Post pp's L:** `balance_p7_post_pp_L_20261113.gcode`, 47.6 min, 26.3 g. It's ready to print.
+2. **The four wall strips:** `balance_p8_wall_strips_x4_20261113.gcode`, 65.6 min, 29.1 g, bed 60, black spool, so no spool swap.
+   - **Orientation:** I didn't optimise it. The H-profile strips have some bridging, and two of the four touch the bed on only 71 % of their footprint. They have no supports. I've noted that you should watch the first layer of that print and that you can skip it if the window runs short.
+   - **Time:** each strip takes about 16 min, not the 12 I quoted earlier.
+   - **Fit:** pp L plus start-up plus the strips ends about 2 h 10 min after you start, inside the 2 h 30 min window.
+
+I updated the docs for both files. `docs/TODO-agent.md` is still at 0 lines.
+<!-- ------ -->
+---
