@@ -3351,3 +3351,16 @@ I corrected my earlier claims and updated the docs for all six points. `docs/TOD
 I edited `TODO-arcticoder.md`, `TODO-completed.md` and `kb/session_handoff.md`.
 <!-- ------ -->
 ---
+I couldn't slice anything tonight. OrcaSlicer's MCP timed out on `get_status` after 30 seconds, which usually means a dialog is open in the Orca window. Could you check the window and close any dialog? Then tell me and I'll retry.
+
+**Glasses:** logged as in your cart (C$3.48). I didn't mark the order as placed.
+
+**Windows:**
+- **Sunday 2026-11-15, 16:30–18:30:** post pp's L (about 32 min). The slice is due Saturday 2026-11-14.
+- **Saturday 2026-11-21, 07:30–12:30:** the base (4 h 41 min). The slice is due 2026-11-20.
+
+**Yes to slicing, not done yet:** the pp L slice is blocked until Orca answers. Once it does, I'll load the pp L model and rotate it to lie flat. I'll check the settings and the G-code header, then save it under a dated name. I'll check the base's bed temperature too: the last file's start line was 55, not 60.
+
+`docs/TODO-agent.md` is at 0 lines. Nothing was committed.
+<!-- ------ -->
+---
