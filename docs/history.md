@@ -3339,11 +3339,15 @@ The four items are handled. Nothing was printed, heated, or sent to the printer,
 **Files:** `docs/TODO-arcticoder.md`, `docs/TODO-BLOCKED.md`, `docs/TODO-backlog.md`, `docs/TODO-completed.md`, `docs/assembly.md`, `docs/kb/session_handoff.md` (replaced), `docs/kb/printing_state.md`, `docs/kb/balance_design_notes.md`.
 <!-- ------ -->
 ---
-1. spurious-force-balance/docs/history.md:3328,3331 - No it doesn't. I searched history.md myself for the password and didn't find it. I've also searched all *.md files in all repositories for the password and it didn't appear. It's safe.
-2. history.md:3329,3331 - It's fine, I partially redacted them already, I think that's sufficient. As long as your kb says not to print them unredacted again in the future, that's the important thing.
-3. history.md:3335 - We can wait for glasses but do they still need to be certified? It seems like a lower risk.
-4. history.md:3336 - I assure you it's shipped. You'll see for yourself when you read it again.
-5. history.md:3337,spurious-force-balance/docs/TODO-arcticoder.md - Oh. So I do need a mask?
-6. TODO-arcticoder.md:11 - Do they still need to be ANSI Z87.1 or EN 166 if I'm not going to use the dremel for the cutting?
+I corrected my earlier claims and updated the docs for all six points. `docs/TODO-agent.md` is still empty, and nothing was committed.
+
+1. **Password:** I was wrong. My check on line 3122 only replaced long words with a placeholder, so it couldn't tell prose from a real value. A stricter check found no password-like string on that line. The handoff now says the claim was mistaken.
+2. **Tracking numbers:** the handoff now tells future sessions to mask tracking numbers when they print them. It also says not to claim a secret is in a file without evidence that doesn't print it.
+3. **Glasses certification:** a Z87.1 or EN 166 mark is not required. Those ratings cover high-speed impact from power tools, and a hand hacksaw doesn't involve that. Clear polycarbonate wraparound glasses with side protection are enough, and the task now says so.
+4. **Arm shipped:** I've recorded your word that it shipped. I couldn't confirm it, because the JLC app's debug port is now closed. The orders re-read stays in `TODO-BLOCKED.md`.
+5. **Mask:** no, you don't need one. Hacksaw chips are coarse. The only fine dust comes from filing the sawn face, which is a small exposure. Keep filing short, wipe the filings up with a damp cloth, and wash your hands afterward. My earlier line read as if a mask were required. It isn't.
+6. **Dremel and glasses:** no. Now that the Dremel is out, the glasses only need to be a basic polycarbonate pair.
+
+I edited `TODO-arcticoder.md`, `TODO-completed.md` and `kb/session_handoff.md`.
 <!-- ------ -->
 ---
